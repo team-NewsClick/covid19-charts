@@ -1,12 +1,19 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import LineChart from "../components/chart.js";
+import LineChart from '../components/chart.js'
+import { useState, useEffect } from 'react'
 
-export default function Home() {
-  return (
-    <div>
-      Hello World!
-      <LineChart />
-    </div>
-  );
+const Home = () => {
+  const { covidData } = getData()
+  return <LineChart covidData={covidData} />
 }
+
+function getData() {
+  const [covidData, setcovidData] = useState([])
+  useEffect(() => {
+    fetch(`${process.env.API_URL}/covid`)
+      .then((res) => res.json())
+      .then(setcovidData)
+  }, [])
+  return { covidData }
+}
+
+export default Home

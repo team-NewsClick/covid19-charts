@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from 'react'
 import {
   XYPlot,
   LineSeries,
@@ -6,9 +6,9 @@ import {
   HorizontalGridLines,
   XAxis,
   YAxis,
-} from "react-vis";
+} from 'react-vis'
 
-export default function LineChart() {
+export default function LineChart({ covidData }) {
   const data = [
     { x: 0, y: 8 },
     { x: 1, y: 5 },
@@ -20,7 +20,8 @@ export default function LineChart() {
     { x: 7, y: 3 },
     { x: 8, y: 2 },
     { x: 9, y: 0 },
-  ];
+  ]
+  console.log(covidData)
   return (
     <div>
       <XYPlot height={400} width={800}>
@@ -31,5 +32,5 @@ export default function LineChart() {
         <LineSeries data={data} />
       </XYPlot>
     </div>
-  );
+  )
 }
