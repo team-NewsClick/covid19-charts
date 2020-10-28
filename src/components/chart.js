@@ -21,7 +21,6 @@ export default function LineChart({ covidData }) {
 
   const regions = [];
   const dataIndia = [];
-  var startingDate = new Date("January 22, 2020");
   const customColor = [
     "#1abc9c",
     "#f1c40f",
@@ -74,6 +73,7 @@ export default function LineChart({ covidData }) {
   };
 
   const _dayDate = (e) => {
+    const startingDate = new Date("January 22, 2020");
     var dmy = new Date(startingDate.setDate(startingDate.getDate() + e - 1));
     var yyyy = dmy.getFullYear();
     var dd = dmy.getDate();
@@ -81,14 +81,13 @@ export default function LineChart({ covidData }) {
     return dd + "/" + mm + "/" + yyyy;
   };
 
-  // console.log(covidData.data[(covidData.data.length-1)-(267-145+2)])
   const data = dataIndia;
 
   return (
     <div>
       <p>
         Starting 22nd Jan 2020 as day 1 on x-axis and total number of confirmed
-        cases on y-axis
+        cases on y-axis, where 'M' stands for million.
       </p>
       <div style={{ width: 1300 }}>
         <Select
@@ -109,9 +108,18 @@ export default function LineChart({ covidData }) {
       >
         <VerticalGridLines />
         <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
-        {/* <LineSeries data={data} /> */}
+        <XAxis
+          tickTotal="10"
+          tickLabelAngle={-30}
+          tickFormat={(value) => {
+            return _dayDate(value);
+          }}
+        />
+        <YAxis
+          tickFormat={(value) => {
+            return value / 1000000 + "M";
+          }}
+        />
         {multiRegions.map(({ value, label }, index) => (
           <LineSeries
             key={value}
