@@ -30,6 +30,9 @@ const Home = () => {
             {
               x: new Date("04/29/2020"),
               y: 8,
+            },{
+              x: new Date("04/30/2020"),
+              y: 10,
             },
           ],
         },
@@ -40,11 +43,14 @@ const Home = () => {
           activeCases: [
             {
               x: new Date("04/28/2020"),
-              y: 10,
+              y: 2,
             },
             {
               x: new Date("04/29/2020"),
               y: 20,
+            },{
+              x: new Date("04/30/2020"),
+              y: 15,
             },
           ],
           totalDeaths: [
@@ -62,21 +68,9 @@ const Home = () => {
     ],
   };
 
-  const countryData = jsonData.covidData.map((d) => {
-    if(d.country === 'India') {
-      return d.data.activeCases
-    }
-  })
-
-  const data = {
-    country: 'India',
-    cases: countryData
-  }
-  // console.log(countryData)
-
   return (
     <div>
-      <Dummy data={data} />
+      <Dummy data={jsonData} />
     </div>
   );
 };
