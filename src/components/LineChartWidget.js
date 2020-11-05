@@ -82,7 +82,7 @@ export default function LineChartWidget({ data }) {
             values={[hoveredNode]}
             titleFormat={(d) => ({
               title: d[0].country,
-              value: d[0].x.toString(),
+              value: d[0].x.toISOString().slice(0, 10),
             })}
             itemsFormat={(d) => [{ title: "Active Cases", value: d[0].y }]}
           />
