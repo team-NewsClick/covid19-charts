@@ -8,7 +8,7 @@ const CovidDashboard = () => {
   return (
     <div>
       <h2>Graphical representation of confirmed cases of COVID-19</h2>
-      {/* <LineChartWidget covidData={data} /> */}
+      <LineChartWidget data={data} />
     </div>
   )
 }
@@ -16,31 +16,28 @@ const CovidDashboard = () => {
 export default CovidDashboard;
 
 function fetchCovidData() {
-    const [data, setData] = useState([])
-    const cutoffDate = new Date('03/01/2020')
-
-    useEffect(() => {
-        fetch(`${process.env.API_URL}/covid`)
-                .then((res) => {
-                  console.log(res.text())
-                  // res.text()
-                })
-                // .then(csvParse)
-                // .then(rows =>
-                //     rows.reduce((result, row) => {
-                //         const date = new Date(row.date)
-                //         if (date < cutoffDate)
-                //             return result
-                //         const found = result.find(a => a.country === row.country)
-                //         const value = {x: new Date(row.date), y: row.new_cases}
-                //         if (!found) {
-                //             result.push({country: row.country, data: [value]})
-                //         } else {
-                //             found.data.push(value)
-                //         }
-                //         return result
-                //     }, []))
-                .then(setData)
-    }, [])
+  const [data, setData] = useState([])
+  const cutoffDate = new Date('03/01/2020')
+  console.log(process.env.API_URL)
+  useEffect(() => {
+      fetch(process.env.API_URL)
+              .then((res) => res.text())
+              .then(csvParse)
+              .then(rows =>
+                  rows.reduce((result, row) => {
+                      const date = new Date(row.date)
+                      if (date < cutoffDate)
+                          return result
+                      const found = result.find(a => a.country === row.country)
+                      const value = {x: new Date(row.date), y: row.new_cases}
+                      if (!found) {
+                          result.push({country: row.country, data: [value]})
+                      } else {
+                          found.data.push(value)
+                      }
+                      return result
+                  }, []))
+              .then(setData)
+  }, [])
     return data
 }
