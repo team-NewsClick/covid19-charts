@@ -9,7 +9,6 @@ import {
 } from "react-vis"
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
-
 import { useState } from "react"
 
 export default function LineChartWidget({ data }) {
@@ -40,7 +39,6 @@ export default function LineChartWidget({ data }) {
         })
       }
     }
-    console.log(countries)
     return (
       <div>
           <Select
