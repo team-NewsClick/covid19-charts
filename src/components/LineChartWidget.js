@@ -64,6 +64,7 @@ export default function LineChartWidget({ data }) {
           width={800}
           height={450}
           yDomain={[0, 100000]}
+          xDomain={[new Date('03/01/2020'), new Date('11/05/2020')]}
           margin={{ left: 60}}
         >
           <XAxis />
