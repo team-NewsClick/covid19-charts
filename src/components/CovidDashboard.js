@@ -4,7 +4,6 @@ import LineChartWidget from "./LineChartWidget";
 
 const CovidDashboard = () => {
   const data = fetchCovidData()
-  console.log(data)
   return (
     <div>
       <h2>Graphical representation of confirmed cases of COVID-19</h2>
@@ -18,7 +17,6 @@ export default CovidDashboard;
 function fetchCovidData() {
   const [data, setData] = useState([])
   const cutoffDate = new Date('03/01/2020')
-  console.log(process.env.API_URL)
   useEffect(() => {
       fetch(process.env.API_URL)
               .then((res) => res.text())

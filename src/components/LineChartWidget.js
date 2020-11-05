@@ -46,14 +46,6 @@ export default function LineChartWidget({ data }) {
         }
       }
   
-    console.log('Nodes: ',vornoiNodes);
-    // return (
-    //   <div>
-    //     <p>
-    //       Fetched
-    //     </p>
-    //   </div>
-    // )
     return (
       <div>
         <div style={{ width: "800px", marginTop: "10px"}}>
@@ -67,7 +59,13 @@ export default function LineChartWidget({ data }) {
           />
         </div>
   
-        <XYPlot xType="time" width={1080} height={800}>
+        <XYPlot
+          xType="time"
+          width={800}
+          height={450}
+          yDomain={[0, 100000]}
+          margin={{ left: 60}}
+        >
           <XAxis />
           <YAxis />
           {selectedCountries.map((d, index) => (
