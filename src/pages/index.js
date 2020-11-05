@@ -15,11 +15,23 @@ const Home = () => {
             },
             {
               x: new Date("04/29/2020"),
-              y: 15,
+              y: 7,
             },
             {
               x: new Date("04/30/2020"),
-              y: 6,
+              y: 11,
+            },
+            {
+              x: new Date("05/01/2020"),
+              y: 10,
+            },
+            {
+              x: new Date("05/02/2020"),
+              y: 12,
+            },
+            {
+              x: new Date("05/03/2020"),
+              y: 14,
             },
           ],
           totalDeaths: [
@@ -43,14 +55,27 @@ const Home = () => {
           activeCases: [
             {
               x: new Date("04/28/2020"),
-              y: 2,
+              y: 6,
             },
             {
               x: new Date("04/29/2020"),
-              y: 20,
-            },{
+              y: 5,
+            },
+            {
               x: new Date("04/30/2020"),
-              y: 15,
+              y: 9,
+            },
+            {
+              x: new Date("05/01/2020"),
+              y: 8,
+            },
+            {
+              x: new Date("05/02/2020"),
+              y: 13,
+            },
+            {
+              x: new Date("05/03/2020"),
+              y: 16,
             },
           ],
           totalDeaths: [
@@ -61,6 +86,47 @@ const Home = () => {
             {
               x: new Date("04/29/2020"),
               y: 2,
+            },
+          ],
+        },
+      },
+      {
+        country: "Brazil",
+        data: {
+          activeCases: [
+            {
+              x: new Date("04/28/2020"),
+              y: 4,
+            },
+            {
+              x: new Date("04/29/2020"),
+              y: 8,
+            },
+            {
+              x: new Date("04/30/2020"),
+              y: 13,
+            },
+            {
+              x: new Date("05/01/2020"),
+              y: 14,
+            },
+            {
+              x: new Date("05/02/2020"),
+              y: 15,
+            },
+            {
+              x: new Date("05/03/2020"),
+              y: 18,
+            },
+          ],
+          totalDeaths: [
+            {
+              x: new Date("04/28/2020"),
+              y: 6,
+            },
+            {
+              x: new Date("04/29/2020"),
+              y: 5,
             },
           ],
         },
