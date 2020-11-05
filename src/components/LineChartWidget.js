@@ -22,19 +22,25 @@ export default function LineChartWidget({ data }) {
     const vornoiNodes = [];
     // const covidData = data
     const [hoveredNode, setHoveredNode] = useState(null);
-    const [selectedCountries, setSelectedCountries] = useState([
-      { value: data[0].data, label: data[0].country },
-    ]);
+    const [selectedCountries, setSelectedCountries] = useState([]);
+    // const [selectedCountries, setSelectedCountries] = useState([
+    //   { value: data.data, label: data.country },
+    // ]);
     
     //   //Name of countries for Select
-      const countries = [];
-      for (var i = 0; i < data.length; i++) {
-        countries.push({
-          label: data[i].country,
-          value: data[i].data,
-        });
+      // const countries = [];
+      // for (var i = 0; i < data.length; i++) {
+      //   countries.push({
+      //     label: data[i].country,
+      //     value: data[i].data,
+      //   });
+      // }
+    const countries = data.map((row) => {
+      return {
+        label: row.country,
+        value: row.data
       }
-  
+    })
     //   //Vornoi Nodes
       for (var i = 0; i < selectedCountries.length; i++) {
         for (var j = 0; j < selectedCountries[i].value.length; j++) {
@@ -45,19 +51,24 @@ export default function LineChartWidget({ data }) {
           });
         }
       }
-  
+      const handleChange = (options) => {
+        setSelectedCountries(options);
+      };
     return (
       <div>
-        <div style={{ width: "800px", marginTop: "10px"}}>
+        {/* <div style={{ width: "800px", marginTop: "10px"}}> */}
           <Select
             components={makeAnimated()}
-            options={countries}
             placeholder="Select a region"
-            onChange={setSelectedCountries}
+            onChange={handleChange}
+            // value={selectedCountries}
+            options={countries}
             isSearchable
-            isMulti
-          />
-        </div>
+            // isMulti = {true}
+            allowSelectAll={true} isMulti={true}
+            />
+            {/* onChange={setSelectedCountries} */}
+        {/* </div> */}
   
         <XYPlot
           xType="time"
@@ -67,7 +78,10 @@ export default function LineChartWidget({ data }) {
           xDomain={[new Date('03/01/2020'), new Date('11/05/2020')]}
           margin={{ left: 60}}
         >
-          <XAxis />
+          <XAxis
+  tickFormat = {d => d.toLocaleDateString('default', {month: 'short', day: 'numeric'})}
+  tickLabelAngle={-30}
+/>
           <YAxis />
           {selectedCountries.map((d, index) => (
             <LineSeries key={index} curve={"curveMonotoneX"} data={d.value} />
