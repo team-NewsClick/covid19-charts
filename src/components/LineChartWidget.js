@@ -61,24 +61,26 @@ export default function LineChartWidget({ data }) {
 
     return (
       <div>
-        <Select
-          components={makeAnimated()}
-          placeholder="Select a region"
-          options={countries}
-          onChange={setSelectedCountries}
-          defaultValue={selectedCountries}
-          options={countries}
-          isSearchable
-          isMulti
-        />
-        
+        <div className="m-4">
+          <Select
+            components={makeAnimated()}
+            placeholder="Select a region"
+            options={countries}
+            onChange={setSelectedCountries}
+            defaultValue={selectedCountries}
+            options={countries}
+            isSearchable
+            isMulti
+          />
+        </div>
+
         <XYPlot
           xType="time"
-          width={1800}
-          height={450}
+          width={window.innerWidth / 1.05}
+          height={window.innerWidth / 2.4}
           yDomain={[0, 100000]}
           xDomain={[new Date("03/01/2020"), new Date("11/05/2020")]}
-          margin={{ left: 60, right: 100 }}
+          margin={{ left: 55, right: 70 }}
         >
           <XAxis
             tickFormat={(d) =>
@@ -89,7 +91,7 @@ export default function LineChartWidget({ data }) {
             }
             tickLabelAngle={-30}
           />
-          <YAxis />
+          <YAxis tickFormat={(v) => v / 1000 + "k"} />
           {selectedCountries.map((d, index) => (
             <LineSeries
               key={index}
@@ -102,7 +104,12 @@ export default function LineChartWidget({ data }) {
           {selectedCountries.map((d, index) => (
             <MarkSeries
               key={index}
-              data={[d.value[d.value.length - 1]]}
+              data={[
+                {
+                  x: d.value[d.value.length - 1].x,
+                  y: d.value[d.value.length - 1].y,
+                },
+              ]}
               color={customColor[index]}
             />
           ))}
@@ -119,7 +126,7 @@ export default function LineChartWidget({ data }) {
                 },
               ]}
               style={{
-                fontSize: "16px",
+                fontSize: "0.8rem",
               }}
               labelAnchorX="start"
               labelAnchorY="central"

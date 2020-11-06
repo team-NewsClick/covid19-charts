@@ -6,7 +6,7 @@ const CovidDashboard = () => {
   const data = fetchCovidData()
   return (
     <div>
-      <h2 className="text-2xl font-bold">Graphical representation of confirmed cases of COVID-19</h2>
+      <h2 className="text-xl font-semibold m-3 leading-7">Graphical representation of confirmed cases of COVID-19</h2>
       <LineChartWidget data={data} />
     </div>
   )
