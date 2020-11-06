@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/index.css'
 import '../../node_modules/react-vis/dist/style.css'
 
 function MyApp({ Component, pageProps }) {

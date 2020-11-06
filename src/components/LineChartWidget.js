@@ -71,7 +71,7 @@ export default function LineChartWidget({ data }) {
           isSearchable
           isMulti
         />
-
+        
         <XYPlot
           xType="time"
           width={1800}
