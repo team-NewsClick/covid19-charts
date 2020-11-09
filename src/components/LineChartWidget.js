@@ -14,10 +14,11 @@ import { useState } from "react";
 
 export default function LineChartWidget({ data }) {
   if (data.length == 0) {
-    return <div>Loading...</div>;
+    return <div className="m-3" >Loading...</div>;
   } else {
     const vornoiNodes = [];
     const [hoveredNode, setHoveredNode] = useState(null);
+    const [lineOpacity, setLineOpacity] = useState(0.3);
     const [selectedCountries, setSelectedCountries] = useState([
       {
         label: data[79].country,
@@ -98,6 +99,9 @@ export default function LineChartWidget({ data }) {
               curve={"curveMonotoneX"}
               data={d.value}
               color={customColor[index]}
+              opacity={
+                hoveredNode && hoveredNode.country === d.label ? 1 : 0.35
+              }
             />
           ))}
 
@@ -111,6 +115,9 @@ export default function LineChartWidget({ data }) {
                 },
               ]}
               color={customColor[index]}
+              opacity={
+                hoveredNode && hoveredNode.country === d.label ? 1 : 0.35
+              }
             />
           ))}
 
@@ -133,7 +140,7 @@ export default function LineChartWidget({ data }) {
             />
           ))}
 
-          {hoveredNode && <MarkSeries data={[hoveredNode]} />}
+          {hoveredNode && <MarkSeries data={[hoveredNode]} color={"#333"} stroke={"#fff"} strokeWidth={2} />}
           <Voronoi
             nodes={vornoiNodes}
             onHover={(node) => setHoveredNode(node)}
