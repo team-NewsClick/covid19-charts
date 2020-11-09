@@ -2,18 +2,6 @@ import { useState, useEffect } from "react";
 import { csvParse } from 'd3-dsv'
 import LineChartWidget from "./LineChartWidget";
 
-const CovidDashboard = () => {
-  const data = fetchCovidData()
-  return (
-    <div>
-      <h2 className="text-xl font-semibold m-3 leading-7">Graphical representation of confirmed cases of COVID-19</h2>
-      <LineChartWidget data={data} />
-    </div>
-  )
-}
-
-export default CovidDashboard;
-
 function fetchCovidData() {
   const [data, setData] = useState([])
   const cutoffDate = new Date('03/01/2020')
@@ -39,3 +27,15 @@ function fetchCovidData() {
   }, [])
     return data
 }
+
+const CovidDashboard = () => {
+  const data = fetchCovidData()
+  return (
+    <div>
+      <h2 className="text-xl font-semibold m-3 leading-7">Graphical representation of confirmed cases of COVID-19</h2>
+      <LineChartWidget data={data} />
+    </div>
+  )
+}
+
+export default CovidDashboard;

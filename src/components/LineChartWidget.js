@@ -16,32 +16,15 @@ export default function LineChartWidget({ data }) {
   if (data.length == 0) {
     return <div>Loading...</div>;
   } else {
+    const animatedComponents = makeAnimated();
     const vornoiNodes = [];
     const [hoveredNode, setHoveredNode] = useState(null);
     const [selectedCountries, setSelectedCountries] = useState([
       {
         label: data[79].country,
-        value: data[79].data,
+        data: data[79].data,
       },
     ]);
-
-    const countries = data.map((row) => {
-      return {
-        label: row.country,
-        value: row.data,
-      };
-    });
-
-    for (var i = 0; i < selectedCountries.length; i++) {
-      for (var j = 0; j < selectedCountries[i].value.length; j++) {
-        vornoiNodes.push({
-          x: selectedCountries[i].value[j].x,
-          y: selectedCountries[i].value[j].y,
-          country: selectedCountries[i].label,
-        });
-      }
-    }
-
     const customColor = [
       "#1abc9c",
       "#f1c40f",
@@ -59,14 +42,40 @@ export default function LineChartWidget({ data }) {
       "#2c3e50",
     ];
 
+    const countries = data.map((row) => {
+      return {
+        value: row.country,
+        label: row.country,
+      };
+    });
+    for (let i = 0; i < selectedCountries.length; i++) {
+      for (let j = 0; j < selectedCountries[i].data.length; j++) {
+        vornoiNodes.push({
+          x: selectedCountries[i].data[j].x,
+          y: selectedCountries[i].data[j].y,
+          country: selectedCountries[i].label,
+        });
+      }
+    }
+
+    const handelchange = (e) => {
+      const countires = e.map((row) => {
+        const country = data.filter((d) => {       
+          return row.value === d.country
+        })
+        return country
+      })
+      setSelectedCountries([...selectedCountries, ...countires.flat()])
+    }
+
     return (
       <div>
         <div className="m-4">
           <Select
-            components={makeAnimated()}
+            components={animatedComponents}
             placeholder="Select a region"
             options={countries}
-            onChange={setSelectedCountries}
+            onChange={handelchange}
             defaultValue={selectedCountries}
             options={countries}
             isSearchable
@@ -96,7 +105,7 @@ export default function LineChartWidget({ data }) {
             <LineSeries
               key={index}
               curve={"curveMonotoneX"}
-              data={d.value}
+              data={d.data}
               color={customColor[index]}
             />
           ))}
@@ -106,8 +115,8 @@ export default function LineChartWidget({ data }) {
               key={index}
               data={[
                 {
-                  x: d.value[d.value.length - 1].x,
-                  y: d.value[d.value.length - 1].y,
+                  x: d.data[d.data.length - 1].x,
+                  y: d.data[d.data.length - 1].y,
                 },
               ]}
               color={customColor[index]}
@@ -119,8 +128,8 @@ export default function LineChartWidget({ data }) {
               key={index}
               data={[
                 {
-                  x: d.value[d.value.length - 1].x,
-                  y: d.value[d.value.length - 1].y,
+                  x: d.data[d.data.length - 1].x,
+                  y: d.data[d.data.length - 1].y,
                   label: d.label,
                   xOffset: 12,
                 },
@@ -145,7 +154,7 @@ export default function LineChartWidget({ data }) {
               title: d[0].country,
               value: d[0].x.toISOString().slice(0, 10),
             })}
-            itemsFormat={(d) => [{ title: "Active Cases", value: d[0].y }]}
+            itemsFormat={(d) => [{ title: "Active Cases", data: d[0].y }]}
           />
         </XYPlot>
       </div>
