@@ -6,7 +6,7 @@ import {
   Crosshair,
   Voronoi,
   MarkSeries,
-  LabelSeries
+  LabelSeries,
 } from 'react-vis'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
@@ -14,7 +14,7 @@ import { useState } from 'react'
 
 export default function LineChartWidget({ data }) {
   if (data.length == 0) {
-    return <div className='m-3'>Loading...</div>
+    return <div className="m-3">Loading...</div>
   } else {
     const animatedComponents = makeAnimated()
     const vornoiNodes = []
@@ -23,8 +23,9 @@ export default function LineChartWidget({ data }) {
     const [selectedCountries, setSelectedCountries] = useState([
       {
         label: data[79].country,
-        data: data[79].data
-      }
+        country: data[79].country,
+        data: data[79].data,
+      },
     ])
     const customColor = [
       '#1abc9c',
@@ -40,13 +41,13 @@ export default function LineChartWidget({ data }) {
       '#d35400',
       '#2980b9',
       '#8e44ad',
-      '#2c3e50'
+      '#2c3e50',
     ]
 
     const countries = data.map((row) => {
       return {
         value: row.country,
-        label: row.country
+        label: row.country,
       }
     })
     for (let i = 0; i < selectedCountries.length; i++) {
@@ -54,7 +55,7 @@ export default function LineChartWidget({ data }) {
         vornoiNodes.push({
           x: selectedCountries[i].data[j].x,
           y: selectedCountries[i].data[j].y,
-          country: selectedCountries[i].label
+          country: selectedCountries[i].country,
         })
       }
     }
@@ -71,10 +72,10 @@ export default function LineChartWidget({ data }) {
 
     return (
       <div>
-        <div className='m-4'>
+        <div className="m-4">
           <Select
             components={animatedComponents}
-            placeholder='Select a region'
+            placeholder="Select a region"
             options={countries}
             onChange={handelchange}
             defaultValue={selectedCountries}
@@ -83,9 +84,8 @@ export default function LineChartWidget({ data }) {
             isMulti
           />
         </div>
-
         <XYPlot
-          xType='time'
+          xType="time"
           width={window.innerWidth / 1.05}
           height={window.innerWidth / 2.4}
           yDomain={[0, 100000]}
@@ -96,7 +96,7 @@ export default function LineChartWidget({ data }) {
             tickFormat={(d) =>
               d.toLocaleDateString('default', {
                 month: 'short',
-                day: 'numeric'
+                day: 'numeric',
               })
             }
             tickLabelAngle={-30}
@@ -120,8 +120,8 @@ export default function LineChartWidget({ data }) {
               data={[
                 {
                   x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y
-                }
+                  y: d.data[d.data.length - 1].y,
+                },
               ]}
               color={customColor[index]}
               opacity={
@@ -138,14 +138,14 @@ export default function LineChartWidget({ data }) {
                   x: d.data[d.data.length - 1].x,
                   y: d.data[d.data.length - 1].y,
                   label: d.label,
-                  xOffset: 12
-                }
+                  xOffset: 12,
+                },
               ]}
               style={{
-                fontSize: '0.8rem'
+                fontSize: '0.8rem',
               }}
-              labelAnchorX='start'
-              labelAnchorY='central'
+              labelAnchorX="start"
+              labelAnchorY="central"
             />
           ))}
 
@@ -162,13 +162,16 @@ export default function LineChartWidget({ data }) {
             onHover={(node) => setHoveredNode(node)}
             onBlur={() => setHoveredNode(null)}
           />
+
           <Crosshair
             values={[hoveredNode]}
             titleFormat={(d) => ({
               title: d[0].country,
-              value: d[0].x.toISOString().slice(0, 10)
+              value: d[0].x.toISOString().slice(0, 10),
             })}
-            itemsFormat={(d) => [{ title: 'Active Cases', data: d[0].y }]}
+            itemsFormat={() => [
+              { title: 'Active Cases', value: hoveredNode.y },
+            ]}
           />
         </XYPlot>
       </div>
