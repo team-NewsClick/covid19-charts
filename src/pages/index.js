@@ -1,4 +1,4 @@
-import CovidDashboard from "../components/CovidDashboard.js"
+import CovidDashboard from '../components/CovidDashboard.js'
 
 const Home = () => {
   return (
