@@ -13,6 +13,10 @@ import makeAnimated from 'react-select/animated'
 import { useState } from 'react'
 
 export default function LineChartWidget({ data }) {
+  const isRealValue = (obj) => {
+    return obj && obj !== 'null' && obj !== 'undefined'
+  }
+
   if (data.length == 0) {
     return <div className='m-3'>Loading...</div>
   } else {
@@ -59,14 +63,18 @@ export default function LineChartWidget({ data }) {
       }
     }
 
-    const handelchange = (e) => {
+    const handlechange = (e) => {
       const countires = e.map((row) => {
         const country = data.filter((d) => {
           return row.value === d.country
         })
         return country
       })
-      setSelectedCountries([...selectedCountries, ...countires.flat()])
+      if (selectedCountries.length === 1) {
+        setSelectedCountries([...selectedCountries, ...countires.flat()])
+      } else {
+        setSelectedCountries([...countires.flat()])
+      }
     }
 
     return (
@@ -75,8 +83,9 @@ export default function LineChartWidget({ data }) {
           <Select
             components={animatedComponents}
             placeholder='Select a region'
+            name='selectCountries'
             options={countries}
-            onChange={handelchange}
+            onChange={handlechange}
             defaultValue={selectedCountries}
             options={countries}
             isSearchable
