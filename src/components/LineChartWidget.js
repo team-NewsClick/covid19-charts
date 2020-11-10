@@ -13,23 +13,18 @@ import makeAnimated from 'react-select/animated'
 import { useState } from 'react'
 
 export default function LineChartWidget({ data }) {
-  const isRealValue = (obj) => {
-    return obj && obj !== 'null' && obj !== 'undefined'
-  }
-
   if (data.length == 0) {
     return <div className='m-3'>Loading...</div>
   } else {
     const animatedComponents = makeAnimated()
     const vornoiNodes = []
     const [hoveredNode, setHoveredNode] = useState(null)
-    const [lineOpacity, setLineOpacity] = useState(0.3)
-    const [selectedCountries, setSelectedCountries] = useState([
-      {
-        label: data[79].country,
-        data: data[79].data
-      }
-    ])
+    const [selectedCountries, setSelectedCountries] = useState([])
+    const [initBool, setInitBool] = useState(true)
+    const defaultCountry = {
+      value: 'India',
+      label: 'India'
+    }
     const customColor = [
       '#1abc9c',
       '#f1c40f',
@@ -47,33 +42,57 @@ export default function LineChartWidget({ data }) {
       '#2c3e50'
     ]
 
+    if (initBool) {
+      setInitBool(false)
+      const country = data.filter((d) => {
+        return defaultCountry.value === d.country
+      })
+      const setCountry = [
+        {
+          label: country[0].country,
+          country: country[0].country,
+          data: country[0].data
+        }
+      ]
+      setSelectedCountries([...selectedCountries, ...setCountry])
+    }
+
+    const getFinalDate = () => {
+      const selectedObject = data[0]
+      const dateObject = selectedObject.data[
+        selectedObject.data.length - 1
+      ].x.toLocaleDateString('en-US')
+      return new Date(dateObject)
+    }
+
     const countries = data.map((row) => {
       return {
         value: row.country,
         label: row.country
       }
     })
+
     for (let i = 0; i < selectedCountries.length; i++) {
       for (let j = 0; j < selectedCountries[i].data.length; j++) {
         vornoiNodes.push({
           x: selectedCountries[i].data[j].x,
           y: selectedCountries[i].data[j].y,
-          country: selectedCountries[i].label
+          country: selectedCountries[i].country
         })
       }
     }
 
-    const handlechange = (e) => {
-      const countires = e.map((row) => {
-        const country = data.filter((d) => {
-          return row.value === d.country
+    const handleSelectChange = (e) => {
+      if (e && e.length > 0) {
+        const countires = e.map((row) => {
+          const country = data.filter((d) => {
+            return row.value === d.country
+          })
+          return country
         })
-        return country
-      })
-      if (selectedCountries.length === 1) {
-        setSelectedCountries([...selectedCountries, ...countires.flat()])
-      } else {
         setSelectedCountries([...countires.flat()])
+      } else {
+        setSelectedCountries([])
       }
     }
 
@@ -85,20 +104,19 @@ export default function LineChartWidget({ data }) {
             placeholder='Select a region'
             name='selectCountries'
             options={countries}
-            onChange={handlechange}
-            defaultValue={selectedCountries}
+            onChange={handleSelectChange}
+            defaultValue={defaultCountry}
             options={countries}
             isSearchable
             isMulti
           />
         </div>
-
         <XYPlot
           xType='time'
           width={window.innerWidth / 1.05}
           height={window.innerWidth / 2.4}
-          yDomain={[0, 100000]}
-          xDomain={[new Date('03/01/2020'), new Date('11/05/2020')]}
+          yDomain={[0, 150000]}
+          xDomain={[new Date('03/01/2020'), getFinalDate()]}
           margin={{ left: 55, right: 70 }}
         >
           <XAxis
@@ -146,7 +164,7 @@ export default function LineChartWidget({ data }) {
                 {
                   x: d.data[d.data.length - 1].x,
                   y: d.data[d.data.length - 1].y,
-                  label: d.label,
+                  label: d.country,
                   xOffset: 12
                 }
               ]}
@@ -171,13 +189,16 @@ export default function LineChartWidget({ data }) {
             onHover={(node) => setHoveredNode(node)}
             onBlur={() => setHoveredNode(null)}
           />
+
           <Crosshair
             values={[hoveredNode]}
             titleFormat={(d) => ({
               title: d[0].country,
               value: d[0].x.toISOString().slice(0, 10)
             })}
-            itemsFormat={(d) => [{ title: 'Active Cases', data: d[0].y }]}
+            itemsFormat={() => [
+              { title: 'Active Cases', value: hoveredNode.y }
+            ]}
           />
         </XYPlot>
       </div>
