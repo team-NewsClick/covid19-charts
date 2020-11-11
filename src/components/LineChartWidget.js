@@ -6,7 +6,7 @@ import {
   Crosshair,
   Voronoi,
   MarkSeries,
-  LabelSeries
+  LabelSeries,
 } from 'react-vis'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
@@ -20,10 +20,8 @@ export default function LineChartWidget(props) {
   if (data.length == 0) {
     return (
       <div>
-        <h2 className='text-xl font-semibold m-3 leading-7'>
-          {lineHeading}
-        </h2>
-        <div className='m-3'>Loading...</div>
+        <h2 className="text-xl font-semibold m-3 leading-7">{lineHeading}</h2>
+        <div className="m-3">Loading...</div>
       </div>
     )
   } else {
@@ -34,7 +32,7 @@ export default function LineChartWidget(props) {
     const [initBool, setInitBool] = useState(true)
     const defaultCountry = {
       value: 'India',
-      label: 'India'
+      label: 'India',
     }
     const customColor = [
       '#1abc9c',
@@ -50,7 +48,7 @@ export default function LineChartWidget(props) {
       '#d35400',
       '#2980b9',
       '#8e44ad',
-      '#2c3e50'
+      '#2c3e50',
     ]
 
     if (initBool) {
@@ -62,8 +60,8 @@ export default function LineChartWidget(props) {
         {
           label: country[0].country,
           country: country[0].country,
-          data: country[0].data
-        }
+          data: country[0].data,
+        },
       ]
       setSelectedCountries([...selectedCountries, ...setCountry])
     }
@@ -79,7 +77,7 @@ export default function LineChartWidget(props) {
     const countries = data.map((row) => {
       return {
         value: row.country,
-        label: row.country
+        label: row.country,
       }
     })
 
@@ -88,7 +86,7 @@ export default function LineChartWidget(props) {
         vornoiNodes.push({
           x: selectedCountries[i].data[j].x,
           y: selectedCountries[i].data[j].y,
-          country: selectedCountries[i].country
+          country: selectedCountries[i].country,
         })
       }
     }
@@ -109,14 +107,66 @@ export default function LineChartWidget(props) {
 
     return (
       <div>
-        <h2 className='text-xl font-semibold m-3 leading-7'>
-          {lineHeading}
-        </h2>
-        <div className='m-4'>
+        <h2 className="text-xl font-semibold m-3 leading-7">{lineHeading}</h2>
+        <div className="chart-options">
+          <div className="radio-toolbar m-3">
+            <div className="radio-title">Cases</div>
+            <input type="radio" id="deaths" name="cases" value="deaths" />
+            <label for="deaths">Deaths</label>
+            <input
+              type="radio"
+              id="confirmed"
+              name="cases"
+              value="confirmed"
+              checked="checked"
+            />
+            <label for="confirmed">Confirmed</label>
+          </div>
+          <div className="radio-toolbar m-3">
+            <div className="radio-title">Data type</div>
+            <input type="radio" id="new" name="data-type" value="new" />
+            <label for="new">New</label>
+            <input
+              type="radio"
+              id="cumulative"
+              name="data-type"
+              value="cumulative"
+              checked="checked"
+            />
+            <label for="cumulative">Cumulative</label>
+          </div>
+          <div className="radio-toolbar m-3">
+            <div className="radio-title">Show Scale as</div>
+            <input type="radio" id="log" name="display-type" value="log" />
+            <label for="log">Log</label>
+            <input
+              type="radio"
+              id="linear"
+              name="display-type"
+              value="linear"
+              checked="checked"
+            />
+            <label for="linear">Linear</label>
+          </div>
+          <div className="radio-toolbar m-3">
+            <div className="radio-title">Date adjusted to outbreak start</div>
+            <input type="radio" id="yes" name="adjust-date" value="yes" />
+            <label for="yes">Yes</label>
+            <input
+              type="radio"
+              id="no"
+              name="adjust-date"
+              value="no"
+              checked="checked"
+            />
+            <label for="no">No</label>
+          </div>
+        </div>
+        <div className="m-4">
           <Select
             components={animatedComponents}
-            placeholder='Select a region'
-            name='selectCountries'
+            placeholder="Select a region"
+            name="selectCountries"
             options={countries}
             onChange={handleSelectChange}
             defaultValue={defaultCountry}
@@ -125,105 +175,108 @@ export default function LineChartWidget(props) {
             isMulti
           />
         </div>
-        <XYPlot
-          xType='time'
-          width={window.innerWidth / 1.05}
-          height={window.innerWidth / 2.4}
-          yDomain={[0, 150000]}
-          xDomain={[new Date('03/01/2020'), getFinalDate()]}
-          margin={{ left: 55, right: 75 }}
-        >
-          <XAxis
-            tickFormat={(d) =>
-              d.toLocaleDateString('default', {
-                month: 'short',
-                day: 'numeric'
-              })
-            }
-            tickLabelAngle={-30}
-          />
-          <YAxis tickFormat={(v) => v / 1000 + 'k'} />
-          {selectedCountries.map((d, index) => (
-            <LineSeries
-              key={index}
-              curve={'curveMonotoneX'}
-              data={d.data}
-              color={customColor[index]}
-              strokeWidth={
-                hoveredNode && hoveredNode.country === d.country ? 4 : 1.5
+        <div>
+          <XYPlot
+            xType="time"
+            width={window.innerWidth *0.5}
+            height={window.innerWidth *0.25}
+            yDomain={[0, 150000]}
+            xDomain={[new Date('03/01/2020'), getFinalDate()]}
+            margin={{ left: 55, right: 75 }}
+          >
+            <XAxis
+              tickFormat={(d) =>
+                d.toLocaleDateString('default', {
+                  month: 'short',
+                  day: 'numeric',
+                })
               }
-              opacity={0.6}
+              tickLabelAngle={-30}
             />
-          ))}
+            <YAxis tickFormat={(v) => v / 1000 + 'k'} />
 
-          {selectedCountries.map((d, index) => (
-            <MarkSeries
-              key={index}
-              data={[
-                {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y
+            {selectedCountries.map((d, index) => (
+              <LineSeries
+                key={index}
+                curve={'curveMonotoneX'}
+                data={d.data}
+                color={customColor[index]}
+                strokeWidth={
+                  hoveredNode && hoveredNode.country === d.country ? 4 : 1.5
                 }
-              ]}
-              color={customColor[index]}
-              opacity={
-                hoveredNode && hoveredNode.country === d.country ? 4 : 2.0
-              }
-            />
-          ))}
+                opacity={0.6}
+              />
+            ))}
 
-          {selectedCountries.map((d, index) => (
-            <LabelSeries
-              key={index}
-              data={[
-                {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
-                  label: d.country,
-                  xOffset: 12
+            {selectedCountries.map((d, index) => (
+              <MarkSeries
+                key={index}
+                data={[
+                  {
+                    x: d.data[d.data.length - 1].x,
+                    y: d.data[d.data.length - 1].y,
+                  },
+                ]}
+                color={customColor[index]}
+                opacity={
+                  hoveredNode && hoveredNode.country === d.country ? 4 : 2.0
                 }
+              />
+            ))}
+
+            {selectedCountries.map((d, index) => (
+              <LabelSeries
+                key={index}
+                data={[
+                  {
+                    x: d.data[d.data.length - 1].x,
+                    y: d.data[d.data.length - 1].y,
+                    label: d.country,
+                    xOffset: 12,
+                  },
+                ]}
+                style={
+                  hoveredNode && hoveredNode.country === d.country
+                    ? {
+                        fontSize: '0.85rem',
+                        stroke: '#494949',
+                      }
+                    : {
+                        fontSize: '0.85rem',
+                        stroke: '#bbb',
+                      }
+                }
+                labelAnchorX="start"
+                labelAnchorY="central"
+              />
+            ))}
+
+            {hoveredNode && (
+              <MarkSeries
+                data={[hoveredNode]}
+                color={'#333'}
+                stroke={'#fff'}
+                strokeWidth={2}
+              />
+            )}
+            <Voronoi
+              nodes={vornoiNodes}
+              onHover={(node) => setHoveredNode(node)}
+              onBlur={() => setHoveredNode(null)}
+            />
+
+            <Crosshair
+              values={[hoveredNode]}
+              titleFormat={(d) => ({
+                title: d[0].country,
+                value: d[0].x.toISOString().slice(0, 10),
+              })}
+              itemsFormat={() => [
+                { title: `${lineLabel}`, value: hoveredNode.y },
               ]}
-              style={
-                hoveredNode && hoveredNode.country === d.country
-                  ? {
-                      fontSize: '0.85rem',
-                      stroke: '#494949'
-                    }
-                  : {
-                      fontSize: '0.85rem',
-                      stroke: '#bbb'
-                    }
-              }
-              labelAnchorX='start'
-              labelAnchorY='central'
             />
-          ))}
-
-          {hoveredNode && (
-            <MarkSeries
-              data={[hoveredNode]}
-              color={'#333'}
-              stroke={'#fff'}
-              strokeWidth={2}
-            />
-          )}
-          <Voronoi
-            nodes={vornoiNodes}
-            onHover={(node) => setHoveredNode(node)}
-            onBlur={() => setHoveredNode(null)}
-          />
-
-          <Crosshair
-            values={[hoveredNode]}
-            titleFormat={(d) => ({
-              title: d[0].country,
-              value: d[0].x.toISOString().slice(0, 10)
-            })}
-            itemsFormat={() => [
-              { title: `${lineLabel}`, value: hoveredNode.y }
-            ]}
-          />
-        </XYPlot>
+          </XYPlot>
+        </div>
       </div>
     )
   }
