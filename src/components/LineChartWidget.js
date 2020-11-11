@@ -6,7 +6,7 @@ import {
   Crosshair,
   Voronoi,
   MarkSeries,
-  LabelSeries,
+  LabelSeries
 } from 'react-vis'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
@@ -14,7 +14,7 @@ import { useState } from 'react'
 
 export default function LineChartWidget({ data }) {
   if (data.length == 0) {
-    return <div className="m-3">Loading...</div>
+    return <div className='m-3'>Loading...</div>
   } else {
     const animatedComponents = makeAnimated()
     const vornoiNodes = []
@@ -23,7 +23,7 @@ export default function LineChartWidget({ data }) {
     const [initBool, setInitBool] = useState(true)
     const defaultCountry = {
       value: 'India',
-      label: 'India',
+      label: 'India'
     }
     const customColor = [
       '#1abc9c',
@@ -39,7 +39,7 @@ export default function LineChartWidget({ data }) {
       '#d35400',
       '#2980b9',
       '#8e44ad',
-      '#2c3e50',
+      '#2c3e50'
     ]
 
     if (initBool) {
@@ -51,8 +51,8 @@ export default function LineChartWidget({ data }) {
         {
           label: country[0].country,
           country: country[0].country,
-          data: country[0].data,
-        },
+          data: country[0].data
+        }
       ]
       setSelectedCountries([...selectedCountries, ...setCountry])
     }
@@ -68,7 +68,7 @@ export default function LineChartWidget({ data }) {
     const countries = data.map((row) => {
       return {
         value: row.country,
-        label: row.country,
+        label: row.country
       }
     })
 
@@ -77,7 +77,7 @@ export default function LineChartWidget({ data }) {
         vornoiNodes.push({
           x: selectedCountries[i].data[j].x,
           y: selectedCountries[i].data[j].y,
-          country: selectedCountries[i].country,
+          country: selectedCountries[i].country
         })
       }
     }
@@ -98,11 +98,11 @@ export default function LineChartWidget({ data }) {
 
     return (
       <div>
-        <div className="m-4">
+        <div className='m-4'>
           <Select
             components={animatedComponents}
-            placeholder="Select a region"
-            name="selectCountries"
+            placeholder='Select a region'
+            name='selectCountries'
             options={countries}
             onChange={handleSelectChange}
             defaultValue={defaultCountry}
@@ -112,7 +112,7 @@ export default function LineChartWidget({ data }) {
           />
         </div>
         <XYPlot
-          xType="time"
+          xType='time'
           width={window.innerWidth / 1.05}
           height={window.innerWidth / 2.4}
           yDomain={[0, 150000]}
@@ -123,7 +123,7 @@ export default function LineChartWidget({ data }) {
             tickFormat={(d) =>
               d.toLocaleDateString('default', {
                 month: 'short',
-                day: 'numeric',
+                day: 'numeric'
               })
             }
             tickLabelAngle={-30}
@@ -136,7 +136,7 @@ export default function LineChartWidget({ data }) {
               data={d.data}
               color={customColor[index]}
               strokeWidth={
-                hoveredNode && hoveredNode.country === d.country ? 2 : 0.8
+                hoveredNode && hoveredNode.country === d.country ? 4 : 1.5
               }
               opacity={0.6}
             />
@@ -148,12 +148,12 @@ export default function LineChartWidget({ data }) {
               data={[
                 {
                   x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
-                },
+                  y: d.data[d.data.length - 1].y
+                }
               ]}
               color={customColor[index]}
               opacity={
-                hoveredNode && hoveredNode.country === d.country ? 1 : 0.6
+                hoveredNode && hoveredNode.country === d.country ? 4 : 2.0
               }
             />
           ))}
@@ -166,22 +166,22 @@ export default function LineChartWidget({ data }) {
                   x: d.data[d.data.length - 1].x,
                   y: d.data[d.data.length - 1].y,
                   label: d.country,
-                  xOffset: 12,
-                },
+                  xOffset: 12
+                }
               ]}
               style={
                 hoveredNode && hoveredNode.country === d.country
                   ? {
                       fontSize: '0.85rem',
-                      stroke: '#494949',
+                      stroke: '#494949'
                     }
                   : {
                       fontSize: '0.85rem',
-                      stroke: '#bbb',
+                      stroke: '#bbb'
                     }
               }
-              labelAnchorX="start"
-              labelAnchorY="central"
+              labelAnchorX='start'
+              labelAnchorY='central'
             />
           ))}
 
@@ -203,10 +203,10 @@ export default function LineChartWidget({ data }) {
             values={[hoveredNode]}
             titleFormat={(d) => ({
               title: d[0].country,
-              value: d[0].x.toISOString().slice(0, 10),
+              value: d[0].x.toISOString().slice(0, 10)
             })}
             itemsFormat={() => [
-              { title: 'Active Cases', value: hoveredNode.y },
+              { title: 'Active Cases', value: hoveredNode.y }
             ]}
           />
         </XYPlot>
