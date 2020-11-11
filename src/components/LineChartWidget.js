@@ -12,9 +12,20 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import { useState } from 'react'
 
-export default function LineChartWidget({ data }) {
+export default function LineChartWidget(props) {
+  const data = props.data.data
+  const lineLabel = props.data.lineLabel
+  const lineHeading = props.data.lineHeading
+
   if (data.length == 0) {
-    return <div className='m-3'>Loading...</div>
+    return (
+      <div>
+        <h2 className='text-xl font-semibold m-3 leading-7'>
+          {lineHeading}
+        </h2>
+        <div className='m-3'>Loading...</div>
+      </div>
+    )
   } else {
     const animatedComponents = makeAnimated()
     const vornoiNodes = []
@@ -98,6 +109,9 @@ export default function LineChartWidget({ data }) {
 
     return (
       <div>
+        <h2 className='text-xl font-semibold m-3 leading-7'>
+          {lineHeading}
+        </h2>
         <div className='m-4'>
           <Select
             components={animatedComponents}
@@ -206,7 +220,7 @@ export default function LineChartWidget({ data }) {
               value: d[0].x.toISOString().slice(0, 10)
             })}
             itemsFormat={() => [
-              { title: 'Active Cases', value: hoveredNode.y }
+              { title: `${lineLabel}`, value: hoveredNode.y }
             ]}
           />
         </XYPlot>

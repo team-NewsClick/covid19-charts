@@ -30,12 +30,16 @@ function fetchCovidData() {
 
 const CovidDashboard = () => {
   const data = fetchCovidData()
+  const newCases = {
+    data: data,
+    lineLabel: 'New Cases',
+    lineHeading: 'Graphical representation of New Cases of COVID-19'
+  }
   return (
     <div>
-      <h2 className='text-xl font-semibold m-3 leading-7'>
-        Graphical representation of confirmed cases of COVID-19
-      </h2>
-      <LineChartWidget data={data} />
+      <div>
+        <LineChartWidget data={newCases} />
+      </div>
     </div>
   )
 }
