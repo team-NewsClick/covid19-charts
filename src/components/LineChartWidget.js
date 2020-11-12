@@ -20,7 +20,7 @@ export default function LineChartWidget(props) {
   if (data.length == 0) {
     return (
       <div>
-        <h2 className="text-xl font-semibold m-3 leading-7">{lineHeading}</h2>
+        <h2 className="text-xlfont-semibold m-3 leading-7">{lineHeading}</h2>
         <div className="m-3">Loading...</div>
       </div>
     )
@@ -34,6 +34,7 @@ export default function LineChartWidget(props) {
       value: 'India',
       label: 'India',
     }
+
     const customColor = [
       '#1abc9c',
       '#f1c40f',
@@ -108,60 +109,6 @@ export default function LineChartWidget(props) {
     return (
       <div>
         <h2 className="text-xl font-semibold m-3 leading-7">{lineHeading}</h2>
-        <div className="chart-options">
-          <div className="radio-toolbar m-3">
-            <div className="radio-title">Cases</div>
-            <input type="radio" id="deaths" name="cases" value="deaths" />
-            <label for="deaths">Deaths</label>
-            <input
-              type="radio"
-              id="confirmed"
-              name="cases"
-              value="confirmed"
-              checked="checked"
-            />
-            <label for="confirmed">Confirmed</label>
-          </div>
-          <div className="radio-toolbar m-3">
-            <div className="radio-title">Data type</div>
-            <input type="radio" id="new" name="data-type" value="new" />
-            <label for="new">New</label>
-            <input
-              type="radio"
-              id="cumulative"
-              name="data-type"
-              value="cumulative"
-              checked="checked"
-            />
-            <label for="cumulative">Cumulative</label>
-          </div>
-          <div className="radio-toolbar m-3">
-            <div className="radio-title">Show Scale as</div>
-            <input type="radio" id="log" name="display-type" value="log" />
-            <label for="log">Log</label>
-            <input
-              type="radio"
-              id="linear"
-              name="display-type"
-              value="linear"
-              checked="checked"
-            />
-            <label for="linear">Linear</label>
-          </div>
-          <div className="radio-toolbar m-3">
-            <div className="radio-title">Date adjusted to outbreak start</div>
-            <input type="radio" id="yes" name="adjust-date" value="yes" />
-            <label for="yes">Yes</label>
-            <input
-              type="radio"
-              id="no"
-              name="adjust-date"
-              value="no"
-              checked="checked"
-            />
-            <label for="no">No</label>
-          </div>
-        </div>
         <div className="m-4">
           <Select
             components={animatedComponents}
@@ -178,8 +125,8 @@ export default function LineChartWidget(props) {
         <div>
           <XYPlot
             xType="time"
-            width={window.innerWidth *0.5}
-            height={window.innerWidth *0.25}
+            width={(window.innerWidth > 500) ? (window.innerWidth * 0.5) : (window.innerWidth*1.45)}
+            height={(window.innerWidth > 500) ? (window.innerWidth * 0.25) : (window.innerWidth*0.8)}
             yDomain={[0, 150000]}
             xDomain={[new Date('03/01/2020'), getFinalDate()]}
             margin={{ left: 55, right: 75 }}
