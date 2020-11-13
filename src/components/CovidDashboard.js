@@ -37,60 +37,52 @@ const CovidDashboard = () => {
     lineHeading: 'Graphical representation of New Cases of COVID-19',
   }
 
+  const getCases = (event) => {
+    console.log(event.currentTarget.value)
+  }
+
+  const dataType = (event) => {
+    console.log(event.currentTarget.value)
+  }
+
+  const displayType = (event) => {
+    console.log(event.currentTarget.value)
+  }
+
+  const adjustDate = (event) => {
+    console.log(event.currentTarget.value)
+  }
+
   return (
     <div>
       <div>
         <div className='inline-flex'>
           <div className="radio-toolbar m-3">
             <div className="radio-title">Cases</div>
-            <input type="radio" id="deaths" name="cases" value="deaths" />
+            <input type="radio" id="deaths" name="cases" value="deaths" onChange={getCases} />
             <label for="deaths">Deaths</label>
-            <input
-              type="radio"
-              id="confirmed"
-              name="cases"
-              value="confirmed"
-              checked="checked"
-            />
+            <input type="radio" id="confirmed" name="cases" value="confirmed" checked="checked" onChange={getCases}/>
             <label for="confirmed">Confirmed</label>
           </div>
           <div className="radio-toolbar m-3">
             <div className="radio-title">Data type</div>
-            <input type="radio" id="new" name="data-type" value="new" />
+            <input type="radio" id="new" name="data-type" value="new" onChange={dataType} />
             <label for="new">New</label>
-            <input
-              type="radio"
-              id="cumulative"
-              name="data-type"
-              value="cumulative"
-              checked="checked"
-            />
+            <input type="radio" id="cumulative" name="data-type" value="cumulative" checked="checked" onChange={dataType} />
             <label for="cumulative">Cumulative</label>
           </div>
           <div className="radio-toolbar m-3">
             <div className="radio-title">Show Scale as</div>
-            <input type="radio" id="log" name="display-type" value="log" />
+            <input type="radio" id="log" name="display-type" value="log" onChange={displayType} />
             <label for="log">Log</label>
-            <input
-              type="radio"
-              id="linear"
-              name="display-type"
-              value="linear"
-              checked="checked"
-            />
+            <input type="radio" id="linear" name="display-type" value="linear" checked="checked" onChange={displayType} />
             <label for="linear">Linear</label>
           </div>
           <div className="radio-toolbar m-3">
             <div className="radio-title">Date adjusted to outbreak start</div>
-            <input type="radio" id="yes" name="adjust-date" value="yes" />
+            <input type="radio" id="yes" name="adjust-date" value="yes" onChange={adjustDate} />
             <label for="yes">Yes</label>
-            <input
-              type="radio"
-              id="no"
-              name="adjust-date"
-              value="no"
-              checked="checked"
-            />
+            <input type="radio" id="no" name="adjust-date" value="no" checked="checked" onChange={adjustDate} />
             <label for="no">No</label>
           </div>
         </div>

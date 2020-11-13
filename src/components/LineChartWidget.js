@@ -27,8 +27,11 @@ export default function LineChartWidget(props) {
   } else {
     const animatedComponents = makeAnimated()
     const vornoiNodes = []
+    const vornoiNodesGrey = []
     const [hoveredNode, setHoveredNode] = useState(null)
+    // const [hoveredNodeGrey, setHoveredNodeGrey] = useState(null)
     const [selectedCountries, setSelectedCountries] = useState([])
+    const [greyStroke, setGreyStroke] = useState(0.6)
     const [initBool, setInitBool] = useState(true)
     const defaultCountry = {
       value: 'India',
@@ -82,6 +85,18 @@ export default function LineChartWidget(props) {
       }
     })
 
+    // vornoiNodeGrey for all countries
+    // for (let i = 0; i < data.length; i++) {
+    //   for (let j = 0; j < data[i].data.length; j=j) {
+    //     vornoiNodesGrey.push({
+    //       x: data[i].data[j].x,
+    //       y: data[i].data[j].y,
+    //       country: data[i].country,
+    //     })
+    //   }
+    // }
+    // console.log(vornoiNodesGrey)ko9ut7ar7ou9amon7++) {
+
     for (let i = 0; i < selectedCountries.length; i++) {
       for (let j = 0; j < selectedCountries[i].data.length; j++) {
         vornoiNodes.push({
@@ -125,8 +140,16 @@ export default function LineChartWidget(props) {
         <div>
           <XYPlot
             xType="time"
-            width={(window.innerWidth > 500) ? (window.innerWidth * 0.5) : (window.innerWidth*1.45)}
-            height={(window.innerWidth > 500) ? (window.innerWidth * 0.25) : (window.innerWidth*0.8)}
+            width={
+              window.innerWidth > 500
+                ? window.innerWidth * 0.5
+                : window.innerWidth * 1.45
+            }
+            height={
+              window.innerWidth > 500
+                ? window.innerWidth * 0.25
+                : window.innerWidth * 0.8
+            }
             yDomain={[0, 150000]}
             xDomain={[new Date('03/01/2020'), getFinalDate()]}
             margin={{ left: 55, right: 75 }}
@@ -141,6 +164,27 @@ export default function LineChartWidget(props) {
               tickLabelAngle={-30}
             />
             <YAxis tickFormat={(v) => v / 1000 + 'k'} />
+            {data.map((d, index) => (
+              <LineSeries
+                key={index}
+                curve={'curveMonotoneX'}
+                data={d.data}
+                color={'#ccc'}
+                strokeWidth={greyStroke}
+                onSeriesMouseOver={(event) => {
+                  return setGreyStroke(3)
+                }}
+                onSeriesMouseOut={() => {
+                  return setGreyStroke(1)
+                }}
+              />
+            ))}
+            {/* Vornoi Nodes for grey chart*/}
+            {/* <Voronoi
+              nodes={vornoiNodesGrey}
+              onHover={(node) => setHoveredNodeGrey(node)}
+              onBlur={() => setHoveredNodeGrey(null)}
+            /> */}
 
             {selectedCountries.map((d, index) => (
               <LineSeries
@@ -154,7 +198,6 @@ export default function LineChartWidget(props) {
                 opacity={0.6}
               />
             ))}
-
             {selectedCountries.map((d, index) => (
               <MarkSeries
                 key={index}
@@ -170,7 +213,6 @@ export default function LineChartWidget(props) {
                 }
               />
             ))}
-
             {selectedCountries.map((d, index) => (
               <LabelSeries
                 key={index}
@@ -197,7 +239,6 @@ export default function LineChartWidget(props) {
                 labelAnchorY="central"
               />
             ))}
-
             {hoveredNode && (
               <MarkSeries
                 data={[hoveredNode]}
@@ -211,7 +252,6 @@ export default function LineChartWidget(props) {
               onHover={(node) => setHoveredNode(node)}
               onBlur={() => setHoveredNode(null)}
             />
-
             <Crosshair
               values={[hoveredNode]}
               titleFormat={(d) => ({
