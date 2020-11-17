@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
+
+.radio-title {
+  @apply text-lg mb-4 leading-6 h-8;
+}
+.radio-toolbar input[type='radio'] {
+  @apply opacity-0 fixed w-0 inline-flex;
+}
+.radio-toolbar label {
+  @apply inline-block bg-white py-2 px-8 text-center text-base w-32 border-2 border-solid border-black;
+}
+.radio-toolbar label:hover {
+  @apply bg-gray-100;
+}
+.radio-toolbar input[type='radio']:checked + label {
+  @apply bg-black text-white;
+}
+
+@screen sm {
+  .radio-title {
+    @apply text-sm h-4;
+  }
+}
+
 @tailwind utilities;
+
+.rv-xy-plot {
+    margin: auto;
+}
