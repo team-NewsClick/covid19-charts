@@ -29,12 +29,12 @@ function fetchCovidData() {
 }
 
 function LineChartLinear(props) {
-  const data = props.data
+  const data = props.data.data
   const newCases = {
-    data: data,
+    data: props.data.data,
     lineLabel: 'New Cases',
     lineHeading: 'Graphical representation of New Cases of COVID-19',
-    scaleType: 'linear'
+    scaleType: props.data.scaleType
   }
   if (data.length === 0) {
     return (
@@ -48,7 +48,7 @@ function LineChartLinear(props) {
 }
 
 function LineChartLog(props) {
-  const rawData = props.data
+  const rawData = props.data.data
   if (rawData.length === 0) {
     return (
       <div>
@@ -66,34 +66,34 @@ function LineChartLog(props) {
       }
       return country
     })
-    console.log('data: ', data)
     const newCases = {
       data: data,
       lineLabel: 'New Cases',
       lineHeading: 'Graphical representation of New Cases of COVID-19',
-      scaleType: 'log'
+      scaleType: props.data.scaleType
     }
     return <LineChartWidget data={newCases} />
   }
 }
 
-function LineChartOption() {
-  const getCases = (event) => {
-    console.log(event.currentTarget.value)
-  }
+const CovidDashboard = () => {
+  
+  const data = fetchCovidData()
 
-  const dataType = (event) => {
-    console.log(event.currentTarget.value)
+  const [casesType, setCasesType] = useState('')
+  const [dataType, setDataType] = useState('')
+  const [scaleType, setScaleType] = useState('linear')
+  const [datesAdjusted, setDatesAdjusted] = useState('')
+  
+  const propsData = {
+    data: data,
+    lineLabel: 'New Cases',
+    lineHeading: 'Graphical representation of New Cases of COVID-19',
+    scaleType: scaleType,
+    casesType: casesType,
+    datesAdjusted: datesAdjusted 
   }
-
-  const displayType = (event) => {
-    console.log(event.currentTarget.value)
-  }
-
-  const adjustDate = (event) => {
-    console.log(event.currentTarget.value)
-  }
-
+  
   return (
     <div>
       <div>
@@ -105,7 +105,7 @@ function LineChartOption() {
               id='deaths'
               name='cases'
               value='deaths'
-              onChange={getCases}
+              onChange={e => setCasesType(e.currentTarget.value)}
             />
             <label for='deaths'>Deaths</label>
             <input
@@ -114,7 +114,7 @@ function LineChartOption() {
               name='cases'
               value='confirmed'
               checked='checked'
-              onChange={getCases}
+              onChange={e => setCasesType(e.currentTarget.value)}
             />
             <label for='confirmed'>Confirmed</label>
           </div>
@@ -125,7 +125,7 @@ function LineChartOption() {
               id='new'
               name='data-type'
               value='new'
-              onChange={dataType}
+              onChange={e => setDataType(e.currentTarget.value)}
             />
             <label for='new'>New</label>
             <input
@@ -134,7 +134,7 @@ function LineChartOption() {
               name='data-type'
               value='cumulative'
               checked='checked'
-              onChange={dataType}
+              onChange={e => setDataType(e.currentTarget.value)}
             />
             <label for='cumulative'>Cumulative</label>
           </div>
@@ -145,7 +145,8 @@ function LineChartOption() {
               id='log'
               name='display-type'
               value='log'
-              onChange={displayType}
+              checked={scaleType}
+              onChange={e => setScaleType(e.currentTarget.value)}
             />
             <label for='log'>Log</label>
             <input
@@ -153,8 +154,8 @@ function LineChartOption() {
               id='linear'
               name='display-type'
               value='linear'
-              checked='checked'
-              onChange={displayType}
+              checked={scaleType}
+              onChange={e => setScaleType(e.currentTarget.value)}
             />
             <label for='linear'>Linear</label>
           </div>
@@ -165,7 +166,7 @@ function LineChartOption() {
               id='yes'
               name='adjust-date'
               value='yes'
-              onChange={adjustDate}
+              onChange={e => setDatesAdjusted(e.currentTarget.value)}
             />
             <label for='yes'>Yes</label>
             <input
@@ -174,25 +175,15 @@ function LineChartOption() {
               name='adjust-date'
               value='no'
               checked='checked'
-              onChange={adjustDate}
+              onChange={e => setDatesAdjusted(e.currentTarget.value)}
             />
             <label for='no'>No</label>
           </div>
         </div>
       </div>
+      {scaleType && scaleType == 'log' ? <LineChartLog data={propsData} /> : <LineChartLinear data={propsData} />}
     </div>
   )
-}
-
-const CovidDashboard = () => {
-  const data = fetchCovidData()
-  const scaleType = 'log'
-  return <LineChartOption />
-  // if (scaleType === 'linear') {
-  //   return <LineChartLinear data={data} />
-  // } else if (scaleType === 'log') {
-  //   return <LineChartLog data={data} />
-  // }
 }
 
 export default CovidDashboard

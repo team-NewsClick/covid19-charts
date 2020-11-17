@@ -26,12 +26,12 @@ export default function LineChartWidget(props) {
       </div>
     )
   } else {
-    const animatedComponents = makeAnimated()
-    const vornoiNodes = []
     const [hoveredNode, setHoveredNode] = useState(null)
     const [selectedCountries, setSelectedCountries] = useState([])
     const [greyStroke, setGreyStroke] = useState(0.6)
     const [initBool, setInitBool] = useState(true)
+    const animatedComponents = makeAnimated()
+    const vornoiNodes = []
     const yMaxRangeLogNewCases = 1000000
     const yMaxRangeLinearNewCases = 160000
     const tickValuesNewCases = []
