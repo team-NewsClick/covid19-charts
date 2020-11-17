@@ -36,7 +36,8 @@ export default function LineChartWidget(props) {
       value: 'India',
       label: 'India'
     }
-
+    const yMaxRangeNewCases = 100000
+    const tickValuesNewCases = []
     const customColor = [
       '#1abc9c',
       '#f1c40f',
@@ -94,6 +95,12 @@ export default function LineChartWidget(props) {
       }
     }
 
+    for (let i = 1; i <= yMaxRangeNewCases; i=i*10) {
+      tickValuesNewCases.push(i)
+      tickValuesNewCases.push(2*i)
+      tickValuesNewCases.push(5*i)
+    }
+
     const handleSelectChange = (e) => {
       if (e && e.length > 0) {
         const countires = e.map((row) => {
@@ -138,7 +145,7 @@ export default function LineChartWidget(props) {
               ? window.innerWidth * 0.25
               : window.innerWidth * 0.8
           }
-          yDomain={scaleType === 'log' ? [1, 1000000] : [0, 100000]}
+          yDomain={scaleType === 'log' ? [1, yMaxRangeNewCases] : [0, yMaxRangeNewCases]}
           xDomain={[new Date('03/01/2020'), getFinalDate()]}
           margin={{ left: 55, right: 75 }}
         >
@@ -152,13 +159,11 @@ export default function LineChartWidget(props) {
             tickLabelAngle={-30}
           />
 
-          <YAxis
-            tickValues={
-              scaleType === 'log'
-                ? [1, 10, 100, 1000, 10000, 100000, 1000000]
-                : null
-            }
-            tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}
+          <YAxis 
+            tickValues={scaleType === 'log' ? tickValuesNewCases : null}
+            tickFormat={(d)=>(
+              d < 1000 ? d : (d/1000) + 'k'
+            )}
           />
 
           {data.map((d, index) => (
