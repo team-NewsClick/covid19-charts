@@ -103,6 +103,7 @@ const CovidDashboard = () => {
               id='confirmed'
               name='cases'
               value='confirmed'
+              defaultChecked
               onChange={(e) => setCasesType(e.currentTarget.value)}
             />
             <label for='confirmed'>Confirmed</label>
