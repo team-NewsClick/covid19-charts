@@ -17,6 +17,7 @@ export default function LineChartWidget(props) {
   const lineLabel = props.data.lineLabel
   const lineHeading = props.data.lineHeading
   const scaleType = props.data.scaleType
+  const datesAdjusted = props.data.datesAdjusted
 
   if (data.length == 0) {
     return (
@@ -79,6 +80,14 @@ export default function LineChartWidget(props) {
       return new Date(dateObject)
     }
 
+    const calculateFinalDate = () => {
+      const oneDay = 24 * 60 * 60 * 1000
+      const firstDate = new Date('03/01/2020')
+      const secondDate = getFinalDate()
+      const totalDates = Math.round(Math.abs((firstDate - secondDate) / oneDay))
+      return totalDates
+    }
+
     const countries = data.map((row) => {
       return {
         value: row.country,
@@ -96,10 +105,10 @@ export default function LineChartWidget(props) {
       }
     }
 
-    for (let i = 1; i <= yMaxRangeLogNewCases; i=i*10) {
+    for (let i = 1; i <= yMaxRangeLogNewCases; i = i * 10) {
       tickValuesNewCases.push(i)
-      tickValuesNewCases.push(2*i)
-      tickValuesNewCases.push(5*i)
+      tickValuesNewCases.push(2 * i)
+      tickValuesNewCases.push(5 * i)
     }
 
     const handleSelectChange = (e) => {
@@ -146,7 +155,11 @@ export default function LineChartWidget(props) {
               ? window.innerWidth * 0.25
               : window.innerWidth * 0.8
           }
-          yDomain={scaleType === 'log' ? [1, yMaxRangeLogNewCases] : [0, yMaxRangeLinearNewCases]}
+          yDomain={
+            scaleType === 'log'
+              ? [1, yMaxRangeLogNewCases]
+              : [0, yMaxRangeLinearNewCases]
+          }
           xDomain={[new Date('03/01/2020'), getFinalDate()]}
           margin={{ left: 55, right: 75 }}
         >
@@ -160,11 +173,9 @@ export default function LineChartWidget(props) {
             tickLabelAngle={-30}
           />
 
-          <YAxis 
+          <YAxis
             tickValues={scaleType === 'log' ? tickValuesNewCases : null}
-            tickFormat={(d)=>(
-              d < 1000 ? d : (d/1000) + 'k'
-            )}
+            tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}
           />
 
           {data.map((d, index) => (

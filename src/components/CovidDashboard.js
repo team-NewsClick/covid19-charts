@@ -72,7 +72,7 @@ const CovidDashboard = () => {
   const [casesType, setCasesType] = useState('')
   const [dataType, setDataType] = useState('')
   const [scaleType, setScaleType] = useState('linear')
-  const [datesAdjusted, setDatesAdjusted] = useState('')
+  const [datesAdjusted, setDatesAdjusted] = useState('off')
 
   const propsData = {
     data: data,
@@ -94,6 +94,7 @@ const CovidDashboard = () => {
               id='deaths'
               name='cases'
               value='deaths'
+              defaultChecked
               onChange={(e) => setCasesType(e.currentTarget.value)}
             />
             <label for='deaths'>Deaths</label>
@@ -102,7 +103,6 @@ const CovidDashboard = () => {
               id='confirmed'
               name='cases'
               value='confirmed'
-              checked='checked'
               onChange={(e) => setCasesType(e.currentTarget.value)}
             />
             <label for='confirmed'>Confirmed</label>
@@ -122,7 +122,7 @@ const CovidDashboard = () => {
               id='cumulative'
               name='data-type'
               value='cumulative'
-              checked='checked'
+              defaultChecked
               onChange={(e) => setDataType(e.currentTarget.value)}
             />
             <label for='cumulative'>Cumulative</label>
@@ -134,7 +134,6 @@ const CovidDashboard = () => {
               id='log'
               name='display-type'
               value='log'
-              checked={scaleType}
               onChange={(e) => setScaleType(e.currentTarget.value)}
             />
             <label for='log'>Log</label>
@@ -143,7 +142,7 @@ const CovidDashboard = () => {
               id='linear'
               name='display-type'
               value='linear'
-              checked={scaleType}
+              defaultChecked
               onChange={(e) => setScaleType(e.currentTarget.value)}
             />
             <label for='linear'>Linear</label>
@@ -152,21 +151,21 @@ const CovidDashboard = () => {
             <div className='radio-title'>Date adjusted to outbreak start</div>
             <input
               type='radio'
-              id='yes'
+              id='on'
               name='adjust-date'
-              value='yes'
+              value='on'
               onChange={(e) => setDatesAdjusted(e.currentTarget.value)}
             />
-            <label for='yes'>Yes</label>
+            <label for='on'>On</label>
             <input
               type='radio'
-              id='no'
+              id='off'
               name='adjust-date'
-              value='no'
-              checked='checked'
+              value='off'
+              defaultChecked
               onChange={(e) => setDatesAdjusted(e.currentTarget.value)}
             />
-            <label for='no'>No</label>
+            <label for='off'>Off</label>
           </div>
         </div>
       </div>
