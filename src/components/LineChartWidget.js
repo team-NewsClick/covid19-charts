@@ -145,7 +145,7 @@ export default function LineChartWidget(props) {
           <YAxis 
             tickValues={scaleType === 'log' ? [1, 10, 100, 1000, 10000, 100000, 1000000] : null}
             tickFormat={(d)=>(
-              (d/1000) + 'k'
+              d < 1000 ? d : (d/1000) + 'k'
             )}
           />
           
