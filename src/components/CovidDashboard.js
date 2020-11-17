@@ -28,20 +28,64 @@ function fetchCovidData() {
   return data
 }
 
-const CovidDashboard = () => {
-  const data = fetchCovidData()
+function LineChartLinear(props) {
+  const data = props.data
   const newCases = {
     data: data,
     lineLabel: 'New Cases',
-    lineHeading: 'Graphical representation of New Cases of COVID-19'
+    lineHeading: 'Graphical representation of New Cases of COVID-19',
+    scaleType: 'linear'
   }
-  return (
-    <div>
+  if (data.length === 0) {
+    return (
       <div>
-        <LineChartWidget data={newCases} />
+        <div className='m-3'>Loading...</div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return <LineChartWidget data={newCases} />
+  }
+}
+
+function LineChartLog(props) {
+  const rawData = props.data
+  if (rawData.length === 0) {
+    return (
+      <div>
+        <div className='m-3'>Loading...</div>
+      </div>
+    )
+  } else {
+    const data = rawData.map((rows) => {
+      const countryData = rows.data.filter((row) => {
+        return row.y !== '0'
+      })
+      const country = {
+        country: rows.country,
+        data: countryData
+      }
+      return country
+    })
+    console.log('data: ', data)
+    const newCases = {
+      data: data,
+      lineLabel: 'New Cases',
+      lineHeading: 'Graphical representation of New Cases of COVID-19',
+      scaleType: 'log'
+    }
+    return <LineChartWidget data={newCases} />
+  }
+}
+
+const CovidDashboard = () => {
+  const data = fetchCovidData()
+  const scaleType = 'log'
+
+  if (scaleType === 'linear') {
+    return <LineChartLinear data={data} />
+  } else if (scaleType === 'log') {
+    return <LineChartLog data={data} />
+  }
 }
 
 export default CovidDashboard

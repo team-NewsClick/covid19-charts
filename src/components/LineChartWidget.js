@@ -16,6 +16,7 @@ export default function LineChartWidget(props) {
   const data = props.data.data
   const lineLabel = props.data.lineLabel
   const lineHeading = props.data.lineHeading
+  const scaleType = props.data.scaleType
 
   if (data.length == 0) {
     return (
@@ -127,9 +128,11 @@ export default function LineChartWidget(props) {
         </div>
         <XYPlot
           xType='time'
+          yType={scaleType}
+          height= '900'
           width={window.innerWidth / 1.05}
           height={window.innerWidth / 2.4}
-          yDomain={[0, 150000]}
+          // yDomain={[10, 100, 10000, 100000, 1000000]}
           xDomain={[new Date('03/01/2020'), getFinalDate()]}
           margin={{ left: 55, right: 75 }}
         >
@@ -142,7 +145,9 @@ export default function LineChartWidget(props) {
             }
             tickLabelAngle={-30}
           />
-          <YAxis tickFormat={(v) => v / 1000 + 'k'} />
+
+          {/* <YAxis tickFormat={(v) => v / 1000 + 'k'} /> */}
+          <YAxis />
           {selectedCountries.map((d, index) => (
             <LineSeries
               key={index}
