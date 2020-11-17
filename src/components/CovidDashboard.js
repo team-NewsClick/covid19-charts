@@ -77,7 +77,7 @@ function LineChartLog(props) {
   }
 }
 
-function lineChartOption() {
+function LineChartOption() {
   const getCases = (event) => {
     console.log(event.currentTarget.value)
   }
@@ -187,12 +187,12 @@ function lineChartOption() {
 const CovidDashboard = () => {
   const data = fetchCovidData()
   const scaleType = 'log'
-
-  if (scaleType === 'linear') {
-    return <LineChartLinear data={data} />
-  } else if (scaleType === 'log') {
-    return <LineChartLog data={data} />
-  }
+  return <LineChartOption />
+  // if (scaleType === 'linear') {
+  //   return <LineChartLinear data={data} />
+  // } else if (scaleType === 'log') {
+  //   return <LineChartLog data={data} />
+  // }
 }
 
 export default CovidDashboard

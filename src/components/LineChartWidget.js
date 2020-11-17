@@ -32,12 +32,13 @@ export default function LineChartWidget(props) {
     const [selectedCountries, setSelectedCountries] = useState([])
     const [greyStroke, setGreyStroke] = useState(0.6)
     const [initBool, setInitBool] = useState(true)
+    const yMaxRangeLogNewCases = 1000000
+    const yMaxRangeLinearNewCases = 160000
+    const tickValuesNewCases = []
     const defaultCountry = {
       value: 'India',
       label: 'India'
     }
-    const yMaxRangeNewCases = 100000
-    const tickValuesNewCases = []
     const customColor = [
       '#1abc9c',
       '#f1c40f',
@@ -95,7 +96,7 @@ export default function LineChartWidget(props) {
       }
     }
 
-    for (let i = 1; i <= yMaxRangeNewCases; i=i*10) {
+    for (let i = 1; i <= yMaxRangeLogNewCases; i=i*10) {
       tickValuesNewCases.push(i)
       tickValuesNewCases.push(2*i)
       tickValuesNewCases.push(5*i)
@@ -145,7 +146,7 @@ export default function LineChartWidget(props) {
               ? window.innerWidth * 0.25
               : window.innerWidth * 0.8
           }
-          yDomain={scaleType === 'log' ? [1, yMaxRangeNewCases] : [0, yMaxRangeNewCases]}
+          yDomain={scaleType === 'log' ? [1, yMaxRangeLogNewCases] : [0, yMaxRangeLinearNewCases]}
           xDomain={[new Date('03/01/2020'), getFinalDate()]}
           margin={{ left: 55, right: 75 }}
         >
