@@ -28,72 +28,61 @@ function fetchCovidData() {
   return data
 }
 
-function LineChartLinear(props) {
-  const data = props.data.data
+function LineChart(props) {
   const newCases = {
-    data: props.data.data,
+    data: null,
     lineLabel: 'New Cases',
     lineHeading: 'Graphical representation of New Cases of COVID-19',
-    scaleType: props.data.scaleType
+    scaleType: props.data.scaleType,
+    datesAdjusted: props.data.datesAdjusted
   }
-  if (data.length === 0) {
-    return (
-      <div>
-        <div className='m-3'>Loading...</div>
-      </div>
-    )
-  } else {
-    return <LineChartWidget data={newCases} />
-  }
-}
-
-function LineChartLog(props) {
-  const rawData = props.data.data
-  if (rawData.length === 0) {
-    return (
-      <div>
-        <div className='m-3'>Loading...</div>
-      </div>
-    )
-  } else {
-    const data = rawData.map((rows) => {
-      const countryData = rows.data.filter((row) => {
-        return row.y !== '0'
+  if (newCases.data === null) {
+    if (props.data.scaleType === 'log') {
+      const rawData = props.data.data
+      const data = rawData.map((rows) => {
+        const countryData = rows.data.filter((row) => {
+          return row.y !== '0'
+        })
+        const country = {
+          country: rows.country,
+          data: countryData
+        }
+        return country
       })
-      const country = {
-        country: rows.country,
-        data: countryData
-      }
-      return country
-    })
-    const newCases = {
-      data: data,
-      lineLabel: 'New Cases',
-      lineHeading: 'Graphical representation of New Cases of COVID-19',
-      scaleType: props.data.scaleType
+      newCases.data = data
+    } else {
+      const data = props.data.data
+      newCases.data = data
     }
+  }
+  if (newCases.data === null) {
+    return (
+      <div>
+        <div className='m-3'>Loading...</div>
+      </div>
+    )
+  } else {
     return <LineChartWidget data={newCases} />
   }
 }
 
 const CovidDashboard = () => {
-  
   const data = fetchCovidData()
 
   const [casesType, setCasesType] = useState('')
   const [dataType, setDataType] = useState('')
   const [scaleType, setScaleType] = useState('linear')
-  const [datesAdjusted, setDatesAdjusted] = useState('')
-  
+  const [datesAdjusted, setDatesAdjusted] = useState('off')
+
   const propsData = {
     data: data,
-    lineLabel: 'New Cases',
+    lineLabel: '',
     lineHeading: 'Graphical representation of New Cases of COVID-19',
     scaleType: scaleType,
     casesType: casesType,
-    datesAdjusted: datesAdjusted 
+    datesAdjusted: datesAdjusted
   }
-  
+
   return (
     <div>
       <div>
@@ -105,18 +94,19 @@ const CovidDashboard = () => {
               id='deaths'
               name='cases'
               value='deaths'
-              onChange={e => setCasesType(e.currentTarget.value)}
+              defaultChecked
+              onChange={(e) => setCasesType(e.currentTarget.value)}
             />
-            <label for='deaths'>Deaths</label>
+            <label htmlFor='deaths'>Deaths</label>
             <input
               type='radio'
               id='confirmed'
               name='cases'
               value='confirmed'
-              checked='checked'
-              onChange={e => setCasesType(e.currentTarget.value)}
+              defaultChecked
+              onChange={(e) => setCasesType(e.currentTarget.value)}
             />
-            <label for='confirmed'>Confirmed</label>
+            <label htmlFor='confirmed'>Confirmed</label>
           </div>
           <div className='radio-toolbar m-3'>
             <div className='radio-title'>Data type</div>
@@ -125,18 +115,18 @@ const CovidDashboard = () => {
               id='new'
               name='data-type'
               value='new'
-              onChange={e => setDataType(e.currentTarget.value)}
+              onChange={(e) => setDataType(e.currentTarget.value)}
             />
-            <label for='new'>New</label>
+            <label htmlFor='new'>New</label>
             <input
               type='radio'
               id='cumulative'
               name='data-type'
               value='cumulative'
-              checked='checked'
-              onChange={e => setDataType(e.currentTarget.value)}
+              defaultChecked
+              onChange={(e) => setDataType(e.currentTarget.value)}
             />
-            <label for='cumulative'>Cumulative</label>
+            <label htmlFor='cumulative'>Cumulative</label>
           </div>
           <div className='radio-toolbar m-3'>
             <div className='radio-title'>Show Scale as</div>
@@ -145,43 +135,42 @@ const CovidDashboard = () => {
               id='log'
               name='display-type'
               value='log'
-              checked={scaleType}
-              onChange={e => setScaleType(e.currentTarget.value)}
+              onChange={(e) => setScaleType(e.currentTarget.value)}
             />
-            <label for='log'>Log</label>
+            <label htmlFor='log'>Log</label>
             <input
               type='radio'
               id='linear'
               name='display-type'
               value='linear'
-              checked={scaleType}
-              onChange={e => setScaleType(e.currentTarget.value)}
+              defaultChecked
+              onChange={(e) => setScaleType(e.currentTarget.value)}
             />
-            <label for='linear'>Linear</label>
+            <label htmlFor='linear'>Linear</label>
           </div>
           <div className='radio-toolbar m-3'>
             <div className='radio-title'>Date adjusted to outbreak start</div>
             <input
               type='radio'
-              id='yes'
+              id='on'
               name='adjust-date'
-              value='yes'
-              onChange={e => setDatesAdjusted(e.currentTarget.value)}
+              value='on'
+              onChange={(e) => setDatesAdjusted(e.currentTarget.value)}
             />
-            <label for='yes'>Yes</label>
+            <label htmlFor='on'>On</label>
             <input
               type='radio'
-              id='no'
+              id='off'
               name='adjust-date'
-              value='no'
-              checked='checked'
-              onChange={e => setDatesAdjusted(e.currentTarget.value)}
+              value='off'
+              defaultChecked
+              onChange={(e) => setDatesAdjusted(e.currentTarget.value)}
             />
-            <label for='no'>No</label>
+            <label htmlFor='off'>Off</label>
           </div>
         </div>
       </div>
-      {scaleType && scaleType == 'log' ? <LineChartLog data={propsData} /> : <LineChartLinear data={propsData} />}
+      <LineChart data={propsData} />
     </div>
   )
 }
