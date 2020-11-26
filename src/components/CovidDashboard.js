@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { csvParse } from 'd3-dsv'
-// import LineChartWidget from './LineChartWidget'
-import LineChartTest from './LineChartTest'
+import LineChartWidget from './LineChartWidget'
 
 function fetchCovidData() {
   const [data, setData] = useState([])
@@ -63,8 +62,7 @@ function LineChart(props) {
       </div>
     )
   } else {
-    // return <LineChartWidget data={newCases} />
-    return <LineChartTest data={newCases} />
+    return <LineChartWidget data={newCases} />
   }
 }
 
