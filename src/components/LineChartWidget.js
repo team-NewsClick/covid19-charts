@@ -17,6 +17,7 @@ const LineChartWidget = (props) => {
   const lineHeading = props.data.lineHeading
   const scaleType = props.data.scaleType
   const datesAdjusted = props.data.datesAdjusted
+  const casesType = props.data.casesType
 
   const [selectedCountries, setSelectedCountries] = useState([])
   const [initBool, setInitBool] = useState(true)
@@ -26,8 +27,8 @@ const LineChartWidget = (props) => {
   const [onMouseHover, setOnMouseHover] = useState(false)
 
   const animatedComponents = makeAnimated()
-  const yMaxRangeLogNewCases = 1000000
-  const yMaxRangeLinearNewCases = 160000
+  const yMaxRangeLinearNewCases = casesType === 'confirmed' ? 160000 : 2500
+  const yMaxRangeLogNewCases = casesType === 'confirmed' ? 1000000 : 10000
   const tickValuesNewCases = []
   const defaultCountry = {
     value: 'India',
@@ -49,6 +50,8 @@ const LineChartWidget = (props) => {
     '#8e44ad',
     '#2c3e50',
   ]
+
+  console.log(casesType)
 
   if (data.length == 0) {
     return (
@@ -141,7 +144,9 @@ const LineChartWidget = (props) => {
 
     return (
       <div>
-        <div className="text-2xl font-semibold m-3 leading-7">{lineHeading}</div>
+        <div className="text-2xl font-semibold m-3 leading-7">
+          {lineHeading}
+        </div>
         <div className="m-3">Select maximum upto six countries to compare</div>
         <div className="m-4">
           <Select
@@ -291,7 +296,7 @@ const LineChartWidget = (props) => {
             <LineSeries
               key={index}
               curve={'curveMonotoneX'}
-              data={d.data}
+              data={casesType && d.data}
               color={customColor[index]}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
