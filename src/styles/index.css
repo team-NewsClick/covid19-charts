@@ -16,6 +16,9 @@
 .radio-toolbar input[type='radio']:checked + label {
   @apply bg-black text-white;
 }
+.noOptions {
+  @apply text-center text-gray-500;
+}
 
 @screen sm {
   .radio-title {
