@@ -27,7 +27,7 @@ const LineChartWidget = (props) => {
   const [onMouseHover, setOnMouseHover] = useState(false)
 
   const animatedComponents = makeAnimated()
-  const yMaxRangeLinearNewCases = casesType === 'confirmed' ? 160000 : 2500
+  const yMaxRangeLinearNewCases = casesType === 'confirmed' ? 200000 : 2500
   const yMaxRangeLogNewCases = casesType === 'confirmed' ? 1000000 : 10000
   const tickValuesNewCases = []
   const defaultCountry = {
@@ -50,8 +50,6 @@ const LineChartWidget = (props) => {
     '#8e44ad',
     '#2c3e50',
   ]
-
-  console.log(casesType)
 
   if (data.length == 0) {
     return (
