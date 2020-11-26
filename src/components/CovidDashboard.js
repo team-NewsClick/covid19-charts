@@ -83,6 +83,19 @@ const CovidDashboard = () => {
     datesAdjusted: datesAdjusted
   }
 
+  const _handleCasesType = (e) => {
+    setCasesType(e.currentTarget.value)
+  }
+  const _handleDataType = (e) => {
+    setDataType(e.currentTarget.value)
+  }
+  const _handleScaleType = (e) => {
+    setScaleType(e.currentTarget.value)
+  }
+  const _handleDatesAdjusted = (e) => {
+    setDatesAdjusted(e.currentTarget.value)
+  }
+
   return (
     <div>
       <div>
@@ -95,18 +108,18 @@ const CovidDashboard = () => {
               name='cases'
               value='deaths'
               defaultChecked
-              onChange={(e) => setCasesType(e.currentTarget.value)}
+              onChange={(e) => _handleCasesType(e)}
             />
-            <label for='deaths'>Deaths</label>
+            <label htmlFor='deaths'>Deaths</label>
             <input
               type='radio'
               id='confirmed'
               name='cases'
               value='confirmed'
               defaultChecked
-              onChange={(e) => setCasesType(e.currentTarget.value)}
+              onChange={(e) => _handleCasesType(e)}
             />
-            <label for='confirmed'>Confirmed</label>
+            <label htmlFor='confirmed'>Confirmed</label>
           </div>
           <div className='radio-toolbar m-3'>
             <div className='radio-title'>Data type</div>
@@ -115,18 +128,18 @@ const CovidDashboard = () => {
               id='new'
               name='data-type'
               value='new'
-              onChange={(e) => setDataType(e.currentTarget.value)}
+              onChange={(e) => _handleDataType(e)}
             />
-            <label for='new'>New</label>
+            <label htmlFor='new'>New</label>
             <input
               type='radio'
               id='cumulative'
               name='data-type'
               value='cumulative'
               defaultChecked
-              onChange={(e) => setDataType(e.currentTarget.value)}
+              onChange={(e) => _handleDataType(e)}
             />
-            <label for='cumulative'>Cumulative</label>
+            <label htmlFor='cumulative'>Cumulative</label>
           </div>
           <div className='radio-toolbar m-3'>
             <div className='radio-title'>Show Scale as</div>
@@ -135,18 +148,18 @@ const CovidDashboard = () => {
               id='log'
               name='display-type'
               value='log'
-              onChange={(e) => setScaleType(e.currentTarget.value)}
+              onChange={(e) => _handleScaleType(e)}
             />
-            <label for='log'>Log</label>
+            <label htmlFor='log'>Log</label>
             <input
               type='radio'
               id='linear'
               name='display-type'
               value='linear'
               defaultChecked
-              onChange={(e) => setScaleType(e.currentTarget.value)}
+              onChange={(e) => _handleScaleType(e)}
             />
-            <label for='linear'>Linear</label>
+            <label htmlFor='linear'>Linear</label>
           </div>
           <div className='radio-toolbar m-3'>
             <div className='radio-title'>Date adjusted to outbreak start</div>
@@ -155,18 +168,18 @@ const CovidDashboard = () => {
               id='on'
               name='adjust-date'
               value='on'
-              onChange={(e) => setDatesAdjusted(e.currentTarget.value)}
+              onChange={(e) => _handleDatesAdjusted(e)}
             />
-            <label for='on'>On</label>
+            <label htmlFor='on'>On</label>
             <input
               type='radio'
               id='off'
               name='adjust-date'
               value='off'
               defaultChecked
-              onChange={(e) => setDatesAdjusted(e.currentTarget.value)}
+              onChange={(e) => _handleDatesAdjusted(e)}
             />
-            <label for='off'>Off</label>
+            <label htmlFor='off'>Off</label>
           </div>
         </div>
       </div>
