@@ -141,7 +141,8 @@ const LineChartWidget = (props) => {
 
     return (
       <div>
-        <h2 className="text-xl font-semibold m-3 leading-7">{lineHeading}</h2>
+        <div className="text-2xl font-semibold m-3 leading-7">{lineHeading}</div>
+        <div className="m-3">Select maximum upto six countries to compare</div>
         <div className="m-4">
           <Select
             components={animatedComponents}
@@ -274,9 +275,7 @@ const LineChartWidget = (props) => {
           {onMouseHover && crosshairValue && (
             <MarkSeries
               data={[{ x: crosshairValue[0].x, y: crosshairValue[0].y }]}
-              stroke={"#000"}
-              fill={customColor[selectedHighlight]}
-              strokeWidth={0.8}
+              color={customColor[selectedHighlight]}
             />
           )}
           {selectedCountries[selectedHighlight] && (
