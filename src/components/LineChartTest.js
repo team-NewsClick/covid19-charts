@@ -253,25 +253,20 @@ export default function LineChartWidget(props) {
             />
           ))}
 
-          {/* {console.log(selectedHighlight)}          */}
-          {console.log(selectedCountries[selectedHighlight].data)}         
-          {/* {selectedHighlight && (
+          {selectedCountries[selectedHighlight] && (
             <LineSeries
               curve={'curveMonotoneX'}
               data={selectedCountries[selectedHighlight].data}
               color={customColor[selectedHighlight]}
-              strokeWidth={3}
+              strokeWidth={4}
             />
-          )} */}
+          )}
           {selectedCountries.map((d, index) => (
             <LineSeries
               key={index}
               curve={'curveMonotoneX'}
               data={d.data}
               color={customColor[index]}
-              // strokeWidth={
-              //   hoveredNode && hoveredNode.country === d.country ? 4 : 1.5
-              // }
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleSelectedMouseOut(e, index)}
             />

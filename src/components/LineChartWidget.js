@@ -89,7 +89,7 @@ export default function LineChartWidget(props) {
 
     
     for (let i = 0; i < selectedCountries.length; i++) {
-      for (let j = 0; j < selectedCountries[i].data.length; j++) {\
+      for (let j = 0; j < selectedCountries[i].data.length; j++) {
         voronoiNodes.push({
             x: selectedCountries[i].data[j].x,
             y: selectedCountries[i].data[j].y,
