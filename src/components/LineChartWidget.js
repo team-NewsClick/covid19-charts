@@ -4,7 +4,6 @@ import {
   YAxis,
   LineSeries,
   Crosshair,
-  Voronoi,
   MarkSeries,
   LabelSeries
 } from 'react-vis'
@@ -12,7 +11,7 @@ import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import { useState } from 'react'
 
-export default function LineChartWidget(props) {
+const LineChartWidget = (props) => {
   const data = props.data.data
   const lineLabel = props.data.lineLabel
   const lineHeading = props.data.lineHeading
@@ -27,7 +26,6 @@ export default function LineChartWidget(props) {
   const [onMouseHover, setOnMouseHover] = useState(false)
 
   const animatedComponents = makeAnimated()
-  const voronoiNodes = []
   const yMaxRangeLogNewCases = 1000000
   const yMaxRangeLinearNewCases = 160000
   const tickValuesNewCases = []
@@ -75,32 +73,6 @@ export default function LineChartWidget(props) {
       setSelectedCountries([...selectedCountries, ...setCountry])
     }
 
-    for (let i = 0; i < selectedCountries.length; i++) {
-      for (let j = 0; j < selectedCountries[i].data.length; j++) {
-        voronoiNodes.push({
-          x: selectedCountries[i].data[j].x,
-          y: selectedCountries[i].data[j].y,
-          country: selectedCountries[i].country
-        })
-      }
-    }
-
-    const getFinalDate = () => {
-      const selectedObject = data[0]
-      const dateObject = selectedObject.data[
-        selectedObject.data.length - 1
-      ].x.toLocaleDateString('en-US')
-      return new Date(dateObject)
-    }
-
-    const calculateFinalDate = () => {
-      const oneDay = 24 * 60 * 60 * 1000
-      const firstDate = new Date('03/01/2020')
-      const secondDate = getFinalDate()
-      const totalDates = Math.round(Math.abs((firstDate - secondDate) / oneDay))
-      return totalDates
-    }
-
     const countries = data.map((row) => {
       return {
         value: row.country,
@@ -113,8 +85,21 @@ export default function LineChartWidget(props) {
       tickValuesNewCases.push(2 * i)
       tickValuesNewCases.push(5 * i)
     }
-
-    const handleSelectChange = (e) => {
+    
+    const _getFinalDate = () => {
+      const selectedObject = data[0]
+      const dateObject = selectedObject.data[
+        selectedObject.data.length - 1
+      ].x.toLocaleDateString('en-US')
+      return new Date(dateObject)
+    }
+    const _getDaysFromDate = (date) => {
+      const firstDate = new Date('03/01/2020')
+      const diff =
+        (date.getTime() - firstDate.getTime()) / (1000 * 3600 * 24) + 1
+      return diff
+    }
+    const _handleSelectChange = (e) => {
       if (e && e.length > 0) {
         const countires = e.map((row) => {
           const country = data.filter((d) => {
@@ -127,14 +112,6 @@ export default function LineChartWidget(props) {
         setSelectedCountries([])
       }
     }
-
-    const getDaysFromDate = (date) => {
-      const firstDate = new Date('03/01/2020')
-      const diff =
-        (date.getTime() - firstDate.getTime()) / (1000 * 3600 * 24) + 1
-      return diff
-    }
-
     const _handleGreyMouseOver = (e, index) => {
       setGreyHighlight(index)
     }
@@ -145,7 +122,7 @@ export default function LineChartWidget(props) {
       setSelectedHighlight(index)
       setOnMouseHover(true)
     }
-    const _handleSelectedMouseOut = (e, index) => {
+    const _handleSelectedMouseOut = () => {
       setSelectedHighlight(null)
       setOnMouseHover(false)
       setCrosshairValue(null)
@@ -171,7 +148,7 @@ export default function LineChartWidget(props) {
             placeholder='Select a region'
             name='selectCountries'
             options={countries}
-            onChange={handleSelectChange}
+            onChange={_handleSelectChange}
             defaultValue={defaultCountry}
             options={countries}
             isSearchable
@@ -196,8 +173,9 @@ export default function LineChartWidget(props) {
               ? [1, yMaxRangeLogNewCases]
               : [0, yMaxRangeLinearNewCases]
           }
-          xDomain={[new Date('03/01/2020'), getFinalDate()]}
+          xDomain={[new Date('03/01/2020'), _getFinalDate()]}
           margin={{ left: 55, right: 75 }}
+          onMouseLeave={() => _handleGreyMouseOut()}
         >
           <XAxis
             tickFormat={
@@ -207,7 +185,7 @@ export default function LineChartWidget(props) {
                       month: 'short',
                       day: 'numeric'
                     })
-                : (d, index) => getDaysFromDate(d)
+                : (d, index) => _getDaysFromDate(d)
             }
             tickLabelAngle={-30}
           />
@@ -215,7 +193,6 @@ export default function LineChartWidget(props) {
             tickValues={scaleType === 'log' ? tickValuesNewCases : null}
             tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}
           />
-
           {greyHighlight && (
             <LineSeries
               curve={'curveMonotoneX'}
@@ -273,10 +250,9 @@ export default function LineChartWidget(props) {
               color={'#ccc'}
               strokeWidth={0.6}
               onSeriesMouseOver={(e) => _handleGreyMouseOver(e, index)}
-              onSeriesMouseOut={(e) => _handleGreyMouseOut(e, index)}
+              onSeriesMouseOut={(e) => _handleGreyMouseOut()}
             />
           ))}
-
           {selectedCountries[selectedHighlight] && (
             <LineSeries
               curve={'curveMonotoneX'}
@@ -286,6 +262,12 @@ export default function LineChartWidget(props) {
               onNearestXY={(d) => _handleCrosshair(d)}
             />
           )}
+          {onMouseHover && crosshairValue && (
+            <MarkSeries
+              data={[{ x: crosshairValue[0].x, y: crosshairValue[0].y }]}
+              color={'#000'}
+            />
+          )}
           {selectedCountries.map((d, index) => (
             <LineSeries
               key={index}
@@ -293,10 +275,9 @@ export default function LineChartWidget(props) {
               data={d.data}
               color={customColor[index]}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
-              onSeriesMouseOut={(e) => _handleSelectedMouseOut(e, index)}
+              onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
-
           {selectedCountries.map((d, index) => (
             <MarkSeries
               key={index}
@@ -341,14 +322,10 @@ export default function LineChartWidget(props) {
               ]}
             />
           )}
-          {onMouseHover &&
-          <MarkSeries
-            data={crosshairValue}
-            color={"#000"}
-          />
-          }
         </XYPlot>
       </div>
     )
   }
 }
+
+export default LineChartWidget

@@ -5,6 +5,7 @@ import LineChartWidget from './LineChartWidget'
 function fetchCovidData() {
   const [data, setData] = useState([])
   const cutoffDate = new Date('03/01/2020')
+
   useEffect(() => {
     fetch(process.env.API_URL)
       .then((res) => res.text())
@@ -36,6 +37,7 @@ function LineChart(props) {
     scaleType: props.data.scaleType,
     datesAdjusted: props.data.datesAdjusted
   }
+
   if (newCases.data === null) {
     if (props.data.scaleType === 'log') {
       const rawData = props.data.data
