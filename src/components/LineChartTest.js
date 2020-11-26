@@ -30,6 +30,8 @@ export default function LineChartWidget(props) {
     const [hoveredNode, setHoveredNode] = useState(null)
     const [selectedCountries, setSelectedCountries] = useState([])
     const [initBool, setInitBool] = useState(true)
+    const [greyHighlight, setGreyHighlight] = useState(null)
+    const [selectedHighlight, setSelectedHighlight] = useState(null)
     const animatedComponents = makeAnimated()
     const voronoiNodes = []
     const yMaxRangeLogNewCases = 1000000
@@ -71,6 +73,16 @@ export default function LineChartWidget(props) {
       setSelectedCountries([...selectedCountries, ...setCountry])
     }
 
+    for (let i = 0; i < selectedCountries.length; i++) {
+      for (let j = 0; j < selectedCountries[i].data.length; j++) {
+        voronoiNodes.push({
+          x: selectedCountries[i].data[j].x,
+          y: selectedCountries[i].data[j].y,
+          country: selectedCountries[i].country,
+        })
+      }
+    }
+
     const getFinalDate = () => {
       const selectedObject = data[0]
       const dateObject = selectedObject.data[
@@ -85,18 +97,6 @@ export default function LineChartWidget(props) {
         label: row.country,
       }
     })
-
-
-    
-    for (let i = 0; i < selectedCountries.length; i++) {
-      for (let j = 0; j < selectedCountries[i].data.length; j++) {\
-        voronoiNodes.push({
-            x: selectedCountries[i].data[j].x,
-            y: selectedCountries[i].data[j].y,
-            country: selectedCountries[i].country,
-          })
-      }
-    }
 
     for (let i = 1; i <= yMaxRangeLogNewCases; i = i * 10) {
       tickValuesNewCases.push(i)
@@ -123,6 +123,19 @@ export default function LineChartWidget(props) {
       const diff =
         (date.getTime() - firstDate.getTime()) / (1000 * 3600 * 24) + 1
       return diff
+    }
+
+    const _handleGreyMouseOver = (e, index) => {
+      setGreyHighlight(index)
+    }
+    const _handleGreyMouseOut = (e, index) => {
+      setGreyHighlight(null)
+    }
+    const _handleSelectedMouseOver = (e, index) => {
+      setSelectedHighlight(index)
+    }
+    const _handleSelectedMouseOut = (e, index) => {
+      setSelectedHighlight(null)
     }
 
     return (
@@ -174,163 +187,95 @@ export default function LineChartWidget(props) {
             }
             tickLabelAngle={-30}
           />
-
           <YAxis
             tickValues={scaleType === 'log' ? tickValuesNewCases : null}
             tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}
           />
-          {selectedCountries.map((d, index) => (
-            <Crosshair
-              key={index}
-              values={
-                hoveredNode && hoveredNode.country === d.country
-                  ? [hoveredNode]
-                  : null
-              }
-              titleFormat={(d) => ({
-                title: d[0].country,
-                value: d[0].x.toISOString().slice(0, 10),
-              })}
-              itemsFormat={() => [
-                { title: `${lineLabel}`, value: hoveredNode.y },
-              ]}
-            />
-          ))}
 
-          {data.map((d, index) => (
+          {greyHighlight && (
             <LineSeries
-              key={index}
               curve={'curveMonotoneX'}
-              data={d.data}
-              color={
-                hoveredNode && hoveredNode.country === d.country
-                  ? '#aaa'
-                  : '#ccc'
-              }
-              strokeWidth={
-                hoveredNode && hoveredNode.country === d.country ? 3 : 0.6
-              }
+              data={data[greyHighlight].data}
+              color={'#aaa'}
+              strokeWidth={3}
             />
-          ))}
-          {/* {console.log(countries)} */}
-          {data.map((d, index) => (
-              <LabelSeries
-                key={index}
-                data={
-                  hoveredNode && hoveredNode.country === d.country
-                    ? [
-                        {
-                          x: d.data[d.data.length - 1].x,
-                          y: d.data[d.data.length - 1].y,
-                          label: d.country,
-                          xOffset: 12,
-                        },
-                      ]
-                    : []
-                }
-                style={{
-                  fontSize:
-                    hoveredNode && hoveredNode.country === d.country
-                      ? '0.8rem'
-                      : '0',
-                  stroke: '#ccc',
-                }}
-                labelAnchorX="start"
-                labelAnchorY="central"
-              />
-            ))}
-          {data.map((d, index) => (
-              <MarkSeries
-                key={index}
-                color={'#aaa'}
-                data={
-                  hoveredNode && hoveredNode.country === d.country
-                    ? [
-                        {
-                          x: d.data[d.data.length - 1].x,
-                          y: d.data[d.data.length - 1].y,
-                          label: d.country,
-                          xOffset: 12,
-                        },
-                      ]
-                    : []
-                }
-              />
-            ))}
-
-          {selectedCountries.map((d, index) => (
-            <LineSeries
-              key={index}
-              curve={'curveMonotoneX'}
-              data={d.data}
-              color={customColor[index]}
-              strokeWidth={
-                hoveredNode && hoveredNode.country === d.country ? 4 : 1.5
-              }
-              opacity={0.6}
-            />
-          ))}
-          {selectedCountries.map((d, index) => (
+          )}
+          {greyHighlight && (
             <MarkSeries
-              key={index}
               data={[
                 {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
+                  x:
+                    data[greyHighlight].data[
+                      data[greyHighlight].data.length - 1
+                    ].x,
+                  y:
+                    data[greyHighlight].data[
+                      data[greyHighlight].data.length - 1
+                    ].y,
                 },
               ]}
-              color={customColor[index]}
-              opacity={
-                hoveredNode && hoveredNode.country === d.country ? 4 : 2.0
-              }
+              color={'#aaa'}
             />
-          ))}
-          {selectedCountries.map((d, index) => (
+          )}
+          {greyHighlight && (
             <LabelSeries
-              key={index}
-              data={selectedCountries ?                    
-                    [
-                      {
-                        x: d.data[d.data.length - 1].x,
-                        y: d.data[d.data.length - 1].y,
-                        label: d.country,
-                        xOffset: 12,
-                      }
-                    ] : []}
-              style={
-                hoveredNode && hoveredNode.country === d.country
-                  ? {
-                      fontSize: '0.85rem',
-                      stroke: '#ddd',
-                    }
-                  : {
-                      fontSize: '0.85rem',
-                      stroke: '#bbb',
-                    }
-              }
+              data={[
+                {
+                  x:
+                    data[greyHighlight].data[
+                      data[greyHighlight].data.length - 1
+                    ].x,
+                  y:
+                    data[greyHighlight].data[
+                      data[greyHighlight].data.length - 1
+                    ].y,
+                  label: data[greyHighlight].country,
+                  xOffset: 12,
+                },
+              ]}
+              style={{
+                fontSize: '0.8rem',
+                stroke: '#ccc',
+              }}
               labelAnchorX="start"
               labelAnchorY="central"
             />
-          ))}
-          {selectedCountries.map((d, index) => (
-            <MarkSeries
+          )}
+          {data.map((d, index) => (
+            <LineSeries
               key={index}
-              data={
-                hoveredNode && hoveredNode.country === d.country
-                  ? [hoveredNode]
-                  : null
-              }
-              color={'#333'}
-              stroke={'#fff'}
-              strokeWidth={2}
+              curve={'curveMonotoneX'}
+              data={d.data}
+              color={'#ccc'}
+              strokeWidth={0.6}
+              onSeriesMouseOver={(e) => _handleGreyMouseOver(e, index)}
+              onSeriesMouseOut={(e) => _handleGreyMouseOut(e, index)}
             />
           ))}
-          <Voronoi
-            nodes={voronoiNodes}
-            onHover={(node) => setHoveredNode(node)}
-            onBlur={() => setHoveredNode(null)}
-          />
 
+          {/* {console.log(selectedHighlight)}          */}
+          {console.log(selectedCountries[selectedHighlight].data)}         
+          {/* {selectedHighlight && (
+            <LineSeries
+              curve={'curveMonotoneX'}
+              data={selectedCountries[selectedHighlight].data}
+              color={customColor[selectedHighlight]}
+              strokeWidth={3}
+            />
+          )} */}
+          {selectedCountries.map((d, index) => (
+            <LineSeries
+              key={index}
+              curve={'curveMonotoneX'}
+              data={d.data}
+              color={customColor[index]}
+              // strokeWidth={
+              //   hoveredNode && hoveredNode.country === d.country ? 4 : 1.5
+              // }
+              onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
+              onSeriesMouseOut={(e) => _handleSelectedMouseOut(e, index)}
+            />
+          ))}
         </XYPlot>
       </div>
     )
