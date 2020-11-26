@@ -341,6 +341,12 @@ export default function LineChartWidget(props) {
               ]}
             />
           )}
+          {onMouseHover &&
+          <MarkSeries
+            data={crosshairValue}
+            color={"#000"}
+          />
+          }
         </XYPlot>
       </div>
     )
