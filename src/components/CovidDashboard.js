@@ -1,86 +1,51 @@
-import { useState, useEffect } from 'react'
-import { csvParse } from 'd3-dsv'
+import { useState } from 'react'
+import { processLogData, filterCases } from '../utils'
 import LineChartWidget from './LineChartWidget'
 
-function fetchCovidData() {
-  const [data, setData] = useState([])
-  const cutoffDate = new Date('03/01/2020')
-  useEffect(() => {
-    fetch(process.env.API_URL)
-      .then((res) => res.text())
-      .then(csvParse)
-      .then((rows) =>
-        rows.reduce((result, row) => {
-          const date = new Date(row.date)
-          if (date < cutoffDate) return result
-          const found = result.find((a) => a.country === row.country)
-          const value = { x: new Date(row.date), y: row.new_cases }
-          if (!found) {
-            result.push({ country: row.country, data: [value] })
-          } else {
-            found.data.push(value)
-          }
-          return result
-        }, [])
-      )
-      .then(setData)
-  }, [])
-  return data
-}
-
-function LineChart(props) {
-  const newCases = {
-    data: null,
-    lineLabel: 'New Cases',
-    lineHeading: 'Graphical representation of New Cases of COVID-19',
-    scaleType: props.data.scaleType,
-    datesAdjusted: props.data.datesAdjusted
-  }
-  if (newCases.data === null) {
-    if (props.data.scaleType === 'log') {
-      const rawData = props.data.data
-      const data = rawData.map((rows) => {
-        const countryData = rows.data.filter((row) => {
-          return row.y !== '0'
-        })
-        const country = {
-          country: rows.country,
-          data: countryData
-        }
-        return country
-      })
-      newCases.data = data
-    } else {
-      const data = props.data.data
-      newCases.data = data
-    }
-  }
-  if (newCases.data === null) {
+const LineChart = (props) => {
+  const chartProps = props
+  if (chartProps.data.data === null) {
     return (
       <div>
         <div className='m-3'>Loading...</div>
       </div>
     )
   } else {
-    return <LineChartWidget data={newCases} />
+    return (
+      <div>
+        <LineChartWidget data={chartProps.data} />
+      </div>
+    )
   }
 }
 
-const CovidDashboard = () => {
-  const data = fetchCovidData()
+const CovidDashboard = (props) => {
+  const newCases = filterCases(props.data, 'new_cases')
+  const newDeaths = filterCases(props.data, 'new_deaths')
 
-  const [casesType, setCasesType] = useState('')
+  const [casesType, setCasesType] = useState('confirmed')
   const [dataType, setDataType] = useState('')
   const [scaleType, setScaleType] = useState('linear')
   const [datesAdjusted, setDatesAdjusted] = useState('off')
 
   const propsData = {
-    data: data,
+    data: null,
     lineLabel: '',
-    lineHeading: 'Graphical representation of New Cases of COVID-19',
-    scaleType: scaleType,
-    casesType: casesType,
-    datesAdjusted: datesAdjusted
+    lineHeading: '',
+    casesType,
+    dataType,
+    scaleType,
+    datesAdjusted
+  }
+
+  if (casesType === 'confirmed') {
+    propsData.data = scaleType === 'log' ? processLogData(newCases) : newCases
+    propsData.lineHeading = 'Graphical representation of New Cases of COVID-19'
+    propsData.lineLabel = 'New Cases'
+  } else if (casesType === 'deaths') {
+    propsData.data = scaleType === 'log' ? processLogData(newDeaths) : newDeaths
+    propsData.lineHeading = 'Graphical representation of Deaths of COVID-19'
+    propsData.lineLabel = 'Deaths'
   }
 
   const _handleCasesType = (e) => {
@@ -107,7 +72,6 @@ const CovidDashboard = () => {
               id='deaths'
               name='cases'
               value='deaths'
-              defaultChecked
               onChange={(e) => _handleCasesType(e)}
             />
             <label htmlFor='deaths'>Deaths</label>
