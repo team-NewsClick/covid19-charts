@@ -6,7 +6,7 @@ import {
   Crosshair,
   Voronoi,
   MarkSeries,
-  LabelSeries,
+  LabelSeries
 } from 'react-vis'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
@@ -19,47 +19,47 @@ export default function LineChartWidget(props) {
   const scaleType = props.data.scaleType
   const datesAdjusted = props.data.datesAdjusted
 
+  const [selectedCountries, setSelectedCountries] = useState([])
+  const [initBool, setInitBool] = useState(true)
+  const [greyHighlight, setGreyHighlight] = useState(null)
+  const [selectedHighlight, setSelectedHighlight] = useState(null)
+  const [crosshairValue, setCrosshairValue] = useState(null)
+  const [onMouseHover, setOnMouseHover] = useState(false)
+
+  const animatedComponents = makeAnimated()
+  const voronoiNodes = []
+  const yMaxRangeLogNewCases = 1000000
+  const yMaxRangeLinearNewCases = 160000
+  const tickValuesNewCases = []
+  const defaultCountry = {
+    value: 'India',
+    label: 'India'
+  }
+  const customColor = [
+    '#1abc9c',
+    '#f1c40f',
+    '#2ecc71',
+    '#e67e22',
+    '#3498db',
+    '#9b59b6',
+    '#34495e',
+    '#16a085',
+    '#f39c12',
+    '#27ae60',
+    '#d35400',
+    '#2980b9',
+    '#8e44ad',
+    '#2c3e50'
+  ]
+
   if (data.length == 0) {
     return (
       <div>
-        <h2 className="text-xl font-semibold m-3 leading-7">{lineHeading}</h2>
-        <div className="m-3">Loading...</div>
+        <h2 className='text-xl font-semibold m-3 leading-7'>{lineHeading}</h2>
+        <div className='m-3'>Loading...</div>
       </div>
     )
   } else {
-    const [hoveredNode, setHoveredNode] = useState(null)
-    const [selectedCountries, setSelectedCountries] = useState([])
-    const [initBool, setInitBool] = useState(true)
-    const [greyHighlight, setGreyHighlight] = useState(null)
-    const [selectedHighlight, setSelectedHighlight] = useState(null)
-    const [crosshairValue, setCrosshairValue] = useState(null)
-    const [onMouseHover, setOnMouseHover] = useState(false)
-    const animatedComponents = makeAnimated()
-    const voronoiNodes = []
-    const yMaxRangeLogNewCases = 1000000
-    const yMaxRangeLinearNewCases = 160000
-    const tickValuesNewCases = []
-    const defaultCountry = {
-      value: 'India',
-      label: 'India',
-    }
-    const customColor = [
-      '#1abc9c',
-      '#f1c40f',
-      '#2ecc71',
-      '#e67e22',
-      '#3498db',
-      '#9b59b6',
-      '#34495e',
-      '#16a085',
-      '#f39c12',
-      '#27ae60',
-      '#d35400',
-      '#2980b9',
-      '#8e44ad',
-      '#2c3e50',
-    ]
-
     if (initBool) {
       setInitBool(false)
       const country = data.filter((d) => {
@@ -69,8 +69,8 @@ export default function LineChartWidget(props) {
         {
           label: country[0].country,
           country: country[0].country,
-          data: country[0].data,
-        },
+          data: country[0].data
+        }
       ]
       setSelectedCountries([...selectedCountries, ...setCountry])
     }
@@ -80,7 +80,7 @@ export default function LineChartWidget(props) {
         voronoiNodes.push({
           x: selectedCountries[i].data[j].x,
           y: selectedCountries[i].data[j].y,
-          country: selectedCountries[i].country,
+          country: selectedCountries[i].country
         })
       }
     }
@@ -96,7 +96,7 @@ export default function LineChartWidget(props) {
     const countries = data.map((row) => {
       return {
         value: row.country,
-        label: row.country,
+        label: row.country
       }
     })
 
@@ -140,28 +140,28 @@ export default function LineChartWidget(props) {
     const _handleSelectedMouseOut = (e, index) => {
       setSelectedHighlight(null)
       setOnMouseHover(false)
-      setCrosshairValue([])
+      setCrosshairValue(null)
     }
-    const _handleCrosshair = (d, index) => {
-      console.log("d: ", d)
-      console.log("index: ", index)
-      setCrosshairValue([
-        {
-          x: d.x,
-          y: d.y,
-          country: selectedCountries[index].country,
-        },
-      ])
+    const _handleCrosshair = (d) => {
+      if (onMouseHover) {
+        setCrosshairValue([
+          {
+            x: d.x,
+            y: d.y,
+            country: selectedCountries[selectedHighlight].country
+          }
+        ])
+      }
     }
 
     return (
       <div>
-        <h2 className="text-xl font-semibold m-3 leading-7">{lineHeading}</h2>
-        <div className="m-4">
+        <h2 className='text-xl font-semibold m-3 leading-7'>{lineHeading}</h2>
+        <div className='m-4'>
           <Select
             components={animatedComponents}
-            placeholder="Select a region"
-            name="selectCountries"
+            placeholder='Select a region'
+            name='selectCountries'
             options={countries}
             onChange={handleSelectChange}
             defaultValue={defaultCountry}
@@ -171,7 +171,7 @@ export default function LineChartWidget(props) {
           />
         </div>
         <XYPlot
-          xType="time"
+          xType='time'
           yType={scaleType}
           width={
             window.innerWidth > 500
@@ -197,7 +197,7 @@ export default function LineChartWidget(props) {
                 ? (d) =>
                     d.toLocaleDateString('default', {
                       month: 'short',
-                      day: 'numeric',
+                      day: 'numeric'
                     })
                 : (d, index) => getDaysFromDate(d)
             }
@@ -227,8 +227,8 @@ export default function LineChartWidget(props) {
                   y:
                     data[greyHighlight].data[
                       data[greyHighlight].data.length - 1
-                    ].y,
-                },
+                    ].y
+                }
               ]}
               color={'#aaa'}
             />
@@ -246,15 +246,15 @@ export default function LineChartWidget(props) {
                       data[greyHighlight].data.length - 1
                     ].y,
                   label: data[greyHighlight].country,
-                  xOffset: 12,
-                },
+                  xOffset: 12
+                }
               ]}
               style={{
                 fontSize: '0.8rem',
-                stroke: '#ccc',
+                stroke: '#ccc'
               }}
-              labelAnchorX="start"
-              labelAnchorY="central"
+              labelAnchorX='start'
+              labelAnchorY='central'
             />
           )}
           {data.map((d, index) => (
@@ -275,6 +275,7 @@ export default function LineChartWidget(props) {
               data={selectedCountries[selectedHighlight].data}
               color={customColor[selectedHighlight]}
               strokeWidth={4}
+              onNearestXY={(d) => _handleCrosshair(d)}
             />
           )}
           {selectedCountries.map((d, index) => (
@@ -285,7 +286,6 @@ export default function LineChartWidget(props) {
               color={customColor[index]}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleSelectedMouseOut(e, index)}
-              onNearestXY={(d, e) => _handleCrosshair(d, index)}
             />
           ))}
           {selectedCountries.map((d, index) => (
@@ -294,8 +294,8 @@ export default function LineChartWidget(props) {
               data={[
                 {
                   x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
-                },
+                  y: d.data[d.data.length - 1].y
+                }
               ]}
               color={customColor[index]}
             />
@@ -310,18 +310,28 @@ export default function LineChartWidget(props) {
                         x: d.data[d.data.length - 1].x,
                         y: d.data[d.data.length - 1].y,
                         label: d.country,
-                        xOffset: 12,
-                      },
+                        xOffset: 12
+                      }
                     ]
                   : []
               }
               style={{ fontSize: '0.85rem', stroke: '#ddd' }}
-              labelAnchorX="start"
-              labelAnchorY="central"
+              labelAnchorX='start'
+              labelAnchorY='central'
             />
           ))}
-
-          {/* {onMouseHover && console.log(crosshairValue)} */}
+          {onMouseHover && (
+            <Crosshair
+              values={crosshairValue}
+              titleFormat={(d) => ({
+                title: d[0].country,
+                value: d[0].x.toISOString().slice(0, 10)
+              })}
+              itemsFormat={() => [
+                { title: `${lineLabel}`, value: crosshairValue[0].y }
+              ]}
+            />
+          )}
         </XYPlot>
       </div>
     )
