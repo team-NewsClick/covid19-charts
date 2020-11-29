@@ -28,3 +28,23 @@ export const processLogData = (rawData) => {
   })
   return data
 }
+
+export const processCumulativeData = (rawData) => {
+  const data = rawData.map((row) => {
+    let acc = 0
+    const tempData = row.data.map((d) => {
+      acc = acc + parseInt(d.y)
+      const tempNode = {
+        x : d.x,
+        y: acc.toString()
+      }
+      return tempNode
+    })
+    const countryData = {
+      country : row.country,
+      data: tempData
+    }
+    return countryData
+  })
+  return data
+}
