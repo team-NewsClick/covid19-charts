@@ -34,7 +34,7 @@ const LineChartWidget = (props) => {
       })
       setSelectedCountries([...countires.flat()])
     }
-  }, [interactiveCountires, casesType, scaleType, dataType])
+  }, [interactiveCountires, casesType, scaleType, dataType, datesAdjusted])
 
   const yMaxRangeLinearNewCases =
     casesType === 'confirmed'
@@ -42,7 +42,7 @@ const LineChartWidget = (props) => {
         ? 15000000
         : 200000
       : dataType === 'cumulative'
-      ? 250000
+      ? 300000
       : 2500
   const yMaxRangeLogNewCases =
     casesType === 'confirmed'
@@ -295,6 +295,21 @@ const LineChartWidget = (props) => {
             />
           ))}
         </XYPlot>
+        <div>
+          {datesAdjusted === 'on' ? (
+            casesType === 'confirmed' ? (
+              <div>
+                Number of days since 10 average daily cases first recorded
+              </div>
+            ) : (
+              <div>
+                Number of days since 3 average daily deaths first recorded
+              </div>
+            )
+          ) : (
+            ''
+          )}
+        </div>
       </div>
     )
   }

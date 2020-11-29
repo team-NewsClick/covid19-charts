@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { processLogData, filterCases, processCumulativeData } from '../utils'
+import {
+  processLogData,
+  filterCases,
+  processCumulativeData,
+  processDatesAdjusted
+} from '../utils'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import LineChartWidget from './LineChartWidget'
@@ -53,20 +58,31 @@ const CovidDashboard = (props) => {
   }
 
   if (casesType === 'confirmed') {
+    propsData.lineLabel = 'New Cases'
     const initData =
       dataType === 'cumulative'
         ? processCumulativeData(filterCases(data, CasesType.CONFIRMED))
         : filterCases(data, CasesType.CONFIRMED)
-    propsData.data = scaleType === 'log' ? processLogData(initData) : initData
-    propsData.lineLabel = 'New Cases'
+    const scaleAdjustedData =
+      scaleType === 'log' ? processLogData(initData) : initData
+    propsData.data =
+      datesAdjusted === 'on'
+        ? processDatesAdjusted(scaleAdjustedData, CasesType.CONFIRMED)
+        : scaleAdjustedData
   } else if (casesType === 'deaths') {
-    const initData =
-    dataType === 'cumulative'
-      ? processCumulativeData(filterCases(data, CasesType.DEATHS))
-      : filterCases(data, CasesType.DEATHS)
-    propsData.data = scaleType === 'log' ? processLogData(initData) : initData
     propsData.lineLabel = 'Deaths'
+    const initData =
+      dataType === 'cumulative'
+        ? processCumulativeData(filterCases(data, CasesType.DEATHS))
+        : filterCases(data, CasesType.DEATHS)
+    const scaleAdjustedData =
+      scaleType === 'log' ? processLogData(initData) : initData
+    propsData.data =
+      datesAdjusted === 'on'
+        ? processDatesAdjusted(scaleAdjustedData, CasesType.DEATHS)
+        : scaleAdjustedData
   }
+
   const _handleSelectChange = (e) => {
     if (e && e.length > 0) {
       const countries = e.map((row) => {

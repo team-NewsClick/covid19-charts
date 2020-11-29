@@ -1,6 +1,6 @@
 export const filterCases = (data, caseType) => {
   const cutoffDate = new Date('03/01/2020')
-  const casesData = data.reduce((result, row) => {
+  return data.reduce((result, row) => {
     const date = new Date(row.date)
     if (date < cutoffDate) return result
     const found = result.find((a) => a.country === row.country)
@@ -12,39 +12,53 @@ export const filterCases = (data, caseType) => {
     }
     return result
   }, [])
-  return casesData
 }
 
 export const processLogData = (rawData) => {
-  const data = rawData.map((rows) => {
+  return rawData.map((rows) => {
     const countryData = rows.data.filter((row) => {
       return row.y !== '0'
     })
-    const country = {
+    return {
       country: rows.country,
       data: countryData
     }
-    return country
   })
-  return data
 }
 
 export const processCumulativeData = (rawData) => {
-  const data = rawData.map((row) => {
+  return rawData.map((row) => {
     let acc = 0
-    const tempData = row.data.map((d) => {
+    const countryCases = row.data.map((d) => {
       acc = acc + parseInt(d.y)
-      const tempNode = {
-        x : d.x,
+      return {
+        x: d.x,
         y: acc.toString()
       }
-      return tempNode
     })
-    const countryData = {
-      country : row.country,
-      data: tempData
+    return {
+      country: row.country,
+      data: countryCases
     }
-    return countryData
   })
-  return data
+}
+
+export const processDatesAdjusted = (rawData, caseType) => {
+  const cuttOff = caseType === 'new_deaths' ? 3 : 10
+  return rawData.map((row) => {
+    let countryCases = row.data.map((d) => {
+      if (parseInt(d.y) >= cuttOff) {
+        return {
+          x: d.x,
+          y: d.y
+        }
+      }
+    }).filter((row) => {
+      return row !== undefined
+    })
+    return {
+      country: row.country,
+      data: countryCases
+    }
+  })
 }
