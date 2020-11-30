@@ -8,6 +8,12 @@ import {
   LabelSeries
 } from 'react-vis'
 import { useEffect, useState } from 'react'
+import {
+  calculateMinValue,
+  calculateMaxValue,
+  calculateTickValues
+} from '../utils'
+import { customColor } from '../constants'
 
 const LineChartWidget = (props) => {
   const data = props.data.data
@@ -23,6 +29,9 @@ const LineChartWidget = (props) => {
   const [selectedHighlight, setSelectedHighlight] = useState(null)
   const [crosshairValue, setCrosshairValue] = useState(null)
   const [onMouseHover, setOnMouseHover] = useState(false)
+  
+  const yMinRangeLog = calculateMinValue(dataType, casesType, datesAdjusted)
+  const yMaxRange = calculateMaxValue(data)
 
   useEffect(() => {
     if (interactiveCountires && interactiveCountires.length > 0) {
@@ -36,55 +45,13 @@ const LineChartWidget = (props) => {
     }
   }, [interactiveCountires, casesType, scaleType, dataType, datesAdjusted])
 
-  const yMaxRangeLinearNewCases =
-    casesType === 'confirmed'
-      ? dataType === 'cumulative'
-        ? 15000000
-        : 200000
-      : dataType === 'cumulative'
-      ? 300000
-      : 2500
-  const yMaxRangeLogNewCases =
-    casesType === 'confirmed'
-      ? dataType === 'cumulative'
-        ? 15000000
-        : 200000
-      : dataType === 'cumulative'
-      ? 300000
-      : 2500
-  const tickValuesNewCases = []
-
-  const customColor = [
-    '#1abc9c',
-    '#f1c40f',
-    '#2ecc71',
-    '#e67e22',
-    '#3498db',
-    '#9b59b6',
-    '#34495e',
-    '#16a085',
-    '#f39c12',
-    '#27ae60',
-    '#d35400',
-    '#2980b9',
-    '#8e44ad',
-    '#2c3e50'
-  ]
-
   if (data.length == 0) {
     return (
       <div>
-        <h2 className='text-xl font-semibold m-3 leading-7'>{lineHeading}</h2>
         <div className='m-3'>Loading...</div>
       </div>
     )
   } else {
-    for (let i = 1; i <= yMaxRangeLogNewCases; i = i * 10) {
-      tickValuesNewCases.push(i)
-      tickValuesNewCases.push(2 * i)
-      tickValuesNewCases.push(5 * i)
-    }
-
     const _getFinalDate = () => {
       const selectedObject = data[0]
       const dateObject = selectedObject.data[
@@ -141,9 +108,7 @@ const LineChartWidget = (props) => {
               : window.innerWidth * 0.8
           }
           yDomain={
-            scaleType === 'log'
-              ? [1, yMaxRangeLogNewCases]
-              : [0, yMaxRangeLinearNewCases]
+            scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
           xDomain={[new Date('03/01/2020'), _getFinalDate()]}
           margin={{ left: 55, right: 75 }}
@@ -162,7 +127,11 @@ const LineChartWidget = (props) => {
             tickLabelAngle={-30}
           />
           <YAxis
-            tickValues={scaleType === 'log' ? tickValuesNewCases : null}
+            tickValues={
+              scaleType === 'log'
+                ? calculateTickValues(yMinRangeLog, yMaxRange)
+                : null
+            }
             tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}
           />
           {greyHighlight && (
