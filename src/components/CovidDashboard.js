@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   processLogData,
   filterCases,
@@ -18,9 +18,11 @@ const CovidDashboard = (props) => {
   const [scaleType, setScaleType] = useState('linear')
   const [datesAdjusted, setDatesAdjusted] = useState('off')
   const [interactiveCountires, setInteractiveCountires] = useState([])
+  const [
+    interactiveCountiresDisplay,
+    setInteractiveCountiresDisplay
+  ] = useState([])
   const [initBool, setInitBool] = useState(true)
-
-  const footNoteText = ``
 
   const propsData = {
     data: null,
@@ -32,6 +34,7 @@ const CovidDashboard = (props) => {
     lineLabel: '',
     footNote: ''
   }
+  let chartHeading = ''
   const defaultCountry = {
     value: 'India',
     label: 'India'
@@ -57,6 +60,15 @@ const CovidDashboard = (props) => {
     ]
     setInteractiveCountires([...interactiveCountires, ...setCountry])
   }
+  useEffect(() => {
+    let countires = interactiveCountires.map((row) => {
+      return row.label
+    })
+    setInteractiveCountiresDisplay([...countires])
+    return () => {
+      countires = []
+    }
+  }, [interactiveCountires])
 
   if (casesType === 'confirmed') {
     propsData.lineLabel = 'New Cases'
@@ -99,6 +111,12 @@ const CovidDashboard = (props) => {
     }
   }
 
+  if (dataType === 'cumulative') {
+    chartHeading = casesType === 'confirmed' ? 'Cumulative confirmed cases' : 'Cumulative deaths attributed'
+  } else {
+    chartHeading = casesType === 'confirmed' ? 'New confirmed cases' : 'New deaths attributed'
+  }
+
   const _handleSelectChange = (e) => {
     if (e && e.length > 0) {
       const countries = e.map((row) => {
@@ -113,6 +131,7 @@ const CovidDashboard = (props) => {
       setInteractiveCountires([...countries.flat()])
     } else {
       setInteractiveCountires([])
+      setInteractiveCountiresDisplay([])
     }
   }
   const _handleCasesType = (e) => {
@@ -235,6 +254,15 @@ const CovidDashboard = (props) => {
           isSearchable
           isMulti
         />
+      </div>
+      <div>
+        {interactiveCountiresDisplay && (
+          <p>
+            {chartHeading} of Covid-19 in {interactiveCountiresDisplay
+              .join(', ')
+              .replace(/, ([^,]*)$/, ' and $1')}
+          </p>
+        )}
       </div>
       <LineChartWidget data={propsData} />
     </div>

@@ -43,6 +43,8 @@ const LineChartWidget = (props) => {
         return country
       })
       setSelectedCountries([...countires.flat()])
+    } else {
+      setSelectedCountries([])
     }
   }, [interactiveCountires, casesType, scaleType, dataType, datesAdjusted])
 
