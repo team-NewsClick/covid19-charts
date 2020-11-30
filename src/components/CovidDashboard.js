@@ -1,53 +1,104 @@
 import { useState } from 'react'
-import { processLogData, filterCases } from '../utils'
+import {
+  processLogData,
+  filterCases,
+  processCumulativeData,
+  processDatesAdjusted
+} from '../utils'
+import Select from 'react-select'
+import makeAnimated from 'react-select/animated'
 import LineChartWidget from './LineChartWidget'
 
-const LineChart = (props) => {
-  const chartProps = props
-  if (chartProps.data.data === null) {
-    return (
-      <div>
-        <div className='m-3'>Loading...</div>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <LineChartWidget data={chartProps.data} />
-      </div>
-    )
-  }
-}
-
 const CovidDashboard = (props) => {
-  const newCases = filterCases(props.data, 'new_cases')
-  const newDeaths = filterCases(props.data, 'new_deaths')
-
+  const data = props.data
+  const CasesType = {
+    CONFIRMED: 'new_cases',
+    DEATHS: 'new_deaths'
+  }
   const [casesType, setCasesType] = useState('confirmed')
-  const [dataType, setDataType] = useState('')
+  const [dataType, setDataType] = useState('new')
   const [scaleType, setScaleType] = useState('linear')
   const [datesAdjusted, setDatesAdjusted] = useState('off')
+  const [interactiveCountires, setInteractiveCountires] = useState([])
+  const [initBool, setInitBool] = useState(true)
 
   const propsData = {
     data: null,
-    lineLabel: '',
-    lineHeading: '',
+    interactiveCountires,
     casesType,
     dataType,
     scaleType,
-    datesAdjusted
+    datesAdjusted,
+    lineLabel: ''
+  }
+  const defaultCountry = {
+    value: 'India',
+    label: 'India'
+  }
+  const uniqueCountries = [...new Set(data.map((row) => row.country))]
+  const dropDownCountries = uniqueCountries.map((row) => {
+    return {
+      value: row,
+      label: row
+    }
+  })
+
+  if (initBool) {
+    setInitBool(false)
+    const country = data.filter((d) => {
+      return defaultCountry.value === d.country
+    })
+    const setCountry = [
+      {
+        label: country[0].country,
+        country: country[0].country
+      }
+    ]
+    setInteractiveCountires([...interactiveCountires, ...setCountry])
   }
 
   if (casesType === 'confirmed') {
-    propsData.data = scaleType === 'log' ? processLogData(newCases) : newCases
-    propsData.lineHeading = 'Graphical representation of New Cases of COVID-19'
     propsData.lineLabel = 'New Cases'
+    const initData =
+      dataType === 'cumulative'
+        ? processCumulativeData(filterCases(data, CasesType.CONFIRMED))
+        : filterCases(data, CasesType.CONFIRMED)
+    const scaleAdjustedData =
+      scaleType === 'log' ? processLogData(initData) : initData
+    propsData.data =
+      datesAdjusted === 'on'
+        ? processDatesAdjusted(scaleAdjustedData, CasesType.CONFIRMED)
+        : scaleAdjustedData
   } else if (casesType === 'deaths') {
-    propsData.data = scaleType === 'log' ? processLogData(newDeaths) : newDeaths
-    propsData.lineHeading = 'Graphical representation of Deaths of COVID-19'
     propsData.lineLabel = 'Deaths'
+    const initData =
+      dataType === 'cumulative'
+        ? processCumulativeData(filterCases(data, CasesType.DEATHS))
+        : filterCases(data, CasesType.DEATHS)
+    const scaleAdjustedData =
+      scaleType === 'log' ? processLogData(initData) : initData
+    propsData.data =
+      datesAdjusted === 'on'
+        ? processDatesAdjusted(scaleAdjustedData, CasesType.DEATHS)
+        : scaleAdjustedData
   }
 
+  const _handleSelectChange = (e) => {
+    if (e && e.length > 0) {
+      const countries = e.map((row) => {
+        const country = data.filter((d) => {
+          return row.value === d.country
+        })
+        return {
+          label: country[0].country,
+          country: country[0].country
+        }
+      })
+      setInteractiveCountires([...countries.flat()])
+    } else {
+      setInteractiveCountires([])
+    }
+  }
   const _handleCasesType = (e) => {
     setCasesType(e.currentTarget.value)
   }
@@ -63,6 +114,26 @@ const CovidDashboard = (props) => {
 
   return (
     <div>
+      <div className='m-4'>
+        <Select
+          components={makeAnimated}
+          placeholder='Select a region'
+          name='selectCountries'
+          onChange={_handleSelectChange}
+          defaultValue={defaultCountry}
+          options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
+          components={{
+            NoOptionsMessage: () => (
+              <div className='noOptions'>
+                Maximum number of countries selected
+              </div>
+            )
+          }}
+          isSearchable
+          isMulti
+        />
+        <div className='m-3'>Select maximum upto six countries to compare</div>
+      </div>
       <div>
         <div className="text-2xl text-center font-black m-3 leading-7">
           COVID19 Country Tracker
@@ -93,6 +164,7 @@ const CovidDashboard = (props) => {
               id='new'
               name='data-type'
               value='new'
+              defaultChecked
               onChange={(e) => _handleDataType(e)}
             />
             <label htmlFor='new'>New</label>
@@ -101,7 +173,6 @@ const CovidDashboard = (props) => {
               id='cumulative'
               name='data-type'
               value='cumulative'
-              defaultChecked
               onChange={(e) => _handleDataType(e)}
             />
             <label htmlFor='cumulative'>Cumulative</label>
@@ -147,7 +218,7 @@ const CovidDashboard = (props) => {
           </div>
         </div>
       </div>
-      <LineChart data={propsData} />
+      <LineChartWidget data={propsData} />
     </div>
   )
 }
