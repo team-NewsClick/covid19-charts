@@ -114,26 +114,6 @@ const CovidDashboard = (props) => {
 
   return (
     <div>
-      <div className='m-4'>
-        <Select
-          components={makeAnimated}
-          placeholder='Select a region'
-          name='selectCountries'
-          onChange={_handleSelectChange}
-          defaultValue={defaultCountry}
-          options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
-          components={{
-            NoOptionsMessage: () => (
-              <div className='noOptions'>
-                Maximum number of countries selected
-              </div>
-            )
-          }}
-          isSearchable
-          isMulti
-        />
-        <div className='m-3'>Select maximum upto six countries to compare</div>
-      </div>
       <div>
         <div className="text-2xl text-center font-black m-3 leading-7">
           COVID19 Country Tracker
@@ -217,6 +197,26 @@ const CovidDashboard = (props) => {
             <div className='radio-title'>Date adjusted to outbreak start</div>
           </div>
         </div>
+      </div>
+      <div className='container max-w-lg mx-auto'>
+        <div className='text-center m-0'>Select maximum upto six countries to compare</div>
+        <Select
+          components={makeAnimated}
+          placeholder='Select a region'
+          name='selectCountries'
+          onChange={_handleSelectChange}
+          defaultValue={defaultCountry}
+          options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
+          components={{
+            NoOptionsMessage: () => (
+              <div className='noOptions'>
+                Maximum number of countries selected
+              </div>
+            )
+          }}
+          isSearchable
+          isMulti
+        />
       </div>
       <LineChartWidget data={propsData} />
     </div>
