@@ -1,5 +1,7 @@
+import { cutoffValues, CasesType } from './constants'
+
 export const filterCases = (data, caseType) => {
-  const cutoffDate = new Date('03/01/2020')
+  const cutoffDate = new Date(cutoffValues.DATE)
   return data.reduce((result, row) => {
     const date = new Date(row.date)
     if (date < cutoffDate) return result
@@ -44,7 +46,12 @@ export const processCumulativeData = (rawData) => {
 }
 
 export const processDatesAdjusted = (rawData, caseType, dataType) => {
-  const cutOff = dataType === 'new' ? (caseType === 'new_deaths' ? 3 : 10) : 100
+  const cutOff =
+    dataType === 'new'
+      ? caseType === CasesType.DEATHS
+        ? cutoffValues.DEATHS
+        : cutoffValues.CONFIRMED
+      : cutoffValues.CUMMULATIVE
   return rawData.map((row) => {
     let countryCases = row.data
       .map((d) => {
@@ -70,12 +77,12 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
     datesAdjusted === 'on'
       ? casesType === 'confirmed'
         ? dataType === 'cumulative'
-          ? 100
-          : 10
+          ? cutoffValues.CUMMULATIVE
+          : cutoffValues.CONFIRMED
         : dataType === 'cumulative'
-        ? 100
-        : 3
-      : 1
+        ? cutoffValues.CUMMULATIVE
+        : cutoffValues.DEATHS
+      : cutoffValues.DEFAULT
   return yMinRangeLog
 }
 

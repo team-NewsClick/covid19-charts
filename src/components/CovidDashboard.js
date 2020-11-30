@@ -5,22 +5,22 @@ import {
   processCumulativeData,
   processDatesAdjusted
 } from '../utils'
+import { CasesType, cutoffValues } from '../constants'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import LineChartWidget from './LineChartWidget'
 
 const CovidDashboard = (props) => {
   const data = props.data
-  const CasesType = {
-    CONFIRMED: 'new_cases',
-    DEATHS: 'new_deaths'
-  }
+
   const [casesType, setCasesType] = useState('confirmed')
   const [dataType, setDataType] = useState('new')
   const [scaleType, setScaleType] = useState('linear')
   const [datesAdjusted, setDatesAdjusted] = useState('off')
   const [interactiveCountires, setInteractiveCountires] = useState([])
   const [initBool, setInitBool] = useState(true)
+
+  const footNoteText = ``
 
   const propsData = {
     data: null,
@@ -29,7 +29,8 @@ const CovidDashboard = (props) => {
     dataType,
     scaleType,
     datesAdjusted,
-    lineLabel: ''
+    lineLabel: '',
+    footNote: ''
   }
   const defaultCountry = {
     value: 'India',
@@ -61,7 +62,9 @@ const CovidDashboard = (props) => {
     propsData.lineLabel = 'New Cases'
     const initData =
       dataType === 'cumulative'
-        ? processCumulativeData(filterCases(data, CasesType.CONFIRMED, dataType))
+        ? processCumulativeData(
+            filterCases(data, CasesType.CONFIRMED, dataType)
+          )
         : filterCases(data, CasesType.CONFIRMED)
     const scaleAdjustedData =
       scaleType === 'log' ? processLogData(initData) : initData
@@ -81,6 +84,19 @@ const CovidDashboard = (props) => {
       datesAdjusted === 'on'
         ? processDatesAdjusted(scaleAdjustedData, CasesType.DEATHS, dataType)
         : scaleAdjustedData
+  }
+  if (datesAdjusted === 'on') {
+    if (dataType === 'cumulative') {
+      propsData.footNote =
+        casesType === 'confirmed'
+          ? `Number of days since ${cutoffValues.CUMMULATIVE} cases first recorded`
+          : `Number of days since ${cutoffValues.CUMMULATIVE} deaths first recorded`
+    } else if (dataType === 'new') {
+      propsData.footNote =
+        casesType === 'confirmed'
+          ? `Number of days since ${cutoffValues.CONFIRMED} cases first recorded`
+          : `Number of days since ${cutoffValues.DEATHS} deaths first recorded`
+    }
   }
 
   const _handleSelectChange = (e) => {
@@ -115,7 +131,7 @@ const CovidDashboard = (props) => {
   return (
     <div>
       <div>
-        <div className="text-2xl text-center font-black m-3 leading-7">
+        <div className='text-2xl text-center font-black m-3 leading-7'>
           COVID19 Country Tracker
         </div>
         <div className='flex justify-center'>
@@ -199,7 +215,9 @@ const CovidDashboard = (props) => {
         </div>
       </div>
       <div className='container max-w-lg mx-auto'>
-        <div className='text-center m-0'>Select maximum upto six countries to compare</div>
+        <div className='text-center m-0'>
+          Select maximum upto six countries to compare
+        </div>
         <Select
           components={makeAnimated}
           placeholder='Select a region'

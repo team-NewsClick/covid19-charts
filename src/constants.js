@@ -14,3 +14,16 @@ export const customColor = [
   '#8e44ad',
   '#2c3e50'
 ]
+
+export const cutoffValues = {
+  DATE: '03/01/2020',
+  CUMMULATIVE: 100,
+  CONFIRMED: 10,
+  DEATHS: 3,
+  DEFAULT: 1
+}
+
+export const CasesType = {
+  CONFIRMED: 'new_cases',
+  DEATHS: 'new_deaths'
+}

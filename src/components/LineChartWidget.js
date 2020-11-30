@@ -13,7 +13,7 @@ import {
   calculateMaxValue,
   calculateTickValues
 } from '../utils'
-import { customColor } from '../constants'
+import { customColor, cutoffValues } from '../constants'
 
 const LineChartWidget = (props) => {
   const data = props.data.data
@@ -23,13 +23,14 @@ const LineChartWidget = (props) => {
   const casesType = props.data.casesType
   const dataType = props.data.dataType
   const interactiveCountires = props.data.interactiveCountires
+  const footNote = props.data.footNote
 
   const [selectedCountries, setSelectedCountries] = useState([])
   const [greyHighlight, setGreyHighlight] = useState(null)
   const [selectedHighlight, setSelectedHighlight] = useState(null)
   const [crosshairValue, setCrosshairValue] = useState(null)
   const [onMouseHover, setOnMouseHover] = useState(false)
-  
+
   const yMinRangeLog = calculateMinValue(dataType, casesType, datesAdjusted)
   const yMaxRange = calculateMaxValue(data)
 
@@ -60,7 +61,7 @@ const LineChartWidget = (props) => {
       return new Date(dateObject)
     }
     const _getDaysFromDate = (date) => {
-      const firstDate = new Date('03/01/2020')
+      const firstDate = new Date(cutoffValues.DATE)
       const diff =
         (date.getTime() - firstDate.getTime()) / (1000 * 3600 * 24) + 1
       return diff
@@ -110,7 +111,7 @@ const LineChartWidget = (props) => {
           yDomain={
             scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
-          xDomain={[new Date('03/01/2020'), _getFinalDate()]}
+          xDomain={[new Date(cutoffValues.DATE), _getFinalDate()]}
           margin={{ left: 55, right: 75 }}
           onMouseLeave={() => _handleGreyMouseOut()}
         >
@@ -265,19 +266,7 @@ const LineChartWidget = (props) => {
           ))}
         </XYPlot>
         <div>
-          {datesAdjusted === 'on' ? (
-            casesType === 'confirmed' ? (
-              <div>
-                Number of days since 10 average daily cases first recorded
-              </div>
-            ) : (
-              <div>
-                Number of days since 3 average daily deaths first recorded
-              </div>
-            )
-          ) : (
-            ''
-          )}
+          {datesAdjusted === 'on' ? footNote : ''}
         </div>
       </div>
     )
