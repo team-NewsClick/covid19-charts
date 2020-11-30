@@ -263,19 +263,19 @@ const CovidDashboard = (props) => {
       </div>
       <div
         style={
-          window.innerWidth > 500
-            ? { marginLeft: '23.5%' }
-            : { marginLeft: '13%' }
+          window.innerWidth > 540
+            ? { marginLeft: '21%' }
+            : { marginLeft: '5%', marginRight: '5%' }
         }
         className='text-sm text-black-600'
       >
         {interactiveCountiresDisplay && (
-          <p>
+          <div className="text-lg font-semibold my-3">
             {chartHeading} of Covid-19 in{' '}
             {interactiveCountiresDisplay
               .join(', ')
               .replace(/, ([^,]*)$/, ' and $1')}
-          </p>
+          </div>
         )}
       </div>
       <LineChartWidget data={propsData} />

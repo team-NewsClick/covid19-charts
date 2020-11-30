@@ -101,14 +101,14 @@ const LineChartWidget = (props) => {
           xType='time'
           yType={scaleType}
           width={
-            window.innerWidth > 500
+            window.innerWidth > 540
               ? window.innerWidth * 0.6
-              : window.innerWidth * 1.45
+              : window.innerWidth * 1
           }
           height={
-            window.innerWidth > 500
+            window.innerWidth > 540
               ? window.innerWidth * 0.35
-              : window.innerWidth * 0.8
+              : window.innerWidth * 0.65
           }
           yDomain={
             scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
@@ -269,7 +269,7 @@ const LineChartWidget = (props) => {
         </XYPlot>
         <div
           style={
-            window.innerWidth > 500
+            window.innerWidth > 540
               ? { marginLeft: '23.5%' }
               : { marginLeft: '13%' }
           }
