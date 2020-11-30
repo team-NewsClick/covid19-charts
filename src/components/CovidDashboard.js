@@ -112,9 +112,15 @@ const CovidDashboard = (props) => {
   }
 
   if (dataType === 'cumulative') {
-    chartHeading = casesType === 'confirmed' ? 'Cumulative confirmed cases' : 'Cumulative deaths attributed'
+    chartHeading =
+      casesType === 'confirmed'
+        ? 'Cumulative confirmed cases'
+        : 'Cumulative deaths attributed'
   } else {
-    chartHeading = casesType === 'confirmed' ? 'New confirmed cases' : 'New deaths attributed'
+    chartHeading =
+      casesType === 'confirmed'
+        ? 'New confirmed cases'
+        : 'New deaths attributed'
   }
 
   const _handleSelectChange = (e) => {
@@ -255,10 +261,18 @@ const CovidDashboard = (props) => {
           isMulti
         />
       </div>
-      <div>
+      <div
+        style={
+          window.innerWidth > 500
+            ? { marginLeft: '23.5%' }
+            : { marginLeft: '13%' }
+        }
+        className='text-sm text-black-600'
+      >
         {interactiveCountiresDisplay && (
           <p>
-            {chartHeading} of Covid-19 in {interactiveCountiresDisplay
+            {chartHeading} of Covid-19 in{' '}
+            {interactiveCountiresDisplay
               .join(', ')
               .replace(/, ([^,]*)$/, ' and $1')}
           </p>

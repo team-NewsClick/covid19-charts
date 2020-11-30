@@ -267,7 +267,14 @@ const LineChartWidget = (props) => {
             />
           ))}
         </XYPlot>
-        <div>
+        <div
+          style={
+            window.innerWidth > 500
+              ? { marginLeft: '23.5%' }
+              : { marginLeft: '13%' }
+          }
+          className='text-sm text-gray-600'
+        >
           {datesAdjusted === 'on' ? footNote : ''}
         </div>
       </div>
