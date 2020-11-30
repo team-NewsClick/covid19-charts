@@ -64,9 +64,11 @@ const CovidDashboard = (props) => {
   return (
     <div>
       <div>
-        <div className='inline-flex'>
-          <div className='radio-toolbar m-3'>
-            <div className='radio-title'>Cases</div>
+        <div className="text-2xl text-center font-black m-3 leading-7">
+          COVID19 Country Tracker
+        </div>
+        <div className='flex justify-center'>
+          <div className='radio-toolbar m-2'>
             <input
               type='radio'
               id='deaths'
@@ -85,8 +87,7 @@ const CovidDashboard = (props) => {
             />
             <label htmlFor='confirmed'>Confirmed</label>
           </div>
-          <div className='radio-toolbar m-3'>
-            <div className='radio-title'>Data type</div>
+          <div className='radio-toolbar m-2'>
             <input
               type='radio'
               id='new'
@@ -105,8 +106,7 @@ const CovidDashboard = (props) => {
             />
             <label htmlFor='cumulative'>Cumulative</label>
           </div>
-          <div className='radio-toolbar m-3'>
-            <div className='radio-title'>Show Scale as</div>
+          <div className='radio-toolbar m-2'>
             <input
               type='radio'
               id='log'
@@ -125,8 +125,7 @@ const CovidDashboard = (props) => {
             />
             <label htmlFor='linear'>Linear</label>
           </div>
-          <div className='radio-toolbar m-3'>
-            <div className='radio-title'>Date adjusted to outbreak start</div>
+          <div className='radio-toolbar m-2'>
             <input
               type='radio'
               id='on'
@@ -144,6 +143,7 @@ const CovidDashboard = (props) => {
               onChange={(e) => _handleDatesAdjusted(e)}
             />
             <label htmlFor='off'>Off</label>
+            <div className='radio-title'>Date adjusted to outbreak start</div>
           </div>
         </div>
       </div>

@@ -27,8 +27,8 @@ const LineChartWidget = (props) => {
   const [onMouseHover, setOnMouseHover] = useState(false)
 
   const animatedComponents = makeAnimated()
-  const yMaxRangeLinearNewCases = casesType === 'confirmed' ? 200000 : 2500
-  const yMaxRangeLogNewCases = casesType === 'confirmed' ? 1000000 : 10000
+  const yMaxRangeLinearNewCases = casesType === 'confirmed' ? 100000 : 100000
+  const yMaxRangeLogNewCases = casesType === 'confirmed' ? 100000 : 100000
   const tickValuesNewCases = []
   const defaultCountry = {
     value: 'India',
@@ -142,11 +142,8 @@ const LineChartWidget = (props) => {
 
     return (
       <div>
-        <div className="text-2xl font-semibold m-3 leading-7">
-          {lineHeading}
-        </div>
-        <div className="m-3">Select maximum upto six countries to compare</div>
-        <div className="m-4">
+        <div className="text-center m-0">Select maximum upto six countries to compare</div>
+        <div className="container max-w-lg mx-auto">
           <Select
             components={animatedComponents}
             placeholder="Select a region"
@@ -165,17 +162,20 @@ const LineChartWidget = (props) => {
             isMulti
           />
         </div>
+        <div className="text-xl text-center font-semibold m-3 leading-7">
+          {lineHeading}
+        </div>
         <XYPlot
           xType="time"
           yType={scaleType}
           width={
             window.innerWidth > 500
-              ? window.innerWidth * 0.5
+              ? window.innerWidth * 0.6
               : window.innerWidth * 1.45
           }
           height={
             window.innerWidth > 500
-              ? window.innerWidth * 0.25
+              ? window.innerWidth * 0.35
               : window.innerWidth * 0.8
           }
           yDomain={
