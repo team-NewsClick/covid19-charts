@@ -23,7 +23,7 @@ export const processLogData = (rawData) => {
     })
     return {
       country: rows.country,
-      data: countryData
+      data: countryData,
     }
   })
 }
@@ -35,12 +35,12 @@ export const processCumulativeData = (rawData) => {
       acc = acc + parseInt(d.y)
       return {
         x: d.x,
-        y: acc.toString()
+        y: acc.toString(),
       }
     })
     return {
       country: row.country,
-      data: countryCases
+      data: countryCases,
     }
   })
 }
@@ -58,7 +58,7 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
         if (parseInt(d.y) >= cutOff) {
           return {
             x: d.x,
-            y: d.y
+            y: d.y,
           }
         }
       })
@@ -67,7 +67,7 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
       })
     return {
       country: row.country,
-      data: countryCases
+      data: countryCases,
     }
   })
 }
@@ -111,3 +111,10 @@ export const calculateTickValues = (yMinRange, yMaxRange) => {
   }
   return tickValues
 }
+
+// export const calculateXTickValues = (xMinRange, xMaxRange) => {
+//   const tickValues = []
+//   for (let i = xMinRange; i<= xMaxRange; x=x+15) {
+//     tickValues.push(i)
+//   }
+// }
