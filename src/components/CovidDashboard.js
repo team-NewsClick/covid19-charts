@@ -243,7 +243,9 @@ const CovidDashboard = (props) => {
                 onChange={(e) => _handleDatesAdjusted(e)}
               />
               <label htmlFor="off">Off</label>
-              <div className="radio-title text-xs leading-4">Dates adjusted to outbreak start</div>
+              <div className="radio-title text-xs leading-4">
+                Dates adjusted to outbreak start
+              </div>
             </div>
           </div>
           <div></div>
@@ -253,23 +255,25 @@ const CovidDashboard = (props) => {
         <div className="text-left mb-1">
           Select maximum upto six countries to compare
         </div>
-        <Select
-          components={makeAnimated}
-          placeholder="Select a region"
-          name="selectCountries"
-          onChange={_handleSelectChange}
-          defaultValue={defaultCountry}
-          options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
-          components={{
-            NoOptionsMessage: () => (
-              <div className="noOptions">
-                Maximum number of countries selected
-              </div>
-            ),
-          }}
-          isSearchable
-          isMulti
-        />
+        <div className="text-left">
+          <Select
+            components={makeAnimated}
+            placeholder="Select a region"
+            name="selectCountries"
+            onChange={_handleSelectChange}
+            defaultValue={defaultCountry}
+            options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
+            components={{
+              NoOptionsMessage: () => (
+                <div className="noOptions">
+                  Maximum number of countries selected
+                </div>
+              ),
+            }}
+            isSearchable
+            isMulti
+          />
+        </div>
       </div>
       <div
         style={

@@ -298,7 +298,7 @@ const LineChartWidget = (props) => {
               ? { marginLeft: '23.5%' }
               : { marginLeft: '13%' }
           }
-          className="text-sm text-gray-600 -mt-1"
+          className="text-sm text-gray-700 -mt-1"
         >
           {datesAdjusted === 'on' ? footNote : ''}
         </div>

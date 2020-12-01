@@ -111,10 +111,3 @@ export const calculateTickValues = (yMinRange, yMaxRange) => {
   }
   return tickValues
 }
-
-// export const calculateXTickValues = (xMinRange, xMaxRange) => {
-//   const tickValues = []
-//   for (let i = xMinRange; i<= xMaxRange; x=x+15) {
-//     tickValues.push(i)
-//   }
-// }
