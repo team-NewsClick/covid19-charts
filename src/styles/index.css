@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 
+body {
+  @apply bg-gray-200;
+}
 .radio-title {
   @apply text-lg mb-4 leading-6 h-8;
 }
@@ -8,13 +11,13 @@
   @apply opacity-0 fixed w-0 inline-flex;
 }
 .radio-toolbar label {
-  @apply inline-block bg-white py-2 px-2 text-center text-sm w-24 border-2 border-solid border-black;
+  @apply inline-block bg-gray-100 py-1 px-1 text-center text-xs w-24 border-2 border-solid border-gray-800;
 }
 .radio-toolbar label:hover {
-  @apply bg-gray-100;
+  @apply bg-gray-300;
 }
 .radio-toolbar input[type='radio']:checked + label {
-  @apply bg-black text-white;
+  @apply bg-gray-800 text-white;
 }
 .noOptions {
   @apply text-center text-gray-500;
