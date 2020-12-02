@@ -3,7 +3,7 @@ import {
   processLogData,
   filterCases,
   processCumulativeData,
-  processDatesAdjusted,
+  processDatesAdjusted
 } from '../utils'
 import { CasesType, cutoffValues } from '../constants'
 import Select from 'react-select'
@@ -20,7 +20,7 @@ const CovidDashboard = (props) => {
   const [interactiveCountires, setInteractiveCountires] = useState([])
   const [
     interactiveCountiresDisplay,
-    setInteractiveCountiresDisplay,
+    setInteractiveCountiresDisplay
   ] = useState([])
   const [initBool, setInitBool] = useState(true)
 
@@ -32,18 +32,18 @@ const CovidDashboard = (props) => {
     scaleType,
     datesAdjusted,
     lineLabel: '',
-    footNote: '',
+    footNote: ''
   }
   let chartHeading = ''
   const defaultCountry = {
     value: 'India',
-    label: 'India',
+    label: 'India'
   }
   const uniqueCountries = [...new Set(data.map((row) => row.country))]
   const dropDownCountries = uniqueCountries.map((row) => {
     return {
       value: row,
-      label: row,
+      label: row
     }
   })
 
@@ -55,8 +55,8 @@ const CovidDashboard = (props) => {
     const setCountry = [
       {
         label: country[0].country,
-        country: country[0].country,
-      },
+        country: country[0].country
+      }
     ]
     setInteractiveCountires([...interactiveCountires, ...setCountry])
   }
@@ -131,7 +131,7 @@ const CovidDashboard = (props) => {
         })
         return {
           label: country[0].country,
-          country: country[0].country,
+          country: country[0].country
         }
       })
       setInteractiveCountires([...countries.flat()])
@@ -156,124 +156,110 @@ const CovidDashboard = (props) => {
   return (
     <div>
       <div>
-        <div className="text-2xl text-center font-black m-3 leading-7">
+        <div className='text-2xl text-center font-black m-2 leading-7'>
           COVID19 Country Tracker
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          <div></div>
-          <div className="flex justify-center">
-            <div className="col-start-1 col-end-3 radio-toolbar m-2">
-              <input
-                type="radio"
-                id="deaths"
-                name="cases"
-                value="deaths"
-                onChange={(e) => _handleCasesType(e)}
-              />
-              <label htmlFor="deaths">Deaths</label>
-              <input
-                type="radio"
-                id="confirmed"
-                name="cases"
-                value="confirmed"
-                defaultChecked
-                onChange={(e) => _handleCasesType(e)}
-              />
-              <label htmlFor="confirmed">Confirmed</label>
-            </div>
-            <div className="col-start-3 radio-toolbar m-2">
-              <input
-                type="radio"
-                id="new"
-                name="data-type"
-                value="new"
-                defaultChecked
-                onChange={(e) => _handleDataType(e)}
-              />
-              <label htmlFor="new">New</label>
-              <input
-                type="radio"
-                id="cumulative"
-                name="data-type"
-                value="cumulative"
-                onChange={(e) => _handleDataType(e)}
-              />
-              <label htmlFor="cumulative">Cumulative</label>
-            </div>
+        <div className='flex justify-center'>
+          <div className='radio-toolbar m-2'>
+            <input
+              type='radio'
+              id='deaths'
+              name='cases'
+              value='deaths'
+              onChange={(e) => _handleCasesType(e)}
+            />
+            <label htmlFor='deaths'>Deaths</label>
+            <input
+              type='radio'
+              id='confirmed'
+              name='cases'
+              value='confirmed'
+              defaultChecked
+              onChange={(e) => _handleCasesType(e)}
+            />
+            <label htmlFor='confirmed'>Confirmed</label>
           </div>
-          <div></div>
-        </div>
-        <div className="grid grid-cols-3 gap-4">
-          <div></div>
-          <div className="flex justify-center">
-            <div className="col-start-1 col-end-3 radio-toolbar m-2">
-              <input
-                type="radio"
-                id="log"
-                name="display-type"
-                value="log"
-                onChange={(e) => _handleScaleType(e)}
-              />
-              <label htmlFor="log">Log</label>
-              <input
-                type="radio"
-                id="linear"
-                name="display-type"
-                value="linear"
-                defaultChecked
-                onChange={(e) => _handleScaleType(e)}
-              />
-              <label htmlFor="linear">Linear</label>
-            </div>
-            <div className="col-start-3 radio-toolbar m-2">
-              <input
-                type="radio"
-                id="on"
-                name="adjust-date"
-                value="on"
-                onChange={(e) => _handleDatesAdjusted(e)}
-              />
-              <label htmlFor="on">On</label>
-              <input
-                type="radio"
-                id="off"
-                name="adjust-date"
-                value="off"
-                defaultChecked
-                onChange={(e) => _handleDatesAdjusted(e)}
-              />
-              <label htmlFor="off">Off</label>
-              <div className="radio-title text-xs leading-4">
-                Dates adjusted to outbreak start
-              </div>
-            </div>
+          <div className='radio-toolbar m-2'>
+            <input
+              type='radio'
+              id='new'
+              name='data-type'
+              value='new'
+              defaultChecked
+              onChange={(e) => _handleDataType(e)}
+            />
+            <label htmlFor='new'>New</label>
+            <input
+              type='radio'
+              id='cumulative'
+              name='data-type'
+              value='cumulative'
+              onChange={(e) => _handleDataType(e)}
+            />
+            <label htmlFor='cumulative'>Cumulative</label>
           </div>
-          <div></div>
+          <div className='radio-toolbar m-2'>
+            <input
+              type='radio'
+              id='log'
+              name='display-type'
+              value='log'
+              onChange={(e) => _handleScaleType(e)}
+            />
+            <label htmlFor='log'>Log</label>
+            <input
+              type='radio'
+              id='linear'
+              name='display-type'
+              value='linear'
+              defaultChecked
+              onChange={(e) => _handleScaleType(e)}
+            />
+            <label htmlFor='linear'>Linear</label>
+          </div>
+          <div className='radio-toolbar m-2'>
+            <input
+              type='radio'
+              id='on'
+              name='adjust-date'
+              value='on'
+              onChange={(e) => _handleDatesAdjusted(e)}
+            />
+            <label htmlFor='on'>On</label>
+            <input
+              type='radio'
+              id='off'
+              name='adjust-date'
+              value='off'
+              defaultChecked
+              onChange={(e) => _handleDatesAdjusted(e)}
+            />
+            <label htmlFor='off'>Off</label>
+            <div className='radio-title'>Date adjusted to outbreak start</div>
+          </div>
         </div>
       </div>
-      <div className="container max-w-xl mx-auto -mt-5 mb-8 px-2 text-center">
-        <div className="text-left mb-1">
+      <div className='container max-w-xl mx-auto'>
+        <div className='text-left text-sm'>
           Select maximum upto six countries to compare
         </div>
-        <div className="text-left">
-          <Select
-            components={makeAnimated}
-            placeholder="Select a region"
-            name="selectCountries"
-            onChange={_handleSelectChange}
-            defaultValue={defaultCountry}
-            options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
-            components={{
-              NoOptionsMessage: () => (
-                <div className="noOptions">
-                  Maximum number of countries selected
-                </div>
-              ),
-            }}
-            isSearchable
-            isMulti
-          />
-        </div>
+        <Select
+          components={makeAnimated}
+          placeholder='Select a region'
+          name='selectCountries'
+          onChange={_handleSelectChange}
+          defaultValue={defaultCountry}
+          options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
+          components={{
+            NoOptionsMessage: () => (
+              <div className='noOptions'>
+                Maximum number of countries selected
+              </div>
+            )
+          }}
+          isSearchable
+          isMulti
+        />
       </div>
       <div
         style={
@@ -281,10 +267,10 @@ const CovidDashboard = (props) => {
             ? { marginLeft: '21%' }
             : { marginLeft: '5%', marginRight: '5%' }
         }
-        className="text-sm text-black-600"
+        className='text-sm text-black-600'
       >
         {interactiveCountiresDisplay && (
-          <div className="text-lg font-semibold my-3 leading-6">
+          <div className="text-lg font-semibold mt-1">
             {chartHeading} of Covid-19 in{' '}
             {interactiveCountiresDisplay
               .join(', ')

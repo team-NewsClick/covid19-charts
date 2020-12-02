@@ -3,18 +3,16 @@ import {
   XAxis,
   YAxis,
   HorizontalGridLines,
-  VerticalGridLines,
   LineSeries,
   Crosshair,
   MarkSeries,
-  LabelSeries,
-  DecorativeAxis,
+  LabelSeries
 } from 'react-vis'
 import { useEffect, useState } from 'react'
 import {
   calculateMinValue,
   calculateMaxValue,
-  calculateTickValues,
+  calculateTickValues
 } from '../utils'
 import { customColor, cutoffValues } from '../constants'
 
@@ -54,7 +52,7 @@ const LineChartWidget = (props) => {
   if (data.length == 0) {
     return (
       <div>
-        <div className="m-3">Loading...</div>
+        <div className='m-3'>Loading...</div>
       </div>
     )
   } else {
@@ -92,8 +90,8 @@ const LineChartWidget = (props) => {
           {
             x: d.x,
             y: d.y,
-            country: selectedCountries[selectedHighlight].country,
-          },
+            country: selectedCountries[selectedHighlight].country
+          }
         ])
       }
     }
@@ -101,7 +99,7 @@ const LineChartWidget = (props) => {
     return (
       <div>
         <XYPlot
-          xType="time"
+          xType='time'
           yType={scaleType}
           width={
             window.innerWidth > 600
@@ -119,23 +117,23 @@ const LineChartWidget = (props) => {
           xDomain={[new Date(cutoffValues.DATE), _getFinalDate()]}
           margin={
             window.innerWidth > 600
-              ? { left: 55, right: 165 }
+              ? { left: 55, right: 200 }
               : { left: 55, right: 55 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
         >
+          <HorizontalGridLines />
           <XAxis
             tickFormat={
               datesAdjusted === 'off'
                 ? (d) =>
                     d.toLocaleDateString('default', {
                       month: 'short',
-                      day: 'numeric',
                     })
                 : (d, index) => _getDaysFromDate(d)
             }
-            tickTotal={window.innerWidth > 600 ? 12 : null}
-            tickLabelAngle={window.innerWidth > 600 ? null : -50}
+            tickLabelAngle={-30}
+            tickTotal={12}
           />
           <YAxis
             tickValues={
@@ -164,8 +162,8 @@ const LineChartWidget = (props) => {
                   y:
                     data[greyHighlight].data[
                       data[greyHighlight].data.length - 1
-                    ].y,
-                },
+                    ].y
+                }
               ]}
               color={'#777'}
             />
@@ -183,15 +181,15 @@ const LineChartWidget = (props) => {
                       data[greyHighlight].data.length - 1
                     ].y,
                   label: data[greyHighlight].country,
-                  xOffset: 12,
-                },
+                  xOffset: 12
+                }
               ]}
               style={{
-                fontSize: '0.85rem',
+                fontSize: '0.7rem',
                 stroke: '#777',
               }}
-              labelAnchorX="start"
-              labelAnchorY="central"
+              labelAnchorX='start'
+              labelAnchorY='central'
             />
           )}
           {data.map((d, index) => (
@@ -199,7 +197,7 @@ const LineChartWidget = (props) => {
               key={index}
               curve={'curveMonotoneX'}
               data={d.data}
-              color={'#999'}
+              color={'#ccc'}
               strokeWidth={1}
               onSeriesMouseOver={(e) => _handleGreyMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleGreyMouseOut()}
@@ -210,10 +208,10 @@ const LineChartWidget = (props) => {
               values={crosshairValue}
               titleFormat={(d) => ({
                 title: d[0].country,
-                value: d[0].x.toISOString().slice(0, 10),
+                value: d[0].x.toISOString().slice(0, 10)
               })}
               itemsFormat={() => [
-                { title: `${lineLabel}`, value: crosshairValue[0].y },
+                { title: `${lineLabel}`, value: crosshairValue[0].y }
               ]}
             />
           )}
@@ -221,7 +219,6 @@ const LineChartWidget = (props) => {
             <MarkSeries
               data={[{ x: crosshairValue[0].x, y: crosshairValue[0].y, size: '1' }]}
               color={customColor[selectedHighlight]}
-
             />
           )}
           {selectedCountries.map((d, index) => (
@@ -261,8 +258,8 @@ const LineChartWidget = (props) => {
               data={[
                 {
                   x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
-                },
+                  y: d.data[d.data.length - 1].y
+                }
               ]}
               color={customColor[index]}
             />
@@ -275,20 +272,16 @@ const LineChartWidget = (props) => {
                   x: d.data[d.data.length - 1].x,
                   y: d.data[d.data.length - 1].y,
                   label: d.country,
-                  xOffset: 12,
-                },
+                  xOffset: 12
+                }
               ]}
               style={
-                window.innerWidth > 600
-                  ? selectedHighlight == index
-                    ? { fontSize: '1rem', stroke: '#777' }
-                    : { fontSize: '1rem', stroke: '#999' }
-                  : selectedHighlight == index
+                selectedHighlight == index
                   ? { fontSize: '0.7rem', stroke: '#777' }
                   : { fontSize: '0.7rem', stroke: '#999' }
               }
-              labelAnchorX="start"
-              labelAnchorY="central"
+              labelAnchorX='start'
+              labelAnchorY='central'
             />
           ))}
         </XYPlot>
@@ -298,7 +291,7 @@ const LineChartWidget = (props) => {
               ? { marginLeft: '23.5%' }
               : { marginLeft: '13%' }
           }
-          className="text-sm text-gray-700 -mt-1"
+          className='text-xs text-gray-600'
         >
           {datesAdjusted === 'on' ? footNote : ''}
         </div>
