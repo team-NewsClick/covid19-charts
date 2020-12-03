@@ -7,14 +7,15 @@ import {
   Crosshair,
   MarkSeries,
   LabelSeries
-} from 'react-vis'
-import { useEffect, useState } from 'react'
+} from "react-vis"
+import LoaderFunction from "../components/LoaderFunction"
+import { useEffect, useState } from "react"
 import {
   calculateMinValue,
   calculateMaxValue,
   calculateTickValues
-} from '../utils'
-import { customColor, cutoffValues } from '../constants'
+} from "../utils"
+import { customColor, cutoffValues } from "../constants"
 
 const LineChartWidget = (props) => {
   const data = props.data.data
@@ -51,8 +52,10 @@ const LineChartWidget = (props) => {
 
   if (data.length == 0) {
     return (
-      <div>
-        <div className='m-3'>Loading...</div>
+      <div className="flex h-screen">
+        <div className="m-auto">
+          <LoaderFunction />
+        </div>
       </div>
     )
   } else {
@@ -60,7 +63,7 @@ const LineChartWidget = (props) => {
       const selectedObject = data[0]
       const dateObject = selectedObject.data[
         selectedObject.data.length - 1
-      ].x.toLocaleDateString('en-US')
+      ].x.toLocaleDateString("en-US")
       return new Date(dateObject)
     }
     const _getDaysFromDate = (date) => {
@@ -99,7 +102,7 @@ const LineChartWidget = (props) => {
     return (
       <div>
         <XYPlot
-          xType='time'
+          xType="time"
           yType={scaleType}
           width={
             window.innerWidth > 600
@@ -112,7 +115,7 @@ const LineChartWidget = (props) => {
               : window.innerWidth * 0.85
           }
           yDomain={
-            scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
+            scaleType === "log" ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
           xDomain={[new Date(cutoffValues.DATE), _getFinalDate()]}
           margin={
@@ -125,10 +128,10 @@ const LineChartWidget = (props) => {
           <HorizontalGridLines />
           <XAxis
             tickFormat={
-              datesAdjusted === 'off'
+              datesAdjusted === "off"
                 ? (d) =>
-                    d.toLocaleDateString('default', {
-                      month: 'short',
+                    d.toLocaleDateString("default", {
+                      month: "short"
                     })
                 : (d, index) => _getDaysFromDate(d)
             }
@@ -137,17 +140,17 @@ const LineChartWidget = (props) => {
           />
           <YAxis
             tickValues={
-              scaleType === 'log'
+              scaleType === "log"
                 ? calculateTickValues(yMinRangeLog, yMaxRange)
                 : null
             }
-            tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}
+            tickFormat={(d) => (d < 1000 ? d : d / 1000 + "k")}
           />
           {greyHighlight && (
             <LineSeries
-              curve={'curveMonotoneX'}
+              curve={"curveMonotoneX"}
               data={data[greyHighlight].data}
-              color={'#777'}
+              color={"#777"}
               strokeWidth={3}
             />
           )}
@@ -165,7 +168,7 @@ const LineChartWidget = (props) => {
                     ].y
                 }
               ]}
-              color={'#777'}
+              color={"#777"}
             />
           )}
           {greyHighlight && (
@@ -185,19 +188,19 @@ const LineChartWidget = (props) => {
                 }
               ]}
               style={{
-                fontSize: '0.7rem',
-                stroke: '#777',
+                fontSize: "0.7rem",
+                stroke: "#777"
               }}
-              labelAnchorX='start'
-              labelAnchorY='central'
+              labelAnchorX="start"
+              labelAnchorY="central"
             />
           )}
           {data.map((d, index) => (
             <LineSeries
               key={index}
-              curve={'curveMonotoneX'}
+              curve={"curveMonotoneX"}
               data={d.data}
-              color={'#ccc'}
+              color={"#ccc"}
               strokeWidth={1}
               onSeriesMouseOver={(e) => _handleGreyMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleGreyMouseOut()}
@@ -217,16 +220,18 @@ const LineChartWidget = (props) => {
           )}
           {onMouseHover && crosshairValue && (
             <MarkSeries
-              data={[{ x: crosshairValue[0].x, y: crosshairValue[0].y, size: '1' }]}
+              data={[
+                { x: crosshairValue[0].x, y: crosshairValue[0].y, size: "1" }
+              ]}
               color={customColor[selectedHighlight]}
             />
           )}
           {selectedCountries.map((d, index) => (
             <LineSeries
               key={index}
-              curve={'curveMonotoneX'}
+              curve={"curveMonotoneX"}
               data={casesType && d.data}
-              color={'#fff'}
+              color={"#fff"}
               strokeWidth={8}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
@@ -234,7 +239,7 @@ const LineChartWidget = (props) => {
           ))}
           {selectedCountries[selectedHighlight] && (
             <LineSeries
-              curve={'curveMonotoneX'}
+              curve={"curveMonotoneX"}
               data={selectedCountries[selectedHighlight].data}
               color={customColor[selectedHighlight]}
               strokeWidth={5}
@@ -244,7 +249,7 @@ const LineChartWidget = (props) => {
           {selectedCountries.map((d, index) => (
             <LineSeries
               key={index}
-              curve={'curveMonotoneX'}
+              curve={"curveMonotoneX"}
               data={casesType && d.data}
               color={customColor[index]}
               strokeWidth={3}
@@ -277,23 +282,23 @@ const LineChartWidget = (props) => {
               ]}
               style={
                 selectedHighlight == index
-                  ? { fontSize: '0.7rem', stroke: '#777' }
-                  : { fontSize: '0.7rem', stroke: '#999' }
+                  ? { fontSize: "0.7rem", stroke: "#777" }
+                  : { fontSize: "0.7rem", stroke: "#999" }
               }
-              labelAnchorX='start'
-              labelAnchorY='central'
+              labelAnchorX="start"
+              labelAnchorY="central"
             />
           ))}
         </XYPlot>
         <div
           style={
             window.innerWidth > 540
-              ? { marginLeft: '23.5%' }
-              : { marginLeft: '13%' }
+              ? { marginLeft: "23.5%" }
+              : { marginLeft: "13%" }
           }
-          className='text-xs text-gray-600'
+          className="text-xs text-gray-600"
         >
-          {datesAdjusted === 'on' ? footNote : ''}
+          {datesAdjusted === "on" ? footNote : ""}
         </div>
       </div>
     )

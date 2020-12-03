@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
-import { csvParse } from 'd3-dsv'
-import CovidDashboard from '../components/CovidDashboard.js'
+import { useState, useEffect } from "react"
+import { csvParse } from "d3-dsv"
+import CovidDashboard from "../components/CovidDashboard.js"
+import LoaderFunction from "../components/LoaderFunction"
 
-const fetchCovidData = () => {
+const Home = () => {
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -11,12 +12,15 @@ const fetchCovidData = () => {
       .then(csvParse)
       .then(setData)
   }, [])
-  return data
-}
-const Home = () => {
-  const data = fetchCovidData()
+
   if (data.length === 0) {
-    return <div>Loading!!!</div>
+    return (
+      <div className="flex h-screen">
+        <div className="m-auto">
+          <LoaderFunction />
+        </div>
+      </div>
+    )
   } else {
     return (
       <div>
