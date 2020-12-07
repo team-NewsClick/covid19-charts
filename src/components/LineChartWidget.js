@@ -25,6 +25,7 @@ const LineChartWidget = (props) => {
   const casesType = props.data.casesType
   const dataType = props.data.dataType
   const interactiveSelects = props.data.interactiveSelects
+  const trackerType = props.data.trackerType
   const footNote = props.data.footNote
 
   const [selected, setselected] = useState([])
@@ -34,7 +35,7 @@ const LineChartWidget = (props) => {
   const [onMouseHover, setOnMouseHover] = useState(false)
 
   const yMinRangeLog = calculateMinValue(dataType, casesType, datesAdjusted)
-  const yMaxRange = calculateMaxValue(data)
+  const yMaxRange = calculateMaxValue(data, trackerType)
 
   useEffect(() => {
     if (interactiveSelects && interactiveSelects.length > 0) {

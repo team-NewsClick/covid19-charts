@@ -1,4 +1,4 @@
-import { cutoffValues, CasesType } from './constants'
+import { cutoffValues, CasesType, StateMax, CountryMax } from './constants'
 
 export const filterCases = (data, caseType) => {
   const cutoffDate = new Date(cutoffValues.DATE)
@@ -86,9 +86,10 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
   return yMinRangeLog
 }
 
-export const calculateMaxValue = (data) => {
+export const calculateMaxValue = (data, trackerType) => {
+  const selectMax = trackerType === 'country' ? CountryMax : StateMax
   const selectedRegion = data.filter((row) => {
-    if (row.region === 'US') {
+    if (row.region === selectMax) {
       return row.data
     }
   })

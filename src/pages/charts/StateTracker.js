@@ -11,7 +11,7 @@ const StateTracker = () => {
   }
   
   useEffect(() => {
-    fetch(process.env.API_URL_COUNTRY)
+    fetch(process.env.API_URL_STATE)
       .then((res) => res.text())
       .then(csvParse)
       .then(setData)

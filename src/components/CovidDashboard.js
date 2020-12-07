@@ -32,6 +32,7 @@ const CovidDashboard = (props) => {
     dataType,
     scaleType,
     datesAdjusted,
+    trackerType,
     lineLabel: '',
     footNote: ''
   }
