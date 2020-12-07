@@ -5,13 +5,14 @@ import {
   processCumulativeData,
   processDatesAdjusted
 } from '../utils'
-import { CasesType, cutoffValues } from '../constants'
+import { CasesType, cutoffValues, DefaultSelectCountry, DefaultSelectState } from '../constants'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import LineChartWidget from './LineChartWidget'
 
 const CovidDashboard = (props) => {
-  const data = props.data
+  const data = props.data.data
+  const trackerType = props.data.trackerType
 
   const [casesType, setCasesType] = useState('confirmed')
   const [dataType, setDataType] = useState('new')
@@ -35,10 +36,8 @@ const CovidDashboard = (props) => {
     footNote: ''
   }
   let chartHeading = ''
-  const defaultCountry = {
-    value: 'India',
-    label: 'India'
-  }
+  const defaultSelect = trackerType === 'country' ? DefaultSelectCountry : DefaultSelectState
+
   const uniqueCountries = [...new Set(data.map((row) => row.country))]
   const dropDownCountries = uniqueCountries.map((row) => {
     return {
@@ -50,7 +49,7 @@ const CovidDashboard = (props) => {
   if (initBool) {
     setInitBool(false)
     const country = data.filter((d) => {
-      return defaultCountry.value === d.country
+      return defaultSelect.value === d.country
     })
     const setCountry = [
       {
@@ -248,7 +247,7 @@ const CovidDashboard = (props) => {
           placeholder='Select a region'
           name='selectCountries'
           onChange={_handleSelectChange}
-          defaultValue={defaultCountry}
+          defaultValue={defaultSelect}
           options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
           components={{
             NoOptionsMessage: () => (

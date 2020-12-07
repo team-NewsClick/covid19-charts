@@ -7,6 +7,7 @@ module.exports = {
     return config
   },
   env: {
-    API_URL: process.env.API_URL,
+    API_URL_COUNTRY: process.env.API_URL_COUNTRY,
+    API_URL_STATE: process.env.API_URL_STATE,
   },
 }

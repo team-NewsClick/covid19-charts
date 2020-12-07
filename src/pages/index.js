@@ -1,33 +1,16 @@
-import { useState, useEffect } from "react"
-import { csvParse } from "d3-dsv"
-import CovidDashboard from "../components/CovidDashboard.js"
-import LoaderFunction from "../components/LoaderFunction"
+import Link from 'next/link'
 
-const Home = () => {
-  const [data, setData] = useState([])
-
-  useEffect(() => {
-    fetch(process.env.API_URL)
-      .then((res) => res.text())
-      .then(csvParse)
-      .then(setData)
-  }, [])
-
-  if (data.length === 0) {
-    return (
-      <div className="flex h-screen">
-        <div className="m-auto">
-          <LoaderFunction />
-        </div>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <CovidDashboard data={data} />
-      </div>
-    )
-  }
+const IndexPage = () => {
+  return (
+    <>
+      <Link href="/charts/CountryTracker">
+        <a>Country</a>
+      </Link>
+      <Link href="/charts/StateTracker">
+        <a>State</a>
+      </Link>
+    </>
+  )
 }
 
-export default Home
+export default IndexPage

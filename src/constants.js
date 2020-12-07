@@ -19,3 +19,13 @@ export const CasesType = {
   CONFIRMED: 'new_cases',
   DEATHS: 'new_deaths'
 }
+
+export const DefaultSelectCountry = {
+  value: 'India',
+  label: 'India'
+}
+
+export const DefaultSelectState = {
+  value: 'Delhi',
+  label: 'Delhi'
+}
