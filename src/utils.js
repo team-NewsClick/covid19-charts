@@ -5,10 +5,10 @@ export const filterCases = (data, caseType) => {
   return data.reduce((result, row) => {
     const date = new Date(row.date)
     if (date < cutoffDate) return result
-    const found = result.find((a) => a.country === row.country)
+    const found = result.find((a) => a.region === row.region)
     const value = { x: new Date(row.date), y: row[caseType] }
     if (!found) {
-      result.push({ country: row.country, data: [value] })
+      result.push({ region: row.region, data: [value] })
     } else {
       found.data.push(value)
     }
@@ -18,12 +18,12 @@ export const filterCases = (data, caseType) => {
 
 export const processLogData = (rawData) => {
   return rawData.map((rows) => {
-    const countryData = rows.data.filter((row) => {
+    const regionData = rows.data.filter((row) => {
       return row.y !== '0'
     })
     return {
-      country: rows.country,
-      data: countryData,
+      region: rows.region,
+      data: regionData,
     }
   })
 }
@@ -31,7 +31,7 @@ export const processLogData = (rawData) => {
 export const processCumulativeData = (rawData) => {
   return rawData.map((row) => {
     let acc = 0
-    const countryCases = row.data.map((d) => {
+    const regionCases = row.data.map((d) => {
       acc = acc + parseInt(d.y)
       return {
         x: d.x,
@@ -39,8 +39,8 @@ export const processCumulativeData = (rawData) => {
       }
     })
     return {
-      country: row.country,
-      data: countryCases,
+      region: row.region,
+      data: regionCases,
     }
   })
 }
@@ -53,7 +53,7 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
         : cutoffValues.CONFIRMED
       : cutoffValues.CUMMULATIVE
   return rawData.map((row) => {
-    let countryCases = row.data
+    let regionCases = row.data
       .map((d) => {
         if (parseInt(d.y) >= cutOff) {
           return {
@@ -66,8 +66,8 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
         return row !== undefined
       })
     return {
-      country: row.country,
-      data: countryCases,
+      region: row.region,
+      data: regionCases,
     }
   })
 }
@@ -87,14 +87,14 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
 }
 
 export const calculateMaxValue = (data) => {
-  const selectedCountry = data.filter((row) => {
-    if (row.country === 'US') {
+  const selectedRegion = data.filter((row) => {
+    if (row.region === 'US') {
       return row.data
     }
   })
   const yMax = Math.max.apply(
     Math,
-    selectedCountry[0].data.map((d) => {
+    selectedRegion[0].data.map((d) => {
       return d.y
     })
   )

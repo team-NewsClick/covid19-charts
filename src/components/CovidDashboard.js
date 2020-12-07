@@ -38,7 +38,7 @@ const CovidDashboard = (props) => {
   let chartHeading = ''
   const defaultSelect = trackerType === 'country' ? DefaultSelectCountry : DefaultSelectState
 
-  const uniqueSelect = [...new Set(data.map((row) => row.country))]
+  const uniqueSelect = [...new Set(data.map((row) => row.region))]
   const dropDownOptions = uniqueSelect.map((row) => {
     return {
       value: row,
@@ -48,13 +48,13 @@ const CovidDashboard = (props) => {
 
   if (initBool) {
     setInitBool(false)
-    const country = data.filter((d) => {
-      return defaultSelect.value === d.country
+    const region = data.filter((d) => {
+      return defaultSelect.value === d.region
     })
     const setSelects = [
       {
-        label: country[0].country,
-        country: country[0].country
+        label: region[0].region,
+        region: region[0].region
       }
     ]
     setInteractiveSelects([...interactiveSelects, ...setSelects])
@@ -125,12 +125,12 @@ const CovidDashboard = (props) => {
   const _handleSelectChange = (e) => {
     if (e && e.length > 0) {
       const selects = e.map((row) => {
-        const country = data.filter((d) => {
-          return row.value === d.country
+        const region = data.filter((d) => {
+          return row.value === d.region
         })
         return {
-          label: country[0].country,
-          country: country[0].country
+          label: region[0].region,
+          region: region[0].region
         }
       })
       setInteractiveSelects([...selects.flat()])

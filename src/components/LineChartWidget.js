@@ -39,10 +39,10 @@ const LineChartWidget = (props) => {
   useEffect(() => {
     if (interactiveSelects && interactiveSelects.length > 0) {
       const selects = interactiveSelects.map((row) => {
-        const country = data.filter((d) => {
-          return d.country === row.country
+        const region = data.filter((d) => {
+          return d.region === row.region
         })
-        return country
+        return region
       })
       setselected([...selects.flat()])
     } else {
@@ -93,7 +93,7 @@ const LineChartWidget = (props) => {
           {
             x: d.x,
             y: d.y,
-            country: selected[selectedHighlight].country
+            region: selected[selectedHighlight].region
           }
         ])
       }
@@ -183,7 +183,7 @@ const LineChartWidget = (props) => {
                     data[greyHighlight].data[
                       data[greyHighlight].data.length - 1
                     ].y,
-                  label: data[greyHighlight].country,
+                  label: data[greyHighlight].region,
                   xOffset: 12
                 }
               ]}
@@ -210,7 +210,7 @@ const LineChartWidget = (props) => {
             <Crosshair
               values={crosshairValue}
               titleFormat={(d) => ({
-                title: d[0].country,
+                title: d[0].region,
                 value: d[0].x.toISOString().slice(0, 10)
               })}
               itemsFormat={() => [
@@ -276,7 +276,7 @@ const LineChartWidget = (props) => {
                 {
                   x: d.data[d.data.length - 1].x,
                   y: d.data[d.data.length - 1].y,
-                  label: d.country,
+                  label: d.region,
                   xOffset: 12
                 }
               ]}
