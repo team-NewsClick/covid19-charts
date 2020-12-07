@@ -18,16 +18,16 @@ const CovidDashboard = (props) => {
   const [dataType, setDataType] = useState('new')
   const [scaleType, setScaleType] = useState('linear')
   const [datesAdjusted, setDatesAdjusted] = useState('off')
-  const [interactiveCountires, setInteractiveCountires] = useState([])
+  const [interactiveSelects, setinteractiveSelects] = useState([])
   const [
-    interactiveCountiresDisplay,
-    setInteractiveCountiresDisplay
+    interactiveSelectsDisplay,
+    setinteractiveSelectsDisplay
   ] = useState([])
   const [initBool, setInitBool] = useState(true)
 
   const propsData = {
     data: null,
-    interactiveCountires,
+    interactiveSelects,
     casesType,
     dataType,
     scaleType,
@@ -38,8 +38,8 @@ const CovidDashboard = (props) => {
   let chartHeading = ''
   const defaultSelect = trackerType === 'country' ? DefaultSelectCountry : DefaultSelectState
 
-  const uniqueCountries = [...new Set(data.map((row) => row.country))]
-  const dropDownCountries = uniqueCountries.map((row) => {
+  const uniqueSelect = [...new Set(data.map((row) => row.country))]
+  const dropDownOptions = uniqueSelect.map((row) => {
     return {
       value: row,
       label: row
@@ -51,23 +51,23 @@ const CovidDashboard = (props) => {
     const country = data.filter((d) => {
       return defaultSelect.value === d.country
     })
-    const setCountry = [
+    const setSelects = [
       {
         label: country[0].country,
         country: country[0].country
       }
     ]
-    setInteractiveCountires([...interactiveCountires, ...setCountry])
+    setinteractiveSelects([...interactiveSelects, ...setSelects])
   }
   useEffect(() => {
-    let countires = interactiveCountires.map((row) => {
+    let selects = interactiveSelects.map((row) => {
       return row.label
     })
-    setInteractiveCountiresDisplay([...countires])
+    setinteractiveSelectsDisplay([...selects])
     return () => {
-      countires = []
+      selects = []
     }
-  }, [interactiveCountires])
+  }, [interactiveSelects])
 
   if (casesType === 'confirmed') {
     propsData.lineLabel = 'New Cases'
@@ -124,7 +124,7 @@ const CovidDashboard = (props) => {
 
   const _handleSelectChange = (e) => {
     if (e && e.length > 0) {
-      const countries = e.map((row) => {
+      const selects = e.map((row) => {
         const country = data.filter((d) => {
           return row.value === d.country
         })
@@ -133,10 +133,10 @@ const CovidDashboard = (props) => {
           country: country[0].country
         }
       })
-      setInteractiveCountires([...countries.flat()])
+      setinteractiveSelects([...selects.flat()])
     } else {
-      setInteractiveCountires([])
-      setInteractiveCountiresDisplay([])
+      setinteractiveSelects([])
+      setinteractiveSelectsDisplay([])
     }
   }
   const _handleCasesType = (e) => {
@@ -156,7 +156,7 @@ const CovidDashboard = (props) => {
     <div>
       <div>
         <div className='text-2xl text-center font-black m-2 leading-7'>
-          COVID19 Country Tracker
+          COVID19 Tracker
         </div>
         <div className='flex justify-center'>
           <div className='radio-toolbar m-2'>
@@ -240,19 +240,19 @@ const CovidDashboard = (props) => {
       </div>
       <div className='container max-w-xl mx-auto'>
         <div className='text-left text-sm'>
-          Select maximum upto six countries to compare
+          Select maximum upto six options to compare
         </div>
         <Select
           components={makeAnimated}
           placeholder='Select a region'
-          name='selectCountries'
+          name='selectOptions'
           onChange={_handleSelectChange}
           defaultValue={defaultSelect}
-          options={interactiveCountires.length >= 6 ? [] : dropDownCountries}
+          options={interactiveSelects.length >= 6 ? [] : dropDownOptions}
           components={{
             NoOptionsMessage: () => (
               <div className='noOptions'>
-                Maximum number of countries selected
+                Maximum number of options selected
               </div>
             )
           }}
@@ -268,10 +268,10 @@ const CovidDashboard = (props) => {
         }
         className='text-sm text-black-600'
       >
-        {interactiveCountiresDisplay && (
+        {interactiveSelectsDisplay && (
           <div className="text-lg font-semibold mt-1">
             {chartHeading} of Covid-19 in{' '}
-            {interactiveCountiresDisplay
+            {interactiveSelectsDisplay
               .join(', ')
               .replace(/, ([^,]*)$/, ' and $1')}
           </div>

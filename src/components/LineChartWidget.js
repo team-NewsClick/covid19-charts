@@ -24,10 +24,10 @@ const LineChartWidget = (props) => {
   const datesAdjusted = props.data.datesAdjusted
   const casesType = props.data.casesType
   const dataType = props.data.dataType
-  const interactiveCountires = props.data.interactiveCountires
+  const interactiveSelects = props.data.interactiveSelects
   const footNote = props.data.footNote
 
-  const [selectedCountries, setSelectedCountries] = useState([])
+  const [selected, setselected] = useState([])
   const [greyHighlight, setGreyHighlight] = useState(null)
   const [selectedHighlight, setSelectedHighlight] = useState(null)
   const [crosshairValue, setCrosshairValue] = useState(null)
@@ -37,18 +37,18 @@ const LineChartWidget = (props) => {
   const yMaxRange = calculateMaxValue(data)
 
   useEffect(() => {
-    if (interactiveCountires && interactiveCountires.length > 0) {
-      const countires = interactiveCountires.map((row) => {
+    if (interactiveSelects && interactiveSelects.length > 0) {
+      const selects = interactiveSelects.map((row) => {
         const country = data.filter((d) => {
           return d.country === row.country
         })
         return country
       })
-      setSelectedCountries([...countires.flat()])
+      setselected([...selects.flat()])
     } else {
-      setSelectedCountries([])
+      setselected([])
     }
-  }, [interactiveCountires, casesType, scaleType, dataType, datesAdjusted])
+  }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   if (data.length == 0) {
     return (
@@ -93,7 +93,7 @@ const LineChartWidget = (props) => {
           {
             x: d.x,
             y: d.y,
-            country: selectedCountries[selectedHighlight].country
+            country: selected[selectedHighlight].country
           }
         ])
       }
@@ -226,7 +226,7 @@ const LineChartWidget = (props) => {
               color={customColor[selectedHighlight]}
             />
           )}
-          {selectedCountries.map((d, index) => (
+          {selected.map((d, index) => (
             <LineSeries
               key={index}
               curve={"curveMonotoneX"}
@@ -237,16 +237,16 @@ const LineChartWidget = (props) => {
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
-          {selectedCountries[selectedHighlight] && (
+          {selected[selectedHighlight] && (
             <LineSeries
               curve={"curveMonotoneX"}
-              data={selectedCountries[selectedHighlight].data}
+              data={selected[selectedHighlight].data}
               color={customColor[selectedHighlight]}
               strokeWidth={5}
               onNearestXY={(d) => _handleCrosshair(d)}
             />
           )}
-          {selectedCountries.map((d, index) => (
+          {selected.map((d, index) => (
             <LineSeries
               key={index}
               curve={"curveMonotoneX"}
@@ -257,7 +257,7 @@ const LineChartWidget = (props) => {
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
-          {selectedCountries.map((d, index) => (
+          {selected.map((d, index) => (
             <MarkSeries
               key={index}
               data={[
@@ -269,7 +269,7 @@ const LineChartWidget = (props) => {
               color={customColor[index]}
             />
           ))}
-          {selectedCountries.map((d, index) => (
+          {selected.map((d, index) => (
             <LabelSeries
               key={index}
               data={[
