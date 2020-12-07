@@ -2,14 +2,14 @@ import Link from 'next/link'
 
 const IndexPage = () => {
   return (
-    <>
+    <div className="flex justify-center">
       <Link href="/charts/CountryTracker">
-        <a>Country</a>
+        <a className="btns">Country</a>
       </Link>
       <Link href="/charts/StateTracker">
-        <a>State</a>
+        <a className="btns">State</a>
       </Link>
-    </>
+    </div>
   )
 }
 
