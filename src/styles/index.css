@@ -23,7 +23,7 @@ body {
   @apply text-center text-gray-500;
 }
 .btns {
-  @apply bg-blue-500 w-32 py-3 mx-4 my-8 rounded text-center text-xl text-white font-semibold;
+  @apply bg-blue-500 w-32 py-3 mx-4 my-4 rounded text-center text-xl text-white font-semibold;
 }
 .btns:hover {
   @apply bg-blue-600 text-white;

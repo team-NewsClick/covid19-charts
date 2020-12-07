@@ -18,10 +18,10 @@ const CovidDashboard = (props) => {
   const [dataType, setDataType] = useState('new')
   const [scaleType, setScaleType] = useState('linear')
   const [datesAdjusted, setDatesAdjusted] = useState('off')
-  const [interactiveSelects, setinteractiveSelects] = useState([])
+  const [interactiveSelects, setInteractiveSelects] = useState([])
   const [
     interactiveSelectsDisplay,
-    setinteractiveSelectsDisplay
+    setInteractiveSelectsDisplay
   ] = useState([])
   const [initBool, setInitBool] = useState(true)
 
@@ -57,13 +57,13 @@ const CovidDashboard = (props) => {
         country: country[0].country
       }
     ]
-    setinteractiveSelects([...interactiveSelects, ...setSelects])
+    setInteractiveSelects([...interactiveSelects, ...setSelects])
   }
   useEffect(() => {
     let selects = interactiveSelects.map((row) => {
       return row.label
     })
-    setinteractiveSelectsDisplay([...selects])
+    setInteractiveSelectsDisplay([...selects])
     return () => {
       selects = []
     }
@@ -133,10 +133,10 @@ const CovidDashboard = (props) => {
           country: country[0].country
         }
       })
-      setinteractiveSelects([...selects.flat()])
+      setInteractiveSelects([...selects.flat()])
     } else {
-      setinteractiveSelects([])
-      setinteractiveSelectsDisplay([])
+      setInteractiveSelects([])
+      setInteractiveSelectsDisplay([])
     }
   }
   const _handleCasesType = (e) => {
