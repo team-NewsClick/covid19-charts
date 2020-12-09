@@ -47,18 +47,20 @@ export const processCumulativeData = (rawData) => {
 
 export const processDatesAdjusted = (rawData, caseType, dataType) => {
   const cutOff =
-    dataType === 'new'
-      ? caseType === CasesType.DEATHS
-        ? cutoffValues.DEATHS
-        : cutoffValues.CONFIRMED
-      : cutoffValues.CUMMULATIVE
+  dataType === 'new'
+  ? caseType === CasesType.DEATHS
+  ? cutoffValues.DEATHS
+  : cutoffValues.CONFIRMED
+  : cutoffValues.CUMMULATIVE
   return rawData.map((row) => {
+    let temp = 0
     let regionCases = row.data
       .map((d) => {
         if (parseInt(d.y) >= cutOff) {
           return {
-            x: d.x,
+            x: ++temp,
             y: d.y,
+            date: d.x,
           }
         }
       })

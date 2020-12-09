@@ -9,5 +9,6 @@ module.exports = {
   env: {
     API_URL_COUNTRY: process.env.API_URL_COUNTRY,
     API_URL_STATE: process.env.API_URL_STATE,
+    API_URL_DISTRICT: process.env.API_URL_DISTRICT,
   },
 }

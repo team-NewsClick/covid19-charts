@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react"
-import { csvParse } from "d3-dsv"
-import CovidDashboard from "../../components/CovidDashboard.js"
-import LoaderFunction from "../../components/LoaderFunction"
+import { useState, useEffect } from 'react'
+import { csvParse } from 'd3-dsv'
+import CovidDashboard from '../../components/CovidDashboard.js'
+import LoaderFunction from '../../components/LoaderFunction'
 
 const StateTracker = () => {
   const [data, setData] = useState([])
+
   const propsData = {
     data,
-    trackerType: 'state'
+    trackerType: 'district',
   }
-  
+
   useEffect(() => {
-    fetch(process.env.API_URL_STATE)
+    fetch(process.env.API_URL_DISTRICT)
       .then((res) => res.text())
       .then(csvParse)
       .then(setData)
