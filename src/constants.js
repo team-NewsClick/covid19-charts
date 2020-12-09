@@ -20,7 +20,7 @@ export const CasesType = {
   DEATHS: 'new_deaths'
 }
 
-export const CountryMax = 'US'
+export const CountryMax = 'United States'
 export const StateMax = 'Maharashtra'
 
 export const DefaultSelectCountry = {
