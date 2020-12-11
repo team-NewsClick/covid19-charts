@@ -8,11 +8,11 @@ const StateTracker = () => {
 
   const propsData = {
     data,
-    trackerType: 'district',
+    trackerType: 'city',
   }
 
   useEffect(() => {
-    fetch(process.env.API_URL_DISTRICT)
+    fetch(process.env.API_URL_CITY)
       .then((res) => res.text())
       .then(csvParse)
       .then(setData)

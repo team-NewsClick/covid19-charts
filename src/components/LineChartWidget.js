@@ -15,7 +15,7 @@ import {
   calculateMaxValue,
   calculateTickValues,
 } from '../utils'
-import { customColor, cutoffValues } from '../constants'
+import { customColor } from '../constants'
 
 const LineChartWidget = (props) => {
   const data = props.data.data

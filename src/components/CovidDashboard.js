@@ -5,7 +5,7 @@ import {
   processCumulativeData,
   processDatesAdjusted
 } from '../utils'
-import { CasesType, cutoffValues, DefaultSelectCountry, DefaultSelectState } from '../constants'
+import { CasesType, cutoffValues, DefaultSelectCountry, DefaultSelectState, DefaultSelectCity } from '../constants'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
 import LineChartWidget from './LineChartWidget'
@@ -37,7 +37,19 @@ const CovidDashboard = (props) => {
     footNote: ''
   }
   let chartHeading = ''
-  const defaultSelect = trackerType === 'country' ? DefaultSelectCountry : DefaultSelectState
+  let defaultSelect = {}
+
+  switch(trackerType) {
+    case 'country':
+      defaultSelect = DefaultSelectCountry
+      break
+    case 'state':
+      defaultSelect = DefaultSelectState
+      break
+    case 'city':
+      defaultSelect = DefaultSelectCity
+      break
+  }
 
   const uniqueSelect = [...new Set(data.map((row) => row.region))]
   const dropDownOptions = uniqueSelect.map((row) => {

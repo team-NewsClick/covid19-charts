@@ -16,8 +16,8 @@ const IndexPage = () => {
         <Link href="/charts/StateTracker">
           <a className="btns">States</a>
         </Link>
-        <Link href="/charts/DistrictTracker">
-          <a className="btns">Districts</a>
+        <Link href="/charts/CityTracker">
+          <a className="btns">Cities</a>
         </Link>
       </div>
     </div>
