@@ -190,8 +190,8 @@ const LineChartWidget = (props) => {
                 title: d[0].region,
                 value:
                   datesAdjusted === 'on'
-                    ? d[0].date.toISOString().slice(0, 10)
-                    : d[0].x.toISOString().slice(0, 10),
+                    ? d[0].date.toLocaleDateString('en-GB')
+                    : d[0].x.toLocaleDateString('en-GB')
               })}
               itemsFormat={() => [
                 { title: `${lineLabel}`, value: crosshairValue[0].y },
