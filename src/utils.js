@@ -89,7 +89,7 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
 }
 
 export const calculateMaxValue = (data, trackerType) => {
-  let selectMax = {}
+  let selectMax = ''
   switch(trackerType) {
     case 'country':
       selectMax = CountryMax
@@ -101,6 +101,11 @@ export const calculateMaxValue = (data, trackerType) => {
       selectMax = CityMax
       break
   }
+
+  /*
+    calculate max values by iterating over the json object
+  */
+
   const selectedRegion = data.filter((row) => {
     if (row.region === selectMax) {
       return row.data

@@ -22,7 +22,7 @@ export const CasesType = {
 
 export const CountryMax = 'United States'
 export const StateMax = 'Maharashtra'
-export const CityMax = 'Mumbai'
+export const CityMax = 'Delhi'
 
 export const DefaultSelectCountry = {
   value: 'India',
