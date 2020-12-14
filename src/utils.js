@@ -1,9 +1,6 @@
 import {
   cutoffValues,
   CasesType,
-  CountryMax,
-  StateMax,
-  CityMax,
 } from './constants'
 
 export const filterCases = (data, caseType) => {
