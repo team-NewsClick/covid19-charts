@@ -94,20 +94,6 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
   return yMinRangeLog
 }
 
-/*
-export const calculateMaxValue = (data) => {
-  let max = 0
-  for(let i = 0; i < data.length; ++i) {
-    for(let j = 0; j < data[i].data.length; ++j) {
-      if(data[i].data[j].y > max) {
-        max = parseInt(data[i].data[j].y)
-      }
-    }
-  }
-  return max*1.15
-}
-*/
-
 export const calculateMaxValue = (data) => {
   let allRegionsMax = data.map((rd) => {
     let d = rd.data
