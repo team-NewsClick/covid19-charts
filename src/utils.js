@@ -1,4 +1,10 @@
-import { cutoffValues, CasesType, CountryMax, StateMax, CityMax } from './constants'
+import {
+  cutoffValues,
+  CasesType,
+  CountryMax,
+  StateMax,
+  CityMax,
+} from './constants'
 
 export const filterCases = (data, caseType) => {
   const cutoffDate = new Date(cutoffValues.DATE)
@@ -47,11 +53,11 @@ export const processCumulativeData = (rawData) => {
 
 export const processDatesAdjusted = (rawData, caseType, dataType) => {
   const cutOff =
-  dataType === 'new'
-  ? caseType === CasesType.DEATHS
-  ? cutoffValues.DEATHS
-  : cutoffValues.CONFIRMED
-  : cutoffValues.CUMMULATIVE
+    dataType === 'new'
+      ? caseType === CasesType.DEATHS
+        ? cutoffValues.DEATHS
+        : cutoffValues.CONFIRMED
+      : cutoffValues.CUMMULATIVE
   return rawData.map((row) => {
     let temp = 0
     let regionCases = row.data
@@ -88,6 +94,7 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
   return yMinRangeLog
 }
 
+/*
 export const calculateMaxValue = (data) => {
   let max = 0
   for(let i = 0; i < data.length; ++i) {
@@ -97,6 +104,23 @@ export const calculateMaxValue = (data) => {
       }
     }
   }
+  return max*1.15
+}
+*/
+
+export const calculateMaxValue = (data) => {
+  let allRegionsMax = data.map((rd) => {
+    let d = rd.data
+    let regionMax = d.reduce((acc, e) => {
+      acc = parseInt(e.y) > acc ? e.y : acc
+      return acc
+    }, 0)
+    return regionMax
+  })
+  let max = allRegionsMax.reduce((acc, e) => {
+    acc = parseInt(e) > acc ? e : acc
+    return acc
+  }, 0)
   return max*1.15
 }
 
