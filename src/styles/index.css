@@ -40,3 +40,7 @@ body {
 .rv-xy-plot {
     margin: auto;
 }
+.rv-crosshair__inner__content {
+  background: #fff !important;
+  color: #000 !important;
+}

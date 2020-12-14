@@ -201,7 +201,7 @@ const LineChartWidget = (props) => {
           {onMouseHover && crosshairValue && (
             <MarkSeries
               data={[
-                { x: crosshairValue[0].x, y: crosshairValue[0].y, size: '1' },
+                { x: crosshairValue[0].x, y: crosshairValue[0].y, size: 1 },
               ]}
               color={customColor[selectedHighlight]}
             />
