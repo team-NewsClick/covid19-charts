@@ -88,37 +88,16 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
   return yMinRangeLog
 }
 
-export const calculateMaxValue = (data, trackerType) => {
-  let selectMax = ''
-  switch(trackerType) {
-    case 'country':
-      selectMax = CountryMax
-      break
-    case 'state':
-      selectMax = StateMax
-      break
-    case 'city':
-      selectMax = CityMax
-      break
-  }
-
-  /*
-    calculate max values by iterating over the json object
-  */
-
-  const selectedRegion = data.filter((row) => {
-    if (row.region === selectMax) {
-      return row.data
+export const calculateMaxValue = (data) => {
+  let max = 0
+  for(let i = 0; i < data.length; ++i) {
+    for(let j = 0; j < data[i].data.length; ++j) {
+      if(data[i].data[j].y > max) {
+        max = parseInt(data[i].data[j].y)
+      }
     }
-  })
-  const yMax = Math.max.apply(
-    Math,
-    selectedRegion[0].data.map((d) => {
-      return d.y
-    })
-  )
-  const max = Math.ceil(yMax / 3000) * 3000
-  return max
+  }
+  return max*1.15
 }
 
 export const calculateTickValues = (yMinRange, yMaxRange) => {
