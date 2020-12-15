@@ -41,6 +41,7 @@ body {
     margin: auto;
 }
 .rv-crosshair__inner__content {
-  background: #fff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0px 0px 3px rgba(120, 120, 120, 0.25) !important;
   color: #000 !important;
 }

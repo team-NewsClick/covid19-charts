@@ -201,7 +201,7 @@ const LineChartWidget = (props) => {
           {onMouseHover && crosshairValue && (
             <MarkSeries
               data={[
-                { x: crosshairValue[0].x, y: crosshairValue[0].y, size: 1 },
+                { x: crosshairValue[0].x, y: crosshairValue[0].y, },
               ]}
               color={customColor[selectedHighlight]}
             />
@@ -212,7 +212,7 @@ const LineChartWidget = (props) => {
               curve={'curveMonotoneX'}
               data={casesType && d.data}
               color={'#fff'}
-              strokeWidth={8}
+              strokeWidth={6}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
@@ -222,7 +222,7 @@ const LineChartWidget = (props) => {
               curve={'curveMonotoneX'}
               data={selected[selectedHighlight].data}
               color={customColor[selectedHighlight]}
-              strokeWidth={5}
+              strokeWidth={4}
               onNearestXY={(d) => _handleCrosshair(d)}
             />
           )}
@@ -232,7 +232,7 @@ const LineChartWidget = (props) => {
               curve={'curveMonotoneX'}
               data={casesType && d.data}
               color={customColor[index]}
-              strokeWidth={3}
+              strokeWidth={2}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
