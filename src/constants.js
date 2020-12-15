@@ -31,6 +31,6 @@ export const DefaultSelectState = {
 }
 
 export const DefaultSelectCity = {
-  value: 'Mumbai',
-  label: 'Mumbai'
+  value: 'Delhi',
+  label: 'Delhi'
 }
