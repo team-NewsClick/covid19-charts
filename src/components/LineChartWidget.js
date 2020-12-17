@@ -37,6 +37,21 @@ const LineChartWidget = (props) => {
   const yMinRangeLog = calculateMinValue(dataType, casesType, datesAdjusted)
   const yMaxRange = calculateMaxValue(data)
 
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+
   useEffect(() => {
     if (interactiveSelects && interactiveSelects.length > 0) {
       const selects = interactiveSelects.map((row) => {
@@ -108,13 +123,27 @@ const LineChartWidget = (props) => {
           }
           margin={
             window.innerWidth > 600
-              ? { left: 55, right: 200 }
+              ? { left: 55, right: 200, bottom: 60 }
               : { left: 55, right: 55 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
         >
           <HorizontalGridLines />
-          <XAxis tickLabelAngle={-30} tickTotal={12} />
+          <XAxis
+            tickLabelAngle={-30}
+            tickTotal={12}
+            tickFormat={(d) => {
+              if (d.getMonth() === 0) {
+                return (
+                  //d = day mmm dd yyyy hh:mm:ss GMT+0530 (India Standard Time)
+                  //mmm + ` '` + yy
+                  months[d.getMonth()] + ` ` + d.getFullYear()
+                )
+              } else {
+                return months[d.getMonth()]
+              }
+            }}
+          />
           <YAxis
             tickValues={
               scaleType === 'log'
@@ -200,9 +229,7 @@ const LineChartWidget = (props) => {
           )}
           {onMouseHover && crosshairValue && (
             <MarkSeries
-              data={[
-                { x: crosshairValue[0].x, y: crosshairValue[0].y, },
-              ]}
+              data={[{ x: crosshairValue[0].x, y: crosshairValue[0].y }]}
               color={customColor[selectedHighlight]}
             />
           )}
@@ -240,12 +267,7 @@ const LineChartWidget = (props) => {
           {selected.map((d, index) => (
             <MarkSeries
               key={index}
-              data={[
-                {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
-                },
-              ]}
+              data={[{x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y,}]}
               color={customColor[index]}
             />
           ))}
