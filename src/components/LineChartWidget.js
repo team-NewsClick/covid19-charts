@@ -132,17 +132,11 @@ const LineChartWidget = (props) => {
           <XAxis
             tickLabelAngle={-30}
             tickTotal={12}
-            tickFormat={(d) => {
-              if (d.getMonth() === 0) {
-                return (
-                  //d = day mmm dd yyyy hh:mm:ss GMT+0530 (India Standard Time)
-                  //mmm + ` '` + yy
-                  months[d.getMonth()] + ` ` + d.getFullYear()
-                )
-              } else {
-                return months[d.getMonth()]
-              }
-            }}
+            tickFormat={(d) => (
+              d.getMonth() === 0
+                ? months[d.getMonth()] + ' ' + d.getFullYear()
+                : months[d.getMonth()]
+            )}
           />
           <YAxis
             tickValues={
