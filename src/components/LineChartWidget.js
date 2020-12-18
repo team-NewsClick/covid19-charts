@@ -38,18 +38,18 @@ const LineChartWidget = (props) => {
   const yMaxRange = calculateMaxValue(data)
 
   const months = [
-    'January',
-    'February',
-    'March',
-    'April',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
     'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ]
 
   useEffect(() => {
@@ -123,17 +123,18 @@ const LineChartWidget = (props) => {
           }
           margin={
             window.innerWidth > 600
-              ? { left: 55, right: 200, bottom: 60 }
+              ? { left: 55, right: 200 }
               : { left: 55, right: 55 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
         >
           <HorizontalGridLines />
           <XAxis
-            tickLabelAngle={-30}
             tickTotal={12}
             tickFormat={(d) =>
-              d.getMonth() === 0
+              datesAdjusted === 'on'
+                ? d
+                : d.getMonth() === 0
                 ? months[d.getMonth()] + ' ' + d.getFullYear()
                 : months[d.getMonth()]
             }
