@@ -132,11 +132,16 @@ const LineChartWidget = (props) => {
           <XAxis
             tickLabelAngle={-30}
             tickTotal={12}
-            tickFormat={(d) => (
+            tickFormat={(d) =>
               d.getMonth() === 0
                 ? months[d.getMonth()] + ' ' + d.getFullYear()
                 : months[d.getMonth()]
-            )}
+            }
+            style={{
+              line: { stroke: '#acaeb5' },
+              ticks: { stroke: '#acaeb5' },
+              text: { stroke: 'none' },
+            }}
           />
           <YAxis
             tickValues={
@@ -214,7 +219,7 @@ const LineChartWidget = (props) => {
                 value:
                   datesAdjusted === 'on'
                     ? d[0].date.toLocaleDateString('en-GB')
-                    : d[0].x.toLocaleDateString('en-GB')
+                    : d[0].x.toLocaleDateString('en-GB'),
               })}
               itemsFormat={() => [
                 { title: `${lineLabel}`, value: crosshairValue[0].y },
@@ -261,7 +266,12 @@ const LineChartWidget = (props) => {
           {selected.map((d, index) => (
             <MarkSeries
               key={index}
-              data={[{x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y,}]}
+              data={[
+                {
+                  x: d.data[d.data.length - 1].x,
+                  y: d.data[d.data.length - 1].y,
+                },
+              ]}
               color={customColor[index]}
             />
           ))}
