@@ -138,7 +138,6 @@ const LineChartWidget = (props) => {
                 : months[d.getMonth()]
             }
             style={{
-              line: { stroke: '#acaeb5' },
               ticks: { stroke: '#acaeb5' },
               text: { stroke: 'none' },
             }}
