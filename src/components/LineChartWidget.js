@@ -121,7 +121,7 @@ const LineChartWidget = (props) => {
               ? window.innerWidth * 0.35
               : window.innerWidth * 0.85
           }
-          xDomain={ datesAdjusted === "off" ? [xMinRange, xMaxRange] : null}
+          xDomain={ datesAdjusted === "on" ? null : [xMinRange, xMaxRange]}
           yDomain={
             scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
