@@ -142,7 +142,7 @@ const LineChartWidget = (props) => {
               ticks: { stroke: '#acaeb5' },
               text: { stroke: 'none' },
             }}
-            className="xTicks"
+            className= { datesAdjusted === 'on' ? null : "xTicks"}
           />
           <YAxis
             tickValues={
