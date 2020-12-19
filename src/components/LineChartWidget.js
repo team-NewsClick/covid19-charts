@@ -109,12 +109,12 @@ const LineChartWidget = (props) => {
           xType={datesAdjusted === 'on' ? 'linear' : 'time'}
           yType={scaleType}
           width={
-            window.innerWidth > 600
+            window.innerWidth > 800
               ? window.innerWidth * 0.6
               : window.innerWidth * 1
           }
           height={
-            window.innerWidth > 600
+            window.innerWidth > 800
               ? window.innerWidth * 0.35
               : window.innerWidth * 0.85
           }
@@ -122,7 +122,7 @@ const LineChartWidget = (props) => {
             scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
           margin={
-            window.innerWidth > 600
+            window.innerWidth > 800
               ? { left: 55, right: 200 }
               : { left: 55, right: 55 }
           }
@@ -142,6 +142,7 @@ const LineChartWidget = (props) => {
               ticks: { stroke: '#acaeb5' },
               text: { stroke: 'none' },
             }}
+            className="xTicks"
           />
           <YAxis
             tickValues={
@@ -298,7 +299,7 @@ const LineChartWidget = (props) => {
         </XYPlot>
         <div
           style={
-            window.innerWidth > 540
+            window.innerWidth > 800
               ? { marginLeft: '23.5%' }
               : { marginLeft: '13%' }
           }
