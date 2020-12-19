@@ -11,9 +11,9 @@ import {
 import LoaderFunction from '../components/LoaderFunction'
 import { useEffect, useState } from 'react'
 import {
-  calculateMinValue,
-  calculateMaxValue,
-  calculateTickValues,
+  calculateYMinValue,
+  calculateYMaxValue,
+  calculateYTickValues,
   calculateXMinValue,
   calculateXMaxValue,
 } from '../utils'
@@ -27,7 +27,6 @@ const LineChartWidget = (props) => {
   const casesType = props.data.casesType
   const dataType = props.data.dataType
   const interactiveSelects = props.data.interactiveSelects
-  const trackerType = props.data.trackerType
   const footNote = props.data.footNote
 
   const [selected, setselected] = useState([])
@@ -36,8 +35,8 @@ const LineChartWidget = (props) => {
   const [crosshairValue, setCrosshairValue] = useState(null)
   const [onMouseHover, setOnMouseHover] = useState(false)
 
-  const yMinRangeLog = calculateMinValue(dataType, casesType, datesAdjusted)
-  const yMaxRange = calculateMaxValue(data)
+  const yMinRangeLog = calculateYMinValue(dataType, casesType, datesAdjusted)
+  const yMaxRange = calculateYMaxValue(data)
   const xMinRange = calculateXMinValue(data)
   const xMaxRange = calculateXMaxValue(data)
 
@@ -122,7 +121,7 @@ const LineChartWidget = (props) => {
               ? window.innerWidth * 0.35
               : window.innerWidth * 0.85
           }
-          xDomain={ datesAdjusted === "off" ? [xMinRange, xMaxRange] : []}
+          xDomain={ datesAdjusted === "off" ? [xMinRange, xMaxRange] : null}
           yDomain={
             scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
@@ -152,7 +151,7 @@ const LineChartWidget = (props) => {
           <YAxis
             tickValues={
               scaleType === 'log'
-                ? calculateTickValues(yMinRangeLog, yMaxRange)
+                ? calculateYTickValues(yMinRangeLog, yMaxRange)
                 : null
             }
             tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}

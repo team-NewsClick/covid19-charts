@@ -74,21 +74,21 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
   })
 }
 
-export const calculateXMaxValue = (data) => {
+export const calculateXMaxValue = () => {
   Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf())
     date.setDate(date.getDate() + days)
     return date
   }
   const d = new Date()
-  return d.addDays(5)
+  return d.addDays(2)
 }
 
-export const calculateXMinValue = (data) => {
+export const calculateXMinValue = () => {
   return new Date(cutoffValues.DATE)
 }
 
-export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
+export const calculateYMinValue = (dataType, casesType, datesAdjusted) => {
   const yMinRangeLog =
     datesAdjusted === 'on'
       ? casesType === 'confirmed'
@@ -102,7 +102,7 @@ export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
   return yMinRangeLog
 }
 
-export const calculateMaxValue = (data) => {
+export const calculateYMaxValue = (data) => {
   let allRegionsMax = data.map((rd) => {
     let d = rd.data
     let regionMax = d.reduce((acc, e) => {
@@ -118,7 +118,7 @@ export const calculateMaxValue = (data) => {
   return max * 1.15
 }
 
-export const calculateTickValues = (yMinRange, yMaxRange) => {
+export const calculateYTickValues = (yMinRange, yMaxRange) => {
   const tickValues = []
   for (let i = yMinRange; i <= yMaxRange; i = i * 10) {
     tickValues.push(i)
