@@ -1,7 +1,4 @@
-import {
-  cutoffValues,
-  CasesType,
-} from './constants'
+import { cutoffValues, CasesType } from './constants'
 
 export const filterCases = (data, caseType) => {
   const cutoffDate = new Date(cutoffValues.DATE)
@@ -77,6 +74,20 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
   })
 }
 
+export const calculateXMaxValue = (data) => {
+  Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf())
+    date.setDate(date.getDate() + days)
+    return date
+  }
+  const d = new Date()
+  return d.addDays(5)
+}
+
+export const calculateXMinValue = (data) => {
+  return new Date(cutoffValues.DATE)
+}
+
 export const calculateMinValue = (dataType, casesType, datesAdjusted) => {
   const yMinRangeLog =
     datesAdjusted === 'on'
@@ -104,7 +115,7 @@ export const calculateMaxValue = (data) => {
     acc = parseInt(e) > acc ? e : acc
     return acc
   }, 0)
-  return max*1.15
+  return max * 1.15
 }
 
 export const calculateTickValues = (yMinRange, yMaxRange) => {

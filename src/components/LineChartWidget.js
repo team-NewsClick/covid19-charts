@@ -14,6 +14,8 @@ import {
   calculateMinValue,
   calculateMaxValue,
   calculateTickValues,
+  calculateXMinValue,
+  calculateXMaxValue,
 } from '../utils'
 import { customColor } from '../constants'
 
@@ -36,6 +38,8 @@ const LineChartWidget = (props) => {
 
   const yMinRangeLog = calculateMinValue(dataType, casesType, datesAdjusted)
   const yMaxRange = calculateMaxValue(data)
+  const xMinRange = calculateXMinValue(data)
+  const xMaxRange = calculateXMaxValue(data)
 
   const months = [
     'Jan',
@@ -118,6 +122,7 @@ const LineChartWidget = (props) => {
               ? window.innerWidth * 0.35
               : window.innerWidth * 0.85
           }
+          xDomain={ datesAdjusted === "off" ? [xMinRange, xMaxRange] : []}
           yDomain={
             scaleType === 'log' ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
