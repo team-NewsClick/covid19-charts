@@ -74,6 +74,29 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
   })
 }
 
+export const calculateXMinValue = (data) => {
+  let allRegionsMin = data.map((rd) => {
+    let d = rd.data
+    let regionMin = d.reduce((acc, e) => {
+      acc = e.x < acc ? e.x : acc
+      return acc
+    }, new Date('01/01/3000'))
+    return regionMin
+  })
+  let min = allRegionsMin.reduce((acc, e) => {
+    acc = e < acc ? e : acc
+    return acc
+  }, new Date('01/01/3000'))
+
+  Date.prototype.subtractDays = function () {
+    var date = new Date(this.valueOf())
+    date.setDate(date.getDate() - min.getDate() + 1)
+    return date
+  }
+
+  return min.subtractDays()
+}
+
 export const calculateXMaxValue = () => {
   Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf())
@@ -82,10 +105,6 @@ export const calculateXMaxValue = () => {
   }
   const d = new Date()
   return d.addDays(2)
-}
-
-export const calculateXMinValue = () => {
-  return new Date(cutoffValues.DATE)
 }
 
 export const calculateYMinValue = (dataType, casesType, datesAdjusted) => {
