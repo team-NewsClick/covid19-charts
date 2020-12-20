@@ -74,7 +74,7 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
   })
 }
 
-export const calculateXMinValue = (data) => {
+export const calculateXMinValue = (data, datesAdjusted) => {
   let allRegionsMin = data.map((rd) => {
     let d = rd.data
     let regionMin = d.reduce((acc, e) => {
@@ -94,7 +94,7 @@ export const calculateXMinValue = (data) => {
     return date
   }
 
-  return min.subtractDays()
+  return datesAdjusted === "on" ? 1 : min.subtractDays()
 }
 
 export const calculateXMaxValue = () => {
