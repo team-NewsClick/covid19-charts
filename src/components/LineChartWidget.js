@@ -127,7 +127,7 @@ const LineChartWidget = (props) => {
           }
           margin={
             window.innerWidth > 800
-              ? { left: 55, right: 200 }
+              ? { left: 100, right: 200 }
               : { left: 55, right: 55 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
@@ -304,7 +304,7 @@ const LineChartWidget = (props) => {
         <div
           style={
             window.innerWidth > 800
-              ? { marginLeft: '23.5%' }
+              ? { marginLeft: '25%' }
               : { marginLeft: '13%' }
           }
           className="text-xs text-gray-600"
