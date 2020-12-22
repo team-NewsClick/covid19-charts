@@ -1,5 +1,6 @@
 @tailwind base;
 @tailwind components;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
   @apply bg-gray-100;
@@ -31,6 +32,33 @@ body {
 .xTicks text {
   @apply transform translate-x-4 translate-y-3;
 }
+.social-icon {
+  @apply hidden;
+}
+.header-logos {
+  @apply border-b-2 mt-8 pb-6;
+}
+.categories {
+  @apply hidden;
+}
+.category {
+  @apply mx-3 self-end;
+}
+.sm-hide {
+  @apply hidden;
+}
+.article-para {
+  @apply text-lg text-justify my-4;
+}
+.article-subheading{
+  @apply text-2xl font-bold mt-8 mb-5 leading-7;
+}
+.article-img {
+  @apply mx-auto my-6;
+}
+.article-img-caption {
+  @apply text-center text-lg mx-2 mb-6;
+}
 
 @screen sm {
   .radio-title {
@@ -38,6 +66,15 @@ body {
   }
   .xTicks text {
     @apply transform translate-x-12 translate-y-3;
+  }
+  .categories {
+    @apply flex justify-center font-bold text-lg;
+  }
+  .social-icon {
+    @apply block;
+  }
+  .sm-hide {
+    @apply inline-block;
   }
 }
 
@@ -51,3 +88,79 @@ body {
   box-shadow: 0px 0px 3px rgba(120, 120, 120, 0.25) !important;
   color: #000 !important;
 }
+.header-social {
+  border-color: #0D3554;
+}
+#article-title, .article-subheading {
+  font-family: 'Noto Serif', serif;
+}
+.search {
+  min-width: 30px;
+}
+
+/* hamberger-menu start */
+#menu {
+  width: 25px;
+  cursor: pointer;
+}
+.bar{
+  height: 3px;
+  width: 100%;
+  background-color: #0D3554;
+  display: block;
+  border-radius: 3px;
+  margin-top: 2x;
+  transition: 0.3s ease;
+}
+#bar1 {
+  transform: translateY(-4px);
+}
+#bar3 {
+  transform: translateY(4px);
+}
+.nav li a {
+  text-decoration: none;
+}
+.nav li {
+  list-style: none;
+  font-weight: bolder;
+  padding: 16px 0;
+}
+.nav {
+  display: none;
+  padding: 0;
+  margin: 0 20px;
+  transition: 0.3s ease;
+  left: 0;
+}
+.menu-bg {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.menu-bg {
+  z-index: 1;
+  background-color: #efefef;
+  transition: 0.3s ease;
+}
+#menu-bar {
+  z-index: 2;
+  margin-top: 1rem;
+}
+.change-bg {
+  width: 100%;
+  height: 100%;
+}
+.change #bar1 {
+  transform: translateY(3px) rotateZ(-45deg);
+}
+.change #bar2 {
+  opacity: 0;
+}
+.change #bar3 {
+  transform: translateY(-3px) rotateZ(45deg);
+}
+.change {
+  display: block;
+}
+/* hamberger-menu end */
