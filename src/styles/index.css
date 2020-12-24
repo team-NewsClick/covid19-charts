@@ -6,13 +6,13 @@ body {
   @apply bg-gray-100;
 }
 .radio-title {
-  @apply text-xs;
+  @apply text-xs ;
 }
 .radio-toolbar input[type='radio'] {
   @apply opacity-0 fixed w-0 inline-flex;
 }
 .radio-toolbar label {
-  @apply inline-block bg-gray-100 py-1 text-center text-xs w-20 border-2 border-solid border-gray-800;
+  @apply inline-block bg-gray-100 py-1 text-center text-xs w-20 border-2 border-solid border-gray-800 cursor-pointer;
 }
 .radio-toolbar label:hover {
   @apply bg-gray-300;
@@ -59,6 +59,30 @@ body {
 .article-img-caption {
   @apply text-center text-lg mx-2 mb-6;
 }
+.browse-category {
+  @apply mb-24;
+}
+.browse-category-header {
+  @apply flex border-b-2 w-full;
+}
+.browse-category-title {
+  @apply px-3 py-2 text-white font-bold text-lg;
+}
+.article-thumbnail {
+  @apply shadow-md my-6 mx-2 rounded-md;
+}
+.article-thumbnail-title {
+  @apply font-extrabold mx-4 mt-5 text-lg;
+}
+.article-thumbnail-para {
+  @apply mx-4 my-3 text-justify;
+}
+.article-thumbnail-btn {
+  @apply px-4 py-2 mt-6 mb-4 bg-white border border-solid rounded text-lg cursor-pointer;
+}
+.article-thumbnail-btn:hover {
+  @apply bg-red-800 text-white border-red-800;
+}
 
 @screen sm {
   .radio-title {
@@ -91,7 +115,7 @@ body {
 .header-social {
   border-color: #0D3554;
 }
-#article-title, .article-subheading {
+#article-title, .article-subheading, .article-thumbnail-title {
   font-family: 'Noto Serif', serif;
 }
 .search {
@@ -164,3 +188,14 @@ body {
   display: block;
 }
 /* hamberger-menu end */
+
+.browse-category-header {
+  border-color: #0D3554;
+}
+.browse-category-title {
+  background-color: #0D3554;
+}
+.article-thumbnail-btn {
+  border-color: #D11143;
+  color: #D11143;
+}

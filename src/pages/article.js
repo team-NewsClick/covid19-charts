@@ -191,10 +191,7 @@ const Article = () => {
             scrolling="no"
             frameBorder="0"
             style={{ width: '0', minWidth: '100% !important', border: 'none' }}
-            // style="width: 0; min-width: 100% !important; border: none;"
-            height="1496"
           ></iframe>
-          {/* {IFrame()} */}
           <div className="article-para">
             The graphs below show the statistics for selected cities. We have
             adjusted starting point of the cities to a common zero day when each
@@ -253,21 +250,92 @@ const Article = () => {
             <CountryTracker />
           </div>
         </div>
-        {/* <div id="related-posts " className="browse-category mb-24">
-          <div className="flex border-b-2 border-indigo-900 w-full">
-            <div className="px-3 py-2 bg-indigo-900 text-white font-bold text-lg">
+        <div id="related-posts" className="browse-category">
+          <div className="browse-category-header">
+            <div className="browse-category-title">
               RELATED POSTS
             </div>
             <div></div>
           </div>
-          <div className="flex">
-            <div className="article-thumbnail w-1/3 shadow m-4 rounded-full">
-              <div><img src="../img/covid-19-fi.jpg" alt="" className="" /></div>
+          <div className="lg:flex md:flex sm:block">
+            <div className="article-thumbnail">
+              <div>
+                <img
+                  src="../img/covid-19-fi.jpg"
+                  alt=""
+                  className="rounded-t-md"
+                />
+              </div>
+              <div className="article-thumbnail-title">
+                COVID-19 Cases: Data and Graphs of India and the World
+              </div>
+              <div className="article-thumbnail-para">
+                In the past 24 hours, 501 Covid-19 deaths were reported in
+                India, taking the total deaths to 1,38,122. Also The total
+                confirmed Covid-19 cases in India reached 94,99,413.
+              </div>
+              <div className="flex justify-center">
+                <input
+                  type="button"
+                  value="LEARN MORE"
+                  className="article-thumbnail-btn"
+                />
+              </div>
             </div>
-            <div className="article-thumbnail w-1/3 shadow m-4">sd</div>
-            <div className="article-thumbnail w-1/3 shadow m-4">sd</div>
+            <div className="article-thumbnail">
+              <div>
+                <img
+                  src="../img/covid-19-fi.jpg"
+                  alt=""
+                  className="rounded-t-md"
+                />
+              </div>
+              <div className="article-thumbnail-title">
+                COVID-19 Cases: Data and Graphs of India and the World
+              </div>
+              <div className="article-thumbnail-para">
+                In the past 24 hours, 501 Covid-19 deaths were reported in
+                India, taking the total deaths to 1,38,122. Also The total
+                confirmed Covid-19 cases in India reached 94,99,413.
+              </div>
+              <div className="flex justify-center">
+                <input
+                  type="button"
+                  value="LEARN MORE"
+                  className="article-thumbnail-btn"
+                />
+              </div>
+            </div>
+            <div className="article-thumbnail">
+              <div>
+                <img
+                  src="../img/covid-19-fi.jpg"
+                  alt=""
+                  className="rounded-t-md"
+                />
+              </div>
+              <div className="article-thumbnail-title">
+                COVID-19 Cases: Data and Graphs of India and the World
+              </div>
+              <div className="article-thumbnail-para">
+                In the past 24 hours, 501 Covid-19 deaths were reported in
+                India, taking the total deaths to 1,38,122. Also The total
+                confirmed Covid-19 cases in India reached 94,99,413.
+              </div>
+              <div className="flex justify-center">
+                <input
+                  type="button"
+                  value="LEARN MORE"
+                  className="article-thumbnail-btn"
+                />
+              </div>
+            </div>
           </div>
-        </div> */}
+          <div className="flex justify-end">
+            <div><img src="../img/browse-prev.svg" alt="Browse Previous" className="hover:opacity-50 cursor-pointer" /></div>
+            <div><img src="../img/browse-next.svg" alt="Next Previous" className="hover:opacity-50 mx-3 cursor-pointer" /></div>
+          </div>
+        </div>
       </div>
       <div className="col-span-2 sm-hide"></div>
     </div>
