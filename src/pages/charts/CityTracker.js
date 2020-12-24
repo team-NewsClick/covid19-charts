@@ -3,7 +3,7 @@ import { csvParse } from 'd3-dsv'
 import CovidDashboard from '../../components/CovidDashboard.js'
 import LoaderFunction from '../../components/LoaderFunction'
 
-const StateTracker = () => {
+const CityTracker = () => {
   const [data, setData] = useState([])
 
   const propsData = {
@@ -35,4 +35,4 @@ const StateTracker = () => {
   }
 }
 
-export default StateTracker
+export default CityTracker

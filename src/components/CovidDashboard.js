@@ -252,7 +252,7 @@ const CovidDashboard = (props) => {
         </div>
       </div>
       <div className='container max-w-xl mx-auto'>
-        <div className='text-left text-sm'>
+        <div className='text-left text-sm mt-2'>
           Select maximum upto six options to compare
         </div>
         <Select
@@ -275,14 +275,14 @@ const CovidDashboard = (props) => {
       </div>
       <div
         style={
-          window.innerWidth > 540
+          window.innerWidth > 800
             ? { marginLeft: '25%' }
             : { marginLeft: '5%', marginRight: '5%' }
         }
         className='text-sm text-black-600'
       >
         {interactiveSelectsDisplay && (
-          <div className="text-lg font-semibold mt-1">
+          <div className="text-lg font-semibold mt-4">
             {chartHeading} of Covid-19 in{' '}
             {interactiveSelectsDisplay
               .join(', ')

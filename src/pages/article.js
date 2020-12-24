@@ -1,12 +1,31 @@
+import { useEffect } from 'react'
+
+import CityTracker from './charts/CityTracker'
+import StateTracker from './charts/StateTracker'
+import CountryTracker from './charts/CountryTracker'
+
 const Article = () => {
   const onClickMenu = () => {
     document.getElementById('menu').classList.toggle('change')
     document.getElementById('nav').classList.toggle('change')
     document.getElementById('menu-bg').classList.toggle('change-bg')
   }
+
+  useEffect(() => {
+    window.addEventListener('message', (a) => {
+      if (void 0 !== a.data['datawrapper-height'])
+        for (var e in a.data['datawrapper-height']) {
+          var t =
+            document.getElementById('datawrapper-chart-' + e) ||
+            document.querySelector("iframe[src*='" + e + "']")
+          t && (t.style.height = a.data['datawrapper-height'][e] + 'px')
+        }
+    })
+  }, [])
+
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: 'Noto Sans' }}>
-      <div className="col-span-2 sm-hide" />
+      <div className="col-span-2 sm-hide"></div>
       <div className="col-span-12 mx-5 sm:col-span-8 sm:mx-0">
         <div className="header">
           <div className="flex header-logos">
@@ -149,8 +168,8 @@ const Article = () => {
             reached 2 cases per day. Maharashtra (day 0) reached it on April 2,
             2020.
           </div>
-          <div className="font-bold italic">
-            Widget: CHARTS: SELECTED INDIAN STATES
+          <div>
+            <StateTracker />
           </div>
           <div className="article-para">
             The Charts below trace the movement in the number of Confirmed
@@ -164,6 +183,18 @@ const Article = () => {
           <div className="font-bold italic">
             Widget: Per Week New Cases and New Tests: Select Indian States{' '}
           </div>
+          <iframe
+            title="COVID-19 Testing Data for Indian States &amp;amp; UT"
+            aria-label="chart"
+            id="datawrapper-chart-ybmUS"
+            src="https://datawrapper.dwcdn.net/ybmUS/6/"
+            scrolling="no"
+            frameBorder="0"
+            style={{ width: '0', minWidth: '100% !important', border: 'none' }}
+            // style="width: 0; min-width: 100% !important; border: none;"
+            height="1496"
+          ></iframe>
+          {/* {IFrame()} */}
           <div className="article-para">
             The graphs below show the statistics for selected cities. We have
             adjusted starting point of the cities to a common zero day when each
@@ -174,8 +205,8 @@ const Article = () => {
             respectively. For total deaths, Hyderabad and Ahmedabad will be
             added as we gather the data.
           </div>
-          <div className="font-bold italic">
-            Widget: CHARTS: SELECTED INDIAN CITIES
+          <div>
+            <CityTracker />
           </div>
           <div className="article-para">
             The set of maps below shows statistics for all the States in India.
@@ -218,12 +249,27 @@ const Article = () => {
             infected, 10 for deaths and new infected have been used as the
             benchmark.
           </div>
-          <div className="font-bold italic">
-            Widget: CHARTS: SELECTED COUNTRIES
+          <div className="mx-auto">
+            <CountryTracker />
           </div>
         </div>
+        {/* <div id="related-posts " className="browse-category mb-24">
+          <div className="flex border-b-2 border-indigo-900 w-full">
+            <div className="px-3 py-2 bg-indigo-900 text-white font-bold text-lg">
+              RELATED POSTS
+            </div>
+            <div></div>
+          </div>
+          <div className="flex">
+            <div className="article-thumbnail w-1/3 shadow m-4 rounded-full">
+              <div><img src="../img/covid-19-fi.jpg" alt="" className="" /></div>
+            </div>
+            <div className="article-thumbnail w-1/3 shadow m-4">sd</div>
+            <div className="article-thumbnail w-1/3 shadow m-4">sd</div>
+          </div>
+        </div> */}
       </div>
-      <div className="col-span-2 sm-hide" />
+      <div className="col-span-2 sm-hide"></div>
     </div>
   )
 }

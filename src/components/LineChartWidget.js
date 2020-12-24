@@ -128,7 +128,7 @@ const LineChartWidget = (props) => {
           margin={
             window.innerWidth > 800
               ? { left: 100, right: 200 }
-              : { left: 55, right: 55 }
+              : { left: 40, right: 60 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
         >
