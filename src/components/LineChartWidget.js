@@ -113,12 +113,12 @@ const LineChartWidget = (props) => {
           yType={scaleType}
           width={
             window.innerWidth > 800
-              ? window.innerWidth * 0.6
+              ? window.innerWidth * 0.9
               : window.innerWidth * 1
           }
           height={
             window.innerWidth > 800
-              ? window.innerWidth * 0.35
+              ? window.innerWidth * 0.5
               : window.innerWidth * 0.85
           }
           xDomain={ datesAdjusted === "on" ? null : [xMinRange, xMaxRange]}
@@ -304,7 +304,7 @@ const LineChartWidget = (props) => {
         <div
           style={
             window.innerWidth > 800
-              ? { marginLeft: '25%' }
+              ? { marginLeft: '13%' }
               : { marginLeft: '13%' }
           }
           className="text-xs text-gray-600"

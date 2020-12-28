@@ -32,14 +32,11 @@ body {
 .xTicks text {
   @apply transform translate-x-4 translate-y-3;
 }
-.social-icon {
-  @apply hidden;
-}
 .header-logos {
   @apply border-b-2 mt-8 pb-6;
 }
 .categories {
-  @apply hidden;
+  @apply flex justify-center font-bold text-lg;
 }
 .category {
   @apply mx-3 self-end;
@@ -91,12 +88,6 @@ body {
   .xTicks text {
     @apply transform translate-x-12 translate-y-3;
   }
-  .categories {
-    @apply flex justify-center font-bold text-lg;
-  }
-  .social-icon {
-    @apply block;
-  }
   .sm-hide {
     @apply inline-block;
   }
@@ -120,6 +111,9 @@ body {
 }
 .search {
   min-width: 30px;
+}
+.header-logos {
+  border-color: #0D3554;
 }
 
 /* hamberger-menu start */

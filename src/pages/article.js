@@ -1,10 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import CityTracker from './charts/CityTracker'
 import StateTracker from './charts/StateTracker'
 import CountryTracker from './charts/CountryTracker'
 
 const Article = () => {
+  const [windowWidth, setWindowWidth] = useState('200px')
+
   const onClickMenu = () => {
     document.getElementById('menu').classList.toggle('change')
     document.getElementById('nav').classList.toggle('change')
@@ -12,6 +14,7 @@ const Article = () => {
   }
 
   useEffect(() => {
+    setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : '800px')
     window.addEventListener('message', (a) => {
       if (void 0 !== a.data['datawrapper-height'])
         for (var e in a.data['datawrapper-height']) {
@@ -42,22 +45,22 @@ const Article = () => {
                 src="../img/fb.png"
                 alt="Facebook"
                 width="29"
-                className="social-icon ml-2"
+                className="sm-hide md:hidden lg:block social-icon ml-2"
               />
               <img
                 src="../img/twitter.png"
                 alt="Twitter"
                 width="29"
-                className="social-icon ml-2"
+                className="sm-hide md:hidden lg:block social-icon ml-2"
               />
               <img
                 src="../img/yt.png"
                 alt="YouTube"
                 width="29"
-                className="social-icon ml-2"
+                className="sm-hide md:hidden lg:block social-icon ml-2"
               />
               <div
-                className="md:hidden lg:hidden"
+                className="lg:hidden"
                 id="menu-bar"
                 onClick={onClickMenu}
               >
@@ -116,7 +119,7 @@ const Article = () => {
               className="mx-auto my-8"
             />
           </div>
-          <div className="categories">
+          <div className="categories sm-hide md:hidden lg:flex">
             <div className="category">TRENDING</div>
             <div className="category">TECHNOLOGY</div>
             <div className="category">POLITICS</div>
@@ -168,8 +171,22 @@ const Article = () => {
             reached 2 cases per day. Maharashtra (day 0) reached it on April 2,
             2020.
           </div>
-          <div>
-            <StateTracker />
+          <div className="flex items-center">
+            <iframe
+              id="stateTracker"
+              src="/charts/StateTracker"
+              scrolling="no"
+              frameBorder="0"
+              width={windowWidth}
+              height={
+                windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.92
+                    : windowWidth * 1.6
+                  : windowWidth * 0.5
+              }
+              className="mx-auto mt-16"
+            ></iframe>
           </div>
           <div className="article-para">
             The Charts below trace the movement in the number of Confirmed
@@ -180,18 +197,18 @@ const Article = () => {
             the top 11 States in terms of highest number of confirmed cases
             across States.
           </div>
-          <div className="font-bold italic">
-            Widget: Per Week New Cases and New Tests: Select Indian States{' '}
+          <div className="my-16">
+            <iframe
+              title="COVID-19 Testing Data for Indian States &amp;amp; UT"
+              aria-label="chart"
+              id="datawrapper-chart-ybmUS"
+              src="https://datawrapper.dwcdn.net/ybmUS/6/"
+              scrolling="no"
+              frameBorder="0"
+              style={{ minWidth: '100% !important' }}
+              className="w-0 border-none"
+            ></iframe>
           </div>
-          <iframe
-            title="COVID-19 Testing Data for Indian States &amp;amp; UT"
-            aria-label="chart"
-            id="datawrapper-chart-ybmUS"
-            src="https://datawrapper.dwcdn.net/ybmUS/6/"
-            scrolling="no"
-            frameBorder="0"
-            style={{ width: '0', minWidth: '100% !important', border: 'none' }}
-          ></iframe>
           <div className="article-para">
             The graphs below show the statistics for selected cities. We have
             adjusted starting point of the cities to a common zero day when each
@@ -202,8 +219,22 @@ const Article = () => {
             respectively. For total deaths, Hyderabad and Ahmedabad will be
             added as we gather the data.
           </div>
-          <div>
-            <CityTracker />
+          <div className="flex">
+            <iframe
+              id="cityTracker"
+              src="/charts/CityTracker"
+              scrolling="no"
+              frameBorder="0"
+              width={windowWidth}
+              height={
+                windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.92
+                    : windowWidth * 1.6
+                  : windowWidth * 0.5
+              }
+              className="mx-auto mt-16"
+            ></iframe>
           </div>
           <div className="article-para">
             The set of maps below shows statistics for all the States in India.
@@ -246,15 +277,27 @@ const Article = () => {
             infected, 10 for deaths and new infected have been used as the
             benchmark.
           </div>
-          <div className="mx-auto">
-            <CountryTracker />
+          <div className="flex">
+            <iframe
+              id="countryTracker"
+              src="/charts/CountryTracker"
+              scrolling="no"
+              frameBorder="0"
+              width={windowWidth}
+              height={
+                windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.92
+                    : windowWidth * 1.6
+                  : windowWidth * 0.5
+              }
+              className="mx-auto mt-16"
+            ></iframe>
           </div>
         </div>
         <div id="related-posts" className="browse-category">
           <div className="browse-category-header">
-            <div className="browse-category-title">
-              RELATED POSTS
-            </div>
+            <div className="browse-category-title">RELATED POSTS</div>
             <div></div>
           </div>
           <div className="lg:flex md:flex sm:block">
@@ -332,8 +375,20 @@ const Article = () => {
             </div>
           </div>
           <div className="flex justify-end">
-            <div><img src="../img/browse-prev.svg" alt="Browse Previous" className="hover:opacity-50 cursor-pointer" /></div>
-            <div><img src="../img/browse-next.svg" alt="Next Previous" className="hover:opacity-50 mx-3 cursor-pointer" /></div>
+            <div>
+              <img
+                src="../img/browse-prev.svg"
+                alt="Browse Previous"
+                className="hover:opacity-50 cursor-pointer"
+              />
+            </div>
+            <div>
+              <img
+                src="../img/browse-next.svg"
+                alt="Next Previous"
+                className="hover:opacity-50 mx-3 cursor-pointer"
+              />
+            </div>
           </div>
         </div>
       </div>
