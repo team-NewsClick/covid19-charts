@@ -59,11 +59,7 @@ const Article = () => {
                 width="29"
                 className="sm-hide md:hidden lg:block social-icon ml-2"
               />
-              <div
-                className="lg:hidden"
-                id="menu-bar"
-                onClick={onClickMenu}
-              >
+              <div className="lg:hidden" id="menu-bar" onClick={onClickMenu}>
                 <div id="menu">
                   <div id="bar1" className="bar"></div>
                   <div id="bar2" className="bar"></div>
