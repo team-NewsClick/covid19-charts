@@ -39,7 +39,7 @@ body {
   @apply flex justify-center font-bold text-lg;
 }
 .category {
-  @apply mx-3 self-end;
+  @apply mx-3 self-end cursor-pointer;
 }
 .sm-hide {
   @apply hidden;
@@ -74,10 +74,10 @@ body {
 .article-thumbnail-para {
   @apply mx-4 my-3 text-justify;
 }
-.article-thumbnail-btn {
+.article-thumbnail-btn, .search-btn {
   @apply px-4 py-2 mt-6 mb-4 bg-white border border-solid rounded text-lg cursor-pointer;
 }
-.article-thumbnail-btn:hover {
+.article-thumbnail-btn:hover, .search-btn:hover {
   @apply bg-red-800 text-white border-red-800;
 }
 
@@ -189,7 +189,7 @@ body {
 .browse-category-title {
   background-color: #0D3554;
 }
-.article-thumbnail-btn {
+.article-thumbnail-btn, .search-btn  {
   border-color: #D11143;
   color: #D11143;
 }

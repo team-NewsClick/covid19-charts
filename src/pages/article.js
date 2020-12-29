@@ -26,6 +26,13 @@ const Article = () => {
     })
   }, [])
 
+  const showHideSearch = (e) => {
+    const searchBar = document.getElementById('search-bar')
+    searchBar.style.display == 'none'
+      ? (searchBar.style.display = 'block')
+      : (searchBar.style.display = 'none')
+  }
+
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: 'Noto Sans' }}>
       <div className="col-span-2 sm-hide"></div>
@@ -73,7 +80,7 @@ const Article = () => {
                   <li>SPORTS</li>
                   <li>ENTERTAINMENT</li>
                   <li>MISCELLANEOUS</li>
-                  <li>
+                  <li onClick={showHideSearch}>
                     <div className="float-left">Search</div>
                     <img
                       src="../img/search.svg"
@@ -123,8 +130,26 @@ const Article = () => {
             <div className="category">SPORTS</div>
             <div className="category">ENTERTAINMENT</div>
             <div className="category">MISCELLANEOUS</div>
-            <div className="search ml-2">
-              <img src="../img/search.svg" alt="Search" className="" />
+            <div className="search ml-2 cursor-pointer">
+              <img
+                src="../img/search.svg"
+                alt="Search"
+                onClick={showHideSearch}
+              />
+            </div>
+          </div>
+          <div id="search-bar" style={{ display: 'none' }}>
+            <div className="flex justify-center items-center h-16 my-2 bg-gray-300">
+              <input
+                type="text"
+                placeholder="Search on NewsClick"
+                className="sm:w-auto md:w-3/5 h-10 px-2 border-2 border-gray-600"
+              />
+              <input
+                type="button"
+                value="Search"
+                className="search-btn m-4 px-3 py-1.5"
+              />
             </div>
           </div>
         </div>
@@ -174,13 +199,12 @@ const Article = () => {
               scrolling="no"
               frameBorder="0"
               width={windowWidth}
-              height={
-                windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.92
-                    : windowWidth * 1.6
-                  : windowWidth * 0.5
-              }
+              height={(windowWidth < 800
+                ? windowWidth > 700
+                  ? windowWidth * 0.92
+                  : windowWidth * 1.6
+                : windowWidth * 0.5
+              ).toString()}
               className="mx-auto mt-16"
             ></iframe>
           </div>
@@ -222,13 +246,12 @@ const Article = () => {
               scrolling="no"
               frameBorder="0"
               width={windowWidth}
-              height={
-                windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.92
-                    : windowWidth * 1.6
-                  : windowWidth * 0.5
-              }
+              height={(windowWidth < 800
+                ? windowWidth > 700
+                  ? windowWidth * 0.92
+                  : windowWidth * 1.6
+                : windowWidth * 0.5
+              ).toString()}
               className="mx-auto mt-16"
             ></iframe>
           </div>
@@ -280,13 +303,12 @@ const Article = () => {
               scrolling="no"
               frameBorder="0"
               width={windowWidth}
-              height={
-                windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.92
-                    : windowWidth * 1.6
-                  : windowWidth * 0.5
-              }
+              height={(windowWidth < 800
+                ? windowWidth > 700
+                  ? windowWidth * 0.92
+                  : windowWidth * 1.6
+                : windowWidth * 0.5
+              ).toString()}
               className="mx-auto mt-16"
             ></iframe>
           </div>
