@@ -18,6 +18,7 @@
     "react-vis": "^1.11.7",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.1",
+    "swr": "^0.3.11",
     "tailwindcss": "^1.9.6"
   }
 }
