@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react'
-
-import CityTracker from './charts/CityTracker'
-import StateTracker from './charts/StateTracker'
-import CountryTracker from './charts/CountryTracker'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import RelatedPosts from '../components/RelatedPosts'
 
 const Article = () => {
   const [windowWidth, setWindowWidth] = useState('200px')
 
-  const onClickMenu = () => {
-    document.getElementById('menu').classList.toggle('change')
-    document.getElementById('nav').classList.toggle('change')
-    document.getElementById('menu-bg').classList.toggle('change-bg')
-  }
-
   useEffect(() => {
     setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : '800px')
+
     window.addEventListener('message', (a) => {
       if (void 0 !== a.data['datawrapper-height'])
         for (var e in a.data['datawrapper-height']) {
@@ -26,133 +20,11 @@ const Article = () => {
     })
   }, [])
 
-  const showHideSearch = (e) => {
-    const searchBar = document.getElementById('search-bar')
-    searchBar.style.display == 'none'
-      ? (searchBar.style.display = 'block')
-      : (searchBar.style.display = 'none')
-  }
-
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: 'Noto Sans' }}>
       <div className="col-span-2 sm-hide"></div>
       <div className="col-span-12 mx-5 sm:col-span-8 sm:mx-0">
-        <div className="header">
-          <div className="flex header-logos">
-            <img
-              src="../img/newsclick-logo.png"
-              alt="Newsclick Logo"
-              className="w-40 h-auto"
-            />
-            <div
-              className="flex self-end justify-end flex-auto"
-              style={{ height: '29px' }}
-            >
-              <img
-                src="../img/fb.png"
-                alt="Facebook"
-                width="29"
-                className="sm-hide md:hidden lg:block social-icon ml-2"
-              />
-              <img
-                src="../img/twitter.png"
-                alt="Twitter"
-                width="29"
-                className="sm-hide md:hidden lg:block social-icon ml-2"
-              />
-              <img
-                src="../img/yt.png"
-                alt="YouTube"
-                width="29"
-                className="sm-hide md:hidden lg:block social-icon ml-2"
-              />
-              <div className="lg:hidden" id="menu-bar" onClick={onClickMenu}>
-                <div id="menu">
-                  <div id="bar1" className="bar"></div>
-                  <div id="bar2" className="bar"></div>
-                  <div id="bar3" className="bar"></div>
-                </div>
-                <ul className="nav fixed float-left" id="nav">
-                  <li>TRENDING</li>
-                  <li>TECHNOLOGY</li>
-                  <li>POLITICS</li>
-                  <li>BUSINESS</li>
-                  <li>SPORTS</li>
-                  <li>ENTERTAINMENT</li>
-                  <li>MISCELLANEOUS</li>
-                  <li onClick={showHideSearch}>
-                    <div className="float-left">Search</div>
-                    <img
-                      src="../img/search.svg"
-                      alt="Search"
-                      className="pl-2 w-8"
-                    />
-                  </li>
-                  <li>
-                    <div className="flex" style={{ height: '29px' }}>
-                      <img
-                        src="../img/fb.png"
-                        alt="Facebook"
-                        width="29"
-                        className="mr-2"
-                      />
-                      <img
-                        src="../img/twitter.png"
-                        alt="Twitter"
-                        width="29"
-                        className="mr-2"
-                      />
-                      <img
-                        src="../img/yt.png"
-                        alt="YouTube"
-                        width="29"
-                        className="mr-2"
-                      />
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              <div className="menu-bg" id="menu-bg"></div>
-            </div>
-          </div>
-          <div>
-            <img
-              src="../img/page-title.png"
-              alt="Data Visualization"
-              className="mx-auto my-8"
-            />
-          </div>
-          <div className="categories sm-hide md:hidden lg:flex">
-            <div className="category">TRENDING</div>
-            <div className="category">TECHNOLOGY</div>
-            <div className="category">POLITICS</div>
-            <div className="category">BUSINESS</div>
-            <div className="category">SPORTS</div>
-            <div className="category">ENTERTAINMENT</div>
-            <div className="category">MISCELLANEOUS</div>
-            <div className="search ml-2 cursor-pointer">
-              <img
-                src="../img/search.svg"
-                alt="Search"
-                onClick={showHideSearch}
-              />
-            </div>
-          </div>
-          <div id="search-bar" style={{ display: 'none' }}>
-            <div className="flex justify-center items-center h-16 my-2 bg-gray-300">
-              <input
-                type="text"
-                placeholder="Search on NewsClick"
-                className="sm:w-auto md:w-3/5 h-10 px-2 border-2 border-gray-600"
-              />
-              <input
-                type="button"
-                value="Search"
-                className="search-btn m-4 px-3 py-1.5"
-              />
-            </div>
-          </div>
-        </div>
+        <Header />
         <div className="article my-12">
           <div className="flex text-gray-600">
             <div>Technology</div>
@@ -313,102 +185,8 @@ const Article = () => {
             ></iframe>
           </div>
         </div>
-        <div id="related-posts" className="browse-category">
-          <div className="browse-category-header">
-            <div className="browse-category-title">RELATED POSTS</div>
-            <div></div>
-          </div>
-          <div className="lg:flex md:flex sm:block">
-            <div className="article-thumbnail">
-              <div>
-                <img
-                  src="../img/covid-19-fi.jpg"
-                  alt=""
-                  className="rounded-t-md"
-                />
-              </div>
-              <div className="article-thumbnail-title">
-                COVID-19 Cases: Data and Graphs of India and the World
-              </div>
-              <div className="article-thumbnail-para">
-                In the past 24 hours, 501 Covid-19 deaths were reported in
-                India, taking the total deaths to 1,38,122. Also The total
-                confirmed Covid-19 cases in India reached 94,99,413.
-              </div>
-              <div className="flex justify-center">
-                <input
-                  type="button"
-                  value="LEARN MORE"
-                  className="article-thumbnail-btn"
-                />
-              </div>
-            </div>
-            <div className="article-thumbnail">
-              <div>
-                <img
-                  src="../img/covid-19-fi.jpg"
-                  alt=""
-                  className="rounded-t-md"
-                />
-              </div>
-              <div className="article-thumbnail-title">
-                COVID-19 Cases: Data and Graphs of India and the World
-              </div>
-              <div className="article-thumbnail-para">
-                In the past 24 hours, 501 Covid-19 deaths were reported in
-                India, taking the total deaths to 1,38,122. Also The total
-                confirmed Covid-19 cases in India reached 94,99,413.
-              </div>
-              <div className="flex justify-center">
-                <input
-                  type="button"
-                  value="LEARN MORE"
-                  className="article-thumbnail-btn"
-                />
-              </div>
-            </div>
-            <div className="article-thumbnail">
-              <div>
-                <img
-                  src="../img/covid-19-fi.jpg"
-                  alt=""
-                  className="rounded-t-md"
-                />
-              </div>
-              <div className="article-thumbnail-title">
-                COVID-19 Cases: Data and Graphs of India and the World
-              </div>
-              <div className="article-thumbnail-para">
-                In the past 24 hours, 501 Covid-19 deaths were reported in
-                India, taking the total deaths to 1,38,122. Also The total
-                confirmed Covid-19 cases in India reached 94,99,413.
-              </div>
-              <div className="flex justify-center">
-                <input
-                  type="button"
-                  value="LEARN MORE"
-                  className="article-thumbnail-btn"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-end">
-            <div>
-              <img
-                src="../img/browse-prev.svg"
-                alt="Browse Previous"
-                className="hover:opacity-50 cursor-pointer"
-              />
-            </div>
-            <div>
-              <img
-                src="../img/browse-next.svg"
-                alt="Next Previous"
-                className="hover:opacity-50 mx-3 cursor-pointer"
-              />
-            </div>
-          </div>
-        </div>
+        <RelatedPosts />
+        <Footer />
       </div>
       <div className="col-span-2 sm-hide"></div>
     </div>

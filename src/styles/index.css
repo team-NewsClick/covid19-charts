@@ -6,7 +6,7 @@ body {
   @apply bg-gray-100;
 }
 .radio-title {
-  @apply text-xs ;
+  @apply text-xs;
 }
 .radio-toolbar input[type='radio'] {
   @apply opacity-0 fixed w-0 inline-flex;
@@ -47,7 +47,7 @@ body {
 .article-para {
   @apply text-lg text-justify my-4;
 }
-.article-subheading{
+.article-subheading {
   @apply text-2xl font-bold mt-8 mb-5 leading-7;
 }
 .article-img {
@@ -66,7 +66,7 @@ body {
   @apply px-3 py-2 text-white font-bold text-lg;
 }
 .article-thumbnail {
-  @apply shadow-md my-6 mx-2 rounded-md;
+  @apply w-full shadow-md my-6 mx-auto rounded-md;
 }
 .article-thumbnail-title {
   @apply font-extrabold mx-4 mt-5 text-lg;
@@ -79,6 +79,12 @@ body {
 }
 .article-thumbnail-btn:hover, .search-btn:hover {
   @apply bg-red-800 text-white border-red-800;
+}
+.footer {
+  @apply text-white text-lg font-bold p-1 content-center;
+}
+.footer > * {
+  @apply flex items-center m-auto place-content-center py-2;
 }
 
 @screen sm {
@@ -93,10 +99,16 @@ body {
   }
 }
 
+@screen md {
+  .article-thumbnail {
+    @apply w-1/3 mx-2;
+  }
+}
+
 @tailwind utilities;
 
 .rv-xy-plot {
-    margin: auto;
+  margin: auto;
 }
 .rv-crosshair__inner__content {
   background: rgba(255, 255, 255, 0.05) !important;
@@ -104,16 +116,39 @@ body {
   color: #000 !important;
 }
 .header-social {
-  border-color: #0D3554;
+  border-color: #0d3554;
 }
-#article-title, .article-subheading, .article-thumbnail-title {
+#article-title,
+.article-subheading,
+.article-thumbnail-title {
   font-family: 'Noto Serif', serif;
 }
 .search {
   min-width: 30px;
 }
 .header-logos {
-  border-color: #0D3554;
+  border-color: #0d3554;
+}
+
+.browse-category-header {
+  border-color: #0d3554;
+}
+.browse-category-title {
+  background-color: #0d3554;
+}
+.article-thumbnail-btn,
+.search-btn {
+  border-color: #d11143;
+  color: #d11143;
+}
+.footer {
+  background-color: #0d3554;
+}
+.social-icon {
+  width: 29px;
+  height: 29px;
+  margin-left: 0.5rem;
+  cursor: pointer;
 }
 
 /* hamberger-menu start */
@@ -121,10 +156,10 @@ body {
   width: 25px;
   cursor: pointer;
 }
-.bar{
+.bar {
   height: 3px;
   width: 100%;
-  background-color: #0D3554;
+  background-color: #0d3554;
   display: block;
   border-radius: 3px;
   margin-top: 2x;
@@ -182,14 +217,3 @@ body {
   display: block;
 }
 /* hamberger-menu end */
-
-.browse-category-header {
-  border-color: #0D3554;
-}
-.browse-category-title {
-  background-color: #0D3554;
-}
-.article-thumbnail-btn, .search-btn  {
-  border-color: #D11143;
-  color: #D11143;
-}

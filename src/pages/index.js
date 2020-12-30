@@ -4,9 +4,9 @@ const IndexPage = () => {
   return (
     <div>
       <div className="flex justify-center text-3xl font-bold mt-8">
-        Coronavirus Tracker
+        COVID-19 Tracker
       </div>
-      <div className="flex justify-center text-2xl font-bold mt-8">
+      <div className="flex justify-center text-2xl font-bold mt-8 mb-4 mx-4 leading-7 text-justify">
         Find any country or Indian states in the live-updating and customisable version of Newsclick's Covid-19 trajectory charts
       </div>
       <div className="flex justify-center">
