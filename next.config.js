@@ -10,5 +10,6 @@ module.exports = {
     API_URL_COUNTRY: process.env.API_URL_COUNTRY,
     API_URL_STATE: process.env.API_URL_STATE,
     API_URL_CITY: process.env.API_URL_CITY,
+    API_URL_COVIDSUMMARY: process.env.API_URL_COVIDSUMMARY,
   },
 }

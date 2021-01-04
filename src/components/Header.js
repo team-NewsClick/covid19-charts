@@ -15,30 +15,38 @@ const Header = () => {
   return (
     <div className="header">
       <div className="flex header-logos">
-        <img
-          src="../img/newsclick-logo.png"
-          alt="Newsclick Logo"
-          className="w-40 h-auto"
-        />
+        <a href="https://www.newsclick.in/" target="_blank">
+          <img
+            src="../img/newsclick-logo.png"
+            alt="Newsclick Logo"
+            className="w-40 h-auto"
+          />
+        </a>
         <div
           className="flex self-end justify-end flex-auto"
           style={{ height: '29px' }}
         >
-          <img
-            src="../img/fb.png"
-            alt="Facebook"
-            className="social-icon sm-hide md:hidden lg:block"
-          />
-          <img
-            src="../img/twitter.png"
-            alt="Twitter"
-            className="social-icon sm-hide md:hidden lg:block"
-          />
-          <img
-            src="../img/yt.png"
-            alt="YouTube"
-            className="social-icon sm-hide md:hidden lg:block"
-          />
+          <a href="https://www.facebook.com/newsclickonline/" target="_blank">
+            <img
+              src="../img/fb.png"
+              alt="Facebook"
+              className="social-icon sm-hide md:hidden lg:block"
+            />
+          </a>
+          <a href="https://twitter.com/newsclickin">
+            <img
+              src="../img/twitter.png"
+              alt="Twitter"
+              className="social-icon sm-hide md:hidden lg:block"
+            />
+          </a>
+          <a href="https://www.youtube.com/user/NewsClickin">
+            <img
+              src="../img/yt.png"
+              alt="YouTube"
+              className="social-icon sm-hide md:hidden lg:block"
+            />
+          </a>
           <div className="lg:hidden" id="menu-bar" onClick={onClickMenu}>
             <div id="menu">
               <div id="bar1" className="bar"></div>
@@ -63,13 +71,15 @@ const Header = () => {
               </li>
               <li>
                 <div className="flex" style={{ height: '29px' }}>
-                  <img src="../img/fb.png" alt="Facebook" className="mr-2" />
-                  <img
-                    src="../img/twitter.png"
-                    alt="Twitter"
-                    className="mr-2"
-                  />
+                  <a href="https://www.facebook.com/newsclickonline/" target="_blank">
+                    <img src="../img/fb.png" alt="Facebook" className="mr-2" />
+                  </a> 
+                  <a href="https://twitter.com/newsclickin" target="_blank">
+                  <img src="../img/twitter.png" alt="Twitter" className="mr-2" />
+                  </a> 
+                  <a href="https://www.youtube.com/user/NewsClickin" target="_blank">
                   <img src="../img/yt.png" alt="YouTube" className="mr-2" />
+                  </a> 
                 </div>
               </li>
             </ul>

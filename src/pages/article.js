@@ -1,14 +1,17 @@
+import useSWR from 'swr'
+import LoaderFunction from '../components/LoaderFunction'
 import { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import RelatedPosts from '../components/RelatedPosts'
+import CovidUpdateIndia from '../components/CovidUpdateIndia'
+import CovidUpdateWorld from '../components/CovidUpdateWorld'
 
 const Article = () => {
   const [windowWidth, setWindowWidth] = useState('200px')
 
   useEffect(() => {
     setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : '800px')
-
     window.addEventListener('message', (a) => {
       if (void 0 !== a.data['datawrapper-height'])
         for (var e in a.data['datawrapper-height']) {
@@ -20,6 +23,28 @@ const Article = () => {
     })
   }, [])
 
+  const { data, error } = useSWR('/api/covidSummary')
+  const statsSummary = data
+  if (error) return <div>Failed to Load</div>
+  if (!data) {
+    return (
+      <div className="flex h-screen">
+        <div className="m-auto">
+          <LoaderFunction />
+        </div>
+      </div>
+    )
+  }
+
+  const indPlaceVal = (x) => {
+    x = x.toString()
+    var lastThree = x.substring(x.length - 3)
+    var otherNumbers = x.substring(0, x.length - 3)
+    if (otherNumbers != '') lastThree = ',' + lastThree
+    var number = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree
+    return number
+  }
+
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: 'Noto Sans' }}>
       <div className="col-span-2 sm-hide"></div>
@@ -27,8 +52,10 @@ const Article = () => {
         <Header />
         <div className="article my-12">
           <div className="flex text-gray-600">
-            <div>Technology</div>
-            <div className="flex flex-auto justify-end">22 December 2020</div>
+            <div>Science</div>
+            <div className="flex flex-auto justify-end">
+              {new Date().toUTCString().slice(5, 16)}
+            </div>
           </div>
           <div
             id="article-title"
@@ -40,18 +67,28 @@ const Article = () => {
             <img src="../img/covid-19-fi.jpg" alt="" className="mx-auto mb-6" />
           </div>
           <div className="article-para">
-            The total confirmed Covid-19 cases in India reached 1,00,75,116 on
-            Tuesday. In the past 24 hours, 19,556 new cases were reported,
-            accounting for about four percent of the new cases reported globally
-            since yesterday. The total number of deaths have reached 1,46,111
-            with 301 deaths reported in the past 24 hours. The number of
-            patients who have recovered since yesterday is 30,376, and the total
-            active cases in the country at present stand at 2,92,518.
+            The total confirmed Covid-19 cases in India reached{' '}
+            {indPlaceVal(statsSummary.indiaTotalConfirmed)} on Tuesday. In
+            the past 24 hours,{' '}
+            {indPlaceVal(statsSummary.indiaNewConfirmed)} new cases were
+            reported, accounting for about{' '}
+            {(
+              (statsSummary.indiaNewDeaths / statsSummary.worldNewDeaths) *
+              100
+            ).toFixed(2)}
+            % of the new cases reported globally since yesterday. The total
+            number of deaths have reached{' '}
+            {indPlaceVal(statsSummary.indiaTotalDeaths)} with{' '}
+            {indPlaceVal(statsSummary.indiaNewDeaths)} deaths reported in
+            the past 24 hours. The number of patients who have recovered since
+            yesterday is {indPlaceVal(statsSummary.indiaNewRecovery)}, and
+            the total active cases in the country at present stand at{' '}
+            {indPlaceVal(statsSummary.indiaTotalActive)}.
           </div>
           <div className="article-subheading">
             COVID-19 Infections and Deaths : India
           </div>
-          <div className="font-bold italic">Widget: COVID-19 Update: India</div>
+          <CovidUpdateIndia />
           <div className="article-para">
             In the chart below is shown the progress of the pandemic from when
             each state reached its first 100 cases. Maharashtra and Kerala were
@@ -94,7 +131,7 @@ const Article = () => {
               title="COVID-19 Testing Data for Indian States &amp;amp; UT"
               aria-label="chart"
               id="datawrapper-chart-ybmUS"
-              src="https://datawrapper.dwcdn.net/ybmUS/6/"
+              src="https://datawrapper.dwcdn.net/ybmUS/8/"
               scrolling="no"
               frameBorder="0"
               style={{ minWidth: '100% !important' }}
@@ -151,9 +188,7 @@ const Article = () => {
           <div className="article-subheading">
             COVID-19 Infections and Deaths: Global
           </div>
-          <div className="font-bold italic">
-            Widget: COVID-19 UPDATE: GLOBAL
-          </div>
+          <CovidUpdateWorld />
           <div className="article-para">
             The graph below show the progress of the disease in a country once
             the number of total infected persons crosses the 100 mark. Since the
