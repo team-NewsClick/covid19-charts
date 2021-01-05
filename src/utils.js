@@ -107,10 +107,6 @@ export const calculateXMaxValue = () => {
   return d.addDays(2)
 }
 
-export const calculateXMinValue = () => {
-  return new Date(cutoffValues.DATE)
-}
-
 export const calculateYMinValue = (dataType, casesType, datesAdjusted) => {
   const yMinRangeLog =
     datesAdjusted === 'on'
