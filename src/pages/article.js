@@ -81,7 +81,7 @@ const Article = () => {
             {indPlaceVal(statsSummary.indiaTotalDeaths)} with{' '}
             {indPlaceVal(statsSummary.indiaNewDeaths)} deaths reported in
             the past 24 hours. The number of patients who have recovered since
-            yesterday is {indPlaceVal(statsSummary.indiaNewRecovery)}, and
+            yesterday is {indPlaceVal(statsSummary.indiaNewRecovery)} and
             the total active cases in the country at present stand at{' '}
             {indPlaceVal(statsSummary.indiaTotalActive)}.
           </div>
@@ -112,7 +112,7 @@ const Article = () => {
                 ? windowWidth > 700
                   ? windowWidth * 0.92
                   : windowWidth * 1.6
-                : windowWidth * 0.5
+                : windowWidth * 0.52
               ).toString()}
               className="mx-auto mt-16"
             ></iframe>
@@ -159,7 +159,7 @@ const Article = () => {
                 ? windowWidth > 700
                   ? windowWidth * 0.92
                   : windowWidth * 1.6
-                : windowWidth * 0.5
+                : windowWidth * 0.52
               ).toString()}
               className="mx-auto mt-16"
             ></iframe>
@@ -214,7 +214,7 @@ const Article = () => {
                 ? windowWidth > 700
                   ? windowWidth * 0.92
                   : windowWidth * 1.6
-                : windowWidth * 0.5
+                : windowWidth * 0.52
               ).toString()}
               className="mx-auto mt-16"
             ></iframe>
