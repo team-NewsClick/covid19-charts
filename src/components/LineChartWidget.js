@@ -304,7 +304,7 @@ const LineChartWidget = (props) => {
         <div
           style={
             window.innerWidth > 800
-              ? { marginLeft: '10%' }
+              ? { marginLeft: '13%' }
               : { marginLeft: '13%' }
           }
           className="text-xs text-gray-600"
