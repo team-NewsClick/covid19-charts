@@ -113,12 +113,12 @@ const LineChartWidget = (props) => {
           yType={scaleType}
           width={
             window.innerWidth > 800
-              ? window.innerWidth * 0.9
+              ? window.innerWidth * 1
               : window.innerWidth * 1
           }
           height={
             window.innerWidth > 800
-              ? window.innerWidth * 0.5
+              ? window.innerWidth * 0.55
               : window.innerWidth * 0.85
           }
           xDomain={ datesAdjusted === "on" ? null : [xMinRange, xMaxRange]}
@@ -127,7 +127,7 @@ const LineChartWidget = (props) => {
           }
           margin={
             window.innerWidth > 800
-              ? { left: 100, right: 200 }
+              ? { left: 60, right: 100 }
               : { left: 55, right: 55 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
@@ -304,7 +304,7 @@ const LineChartWidget = (props) => {
         <div
           style={
             window.innerWidth > 800
-              ? { marginLeft: '13%' }
+              ? { marginLeft: '8%' }
               : { marginLeft: '13%' }
           }
           className="text-xs text-gray-600"

@@ -276,7 +276,7 @@ const CovidDashboard = (props) => {
       <div
         style={
           window.innerWidth > 800
-          ? { marginLeft: '10%' }
+          ? { marginLeft: '5%' }
           : { marginLeft: '5%', marginRight: '5%' }
       }
         className='text-sm text-black-600'
