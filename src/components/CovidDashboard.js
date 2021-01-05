@@ -275,10 +275,10 @@ const CovidDashboard = (props) => {
       </div>
       <div
         style={
-          window.innerWidth > 540
-            ? { marginLeft: '25%' }
-            : { marginLeft: '5%', marginRight: '5%' }
-        }
+          window.innerWidth > 800
+          ? { marginLeft: '10%' }
+          : { marginLeft: '5%', marginRight: '5%' }
+      }
         className='text-sm text-black-600'
       >
         {interactiveSelectsDisplay && (
