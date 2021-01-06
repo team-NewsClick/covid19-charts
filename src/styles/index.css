@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 
+body {
+  @apply bg-white;
+}
 .radio-title {
   @apply text-xs;
 }
