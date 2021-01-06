@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Header from '../components/article/Header'
 import Footer from '../components/article/Footer'
-import Brief from '../components/article/Intro'
+import IntroductionThumbnail from '../components/article/IntroductionThumbnail'
 import CovidUpdateIndia from '../components/article/CovidUpdateIndia'
 import CovidUpdateWorld from '../components/article/CovidUpdateWorld'
 import RelatedPosts from '../components/article/RelatedPosts'
@@ -43,26 +43,7 @@ const Article = () => {
           <div id="feature-image">
             <img src="../img/covid-19-fi.jpg" alt="" className="mx-auto mb-6" />
           </div>
-          <Brief />
-          {/* <div className="article-para">
-            The total confirmed Covid-19 cases in India reached{' '}
-            {indPlaceVal(statsSummary.indiaTotalConfirmed)} on Tuesday. In
-            the past 24 hours,{' '}
-            {indPlaceVal(statsSummary.indiaNewConfirmed)} new cases were
-            reported, accounting for about{' '}
-            {(
-              (statsSummary.indiaNewDeaths / statsSummary.worldNewDeaths) *
-              100
-            ).toFixed(2)}
-            % of the new cases reported globally since yesterday. The total
-            number of deaths have reached{' '}
-            {indPlaceVal(statsSummary.indiaTotalDeaths)} with{' '}
-            {indPlaceVal(statsSummary.indiaNewDeaths)} deaths reported in
-            the past 24 hours. The number of patients who have recovered since
-            yesterday is {indPlaceVal(statsSummary.indiaNewRecovery)} and
-            the total active cases in the country at present stand at{' '}
-            {indPlaceVal(statsSummary.indiaTotalActive)}.
-          </div> */}
+          <IntroductionThumbnail />
           <div className="article-subheading">
             COVID-19 Infections and Deaths : India
           </div>

@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import LoaderFunction from '../LoaderFunction'
 import { indPlaceVal } from '../../utils'
 
-const Intro = () => {
+const IntroductionThumbnail = () => {
   const { data, error } = useSWR('/api/covidSummary')
   const statsSummary = data
   if (error) return <div>Failed to Load</div>
@@ -36,4 +36,4 @@ const Intro = () => {
   )
 }
 
-export default Intro
+export default IntroductionThumbnail
