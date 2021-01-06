@@ -1,12 +1,10 @@
-import useSWR from 'swr'
-import LoaderFunction from '../components/LoaderFunction'
 import { useEffect, useState } from 'react'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import { indPlaceVal } from '../utils'
-import RelatedPosts from '../components/RelatedPosts'
-import CovidUpdateIndia from '../components/CovidUpdateIndia'
-import CovidUpdateWorld from '../components/CovidUpdateWorld'
+import Header from '../components/article/Header'
+import Footer from '../components/article/Footer'
+import Brief from '../components/article/Intro'
+import CovidUpdateIndia from '../components/article/CovidUpdateIndia'
+import CovidUpdateWorld from '../components/article/CovidUpdateWorld'
+import RelatedPosts from '../components/article/RelatedPosts'
 
 const Article = () => {
   const [windowWidth, setWindowWidth] = useState('200px')
@@ -23,19 +21,6 @@ const Article = () => {
         }
     })
   }, [])
-
-  const { data, error } = useSWR('/api/covidSummary')
-  const statsSummary = data
-  if (error) return <div>Failed to Load</div>
-  if (!data) {
-    return (
-      <div className="flex h-screen">
-        <div className="m-auto">
-          <LoaderFunction />
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: 'Noto Sans' }}>
@@ -58,7 +43,8 @@ const Article = () => {
           <div id="feature-image">
             <img src="../img/covid-19-fi.jpg" alt="" className="mx-auto mb-6" />
           </div>
-          <div className="article-para">
+          <Brief />
+          {/* <div className="article-para">
             The total confirmed Covid-19 cases in India reached{' '}
             {indPlaceVal(statsSummary.indiaTotalConfirmed)} on Tuesday. In
             the past 24 hours,{' '}
@@ -76,7 +62,7 @@ const Article = () => {
             yesterday is {indPlaceVal(statsSummary.indiaNewRecovery)} and
             the total active cases in the country at present stand at{' '}
             {indPlaceVal(statsSummary.indiaTotalActive)}.
-          </div>
+          </div> */}
           <div className="article-subheading">
             COVID-19 Infections and Deaths : India
           </div>

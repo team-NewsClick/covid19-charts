@@ -1,6 +1,6 @@
 import useSWR from 'swr'
-import { indPlaceVal } from '../utils'
-import LoaderFunction from '../components/LoaderFunction'
+import { indPlaceVal } from '../../utils'
+import LoaderFunction from '../LoaderFunction'
 
 const CovidUpdateWorld = () => {
   const { data, error } = useSWR('/api/covidSummary')
