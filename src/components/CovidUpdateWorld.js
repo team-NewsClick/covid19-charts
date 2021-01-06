@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+import { indPlaceVal } from '../utils'
 import LoaderFunction from '../components/LoaderFunction'
 
 const CovidUpdateWorld = () => {
@@ -13,15 +14,6 @@ const CovidUpdateWorld = () => {
         </div>
       </div>
     )
-  }
-
-  const indPlaceVal = (x) => {
-    x = x.toString()
-    var lastThree = x.substring(x.length - 3)
-    var otherNumbers = x.substring(0, x.length - 3)
-    if (otherNumbers != '') lastThree = ',' + lastThree
-    var number = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree
-    return number
   }
 
   return (

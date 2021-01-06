@@ -3,6 +3,7 @@ import LoaderFunction from '../components/LoaderFunction'
 import { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { indPlaceVal } from '../utils'
 import RelatedPosts from '../components/RelatedPosts'
 import CovidUpdateIndia from '../components/CovidUpdateIndia'
 import CovidUpdateWorld from '../components/CovidUpdateWorld'
@@ -34,15 +35,6 @@ const Article = () => {
         </div>
       </div>
     )
-  }
-
-  const indPlaceVal = (x) => {
-    x = x.toString()
-    var lastThree = x.substring(x.length - 3)
-    var otherNumbers = x.substring(0, x.length - 3)
-    if (otherNumbers != '') lastThree = ',' + lastThree
-    var number = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree
-    return number
   }
 
   return (
