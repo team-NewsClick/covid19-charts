@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Header from '../components/article/Header'
 import Footer from '../components/article/Footer'
 import IntroductionThumbnail from '../components/article/IntroductionThumbnail'
+import AnchorLinks from '../components/article/AnchorLinks'
 import CovidUpdateIndia from '../components/article/CovidUpdateIndia'
 import CovidUpdateWorld from '../components/article/CovidUpdateWorld'
 import RelatedPosts from '../components/article/RelatedPosts'
@@ -43,8 +44,9 @@ const Article = () => {
           <div id="feature-image">
             <img src="../img/covid-19-fi.jpg" alt="" className="mx-auto mb-6" />
           </div>
+          <AnchorLinks />
           <IntroductionThumbnail />
-          <div className="article-subheading">
+          <div id="india" className="article-subheading">
             COVID-19 Infections and Deaths : India
           </div>
           <CovidUpdateIndia />
@@ -144,7 +146,7 @@ const Article = () => {
             all seven districts show the data for the NCT of Delhi as a whole.
           </div>
           <div className="font-bold italic">Widget: INDIA DISTRICTS MAP</div>
-          <div className="article-subheading">
+          <div id="global" className="article-subheading">
             COVID-19 Infections and Deaths: Global
           </div>
           <CovidUpdateWorld />
