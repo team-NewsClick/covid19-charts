@@ -46,7 +46,7 @@ const Article = () => {
           </div>
           <AnchorLinks />
           <IntroductionThumbnail />
-          <div id="india" className="article-subheading">
+          <div className="article-subheading">
             COVID-19 Infections and Deaths : India
           </div>
           <CovidUpdateIndia />
@@ -146,7 +146,7 @@ const Article = () => {
             all seven districts show the data for the NCT of Delhi as a whole.
           </div>
           <div className="font-bold italic">Widget: INDIA DISTRICTS MAP</div>
-          <div id="global" className="article-subheading">
+          <div className="article-subheading">
             COVID-19 Infections and Deaths: Global
           </div>
           <CovidUpdateWorld />
