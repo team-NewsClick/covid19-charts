@@ -3,7 +3,7 @@ const AnchorLinks = () => {
     let anchorPoints = document.getElementsByClassName('article-subheading')
     let anchorLinks = document.getElementById('anchor-links')
     for (let i = 0; i < anchorPoints.length; i++) {
-      anchorPoints[i].id = 'section' + (i + 1)
+      anchorPoints[i].id = anchorPoints[i].textContent.toLowerCase().replace(/[^A-Z0-9]/ig, "-").replace(/-+/g,"-")
     }
     for (let i = 0; i < anchorPoints.length; i++) {
       const a = document.createElement('a')
