@@ -25,16 +25,3 @@ const AnchorLinks = () => {
   )
 }
 export default AnchorLinks
-
-// {selected.map((d, index) => (
-//     <MarkSeries
-//       key={index}
-//       data={[
-//         {
-//           x: d.data[d.data.length - 1].x,
-//           y: d.data[d.data.length - 1].y,
-//         },
-//       ]}
-//       color={customColor[index]}
-//     />
-//   ))}
