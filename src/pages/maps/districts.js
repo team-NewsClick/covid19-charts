@@ -9,7 +9,7 @@ const Districts = () => {
     longitude: 78.9629,
     zoom: 4.3,
     minZoom: 4.3,
-    maxZoom: 4.3
+    maxZoom: 10
   })
 
   const { data: stateGeoJsonData, error: stateGeoJsonError } = useSWR(
