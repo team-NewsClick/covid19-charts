@@ -155,3 +155,32 @@ export const indPlaceVal = (x) => {
   let number = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree
   return number
 }
+
+export const fetcher = (url) => {
+  const data = fetch(url).then((res) => res.json())
+  return data
+}
+
+export const calcuateMaximum = (data, sortBy) => {
+  const max = data.reduce((p, acc) => (p[sortBy] > acc[sortBy] ? p : acc))
+  return max[sortBy]
+}
+
+export const calcuateMinimum = (data, sortBy) => {
+  const min = data.reduce((p, acc) => (p[sortBy] < acc[sortBy] ? p : acc))
+  return min[sortBy]
+}
+
+export const normalizeValue = (val, max, min) => {
+  return (val - min) / (max - min)
+}
+
+export const calculateDomain = (data, sortBy) => {
+  const max = calcuateMaximum(data, sortBy)
+  const min = calcuateMinimum(data, sortBy)
+  const domain = data.map((row) => {
+    return normalizeValue(row.active, max, min)
+  })
+  const uniqueDomain = [...new Set(domain)]
+  return uniqueDomain
+}
