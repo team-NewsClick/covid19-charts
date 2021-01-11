@@ -103,8 +103,8 @@ const StatesMapWidget = ({
         controller={true}
         layers={layer}
         getTooltip={_getTooltip}
-        width={800}
-        height={1000}
+        width={window.innerWidth}
+        height={window.innerWidth * 1.25}
       >
         <StaticMap
           reuseMaps

@@ -8,6 +8,7 @@ import ArticleTitle from '../components/article/ArticleTitle'
 import FeatureImage from '../components/article/FeatureImage'
 import CovidUpdateIndia from '../components/article/CovidUpdateIndia'
 import CovidUpdateWorld from '../components/article/CovidUpdateWorld'
+import StatesMapWidget from '../components/maps/StatesMapWidget'
 import RelatedPosts from '../components/article/RelatedPosts'
 
 const Article = () => {
@@ -119,7 +120,22 @@ const Article = () => {
           <div className="article-para">
             The set of maps below shows statistics for all the States in India.
           </div>
-          <div className="font-bold italic">Widget: INDIA STATES MAPS</div>
+          <div className="flex">
+            <iframe
+              id="states-map"
+              src="/maps/states"
+              scrolling="no"
+              frameBorder="0"
+              width={windowWidth > 800 ? windowWidth * 0.6 : windowWidth}
+              height={(windowWidth < 800
+                ? windowWidth > 700
+                  ? windowWidth * 1
+                  : windowWidth * 1.5
+                : windowWidth * 0.85
+              ).toString()}
+              className="mx-auto mt-16"
+            ></iframe>
+          </div>
           <div className="article-para">
             The set of maps below shows district level statistics for all the
             districts in India. However, for six States/UTs - Andaman and
@@ -136,7 +152,22 @@ const Article = () => {
             Also, the district-wise data for Delhi is not given and in the Map
             all seven districts show the data for the NCT of Delhi as a whole.
           </div>
-          <div className="font-bold italic">Widget: INDIA DISTRICTS MAP</div>
+          <div className="flex">
+            <iframe
+              id="districts-map"
+              src="/maps/districts"
+              scrolling="no"
+              frameBorder="0"
+              width={windowWidth > 800 ? windowWidth * 0.6 : windowWidth}
+              height={(windowWidth < 800
+                ? windowWidth > 700
+                  ? windowWidth * 1
+                  : windowWidth * 1.5
+                : windowWidth * 0.85
+              ).toString()}
+              className="mx-auto mt-16"
+            ></iframe>
+          </div>
           <div className="article-subheading">
             COVID-19 Infections and Deaths: Global
           </div>
