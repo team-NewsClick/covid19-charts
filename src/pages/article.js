@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import Header from '../components/article/Header'
 import Footer from '../components/article/Footer'
 import IntroductionThumbnail from '../components/article/IntroductionThumbnail'
+import AnchorLinks from '../components/article/AnchorLinks'
+import CategoryPublishingDate from '../components/article/CategoryPublishingDate'
+import ArticleTitle from '../components/article/ArticleTitle'
+import FeatureImage from '../components/article/FeatureImage'
 import CovidUpdateIndia from '../components/article/CovidUpdateIndia'
 import CovidUpdateWorld from '../components/article/CovidUpdateWorld'
 import RelatedPosts from '../components/article/RelatedPosts'
@@ -28,21 +32,10 @@ const Article = () => {
       <div className="col-span-12 mx-5 sm:col-span-8 sm:mx-0">
         <Header />
         <div className="article my-12">
-          <div className="flex text-gray-600">
-            <div>Science</div>
-            <div className="flex flex-auto justify-end">
-              {new Date().toUTCString().slice(5, 16)}
-            </div>
-          </div>
-          <div
-            id="article-title"
-            className="text-4xl font-extrabold leading-10 mt-1 mb-8"
-          >
-            COVID-19 Cases: Data and Graphs of India and the World
-          </div>
-          <div id="feature-image">
-            <img src="../img/covid-19-fi.jpg" alt="" className="mx-auto mb-6" />
-          </div>
+          <CategoryPublishingDate />
+          <ArticleTitle />
+          <FeatureImage />
+          <AnchorLinks />
           <IntroductionThumbnail />
           <div className="article-subheading">
             COVID-19 Infections and Deaths : India

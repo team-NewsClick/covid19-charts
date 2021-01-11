@@ -86,6 +86,12 @@ body {
 .footer > * {
   @apply flex items-center m-auto place-content-center py-2;
 }
+.anchor-btn {
+  @apply bg-gray-200 py-1 px-3 rounded-full mr-3 mb-2 border border-gray-300 text-blue-800;
+}
+.anchor-btn:hover {
+  @apply bg-gray-300;
+}
 
 @screen sm {
   .radio-title {
