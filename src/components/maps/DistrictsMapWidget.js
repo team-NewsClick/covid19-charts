@@ -15,7 +15,6 @@ const StatesMapWidget = ({
   stateGeoJsonData,
   districtGeoJsonData,
   covidData,
-  stateRegionKey,
   districtRegionKey,
   casesType
 }) => {

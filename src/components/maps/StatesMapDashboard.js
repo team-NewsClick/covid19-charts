@@ -1,7 +1,7 @@
 import { useState } from "react"
 import StatesMapWidget from "./StatesMapWidget"
 
-const StateMapDashboard = ({ geoJsonData, initialViewState, covidData }) => {
+const StateMapDashboard = ({ geoJsonData, initialViewState, covidData, regionKey }) => {
   const [casesType, setCasesType] = useState("active")
   const _handleCasesType = (e) => {
     setCasesType(e.currentTarget.value)
