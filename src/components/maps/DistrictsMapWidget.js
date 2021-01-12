@@ -79,17 +79,6 @@ const StatesMapWidget = ({
   }
   const layer = [
     new GeoJsonLayer({
-      id: "states-geojson-layer",
-      data: stateGeoJsonData,
-      stroked: true,
-      filled: true,
-      lineWidthScale: 600,
-      getFillColor: [255, 255, 255, 0],
-      getLineColor: [255, 255, 255, 0],
-      getLineWidth: 10,
-      pickable: true
-    }),
-    new GeoJsonLayer({
       id: "districts-geojson-layer",
       data: jsonData,
       stroked: true,
@@ -98,6 +87,17 @@ const StatesMapWidget = ({
       getFillColor: (d) => _fillColor(d),
       getLineColor: [255, 255, 255, 125],
       getLineWidth: 3,
+      pickable: true
+    }),
+    new GeoJsonLayer({
+      id: "states-geojson-layer",
+      data: stateGeoJsonData,
+      stroked: true,
+      filled: false,
+      lineWidthScale: 600,
+      getFillColor: [255, 255, 255, 0],
+      getLineColor: [245, 245, 245, 255],
+      getLineWidth: 10,
       pickable: true
     })
   ]

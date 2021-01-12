@@ -4,7 +4,7 @@ import LoaderFunction from "../../components/LoaderFunction"
 import DistrictsMapDashboard from "../../components/maps/DistrictsMapDashboard"
 
 const Districts = () => {
-  const [windowWidth, setWindowWidth] = useState('200px') 
+  const [windowWidth, setWindowWidth] = useState("200px")
   const [initialViewState, setInitialViewState] = useState({
     latitude: 22.5937,
     longitude: 78.9629,
@@ -14,7 +14,7 @@ const Districts = () => {
   })
 
   useEffect(() => {
-    setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : '800px')
+    setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
     setInitialViewState(
       windowWidth < 800
         ? windowWidth > 700
@@ -22,19 +22,19 @@ const Districts = () => {
               ...initialViewState,
               zoom: 3.5,
               minZoom: 3.5,
-              maxZoom: 10 ,
+              maxZoom: 10
             }
           : {
               ...initialViewState,
               zoom: 2.9,
               minZoom: 2.9,
-              maxZoom: 10,
+              maxZoom: 10
             }
         : {
             ...initialViewState,
             zoom: 4.3,
             minZoom: 3.8,
-            maxZoom: 10,
+            maxZoom: 10
           }
     )
   }, [windowWidth])
@@ -45,12 +45,12 @@ const Districts = () => {
   const { data: districtGeoJsonData, error: districtGeoJsonError } = useSWR(
     "/api/districtsGeoJson"
   )
-  const { data, error: covidDataError } = useSWR(
+  const { data: covidData, error: covidDataError } = useSWR(
     "/api/districtsCovidData"
   )
   if (stateGeoJsonError || districtGeoJsonError || covidDataError)
     return <div>Failed to Load</div>
-  if (!stateGeoJsonData || !districtGeoJsonData || !data) {
+  if (!stateGeoJsonData || !districtGeoJsonData || !covidData) {
     return (
       <div className="flex h-screen">
         <div className="m-auto">
@@ -59,19 +59,6 @@ const Districts = () => {
       </div>
     )
   }
-  const covidData = Object.keys(data)
-    .map((stateRow) => {
-      return Object.keys(data[stateRow].districtData).map((districtRow) => {
-        return {
-          state: stateRow,
-          district: districtRow,
-          active: data[stateRow].districtData[districtRow].active,
-          confirmed: data[stateRow].districtData[districtRow].confirmed,
-          deceased: data[stateRow].districtData[districtRow].deceased
-        }
-      })
-    })
-    .flat()
   return (
     <DistrictsMapDashboard
       initialViewState={initialViewState}
