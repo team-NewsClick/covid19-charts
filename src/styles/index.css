@@ -156,6 +156,9 @@ body {
   margin-left: 0.5rem;
   cursor: pointer;
 }
+#deckgl-wrapper {
+  top: 60px !important;
+}
 
 /* hamberger-menu start */
 #menu {
