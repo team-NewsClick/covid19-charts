@@ -6,8 +6,8 @@ import StatesMapDashboard from '../../components/maps/StatesMapDashboard'
 const States = () => {
   const [windowWidth, setWindowWidth] = useState('200px')
   const [initialViewState, setInitialViewState] = useState({
-    latitude: 22.5937,
-    longitude: 78.9629,
+    latitude: 23,
+    longitude: 82.8,
     zoom: 4.3,
     minZoom: 4.3,
     maxZoom: 4.3,

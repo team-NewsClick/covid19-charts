@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react"
-import DeckGL from "deck.gl"
-import { GeoJsonLayer } from "@deck.gl/layers"
-import { StaticMap } from "react-map-gl"
-import { scaleQuantile } from "d3-scale"
+import { useEffect, useState } from 'react'
+import DeckGL from 'deck.gl'
+import { GeoJsonLayer } from '@deck.gl/layers'
+import { StaticMap } from 'react-map-gl'
+import { scaleQuantile } from 'd3-scale'
 import {
   calcuateMaximum,
   calcuateMinimum,
   normalizeValue,
-  calculateDomain
-} from "../../utils"
+  calculateDomain,
+  sortLegends,
+} from '../../utils'
 
 const StatesMapWidget = ({
   geoJsonData,
   initialViewState,
   covidData,
   regionKey,
-  casesType
+  casesType,
 }) => {
   const [jsonData, setJsonData] = useState(geoJsonData)
   useEffect(() => {
@@ -32,7 +33,7 @@ const StatesMapWidget = ({
       [254, 178, 76],
       [253, 141, 60],
       [240, 59, 32],
-      [189, 0, 38]
+      [189, 0, 38],
     ])
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
@@ -60,30 +61,30 @@ const StatesMapWidget = ({
       return (
         cases && {
           html: `\
-      <div><b>State</b></div>
-      <div>${cases.region}</div>
-      <div><b>Active Cases</b></div>
-      <div>${cases.active}</div>
-      <div><b>New Cases</b></div>
-      <div>${cases.new_cases}</div>
-      <div><b>New Deaths</b></div>
-      <div>${cases.new_deaths}</div>
-      <div><b>New Recovered</b></div>
-      <div>${cases.new_recovered}</div>
-      <div><b>Total Cases</b></div>
-      <div>${cases.total_cases}</div>
-      <div><b>Total Deaths</b></div>
-      <div>${cases.total_deaths}</div>
-      <div><b>Total Recovered</b></div>
-      <div>${cases.total_recovered}</div>
-      `
+            <div><b>State</b></div>
+            <div>${cases.region}</div>
+            <div><b>Active Cases</b></div>
+            <div>${cases.active}</div>
+            <div><b>New Cases</b></div>
+            <div>${cases.new_cases}</div>
+            <div><b>New Deaths</b></div>
+            <div>${cases.new_deaths}</div>
+            <div><b>New Recovered</b></div>
+            <div>${cases.new_recovered}</div>
+            <div><b>Total Cases</b></div>
+            <div>${cases.total_cases}</div>
+            <div><b>Total Deaths</b></div>
+            <div>${cases.total_deaths}</div>
+            <div><b>Total Recovered</b></div>
+            <div>${cases.total_recovered}</div>
+            `,
         }
       )
     }
   }
   const layer = [
     new GeoJsonLayer({
-      id: "geojson-layer",
+      id: 'geojson-layer',
       data: jsonData,
       stroked: true,
       filled: true,
@@ -91,9 +92,11 @@ const StatesMapWidget = ({
       getFillColor: (d) => _fillColor(d),
       getLineColor: [255, 255, 255, 255],
       getLineWidth: 5,
-      pickable: true
-    })
+      pickable: true,
+    }),
   ]
+  const colorDomains = colors.domain()
+  const legends = sortLegends(maxValue, colors, colorDomains)
 
   return (
     <div>

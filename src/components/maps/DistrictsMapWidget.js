@@ -7,7 +7,8 @@ import {
   calcuateMaximum,
   calcuateMinimum,
   normalizeValue,
-  calculateDomain
+  calculateDomain,
+  sortLegends
 } from "../../utils"
 
 const StatesMapWidget = ({
@@ -100,6 +101,9 @@ const StatesMapWidget = ({
       pickable: true
     })
   ]
+
+  const colorDomains = colors.domain()
+  const legends = sortLegends(maxValue, colors, colorDomains)
 
   return (
     <div>
