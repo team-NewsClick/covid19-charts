@@ -62,6 +62,7 @@ const StatesMapWidget = ({
       return (
         cases && {
           html: `\
+          <div>
             <div><b>State</b></div>
             <div>${cases.state}</div>
             <div><b>District</b></div>
@@ -72,6 +73,7 @@ const StatesMapWidget = ({
             <div>${cases.confirmed}</div>
             <div><b>Total Deaths</b></div>
             <div>${cases.deceased}</div>
+          </div>
           `
         }
       )
@@ -101,7 +103,6 @@ const StatesMapWidget = ({
       pickable: true
     })
   ]
-
   const colorDomains = colors.domain()
   const legends = sortLegends(maxValue, colors, colorDomains)
 
@@ -121,6 +122,18 @@ const StatesMapWidget = ({
           mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
           preventStyleDiffing={true}
         />
+        <div className="flex flex-row-reverse">
+          <div className="legends" style={window && window.innerWidth > 500 ? {} : {bottom: "5.5rem"}}>
+            {legends.map((l, i) => (
+              <div className="flex md:pb-2" key={i}>
+                <div className="legend-color" style={{ backgroundColor: `rgb${l.color}` }}></div>
+                <div>
+                  {l.lowerBound} - {l.upperBound}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </DeckGL>
     </div>
   )
