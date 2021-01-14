@@ -1,8 +1,10 @@
 # Covid19-Charts
 
+This project is a live and customizable version of Newsclick's COVID-19 trajectory Charts and Maps
+
 ## Getting Started
 
-First, install all the __node_modules__
+First, install all the **node_modules**
 
 ```bash
 npm install
@@ -18,8 +20,11 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Open [http://localhost:3000](http://localhost:3000) from the browser to see the result.
+
+- To get COVID-19 article open [http://localhost:9000/covid19-cases-graphs-maps-india-world](http://localhost:9000/covid19-cases-graphs-maps-india-world) from the browser to see the result.
 
 ## Dependencies
 
 - Rename `.env.example` to `.env.local`
+- Add **MAPBOX_BOX_ACCESS_TOKEN**
