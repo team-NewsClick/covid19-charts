@@ -30,21 +30,21 @@ const Header = () => {
             <img
               src="../img/fb.png"
               alt="Facebook"
-              className="social-icon md:hidden lg:block"
+              className="social-icon block"
             />
           </a>
           <a href="https://twitter.com/newsclickin">
             <img
               src="../img/twitter.png"
               alt="Twitter"
-              className="social-icon md:hidden lg:block"
+              className="social-icon block"
             />
           </a>
           <a href="https://www.youtube.com/user/NewsClickin">
             <img
               src="../img/yt.png"
               alt="YouTube"
-              className="social-icon md:hidden lg:block"
+              className="social-icon block"
             />
           </a>
 

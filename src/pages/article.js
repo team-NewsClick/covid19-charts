@@ -120,7 +120,7 @@ const Article = () => {
           <div className="article-para">
             The set of maps below shows statistics for all the States in India.
           </div>
-          <div className="flex">
+          <div className="flex pb-12">
             <iframe
               id="states-map"
               src="/maps/states"
@@ -129,8 +129,8 @@ const Article = () => {
               width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
               height={(windowWidth < 800
                 ? windowWidth > 700
-                  ? windowWidth * 1
-                  : windowWidth * 1.5
+                  ? windowWidth * 0.8
+                  : windowWidth * 1.18
                 : windowWidth * 0.48
               ).toString()}
               className="mx-auto mt-16"
@@ -152,18 +152,18 @@ const Article = () => {
             Also, the district-wise data for Delhi is not given and in the Map
             all seven districts show the data for the NCT of Delhi as a whole.
           </div>
-          <div className="flex">
+          <div className="flex pb-12">
             <iframe
               id="districts-map"
               src="/maps/districts"
               scrolling="no"
               frameBorder="0"
-              width={windowWidth > 800 ? windowWidth * 0.6 : windowWidth}
+              width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
               height={(windowWidth < 800
                 ? windowWidth > 700
-                  ? windowWidth * 1
-                  : windowWidth * 1.5
-                : windowWidth * 0.85
+                  ? windowWidth * 0.8
+                  : windowWidth * 1.18
+                : windowWidth * 0.48
               ).toString()}
               className="mx-auto mt-16"
             ></iframe>

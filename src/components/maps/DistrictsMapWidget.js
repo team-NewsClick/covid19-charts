@@ -124,10 +124,10 @@ const StatesMapWidget = ({
           preventStyleDiffing={true}
         />
         <div className="flex flex-row-reverse">
-          <div className="legends" style={window && window.innerWidth > 500 ? {bottom: "6.5rem", right: "15rem"} : {bottom: "5.5rem"}}>
-            <div className="border-b mb-2 font-bold">Number of Cases</div>
+          <div className="legends" style={window && window.innerWidth < 700 ? (window.innerWidth > 500 ? {bottom: "2.5rem", right:"8.5rem", fontSize:"0.8rem"} : {bottom: "0.2rem", right:"4.5rem"}) : {bottom: "6.5rem", right: "15rem", fontSize:"1rem"}}>
+            <div className="border-b mb-1 md:mb-2 font-bold leading-4" style={window && window.innerWidth < 700 ? (window.innerWidth > 500 ? {paddingBottom: "0.25rem", marginBottom: "0.25rem", marginTop: "0.25rem"} : {}) : {paddingBottom: "0.50rem", marginBottom: "0.50rem", marginTop: "0.50rem"}}>Number of Cases</div>
             {legends.map((l, i) => (
-              <div className="flex md:pb-2" key={i}>
+              <div key={i} className="flex leading-4" style={window && window.innerWidth < 700 ? (window.innerWidth > 500 ? {paddingBottom: "0.25rem"} : {}) : {paddingBottom: "0.5rem"}}>
                 <div className="legend-color" style={{ backgroundColor: `rgb${l.color}` }}></div>
                 <div>
                   {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}

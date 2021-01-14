@@ -16,24 +16,24 @@ const Districts = () => {
   useEffect(() => {
     setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
     setInitialViewState(
-      windowWidth < 800
-        ? windowWidth > 700
+      windowWidth < 700
+        ? windowWidth > 500
           ? {
               ...initialViewState,
-              zoom: 4.1,
-              minZoom: 3.5,
-              maxZoom: 4.2,
+              zoom: 3.5,
+              minZoom: 2,
+              maxZoom: 5,
             }
           : {
               ...initialViewState,
               zoom: 2.9,
-              minZoom: 2.9,
-              maxZoom: 3.5,
+              minZoom: 2.5,
+              maxZoom: 5,
             }
         : {
             ...initialViewState,
-            zoom: 4.7,
-            minZoom: 3.8,
+            zoom: 4.1,
+            minZoom: 3.5,
             maxZoom: 5.5,
           }
     )
