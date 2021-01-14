@@ -156,7 +156,7 @@ const LineChartWidget = (props) => {
             }
             tickFormat={(d) => (d < 1000 ? d : d / 1000 + 'k')}
           />
-          {greyHighlight!= null && (
+          {greyHighlight != null && (
             <LineSeries
               curve={'curveMonotoneX'}
               data={data[greyHighlight].data}
@@ -164,7 +164,7 @@ const LineChartWidget = (props) => {
               strokeWidth={2}
             />
           )}
-          {greyHighlight!= null && (
+          {greyHighlight != null && (
             <MarkSeries
               data={[
                 {
@@ -181,7 +181,7 @@ const LineChartWidget = (props) => {
               color={'#777'}
             />
           )}
-          {greyHighlight!= null && (
+          {greyHighlight != null && (
             <LabelSeries
               data={[
                 {

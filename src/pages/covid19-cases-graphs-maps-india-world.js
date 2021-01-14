@@ -8,7 +8,6 @@ import ArticleTitle from '../components/article/ArticleTitle'
 import FeatureImage from '../components/article/FeatureImage'
 import CovidUpdateIndia from '../components/article/CovidUpdateIndia'
 import CovidUpdateWorld from '../components/article/CovidUpdateWorld'
-import StatesMapWidget from '../components/maps/StatesMapWidget'
 import RelatedPosts from '../components/article/RelatedPosts'
 
 const Article = () => {
