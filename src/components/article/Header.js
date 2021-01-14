@@ -30,6 +30,29 @@ const Header = () => {
             <img
               src="../img/fb.png"
               alt="Facebook"
+              className="social-icon md:hidden lg:block"
+            />
+          </a>
+          <a href="https://twitter.com/newsclickin">
+            <img
+              src="../img/twitter.png"
+              alt="Twitter"
+              className="social-icon md:hidden lg:block"
+            />
+          </a>
+          <a href="https://www.youtube.com/user/NewsClickin">
+            <img
+              src="../img/yt.png"
+              alt="YouTube"
+              className="social-icon md:hidden lg:block"
+            />
+          </a>
+
+          {/* UNCOMMENT THIS BLOCK WHILE COMMENTING/REMOVING ABOVE CODE
+          <a href="https://www.facebook.com/newsclickonline/" target="_blank">
+            <img
+              src="../img/fb.png"
+              alt="Facebook"
               className="social-icon sm-hide md:hidden lg:block"
             />
           </a>
@@ -46,8 +69,9 @@ const Header = () => {
               alt="YouTube"
               className="social-icon sm-hide md:hidden lg:block"
             />
-          </a>
-          <div className="lg:hidden" id="menu-bar" onClick={onClickMenu}>
+          </a> */}
+
+          {/* <div className="lg:hidden" id="menu-bar" onClick={onClickMenu}>
             <div id="menu">
               <div id="bar1" className="bar"></div>
               <div id="bar2" className="bar"></div>
@@ -83,7 +107,7 @@ const Header = () => {
                 </div>
               </li>
             </ul>
-          </div>
+          </div> */}
           <div className="menu-bg" id="menu-bg"></div>
         </div>
       </div>
@@ -94,7 +118,7 @@ const Header = () => {
           className="mx-auto my-8"
         />
       </div>
-      <div className="categories sm-hide md:hidden lg:flex">
+      {/* <div className="categories sm-hide md:hidden lg:flex">
         <div className="category">TRENDING</div>
         <div className="category">TECHNOLOGY</div>
         <div className="category">POLITICS</div>
@@ -105,7 +129,7 @@ const Header = () => {
         <div className="search ml-2 cursor-pointer">
           <img src="../img/search.svg" alt="Search" onClick={showHideSearch} />
         </div>
-      </div>
+      </div> */}
       <div id="search-bar" style={{ display: 'none' }}>
         <div className="flex justify-center items-center h-16 my-2 bg-gray-300 rounded-md">
           <input
