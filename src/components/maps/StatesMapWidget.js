@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react"
-import DeckGL from "deck.gl"
-import { GeoJsonLayer } from "@deck.gl/layers"
-import { StaticMap } from "react-map-gl"
-import { scaleQuantile } from "d3-scale"
+import { useEffect, useState } from 'react'
+import DeckGL from 'deck.gl'
+import { GeoJsonLayer } from '@deck.gl/layers'
+import { StaticMap } from 'react-map-gl'
+import { scaleQuantile } from 'd3-scale'
 import {
   calcuateMaximum,
   calcuateMinimum,
   normalizeValue,
-  calculateDomain
-} from "../../utils"
+  calculateDomain,
+  sortLegends
+} from '../../utils'
 
 const StatesMapWidget = ({
   geoJsonData,
@@ -32,7 +33,7 @@ const StatesMapWidget = ({
       [254, 178, 76],
       [253, 141, 60],
       [240, 59, 32],
-      [189, 0, 38]
+      [189, 0, 38],
     ])
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
@@ -60,30 +61,32 @@ const StatesMapWidget = ({
       return (
         cases && {
           html: `\
-      <div><b>State</b></div>
-      <div>${cases.region}</div>
-      <div><b>Active Cases</b></div>
-      <div>${cases.active}</div>
-      <div><b>New Cases</b></div>
-      <div>${cases.new_cases}</div>
-      <div><b>New Deaths</b></div>
-      <div>${cases.new_deaths}</div>
-      <div><b>New Recovered</b></div>
-      <div>${cases.new_recovered}</div>
-      <div><b>Total Cases</b></div>
-      <div>${cases.total_cases}</div>
-      <div><b>Total Deaths</b></div>
-      <div>${cases.total_deaths}</div>
-      <div><b>Total Recovered</b></div>
-      <div>${cases.total_recovered}</div>
-      `
+          <div>
+            <div><b>State</b></div>
+            <div>${cases.region}</div>
+            <div><b>Active Cases</b></div>
+            <div>${cases.active}</div>
+            <div><b>New Cases</b></div>
+            <div>${cases.new_cases}</div>
+            <div><b>New Deaths</b></div>
+            <div>${cases.new_deaths}</div>
+            <div><b>New Recovered</b></div>
+            <div>${cases.new_recovered}</div>
+            <div><b>Total Cases</b></div>
+            <div>${cases.total_cases}</div>
+            <div><b>Total Deaths</b></div>
+            <div>${cases.total_deaths}</div>
+            <div><b>Total Recovered</b></div>
+            <div>${cases.total_recovered}</div>
+          </div>
+            `,
         }
       )
     }
   }
   const layer = [
     new GeoJsonLayer({
-      id: "geojson-layer",
+      id: 'geojson-layer',
       data: jsonData,
       stroked: true,
       filled: true,
@@ -91,9 +94,11 @@ const StatesMapWidget = ({
       getFillColor: (d) => _fillColor(d),
       getLineColor: [255, 255, 255, 255],
       getLineWidth: 5,
-      pickable: true
-    })
+      pickable: true,
+    }),
   ]
+  const colorDomains = colors.domain()
+  const legends = sortLegends(maxValue, colors, colorDomains)
 
   return (
     <div>
@@ -103,14 +108,26 @@ const StatesMapWidget = ({
         controller={true}
         layers={layer}
         getTooltip={_getTooltip}
-        width={800}
-        height={1000}
+        width={window.innerWidth}
+        height={window.innerWidth * 1.25}
       >
         <StaticMap
           reuseMaps
           mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
           preventStyleDiffing={true}
         />
+        <div className="flex flex-row-reverse">
+          <div className="legends" style={window && window.innerWidth > 500 ? {} : {bottom: "5.5rem"}}>
+            {legends.map((l, i) => (
+              <div className="flex md:pb-2" key={i}>
+                <div className="legend-color" style={{ backgroundColor: `rgb${l.color}` }}></div>
+                <div>
+                  {l.lowerBound} - {l.upperBound}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </DeckGL>
     </div>
   )

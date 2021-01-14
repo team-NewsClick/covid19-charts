@@ -94,7 +94,7 @@ export const calculateXMinValue = (data, datesAdjusted) => {
     return date
   }
 
-  return datesAdjusted === "on" ? 1 : min.subtractDays()
+  return datesAdjusted === 'on' ? 1 : min.subtractDays()
 }
 
 export const calculateXMaxValue = () => {
@@ -175,12 +175,40 @@ export const normalizeValue = (val, max, min) => {
   return (val - min) / (max - min)
 }
 
-export const calculateDomain = (data, sortBy) => {
-  const max = calcuateMaximum(data, sortBy)
-  const min = calcuateMinimum(data, sortBy)
+export const calculateDomain = (data, casesType) => {
+  const max = calcuateMaximum(data, casesType)
+  const min = calcuateMinimum(data, casesType)
   const domain = data.map((row) => {
-    return normalizeValue(row.active, max, min)
+    return normalizeValue(row[casesType], max, min)
   })
   const uniqueDomain = [...new Set(domain)]
   return uniqueDomain
+}
+
+export const sortLegends = (maxValue, colors, colorDomains) => {
+  const legends = []
+  const sublegends = colorDomains.map((l, i) => {
+    return {
+      lowerBound: Math.round(l * maxValue),
+      upperBound: Math.round(colorDomains[i + 1] * maxValue) - 1 || maxValue,
+      color: `(${colors(l).join(',')})`,
+    }
+  })
+  sublegends.map((s) => {
+    let temp = legends.findIndex((e) => e.color == s.color)
+    temp == -1
+      ? legends.push(s)
+      : (legends[temp] = {
+          lowerBound:
+            s.lowerBound < legends[temp].lowerBound
+              ? s.lowerBound
+              : legends[temp].lowerBound,
+          upperBound:
+            s.upperBound > legends[temp].upperBound
+              ? s.upperBound
+              : legends[temp].upperBound,
+          color: s.color,
+        })
+  })
+  return legends
 }
