@@ -1,5 +1,6 @@
 @tailwind base;
 @tailwind components;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body {
   @apply bg-white;
@@ -11,7 +12,7 @@ body {
   @apply opacity-0 fixed w-0 inline-flex;
 }
 .radio-toolbar label {
-  @apply inline-block bg-gray-100 py-1 text-center text-xs w-20 border-2 border-solid border-gray-800;
+  @apply inline-block bg-gray-100 py-1 text-center text-xs w-20 border-2 border-solid border-gray-800 cursor-pointer;
 }
 .radio-toolbar label:hover {
   @apply bg-gray-300;
@@ -31,6 +32,72 @@ body {
 .xTicks text {
   @apply transform translate-x-4 translate-y-3;
 }
+.header-logos {
+  @apply border-b-2 mt-8 pb-6;
+}
+.categories {
+  @apply flex justify-center font-bold text-lg;
+}
+.category {
+  @apply mx-3 self-end cursor-pointer;
+}
+.sm-hide {
+  @apply hidden;
+}
+.article-para {
+  @apply text-lg text-justify my-4;
+}
+.article-subheading {
+  @apply text-2xl font-bold mt-8 mb-5 leading-7;
+}
+.article-img {
+  @apply mx-auto my-6;
+}
+.article-img-caption {
+  @apply text-center text-lg mx-2 mb-6;
+}
+.browse-category {
+  @apply mb-24;
+}
+.browse-category-header {
+  @apply flex border-b-2 w-full;
+}
+.browse-category-title {
+  @apply px-3 py-2 text-white font-bold text-lg;
+}
+.article-thumbnail {
+  @apply w-full shadow-md my-6 mx-auto rounded-md;
+}
+.article-thumbnail-title {
+  @apply font-extrabold mx-4 mt-5 text-lg;
+}
+.article-thumbnail-para {
+  @apply mx-4 my-3 text-justify;
+}
+.article-thumbnail-btn, .search-btn {
+  @apply px-4 py-2 mt-6 mb-4 bg-white border border-solid rounded text-lg cursor-pointer;
+}
+.article-thumbnail-btn:hover, .search-btn:hover {
+  @apply bg-red-800 text-white border-red-800;
+}
+.footer {
+  @apply text-white text-lg font-bold p-1 content-center;
+}
+.footer > * {
+  @apply flex items-center m-auto place-content-center py-2;
+}
+.anchor-btn {
+  @apply bg-gray-200 py-1 px-3 rounded-full mr-3 mb-2 border border-gray-300 text-blue-800;
+}
+.anchor-btn:hover {
+  @apply bg-gray-300;
+}
+.legends {
+  @apply px-2 pt-1 pb-1 mt-1 mr-1 text-xs font-bold bg-white shadow fixed;
+}
+.legend-color {
+  @apply h-3 w-3 mr-2;
+}
 
 @screen sm {
   .radio-title {
@@ -39,18 +106,129 @@ body {
   .xTicks text {
     @apply transform translate-x-12 translate-y-3;
   }
+  .sm-hide {
+    @apply inline-block;
+  }
+}
+
+@screen md {
+  .article-thumbnail {
+    @apply w-1/3 mx-2;
+  }
 }
 
 @tailwind utilities;
 
 .rv-xy-plot {
-    margin: auto;
+  margin: auto;
 }
 .rv-crosshair__inner__content {
   background: rgba(255, 255, 255, 0.05) !important;
   box-shadow: 0px 0px 3px rgba(120, 120, 120, 0.25) !important;
   color: #000 !important;
 }
-body {
-  background-color: white !important;
+.header-social {
+  border-color: #0d3554;
 }
+#article-title,
+.article-subheading,
+.article-thumbnail-title {
+  font-family: 'Noto Serif', serif;
+}
+.search {
+  min-width: 30px;
+}
+.header-logos {
+  border-color: #0d3554;
+}
+
+.browse-category-header {
+  border-color: #0d3554;
+}
+.browse-category-title {
+  background-color: #0d3554;
+}
+.article-thumbnail-btn,
+.search-btn {
+  border-color: #d11143;
+  color: #d11143;
+}
+.footer {
+  background-color: #0d3554;
+}
+.social-icon {
+  width: 29px;
+  height: 29px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+#deckgl-wrapper {
+  top: 60px !important;
+}
+
+/* hamberger-menu start */
+#menu {
+  width: 25px;
+  cursor: pointer;
+}
+.bar {
+  height: 3px;
+  width: 100%;
+  background-color: #0d3554;
+  display: block;
+  border-radius: 3px;
+  margin-top: 2x;
+  transition: 0.3s ease;
+}
+#bar1 {
+  transform: translateY(-4px);
+}
+#bar3 {
+  transform: translateY(4px);
+}
+.nav li a {
+  text-decoration: none;
+}
+.nav li {
+  list-style: none;
+  font-weight: bolder;
+  padding: 16px 0;
+}
+.nav {
+  display: none;
+  padding: 0;
+  margin: 0 20px;
+  transition: 0.3s ease;
+  left: 0;
+}
+.menu-bg {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.menu-bg {
+  z-index: 1;
+  background-color: #efefef;
+  transition: 0.3s ease;
+}
+#menu-bar {
+  z-index: 2;
+  margin-top: 1rem;
+}
+.change-bg {
+  width: 100%;
+  height: 100%;
+}
+.change #bar1 {
+  transform: translateY(3px) rotateZ(-45deg);
+}
+.change #bar2 {
+  opacity: 0;
+}
+.change #bar3 {
+  transform: translateY(-3px) rotateZ(45deg);
+}
+.change {
+  display: block;
+}
+/* hamberger-menu end */

@@ -1,24 +1,15 @@
-import { useState, useEffect } from 'react'
-import { csvParse } from 'd3-dsv'
-import CovidDashboard from '../../components/CovidDashboard.js'
-import LoaderFunction from '../../components/LoaderFunction'
+import useSWR from "swr"
+import CovidDashboard from "../../components/CovidDashboard.js"
+import LoaderFunction from "../../components/LoaderFunction"
 
-const StateTracker = () => {
-  const [data, setData] = useState([])
-
+const CityTracker = () => {
+  const { data, error } = useSWR("/api/cities")
   const propsData = {
     data,
-    trackerType: 'city',
+    trackerType: "city"
   }
-
-  useEffect(() => {
-    fetch(process.env.API_URL_CITY)
-      .then((res) => res.text())
-      .then(csvParse)
-      .then(setData)
-  }, [])
-
-  if (data.length === 0) {
+  if (error) return <div>Failed to Load</div>
+  if (!data) {
     return (
       <div className="flex h-screen">
         <div className="m-auto">
@@ -26,13 +17,12 @@ const StateTracker = () => {
         </div>
       </div>
     )
-  } else {
-    return (
-      <div>
-        <CovidDashboard data={propsData} />
-      </div>
-    )
   }
+  return (
+    <div>
+      <CovidDashboard data={propsData} />
+    </div>
+  )
 }
 
-export default StateTracker
+export default CityTracker
