@@ -84,7 +84,7 @@ const Article = () => {
               title="COVID-19 Testing Data for Indian States &amp;amp; UT"
               aria-label="chart"
               id="datawrapper-chart-ybmUS"
-              src="https://datawrapper.dwcdn.net/ybmUS/8/"
+              src="https://datawrapper.dwcdn.net/ybmUS/9/"
               scrolling="no"
               frameBorder="0"
               style={{ minWidth: '100% !important' }}
@@ -126,12 +126,12 @@ const Article = () => {
               src="/maps/states"
               scrolling="no"
               frameBorder="0"
-              width={windowWidth > 800 ? windowWidth * 0.6 : windowWidth}
+              width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
               height={(windowWidth < 800
                 ? windowWidth > 700
                   ? windowWidth * 1
                   : windowWidth * 1.5
-                : windowWidth * 0.85
+                : windowWidth * 0.48
               ).toString()}
               className="mx-auto mt-16"
             ></iframe>

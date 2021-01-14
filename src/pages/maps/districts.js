@@ -6,7 +6,7 @@ import DistrictsMapDashboard from "../../components/maps/DistrictsMapDashboard"
 const Districts = () => {
   const [windowWidth, setWindowWidth] = useState("200px")
   const [initialViewState, setInitialViewState] = useState({
-    latitude: 23,
+    latitude: 20.7,
     longitude: 82.8,
     zoom: 4.3,
     minZoom: 3.8,
@@ -20,21 +20,21 @@ const Districts = () => {
         ? windowWidth > 700
           ? {
               ...initialViewState,
-              zoom: 3.5,
+              zoom: 4.1,
               minZoom: 3.5,
-              maxZoom: 10
+              maxZoom: 4.2,
             }
           : {
               ...initialViewState,
               zoom: 2.9,
               minZoom: 2.9,
-              maxZoom: 10
+              maxZoom: 3.5,
             }
         : {
             ...initialViewState,
             zoom: 4.7,
             minZoom: 3.8,
-            maxZoom: 10
+            maxZoom: 5.5,
           }
     )
   }, [windowWidth])

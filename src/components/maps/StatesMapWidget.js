@@ -8,7 +8,8 @@ import {
   calcuateMinimum,
   normalizeValue,
   calculateDomain,
-  sortLegends
+  sortLegends,
+  indPlaceVal
 } from '../../utils'
 
 const StatesMapWidget = ({
@@ -117,12 +118,13 @@ const StatesMapWidget = ({
           preventStyleDiffing={true}
         />
         <div className="flex flex-row-reverse">
-          <div className="legends" style={window && window.innerWidth > 500 ? {} : {bottom: "5.5rem"}}>
+          <div className="legends" style={window && window.innerWidth > 500 ? {bottom: "6.5rem", right: "15rem"} : {bottom: "5.5rem"}}>
+            <div className="border-b mb-2 font-bold">Number of Cases</div>
             {legends.map((l, i) => (
               <div className="flex md:pb-2" key={i}>
                 <div className="legend-color" style={{ backgroundColor: `rgb${l.color}` }}></div>
                 <div>
-                  {l.lowerBound} - {l.upperBound}
+                  {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
                 </div>
               </div>
             ))}
