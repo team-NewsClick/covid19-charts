@@ -3,7 +3,6 @@
  * @component
  * @return {JSX.Element} Web-app's footer
  */
-
 const Footer = () => {
   return (
     <div className="footer block lg:flex h-20">

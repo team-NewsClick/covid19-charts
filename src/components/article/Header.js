@@ -3,7 +3,6 @@
  * @component
  * @return {JSX.Element} Web-app's header
  */
-
 const Header = () => {
   const onClickMenu = () => {
     document.getElementById("menu").classList.toggle("change")
