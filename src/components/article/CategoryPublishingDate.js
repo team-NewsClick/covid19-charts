@@ -1,3 +1,8 @@
+/**
+ * Category and Publishing Date
+ * @component
+ * @return {JSX.Element} Category and Publishing Date
+ */
 const CategoryPublishingDate = () => {
   return (
     <div className="flex text-gray-600">

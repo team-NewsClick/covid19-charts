@@ -214,7 +214,7 @@ export const indPlaceVal = (x) => {
 /**
  * Fetch Data using GET method
  * @param {string} url - URL to fetch
- * @return Fetched data as json
+ * @return {Object} Fetched data as json
  */
 export const fetcher = (url) => {
   const data = fetch(url).then((res) => res.json())

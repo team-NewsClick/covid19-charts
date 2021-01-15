@@ -2,6 +2,11 @@ import useSWR from "swr"
 import LoaderFunction from "../LoaderFunction"
 import { indPlaceVal } from "../../utils"
 
+/**
+ * Article's Introduction in Summary to be used in Article's Thumbnail and also as first paragraph in the article
+ * @component
+ * @return {JSX.Element} Article's Introduction in Summary
+ */
 const IntroductionThumbnail = () => {
   const { data, error } = useSWR("/api/covidSummary")
   const statsSummary = data

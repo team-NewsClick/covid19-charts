@@ -2,6 +2,11 @@ import useSWR from "swr"
 import { indPlaceVal } from "../../utils"
 import LoaderFunction from "../LoaderFunction"
 
+/**
+ * COVID-19 Update Summary of World in terms of numbers
+ * @component
+ * @return {JSX.Element} COVID-19 Update Summary of World
+ */
 const CovidUpdateWorld = () => {
   const { data, error } = useSWR("/api/covidSummary")
   const statsSummary = data

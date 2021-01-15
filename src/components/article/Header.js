@@ -1,3 +1,9 @@
+/**
+ * Contains website-logo, web-app-logo, categories, search-bar, menu and social-media links
+ * @component
+ * @return {JSX.Element} Web-app's header
+ */
+
 const Header = () => {
   const onClickMenu = () => {
     document.getElementById("menu").classList.toggle("change")

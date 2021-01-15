@@ -1,3 +1,9 @@
+/**
+ * Contains e-mail subscribe form, containing social-media links, about-page link
+ * @component
+ * @return {JSX.Element} Web-app's footer
+ */
+
 const Footer = () => {
   return (
     <div className="footer block lg:flex h-20">
