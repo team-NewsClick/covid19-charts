@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
-import useSWR from "swr"
 import LoaderFunction from "../../components/LoaderFunction"
 import StatesMapDashboard from "../../components/maps/StatesMapDashboard"
 
 const States = () => {
+  const [stateGeoJsonData, setStateGeoJsonData] = useState([])
+  const [covidData, setCovidData] = useState([])
   const [windowWidth, setWindowWidth] = useState("200px")
   const [initialViewState, setInitialViewState] = useState({
     latitude: 20.7,
@@ -39,14 +40,21 @@ const States = () => {
     )
   }, [windowWidth])
 
-  const { data: geoJsonData, error: geoJsonError } = useSWR(
-    "/api/statesGeoJson"
-  )
-  const { data: covidData, error: covidDataError } = useSWR(
-    "/api/statesCovidData"
-  )
-  if (geoJsonError || covidDataError) return <div>Failed to Load</div>
-  if (!geoJsonData || !covidData) {
+  useEffect(() => {
+    const fetchStateGeoJson = () => {
+      fetch(process.env.API_URL_STATES_GEOJSON)
+        .then((res) => res.json())
+        .then(setStateGeoJsonData)
+    }
+    const fetchCovidData = () => {
+      fetch(process.env.API_URL_STATE_COVID_JSON)
+        .then((res) => res.json())
+        .then(setCovidData)
+    }
+    fetchStateGeoJson()
+    fetchCovidData()
+  }, [])
+  if (stateGeoJsonData.length === 0 || covidData.length === 0) {
     return (
       <div className="flex h-screen">
         <div className="m-auto">
@@ -54,17 +62,18 @@ const States = () => {
         </div>
       </div>
     )
+  } else {
+    return (
+      <div>
+        <StatesMapDashboard
+          initialViewState={initialViewState}
+          geoJsonData={geoJsonData}
+          covidData={covidData}
+          regionKey={"ST_NM"}
+        />
+      </div>
+    )
   }
-  return (
-    <div>
-      <StatesMapDashboard
-        initialViewState={initialViewState}
-        geoJsonData={geoJsonData}
-        covidData={covidData}
-        regionKey={"ST_NM"}
-      />
-    </div>
-  )
 }
 
 export default States

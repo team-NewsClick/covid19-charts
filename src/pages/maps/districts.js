@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
-import useSWR from "swr"
 import LoaderFunction from "../../components/LoaderFunction"
 import DistrictsMapDashboard from "../../components/maps/DistrictsMapDashboard"
 
 const Districts = () => {
+  const [stateGeoJsonData, setStateGeoJsonData] = useState([])
+  const [districtGeoJsonData, setDistrictGeoJsonData] = useState([])
+  const [covidData, setCovidData] = useState([])
+
   const [windowWidth, setWindowWidth] = useState("200px")
   const [initialViewState, setInitialViewState] = useState({
     latitude: 20.7,
@@ -39,18 +42,32 @@ const Districts = () => {
     )
   }, [windowWidth])
 
-  const { data: stateGeoJsonData, error: stateGeoJsonError } = useSWR(
-    "/api/statesGeoJson"
-  )
-  const { data: districtGeoJsonData, error: districtGeoJsonError } = useSWR(
-    "/api/districtsGeoJson"
-  )
-  const { data: covidData, error: covidDataError } = useSWR(
-    "/api/districtsCovidData"
-  )
-  if (stateGeoJsonError || districtGeoJsonError || covidDataError)
-    return <div>Failed to Load</div>
-  if (!stateGeoJsonData || !districtGeoJsonData || !covidData) {
+  useEffect(() => {
+    const fetchStateGeoJson = () => {
+      fetch(process.env.API_URL_STATES_GEOJSON)
+        .then((res) => res.json())
+        .then(setStateGeoJsonData)
+    }
+    const fetchDistrictGeoJson = () => {
+      fetch(process.env.API_URL_DISTRICTS_GEOJSON)
+        .then((res) => res.json())
+        .then(setDistrictGeoJsonData)
+    }
+    const fetchCovidData = () => {
+      fetch(process.env.API_URL_DISTRICT_COVID_JSON)
+        .then((res) => res.json())
+        .then(setCovidData)
+    }
+    fetchStateGeoJson()
+    fetchDistrictGeoJson()
+    fetchCovidData()
+  }, [])
+
+  if (
+    stateGeoJsonData.length === 0 ||
+    districtGeoJsonData.length === 0 ||
+    covidData.length === 0
+  ) {
     return (
       <div className="flex h-screen">
         <div className="m-auto">
@@ -58,17 +75,18 @@ const Districts = () => {
         </div>
       </div>
     )
+  } else {
+    return (
+      <DistrictsMapDashboard
+        initialViewState={initialViewState}
+        stateGeoJsonData={stateGeoJsonData}
+        districtGeoJsonData={districtGeoJsonData}
+        covidData={covidData}
+        stateRegionKey={"ST_NM"}
+        districtRegionKey={"District"}
+      />
+    )
   }
-  return (
-    <DistrictsMapDashboard
-      initialViewState={initialViewState}
-      stateGeoJsonData={stateGeoJsonData}
-      districtGeoJsonData={districtGeoJsonData}
-      covidData={covidData}
-      stateRegionKey={"ST_NM"}
-      districtRegionKey={"District"}
-    />
-  )
 }
 
 export default Districts
