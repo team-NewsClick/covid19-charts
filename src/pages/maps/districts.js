@@ -2,6 +2,10 @@ import { useState, useEffect } from "react"
 import LoaderFunction from "../../components/LoaderFunction"
 import DistrictsMapDashboard from "../../components/maps/DistrictsMapDashboard"
 
+/**
+ * District Map Page
+ * @return {JSX.Element} District Map Page
+ */
 const Districts = () => {
   const [stateGeoJsonData, setStateGeoJsonData] = useState([])
   const [districtGeoJsonData, setDistrictGeoJsonData] = useState([])

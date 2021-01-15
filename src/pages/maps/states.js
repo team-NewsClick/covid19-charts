@@ -2,6 +2,10 @@ import { useState, useEffect } from "react"
 import LoaderFunction from "../../components/LoaderFunction"
 import StatesMapDashboard from "../../components/maps/StatesMapDashboard"
 
+/**
+ * State Map Page
+ * @return {JSX.Element} State Map Page
+ */
 const States = () => {
   const [stateGeoJsonData, setStateGeoJsonData] = useState([])
   const [covidData, setCovidData] = useState([])

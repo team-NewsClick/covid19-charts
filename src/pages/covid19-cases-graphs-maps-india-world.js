@@ -10,6 +10,10 @@ import CovidUpdateIndia from "../components/article/CovidUpdateIndia"
 import CovidUpdateWorld from "../components/article/CovidUpdateWorld"
 import RelatedPosts from "../components/article/RelatedPosts"
 
+/**
+ * Article Page
+ * @return {JSX.Element} Article Page
+ */
 const Article = () => {
   const [windowWidth, setWindowWidth] = useState("200px")
 
