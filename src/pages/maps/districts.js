@@ -43,22 +43,30 @@ const Districts = () => {
   }, [windowWidth])
 
   useEffect(() => {
+    /**
+     * Fetch State GeoJson
+     */
     const fetchStateGeoJson = () => {
       fetch(process.env.API_URL_STATES_GEOJSON)
         .then((res) => res.json())
         .then(setStateGeoJsonData)
     }
+    /**
+     * Fetch District GeoJson
+     */
     const fetchDistrictGeoJson = () => {
       fetch(process.env.API_URL_DISTRICTS_GEOJSON)
         .then((res) => res.json())
         .then(setDistrictGeoJsonData)
     }
+    /**
+     * Fetch Covid Data
+     */
     const fetchCovidData = () => {
       fetch(process.env.API_URL_DISTRICT_COVID_JSON)
         .then((res) => res.json())
         .then(setCovidData)
     }
-    // call functions
     fetchStateGeoJson()
     fetchDistrictGeoJson()
     fetchCovidData()

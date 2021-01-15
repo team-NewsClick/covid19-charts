@@ -1,6 +1,12 @@
 import { useState } from "react"
 import DistrictsMapWidget from "./DistrictsMapWidget"
 
+/**
+ * Dashboard Component for District Map
+ * @component
+ * @param {Object} param0 - Dashboard Objects (GeoJSONs, intialView, Data, regionKey)
+ * @return {JSX.Element} Radio Buttons and Map Widget
+ */
 const DistrictsMapDashboard = ({
   initialViewState,
   stateGeoJsonData,

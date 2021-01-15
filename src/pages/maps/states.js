@@ -5,6 +5,7 @@ import StatesMapDashboard from "../../components/maps/StatesMapDashboard"
 const States = () => {
   const [stateGeoJsonData, setStateGeoJsonData] = useState([])
   const [covidData, setCovidData] = useState([])
+
   const [windowWidth, setWindowWidth] = useState("200px")
   const [initialViewState, setInitialViewState] = useState({
     latitude: 20.7,
@@ -41,17 +42,22 @@ const States = () => {
   }, [windowWidth])
 
   useEffect(() => {
+    /**
+     * Fetch State GeoJson
+     */
     const fetchStateGeoJson = () => {
       fetch(process.env.API_URL_STATES_GEOJSON)
         .then((res) => res.json())
         .then(setStateGeoJsonData)
     }
+    /**
+     * Fetch Covid Data
+     */
     const fetchCovidData = () => {
       fetch(process.env.API_URL_STATE_COVID_JSON)
         .then((res) => res.json())
         .then(setCovidData)
     }
-    // call functions
     fetchStateGeoJson()
     fetchCovidData()
   }, [])
