@@ -1,5 +1,10 @@
 import { cutoffValues, CasesType } from './constants'
 
+/**
+ * Filter COVID-19 cases by caseType with a cutoff date
+ * @param {Array} data - Array of Objects for COVID-19 cases
+ * @param {string} caseType - Cases to Filter
+ */
 export const filterCases = (data, caseType) => {
   const cutoffDate = new Date(cutoffValues.DATE)
   return data.reduce((result, row) => {
@@ -16,6 +21,10 @@ export const filterCases = (data, caseType) => {
   }, [])
 }
 
+/**
+ * Remove '0' from the COVID-19 Dataset and return and Array of Objects
+ * @param {Array} rawData - Array of Objects for COVID-19 cases
+ */
 export const processLogData = (rawData) => {
   return rawData.map((rows) => {
     const regionData = rows.data.filter((row) => {
@@ -28,6 +37,10 @@ export const processLogData = (rawData) => {
   })
 }
 
+/**
+ * Calculate Cummulative data and return an Array of Objects
+ * @param {Array} rawData - Array of Objects for COVID-19 cases
+ */
 export const processCumulativeData = (rawData) => {
   return rawData.map((row) => {
     let acc = 0
@@ -45,6 +58,12 @@ export const processCumulativeData = (rawData) => {
   })
 }
 
+/**
+ * Calculate Adjusted dates and return an Array of Objects
+ * @param {Array} rawData - Array of Objects for COVID-19 cases
+ * @param {string} caseType - Type of Cases to Filter
+ * @param {string} dataType - Type of Data (New/Cummulative)
+ */
 export const processDatesAdjusted = (rawData, caseType, dataType) => {
   const cutOff =
     dataType === 'new'
@@ -74,6 +93,11 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
   })
 }
 
+/**
+ * Calculate Minimumx Values and return a number
+ * @param {Array} data - Array of Objects for COVID-19 cases
+ * @param {string} datesAdjusted - Dates Adjusted (ON/OFF)
+ */
 export const calculateXMinValue = (data, datesAdjusted) => {
   let allRegionsMin = data.map((rd) => {
     let d = rd.data
@@ -97,6 +121,9 @@ export const calculateXMinValue = (data, datesAdjusted) => {
   return datesAdjusted === 'on' ? 1 : min.subtractDays()
 }
 
+/**
+ * Calculate Maximum values and return a Date Object
+ */
 export const calculateXMaxValue = () => {
   Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf())
@@ -107,6 +134,12 @@ export const calculateXMaxValue = () => {
   return d.addDays(2)
 }
 
+/**
+ * Return a Minimum Log value for Y axis
+ * @param {Array} dataType - Array of Objects for COVID-19 cases
+ * @param {string} casesType - Type of Cases to Filter
+ * @param {string} datesAdjusted - Dates Adjusted (ON/OFF)
+ */
 export const calculateYMinValue = (dataType, casesType, datesAdjusted) => {
   const yMinRangeLog =
     datesAdjusted === 'on'
@@ -121,6 +154,10 @@ export const calculateYMinValue = (dataType, casesType, datesAdjusted) => {
   return yMinRangeLog
 }
 
+/**
+ * Calculate and Return a Maximum value for Y axis
+ * @param {Array} data - Array of Objects for COVID-19 cases
+ */
 export const calculateYMaxValue = (data) => {
   let allRegionsMax = data.map((rd) => {
     let d = rd.data
@@ -137,6 +174,11 @@ export const calculateYMaxValue = (data) => {
   return max * 1.15
 }
 
+/**
+ * Return an Array of tick Values
+ * @param {number} yMinRange - Minimum Y range
+ * @param {number} yMaxRange - Maximum Y range
+ */
 export const calculateYTickValues = (yMinRange, yMaxRange) => {
   const tickValues = []
   for (let i = yMinRange; i <= yMaxRange; i = i * 10) {
@@ -147,6 +189,10 @@ export const calculateYTickValues = (yMinRange, yMaxRange) => {
   return tickValues
 }
 
+/**
+ * Convert Number to Indian Decimal System
+ * @param {number} x - Number to convert to Indian System
+ */
 export const indPlaceVal = (x) => {
   x = x.toString()
   let lastThree = x.substring(x.length - 3)
@@ -156,25 +202,50 @@ export const indPlaceVal = (x) => {
   return number
 }
 
+/**
+ * Fetch Data using GET method
+ * @param {string} url - URL to fetch
+ */
 export const fetcher = (url) => {
   const data = fetch(url).then((res) => res.json())
   return data
 }
 
+/**
+ * Return Maximum Number from the Array
+ * @param {Array} data - Array of Objects for COVID-19 cases
+ * @param {string} sortBy - Cases to Sort By
+ */
 export const calcuateMaximum = (data, sortBy) => {
   const max = data.reduce((p, acc) => (p[sortBy] > acc[sortBy] ? p : acc))
   return max[sortBy]
 }
 
+/**
+ * Return Minimum Number from the Array
+ * @param {Array} data - Array of Objects for COVID-19 cases
+ * @param {string} sortBy - Cases to Sort By
+ */
 export const calcuateMinimum = (data, sortBy) => {
   const min = data.reduce((p, acc) => (p[sortBy] < acc[sortBy] ? p : acc))
   return min[sortBy]
 }
 
+/**
+ * Calculate and Return Normalized value for a number
+ * @param {number} val - Value to Normalize
+ * @param {number} max - Maximum Number from the array
+ * @param {number} min - Minimum Number from the array
+ */
 export const normalizeValue = (val, max, min) => {
   return (val - min) / (max - min)
 }
 
+/**
+ * Calculate and Return Normalized Domain values
+ * @param {Array} data - Array of Objects for COVID-19 cases
+ * @param {string} casesType - Type of cases to filter
+ */
 export const calculateDomain = (data, casesType) => {
   const max = calcuateMaximum(data, casesType)
   const min = calcuateMinimum(data, casesType)
@@ -185,6 +256,12 @@ export const calculateDomain = (data, casesType) => {
   return uniqueDomain
 }
 
+/**
+ * Calculate and Retrun Legends from color domain
+ * @param {number} maxValue - Maximum Value in the domain
+ * @param {Array} colors - Colors
+ * @param {Array} colorDomains - Color Domain
+ */
 export const sortLegends = (maxValue, colors, colorDomains) => {
   const legends = []
   const sublegends = colorDomains.map((l, i) => {

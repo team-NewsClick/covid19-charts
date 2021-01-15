@@ -4,14 +4,14 @@ import {
   filterCases,
   processCumulativeData,
   processDatesAdjusted
-} from "../utils"
+} from "../../utils"
 import {
   CasesType,
   cutoffValues,
   DefaultSelectCountry,
   DefaultSelectState,
   DefaultSelectCity
-} from "../constants"
+} from "../../constants"
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 import LineChartWidget from "./LineChartWidget"

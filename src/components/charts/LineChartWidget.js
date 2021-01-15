@@ -8,7 +8,7 @@ import {
   MarkSeries,
   LabelSeries
 } from "react-vis"
-import LoaderFunction from "../components/LoaderFunction"
+import LoaderFunction from "../LoaderFunction"
 import { useEffect, useState } from "react"
 import {
   calculateYMinValue,
@@ -16,8 +16,8 @@ import {
   calculateYTickValues,
   calculateXMinValue,
   calculateXMaxValue
-} from "../utils"
-import { customColor } from "../constants"
+} from "../../utils"
+import { customColor } from "../../constants"
 
 const LineChartWidget = (props) => {
   const data = props.data.data
