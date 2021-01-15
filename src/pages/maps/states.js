@@ -68,7 +68,7 @@ const States = () => {
       <div>
         <StatesMapDashboard
           initialViewState={initialViewState}
-          geoJsonData={geoJsonData}
+          geoJsonData={stateGeoJsonData}
           covidData={covidData}
           regionKey={"ST_NM"}
         />
