@@ -1,5 +1,9 @@
 import Link from "next/link"
 
+/**
+ * Index Page
+ * @return {JSX.Element} Index Page
+ */
 const IndexPage = () => {
   return (
     <div>
