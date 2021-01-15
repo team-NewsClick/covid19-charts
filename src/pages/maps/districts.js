@@ -58,6 +58,7 @@ const Districts = () => {
         .then((res) => res.json())
         .then(setCovidData)
     }
+    // call functions
     fetchStateGeoJson()
     fetchDistrictGeoJson()
     fetchCovidData()

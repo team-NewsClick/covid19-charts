@@ -51,6 +51,7 @@ const States = () => {
         .then((res) => res.json())
         .then(setCovidData)
     }
+    // call functions
     fetchStateGeoJson()
     fetchCovidData()
   }, [])
