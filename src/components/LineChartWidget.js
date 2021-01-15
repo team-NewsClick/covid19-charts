@@ -248,6 +248,18 @@ const LineChartWidget = (props) => {
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
+          {selected.map((d, index) => (
+            <MarkSeries
+              key={index}
+              data={[
+                {
+                  x: d.data[d.data.length - 1].x,
+                  y: d.data[d.data.length - 1].y
+                }
+              ]}
+              color={customColor[index]}
+            />
+          ))}
           {selected[selectedHighlight] && (
             <LineSeries
               curve={"curveMonotoneX"}
@@ -266,18 +278,6 @@ const LineChartWidget = (props) => {
               strokeWidth={2}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
-            />
-          ))}
-          {selected.map((d, index) => (
-            <MarkSeries
-              key={index}
-              data={[
-                {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y
-                }
-              ]}
-              color={customColor[index]}
             />
           ))}
           {selected.map((d, index) => (
