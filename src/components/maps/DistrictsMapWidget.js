@@ -64,16 +64,11 @@ const StatesMapWidget = ({
         cases && {
           html: `\
           <div>
-            <div><b>State</b></div>
-            <div>${cases.state}</div>
-            <div><b>District</b></div>
-            <div>${cases.district}</div>
-            <div><b>Active Cases</b></div>
-            <div>${cases.active}</div>
-            <div><b>Total Cases</b></div>
-            <div>${cases.confirmed}</div>
-            <div><b>Total Deaths</b></div>
-            <div>${cases.deceased}</div>
+            <div><b>State: ${cases.state}</b></div>
+            <div><b>District: ${cases.district}</b></div>
+            <div>Active Cases: ${indPlaceVal(cases.active)}</div>
+            <div>Total Cases: ${indPlaceVal(cases.confirmed)}</div>
+            <div>Total Deaths: ${indPlaceVal(cases.deceased)}</div>
           </div>
           `
         }

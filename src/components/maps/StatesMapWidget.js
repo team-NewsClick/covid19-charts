@@ -63,22 +63,14 @@ const StatesMapWidget = ({
         cases && {
           html: `\
           <div>
-            <div><b>State</b></div>
-            <div>${cases.region}</div>
-            <div><b>Active Cases</b></div>
-            <div>${cases.active}</div>
-            <div><b>New Cases</b></div>
-            <div>${cases.new_cases}</div>
-            <div><b>New Deaths</b></div>
-            <div>${cases.new_deaths}</div>
-            <div><b>New Recovered</b></div>
-            <div>${cases.new_recovered}</div>
-            <div><b>Total Cases</b></div>
-            <div>${cases.total_cases}</div>
-            <div><b>Total Deaths</b></div>
-            <div>${cases.total_deaths}</div>
-            <div><b>Total Recovered</b></div>
-            <div>${cases.total_recovered}</div>
+            <div><b>State: ${cases.region}</b></div>
+            <div>Active Cases: ${indPlaceVal(cases.active)}</div>
+            <div>New Cases: ${indPlaceVal(cases.new_cases)}</div>
+            <div>New Deaths: ${indPlaceVal(cases.new_deaths)}</div>
+            <div>New Recovered: ${indPlaceVal(cases.new_recovered)}</div>
+            <div>Total Cases: ${indPlaceVal(cases.total_cases)}</div>
+            <div>Total Deaths: ${indPlaceVal(cases.total_deaths)}</div>
+            <div>Total Recovered: ${indPlaceVal(cases.total_recovered)}</div>
           </div>
             `
         }
