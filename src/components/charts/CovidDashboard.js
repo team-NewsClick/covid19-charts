@@ -16,6 +16,15 @@ import Select from "react-select"
 import makeAnimated from "react-select/animated"
 import LineChartWidget from "./LineChartWidget"
 
+/**
+ * Covid Dashboard with option of viewing line series data with different type and condition
+ * @component
+ * @example <CovidDashBoard data={propsData} />
+ * @param {Object} props Required data to load the component
+ * @param {Array.<Object>} props.data.data {date(Date Object), rest are strings: active, iso2, new_cases, new_deaths, new_revovered, region, total_cases, total_deaths, total_recovered} 
+ * @param {string} props.data.trackertype Region type
+ * @return {JSX.Element} Buttons with option of viewing data with different type and condition
+ */
 const CovidDashboard = (props) => {
   const data = props.data.data
   const trackerType = props.data.trackerType
