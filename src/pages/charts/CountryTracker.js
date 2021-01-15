@@ -3,6 +3,10 @@ import { useState, useEffect } from "react"
 import CovidDashboard from "../../components/charts/CovidDashboard.js"
 import LoaderFunction from "../../components/LoaderFunction"
 
+/**
+ * Country Line-Chart Page
+ * @return {JSX.Element} Country Line-Chart Page
+ */
 const CountryTracker = () => {
   const [data, setData] = useState([])
   const propsData = {

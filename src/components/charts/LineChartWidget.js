@@ -37,7 +37,6 @@ import { customColor } from "../../constants"
  * @return {JSX.Element} Linear graph for multiple regions
  */
 const LineChartWidget = (props) => {
-  console.log(props)
   const data = props.data.data
   const lineLabel = props.data.lineLabel
   const scaleType = props.data.scaleType
