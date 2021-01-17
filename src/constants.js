@@ -30,25 +30,77 @@ export const CasesType = {
 }
 
 /**
- * Default selection for Country 
+ * Default selection for Country
  */
-export const DefaultSelectCountry = {
-  value: "India",
-  label: "India"
-}
+export const DefaultSelectCountry = [
+  {
+    value: "India",
+    label: "India"
+  },
+  {
+    value: "United States",
+    label: "United States"
+  },
+  {
+    value: "United Kingdom",
+    label: "United Kingdom"
+  }
+]
 
 /**
  * Default selection for State
  */
-export const DefaultSelectState = {
-  value: "Delhi",
-  label: "Delhi"
-}
+export const DefaultSelectState = [
+  {
+    label: "Delhi",
+    value: "Delhi"
+  },
+  {
+    label: "Kerala",
+    value: "Kerala"
+  },
+  {
+    label: "Maharashtra",
+    value: "Maharashtra"
+  }
+]
 
 /**
  * Default selection for City
  */
-export const DefaultSelectCity = {
-  value: "Delhi",
-  label: "Delhi"
-}
+export const DefaultSelectCity = [
+  {
+    value: "Delhi",
+    label: "Delhi"
+  },
+  {
+    value: "Mumbai",
+    label: "Mumbai"
+  },
+  {
+    value: "Pune",
+    label: "Pune"
+  }
+]
+
+/**
+ * Color Domain for Heat Maps
+ */
+export const MAP_COLOR_DOMAIN = [
+  [255, 255, 178],
+  [254, 217, 118],
+  [254, 178, 76],
+  [253, 141, 60],
+  [240, 59, 32],
+  [189, 0, 38]
+]
+
+/**
+ * Color for State Border in District Maps
+ */
+export const DISTRICT_STATE_BORDER_COLOR = [245, 245, 245, 255]
+
+/**
+ * Color for District Border in District Maps
+ */
+export const DISTRICT_BORDER_COLOR = [255, 255, 255, 125]

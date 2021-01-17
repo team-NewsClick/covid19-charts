@@ -11,7 +11,7 @@ import {
   sortLegends,
   indPlaceVal
 } from "../../utils"
-
+import { MAP_COLOR_DOMAIN } from "../../constants"
 /**
  * Plot Map and Deckgl Layers
  * @component
@@ -32,16 +32,7 @@ const StatesMapWidget = ({
   const maxValue = calcuateMaximum(covidData, casesType)
   const minValue = calcuateMinimum(covidData, casesType)
   const domainValues = calculateDomain(covidData, casesType)
-  let colors = scaleQuantile()
-    .domain(domainValues)
-    .range([
-      [255, 255, 178],
-      [254, 217, 118],
-      [254, 178, 76],
-      [253, 141, 60],
-      [240, 59, 32],
-      [189, 0, 38]
-    ])
+  let colors = scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
     const casesObject = covidData.filter((row) => {

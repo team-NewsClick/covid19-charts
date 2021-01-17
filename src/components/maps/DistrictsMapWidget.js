@@ -11,7 +11,11 @@ import {
   sortLegends,
   indPlaceVal
 } from "../../utils"
-
+import {
+  MAP_COLOR_DOMAIN,
+  DISTRICT_STATE_BORDER_COLOR,
+  DISTRICT_BORDER_COLOR
+} from "../../constants"
 /**
  * Plot Map and Deckgl Layers
  * @component
@@ -33,16 +37,7 @@ const DistrictsMapWidget = ({
   const maxValue = calcuateMaximum(covidData, casesType)
   const minValue = calcuateMinimum(covidData, casesType)
   const domainValues = calculateDomain(covidData, casesType)
-  let colors = scaleQuantile()
-    .domain(domainValues)
-    .range([
-      [255, 255, 178],
-      [254, 217, 118],
-      [254, 178, 76],
-      [253, 141, 60],
-      [240, 59, 32],
-      [189, 0, 38]
-    ])
+  let colors = scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
   const _fillColor = (d) => {
     const sortByKey = d.properties[districtRegionKey]
     const casesObject = covidData.filter((row) => {
@@ -89,7 +84,7 @@ const DistrictsMapWidget = ({
       filled: true,
       lineWidthScale: 600,
       getFillColor: (d) => _fillColor(d),
-      getLineColor: [255, 255, 255, 125],
+      getLineColor: DISTRICT_BORDER_COLOR,
       getLineWidth: 3,
       pickable: true
     }),
@@ -100,7 +95,7 @@ const DistrictsMapWidget = ({
       filled: false,
       lineWidthScale: 600,
       getFillColor: [255, 255, 255, 0],
-      getLineColor: [245, 245, 245, 255],
+      getLineColor: DISTRICT_STATE_BORDER_COLOR,
       getLineWidth: 10,
       pickable: true
     })

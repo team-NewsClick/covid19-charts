@@ -21,7 +21,7 @@ import LineChartWidget from "./LineChartWidget"
  * @component
  * @example <CovidDashBoard data={propsData} />
  * @param {Object} props Required data to load the component
- * @param {Array.<Object>} props.data.data {date(Date Object), rest are strings: active, iso2, new_cases, new_deaths, new_revovered, region, total_cases, total_deaths, total_recovered} 
+ * @param {Array.<Object>} props.data.data {date(Date Object), rest are strings: active, iso2, new_cases, new_deaths, new_revovered, region, total_cases, total_deaths, total_recovered}
  * @param {string} props.data.trackertype Region type
  * @return {JSX.Element} Buttons with option of viewing data with different type and condition
  */
@@ -73,16 +73,13 @@ const CovidDashboard = (props) => {
 
   if (initBool) {
     setInitBool(false)
-    const region = data.filter((d) => {
-      return defaultSelect.value === d.region
-    })
-    const setSelects = [
-      {
-        label: region[0].region,
-        region: region[0].region
+    const setSelect = defaultSelect.map((row) => {
+      return {
+        label: row.value,
+        region: row.value
       }
-    ]
-    setInteractiveSelects([...interactiveSelects, ...setSelects])
+    })
+    setInteractiveSelects([...interactiveSelects, ...setSelect])
   }
   useEffect(() => {
     let selects = interactiveSelects.map((row) => {
