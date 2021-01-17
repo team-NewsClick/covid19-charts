@@ -1,3 +1,8 @@
+/**
+ * Feature image of the article
+ * @component
+ * @return {JSX.Element} Feature image of the article
+ */
 const FeatureImage = () => {
   return (
     <div id="feature-image">

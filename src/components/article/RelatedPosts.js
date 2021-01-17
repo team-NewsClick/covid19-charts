@@ -1,3 +1,8 @@
+/**
+ * Other posts related to the article or if it is in same category
+ * @component
+ * @return {JSX.Element} Related Posts
+ */
 const RelatedPosts = () => {
   return (
     <div id="related-posts" className="browse-category">

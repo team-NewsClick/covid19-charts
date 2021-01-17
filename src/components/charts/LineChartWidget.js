@@ -8,7 +8,7 @@ import {
   MarkSeries,
   LabelSeries
 } from "react-vis"
-import LoaderFunction from "../components/LoaderFunction"
+import LoaderFunction from "../LoaderFunction"
 import { useEffect, useState } from "react"
 import {
   calculateYMinValue,
@@ -16,9 +16,26 @@ import {
   calculateYTickValues,
   calculateXMinValue,
   calculateXMaxValue
-} from "../utils"
-import { customColor } from "../constants"
+} from "../../utils"
+import { customColor } from "../../constants"
 
+/**
+ * Linear graph for multiple regions
+ * @component
+ * @example <LineChartWidget data = {propsData} />
+ * @param {Object} props Required data to load the component
+ * @param {Array.<Object>} props.data.data Region name and data for line-series
+ * @param {Array.<Object>} props.data.data.data {x: Date, y: "number of cases"}
+ * @param {string} props.data.data.region Region name
+ * @param {string} props.data.lineLabel Data Type for Crosshair, e.g. "New Cases"
+ * @param {string} props.data.scaleType "linear" or "log"
+ * @param {string} props.data.datesAdjusted "on" or "off"
+ * @param {string} props.data.casesType "confirmed" or "deaths"
+ * @param {string} props.data.dataType "new" or "cumulative"
+ * @param {Array.<Object>} props.data.interactiveSelects {label: "region", region: "region"}
+ * @param {string} props.data.footNote Displays when datesadjusted is "on"
+ * @return {JSX.Element} Linear graph for multiple regions
+ */
 const LineChartWidget = (props) => {
   const data = props.data.data
   const lineLabel = props.data.lineLabel

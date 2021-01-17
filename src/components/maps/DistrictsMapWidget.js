@@ -12,7 +12,13 @@ import {
   indPlaceVal
 } from "../../utils"
 
-const StatesMapWidget = ({
+/**
+ * Plot Map and Deckgl Layers
+ * @component
+ * @param {Object} param0 - Dashboard Objects (GeoJSONs, intialView, Data, regionKey, casesType)
+ * @return {JSX.Element} Map Widget
+ */
+const DistrictsMapWidget = ({
   initialViewState,
   stateGeoJsonData,
   districtGeoJsonData,
@@ -177,4 +183,4 @@ const StatesMapWidget = ({
   )
 }
 
-export default StatesMapWidget
+export default DistrictsMapWidget

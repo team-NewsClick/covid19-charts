@@ -1,3 +1,8 @@
+/**
+ * Auto generated anchor tags and links for elements with class "article-subheading"
+ * @component
+ * @return {JSX.Element} Anchor Links to article-subheading 
+ */
 const AnchorLinks = () => {
   if (typeof window !== "undefined") {
     let anchorPoints = document.getElementsByClassName("article-subheading")

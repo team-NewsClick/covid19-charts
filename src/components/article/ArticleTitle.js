@@ -1,3 +1,8 @@
+/**
+ * Title of the Article
+ * @component
+ * @return {JSX.Element} Title of the article
+ */
 const ArticleTitle = () => {
   return (
     <div

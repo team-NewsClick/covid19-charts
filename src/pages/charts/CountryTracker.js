@@ -1,8 +1,12 @@
 import { csvParse } from "d3-dsv"
 import { useState, useEffect } from "react"
-import CovidDashboard from "../../components/CovidDashboard.js"
+import CovidDashboard from "../../components/charts/CovidDashboard.js"
 import LoaderFunction from "../../components/LoaderFunction"
 
+/**
+ * Country Line-Chart Page
+ * @return {JSX.Element} Country Line-Chart Page
+ */
 const CountryTracker = () => {
   const [data, setData] = useState([])
   const propsData = {
