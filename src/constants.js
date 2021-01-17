@@ -78,8 +78,8 @@ export const DefaultSelectCity = [
     label: "Mumbai"
   },
   {
-    value: "Pune",
-    label: "Pune"
+    value: "Bengaluru",
+    label: "Bengaluru"
   }
 ]
 
