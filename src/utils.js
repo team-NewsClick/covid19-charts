@@ -282,7 +282,7 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
   const sublegends = colorDomains.map((l, i) => {
     return {
       lowerBound: Math.round(l * maxValue),
-      upperBound: Math.round(colorDomains[i + 1] * maxValue) - 1 || maxValue,
+      upperBound: (Math.round(colorDomains[i + 1] * maxValue) - 1),
       color: `(${colors(l).join(',')})`,
     }
   })
@@ -302,5 +302,7 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
           color: s.color,
         })
   })
+  legends[0].lowerBound = 0
+  legends[legends.length-1].upperBound = maxValue
   return legends
 }
