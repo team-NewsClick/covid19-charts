@@ -151,9 +151,7 @@ const DistrictsMapWidget = ({
               Number of{' '}
               {casesType == 'active'
                 ? 'Active Cases'
-                : casesType == 'new_cases'
-                ? 'New Cases'
-                : casesType == 'total_cases'
+                : casesType == 'confirmed'
                 ? 'Total Cases'
                 : 'Total Deaths'}
            </div>

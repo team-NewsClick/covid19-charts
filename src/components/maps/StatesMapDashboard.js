@@ -30,7 +30,7 @@ const StateMapDashboard = ({
             defaultChecked
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="active">Active</label>
+          <label htmlFor="active">Active Cases</label>
           <input
             type="radio"
             id="new_cases"
@@ -41,20 +41,20 @@ const StateMapDashboard = ({
           <label htmlFor="new_cases">New Cases</label>
           <input
             type="radio"
-            id="total_cases"
-            name="cases"
-            value="total_cases"
-            onChange={(e) => _handleCasesType(e)}
-          />
-          <label htmlFor="total_cases">Total Cases</label>
-          <input
-            type="radio"
             id="total_deaths"
             name="cases"
             value="total_deaths"
             onChange={(e) => _handleCasesType(e)}
           />
           <label htmlFor="total_deaths">Total Deaths</label>
+          <input
+            type="radio"
+            id="total_cases"
+            name="cases"
+            value="total_cases"
+            onChange={(e) => _handleCasesType(e)}
+          />
+          <label htmlFor="total_cases">Total Cases</label>
         </div>
       </div>
       <div>
