@@ -135,7 +135,14 @@ const StatesMapWidget = ({
                     }
               }
             >
-              Number of Cases
+              Number of{' '}
+              {casesType == 'active'
+                ? 'Active Cases'
+                : casesType == 'new_cases'
+                ? 'New Cases'
+                : casesType == 'total_cases'
+                ? 'Total Cases'
+                : 'Total Deaths'}
             </div>
             {legends.map((l, i) => (
               <div
