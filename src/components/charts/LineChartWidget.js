@@ -17,7 +17,7 @@ import {
   calculateXMinValue,
   calculateXMaxValue
 } from "../../utils"
-import { customColor } from "../../constants"
+import { customColor, months } from "../../constants"
 
 /**
  * Linear graph for multiple regions
@@ -47,30 +47,15 @@ const LineChartWidget = (props) => {
   const footNote = props.data.footNote
 
   const [selected, setselected] = useState([])
+  const [crossHairMarks, setCrossHairMarks] = useState([])
   const [greyHighlight, setGreyHighlight] = useState(null)
   const [selectedHighlight, setSelectedHighlight] = useState(null)
   const [crosshairValue, setCrosshairValue] = useState(null)
-  const [onMouseHover, setOnMouseHover] = useState(false)
 
   const yMinRangeLog = calculateYMinValue(dataType, casesType, datesAdjusted)
   const yMaxRange = calculateYMaxValue(data)
   const xMinRange = calculateXMinValue(data, datesAdjusted)
   const xMaxRange = calculateXMaxValue(data)
-
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ]
 
   useEffect(() => {
     if (interactiveSelects && interactiveSelects.length > 0) {
@@ -85,6 +70,24 @@ const LineChartWidget = (props) => {
       setselected([])
     }
   }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
+
+  useEffect(() => {
+    const temp = []
+    selected.map((e, i) => {
+      const region = e.region
+      const region_index = i
+      e.data.map(d => {
+        temp.push({
+          x: d.x,
+          y: d.y,
+          date: datesAdjusted === "on" ? d.date : d.x,
+          region,
+          region_index
+        })
+      })
+    })
+    setCrossHairMarks(temp)
+  }, [selected])
 
   if (data.length == 0) {
     return (
@@ -101,26 +104,20 @@ const LineChartWidget = (props) => {
     const _handleGreyMouseOut = (e, index) => {
       setGreyHighlight(null)
     }
-    const _handleSelectedMouseOver = (e, index) => {
-      setSelectedHighlight(index)
-      setOnMouseHover(true)
+    const _handleCrossHair = (d) => {
+      setSelectedHighlight(d.region_index)
+      setCrosshairValue([
+        {
+          x: d.x,
+          y: d.y,
+          region: d.region,
+          date: datesAdjusted === "on" ? d.date : d.x
+        }
+      ])
     }
-    const _handleSelectedMouseOut = () => {
+    const _handleValueMouseOut = (d) => {
       setSelectedHighlight(null)
-      setOnMouseHover(false)
       setCrosshairValue(null)
-    }
-    const _handleCrosshair = (d) => {
-      if (onMouseHover) {
-        setCrosshairValue([
-          {
-            x: d.x,
-            y: d.y,
-            region: selected[selectedHighlight].region,
-            date: datesAdjusted === "on" ? d.date : d.x
-          }
-        ])
-      }
     }
 
     return (
@@ -174,14 +171,6 @@ const LineChartWidget = (props) => {
             tickFormat={(d) => (d < 1000 ? d : d / 1000 + "k")}
           />
           {greyHighlight != null && (
-            <LineSeries
-              curve={"curveMonotoneX"}
-              data={data[greyHighlight].data}
-              color={"#777"}
-              strokeWidth={2}
-            />
-          )}
-          {greyHighlight != null && (
             <MarkSeries
               data={[
                 {
@@ -233,7 +222,21 @@ const LineChartWidget = (props) => {
               onSeriesMouseOut={(e) => _handleGreyMouseOut()}
             />
           ))}
-          {onMouseHover && (
+          {greyHighlight != null && (
+            <LineSeries
+              curve={"curveMonotoneX"}
+              data={data[greyHighlight].data}
+              color={"#777"}
+              strokeWidth={2}
+            />
+          )}
+          {crosshairValue && (
+            <MarkSeries
+              data={[{ x: crosshairValue[0].x, y: crosshairValue[0].y }]}
+              color={customColor[selectedHighlight]}
+            />
+          )}
+          {crosshairValue && (
             <Crosshair
               values={crosshairValue}
               titleFormat={(d) => ({
@@ -248,12 +251,6 @@ const LineChartWidget = (props) => {
               ]}
             />
           )}
-          {onMouseHover && crosshairValue && (
-            <MarkSeries
-              data={[{ x: crosshairValue[0].x, y: crosshairValue[0].y }]}
-              color={customColor[selectedHighlight]}
-            />
-          )}
           {selected.map((d, index) => (
             <LineSeries
               key={index}
@@ -261,8 +258,6 @@ const LineChartWidget = (props) => {
               data={casesType && d.data}
               color={"#fff"}
               strokeWidth={6}
-              onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
-              onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
           {selected.map((d, index) => (
@@ -283,7 +278,6 @@ const LineChartWidget = (props) => {
               data={selected[selectedHighlight].data}
               color={customColor[selectedHighlight]}
               strokeWidth={4}
-              onNearestXY={(d) => _handleCrosshair(d)}
             />
           )}
           {selected.map((d, index) => (
@@ -293,10 +287,14 @@ const LineChartWidget = (props) => {
               data={casesType && d.data}
               color={customColor[index]}
               strokeWidth={2}
-              onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}
-              onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
+          <MarkSeries 
+          className="opacity-0"
+          data={crossHairMarks}
+          onValueMouseOver={(d) => _handleCrossHair(d)}
+          onValueMouseOut={(d) => _handleValueMouseOut(d)}
+          />
           {selected.map((d, index) => (
             <LabelSeries
               key={index}

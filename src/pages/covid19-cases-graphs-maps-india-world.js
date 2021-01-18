@@ -8,7 +8,7 @@ import ArticleTitle from "../components/article/ArticleTitle"
 import FeatureImage from "../components/article/FeatureImage"
 import CovidUpdateIndia from "../components/article/CovidUpdateIndia"
 import CovidUpdateWorld from "../components/article/CovidUpdateWorld"
-import RelatedPosts from "../components/article/RelatedPosts"
+// import RelatedPosts from "../components/article/RelatedPosts"
 
 /**
  * Article Page
@@ -203,7 +203,7 @@ const Article = () => {
             ></iframe>
           </div>
         </div>
-        <RelatedPosts />
+        {/* <RelatedPosts /> */}
         <Footer />
       </div>
       <div className="col-span-2 sm-hide"></div>
