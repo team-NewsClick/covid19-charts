@@ -17,7 +17,9 @@ const Districts = () => {
     longitude: 82.8,
     zoom: 4.3,
     minZoom: 3.8,
-    maxZoom: 10
+    maxZoom: 10,
+    pitch: 0,
+    bearing: 0
   })
 
   useEffect(() => {

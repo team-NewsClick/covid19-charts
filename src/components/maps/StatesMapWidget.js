@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
-import { StaticMap } from "react-map-gl"
+import { _MapContext as MapContext, StaticMap, NavigationControl } from "react-map-gl"
 import { scaleQuantile } from "d3-scale"
 import {
   calcuateMaximum,
@@ -100,7 +100,11 @@ const StatesMapWidget = ({
         getTooltip={_getTooltip}
         width={window.innerWidth}
         height={window.innerWidth * 1.25}
+        ContextProvider={MapContext.Provider}
       >
+        <div style={{ position: "absolute", right: 7, top: 5, zIndex: 1 }}>
+          <NavigationControl />
+        </div>
         <StaticMap
           reuseMaps
           mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}

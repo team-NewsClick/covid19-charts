@@ -16,7 +16,9 @@ const States = () => {
     longitude: 82.8,
     zoom: 4.3,
     minZoom: 4.3,
-    maxZoom: 4.3
+    maxZoom: 4.3,
+    pitch: 0,
+    bearing: 0
   })
 
   useEffect(() => {
