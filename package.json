@@ -16,6 +16,7 @@
     "d3-dsv": "^2.0.0",
     "d3-scale": "^3.2.3",
     "deck.gl": "^8.3.13",
+    "mapbox-gl": "^2.0.1",
     "next": "9.5.3",
     "next-on-netlify": "^2.8.1",
     "postcss-preset-env": "^6.7.0",
