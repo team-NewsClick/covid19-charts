@@ -6,7 +6,7 @@
 const RelatedPosts = () => {
   return (
     <div id="related-posts" className="browse-category">
-      {/* <div className="browse-category-header">
+      <div className="browse-category-header">
         <div className="browse-category-title">RELATED POSTS</div>
         <div></div>
       </div>
@@ -87,7 +87,7 @@ const RelatedPosts = () => {
             className="hover:opacity-50 mx-3 cursor-pointer"
           />
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

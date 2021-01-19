@@ -11,6 +11,24 @@ export const customColor = [
 ]
 
 /**
+ * Name of months for x-ticks
+ */
+export const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+]
+
+/**
  * Cutoff Values for Charts
  */
 export const cutoffValues = {
