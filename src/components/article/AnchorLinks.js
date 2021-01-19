@@ -19,17 +19,14 @@ const AnchorLinks = () => {
       const div = document.createElement("div")
       const textNode = document.createTextNode(anchorPoints[i].textContent)
       div.classList.add("anchor-btn")
-      div.appendChild(textNode)
-      a.appendChild(div)
-      anchorLinks.appendChild(a)
+      a.appendChild(textNode)
+      div.appendChild(a)
+      anchorLinks.appendChild(div)
     }
   }
 
   return (
-    <div
-      id="anchor-links"
-      className="flex flex-wrap pt-1 text-sm text-center font-bold"
-    />
+    <div id="anchor-links" className="flex flex-wrap pt-1 text-sm text-center font-bold" />
   )
 }
 export default AnchorLinks
