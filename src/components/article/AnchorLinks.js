@@ -29,7 +29,7 @@ const AnchorLinks = () => {
     <div
       id="anchor-links"
       className="flex flex-wrap pt-1 text-sm text-center font-bold"
-    ></div>
+    />
   )
 }
 export default AnchorLinks
