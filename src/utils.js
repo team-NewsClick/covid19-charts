@@ -1,4 +1,4 @@
-import { cutoffValues, CasesType } from './constants'
+import { cutoffValues, CasesType } from "./constants"
 
 /**
  * Filter COVID-19 cases by caseType with a cutoff date
@@ -30,11 +30,11 @@ export const filterCases = (data, caseType) => {
 export const processLogData = (rawData) => {
   return rawData.map((rows) => {
     const regionData = rows.data.filter((row) => {
-      return row.y !== '0'
+      return row.y !== "0"
     })
     return {
       region: rows.region,
-      data: regionData,
+      data: regionData
     }
   })
 }
@@ -51,12 +51,12 @@ export const processCumulativeData = (rawData) => {
       acc = acc + parseInt(d.y)
       return {
         x: d.x,
-        y: acc.toString(),
+        y: acc.toString()
       }
     })
     return {
       region: row.region,
-      data: regionCases,
+      data: regionCases
     }
   })
 }
@@ -70,7 +70,7 @@ export const processCumulativeData = (rawData) => {
  */
 export const processDatesAdjusted = (rawData, caseType, dataType) => {
   const cutOff =
-    dataType === 'new'
+    dataType === "new"
       ? caseType === CasesType.DEATHS
         ? cutoffValues.DEATHS
         : cutoffValues.CONFIRMED
@@ -83,7 +83,7 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
           return {
             x: ++temp,
             y: d.y,
-            date: d.x,
+            date: d.x
           }
         }
       })
@@ -92,7 +92,7 @@ export const processDatesAdjusted = (rawData, caseType, dataType) => {
       })
     return {
       region: row.region,
-      data: regionCases,
+      data: regionCases
     }
   })
 }
@@ -109,20 +109,20 @@ export const calculateXMinValue = (data, datesAdjusted) => {
     let regionMin = d.reduce((acc, e) => {
       acc = e.x < acc ? e.x : acc
       return acc
-    }, new Date('01/01/3000'))
+    }, new Date("01/01/3000"))
     return regionMin
   })
   let min = allRegionsMin.reduce((acc, e) => {
     acc = e < acc ? e : acc
     return acc
-  }, new Date('01/01/3000'))
+  }, new Date("01/01/3000"))
 
   Date.prototype.subtractDays = function () {
     var date = new Date(this.valueOf())
     date.setDate(date.getDate() - min.getDate() + 1)
     return date
   }
-  return datesAdjusted === 'on' ? 1 : min.subtractDays()
+  return datesAdjusted === "on" ? 1 : min.subtractDays()
 }
 
 /**
@@ -148,12 +148,12 @@ export const calculateXMaxValue = () => {
  */
 export const calculateYMinValue = (dataType, casesType, datesAdjusted) => {
   const yMinRangeLog =
-    datesAdjusted === 'on'
-      ? casesType === 'confirmed'
-        ? dataType === 'cumulative'
+    datesAdjusted === "on"
+      ? casesType === "confirmed"
+        ? dataType === "cumulative"
           ? cutoffValues.CUMMULATIVE
           : cutoffValues.CONFIRMED
-        : dataType === 'cumulative'
+        : dataType === "cumulative"
         ? cutoffValues.CUMMULATIVE
         : cutoffValues.DEATHS
       : cutoffValues.DEFAULT
@@ -206,8 +206,8 @@ export const indPlaceVal = (x) => {
   x = x.toString()
   let lastThree = x.substring(x.length - 3)
   let otherNumbers = x.substring(0, x.length - 3)
-  if (otherNumbers != '') lastThree = ',' + lastThree
-  let number = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree
+  if (otherNumbers != "") lastThree = "," + lastThree
+  let number = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree
   return number
 }
 
@@ -282,8 +282,8 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
   const sublegends = colorDomains.map((l, i) => {
     return {
       lowerBound: Math.round(l * maxValue),
-      upperBound: (Math.round(colorDomains[i + 1] * maxValue) - 1),
-      color: `(${colors(l).join(',')})`,
+      upperBound: Math.round(colorDomains[i + 1] * maxValue) - 1,
+      color: `(${colors(l).join(",")})`
     }
   })
   sublegends.map((s) => {
@@ -299,10 +299,10 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
             s.upperBound > legends[temp].upperBound
               ? s.upperBound
               : legends[temp].upperBound,
-          color: s.color,
+          color: s.color
         })
   })
   legends[0].lowerBound = 0
-  legends[legends.length-1].upperBound = maxValue
+  legends[legends.length - 1].upperBound = maxValue
   return legends
 }

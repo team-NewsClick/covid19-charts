@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
-import { _MapContext as MapContext, StaticMap, NavigationControl } from "react-map-gl"
+import {
+  _MapContext as MapContext,
+  StaticMap,
+  NavigationControl
+} from "react-map-gl"
 import { scaleQuantile } from "d3-scale"
 import {
   calcuateMaximum,
@@ -152,13 +156,13 @@ const DistrictsMapWidget = ({
                     }
               }
             >
-              Number of{' '}
-              {casesType == 'active'
-                ? 'Active Cases'
-                : casesType == 'confirmed'
-                ? 'Total Cases'
-                : 'Total Deaths'}
-           </div>
+              Number of{" "}
+              {casesType == "active"
+                ? "Active Cases"
+                : casesType == "confirmed"
+                ? "Total Cases"
+                : "Total Deaths"}
+            </div>
             {legends.map((l, i) => (
               <div
                 key={i}

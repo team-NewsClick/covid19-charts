@@ -74,10 +74,11 @@ const Article = () => {
             ></iframe>
           </div>
           <div className="article-para">
-            The Table below shows the movement of the 7-day moving average of Daily
-            Covid-19 cases, Tests conducted and Positivity Rate (daily cases/tests)
-            for the last 30 days for each state. Total Tests, Tests/Million population
-            and percentage of RT-PCR tests out of all tests is also shown for each state.
+            The Table below shows the movement of the 7-day moving average of
+            Daily Covid-19 cases, Tests conducted and Positivity Rate (daily
+            cases/tests) for the last 30 days for each state. Total Tests,
+            Tests/Million population and percentage of RT-PCR tests out of all
+            tests is also shown for each state.
           </div>
           <div className="my-16">
             <iframe

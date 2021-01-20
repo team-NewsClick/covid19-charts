@@ -204,8 +204,14 @@ const LineChartWidget = (props) => {
               key={index}
               curve={"curveMonotoneX"}
               data={d.data}
-              color={greyHighlight != null && greyHighlight == index? "#777" : "#ccc" }
-              strokeWidth={greyHighlight != null && greyHighlight == index? 2 : 0.8}
+              color={
+                greyHighlight != null && greyHighlight == index
+                  ? "#777"
+                  : "#ccc"
+              }
+              strokeWidth={
+                greyHighlight != null && greyHighlight == index ? 2 : 0.8
+              }
               onSeriesMouseOver={(e) => _handleGreyMouseOver(e, index)}
               onSeriesMouseOut={(e) => _handleGreyMouseOut()}
             />
