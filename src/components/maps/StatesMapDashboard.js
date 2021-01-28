@@ -41,6 +41,14 @@ const StateMapDashboard = ({
           <label htmlFor="new_cases">New Cases</label>
           <input
             type="radio"
+            id="new_deaths"
+            name="cases"
+            value="new_deaths"
+            onChange={(e) => _handleCasesType(e)}
+          />
+          <label htmlFor="new_cases">New Deaths</label>
+          <input
+            type="radio"
             id="total_deaths"
             name="cases"
             value="total_deaths"
