@@ -33,13 +33,6 @@ const DistrictsMapDashboard = ({
             onChange={(e) => _handleCasesType(e)}
           />
           <label htmlFor="active">Active Cases</label>
-          <input
-            type="radio"
-            id="deceased"
-            name="cases"
-            value="deceased"
-            onChange={(e) => _handleCasesType(e)}
-          />
           <label htmlFor="deceased">Total Deaths</label>
           <input
             type="radio"
@@ -49,6 +42,13 @@ const DistrictsMapDashboard = ({
             onChange={(e) => _handleCasesType(e)}
           />
           <label htmlFor="confirmed">Total Cases</label>
+          <input
+            type="radio"
+            id="deceased"
+            name="cases"
+            value="deceased"
+            onChange={(e) => _handleCasesType(e)}
+          />
         </div>
       </div>
       <div>
