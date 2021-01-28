@@ -26,7 +26,7 @@ const IntroductionThumbnail = () => {
       The total confirmed Covid-19 cases in India reached{" "}
       {indPlaceVal(statsSummary.indiaTotalConfirmed)} on{" "}
       {new Date().getDay() - 1 >= 0 ? days[new Date().getDay() - 1] : "Sunday"},{" "}
-      {statsSummary.timestamp.slice(0, 2)}{" "}
+      {new Date().getDate() - 1}{" "}
       {months[parseInt(statsSummary.timestamp.slice(3, 5)) - 1]}{" "}
       {statsSummary.timestamp.slice(6, 10)}. In the past 24 hours,{" "}
       {indPlaceVal(statsSummary.indiaNewConfirmed)} new cases were reported,
