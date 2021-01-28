@@ -28,7 +28,7 @@ const CovidUpdateWorld = () => {
           COVID-19 UPDATE: WORLD
         </div>
         <div className="text-gray-700">
-          Data Last Updated at 8:00 AM, {new Date().toUTCString().slice(5, 16)}
+          Data Last Updated on {new Date().toUTCString().slice(5, 16)}
         </div>
       </div>
       <div className="">

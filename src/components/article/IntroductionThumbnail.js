@@ -1,6 +1,7 @@
 import useSWR from "swr"
 import LoaderFunction from "../LoaderFunction"
 import { indPlaceVal } from "../../utils"
+import { days, months } from "../../constants"
 
 /**
  * Article's Introduction in Summary to be used in Article's Thumbnail and also as first paragraph in the article
@@ -23,9 +24,13 @@ const IntroductionThumbnail = () => {
   return (
     <div className="article-para">
       The total confirmed Covid-19 cases in India reached{" "}
-      {indPlaceVal(statsSummary.indiaTotalConfirmed)} on Tuesday. In the past 24
-      hours, {indPlaceVal(statsSummary.indiaNewConfirmed)} new cases were
-      reported, accounting for about{" "}
+      {indPlaceVal(statsSummary.indiaTotalConfirmed)} on{" "}
+      {new Date().getDay() - 1 >= 0 ? days[new Date().getDay() - 1] : "Sunday"},{" "}
+      {statsSummary.timestamp.slice(0, 2)}{" "}
+      {months[parseInt(statsSummary.timestamp.slice(3, 5)) - 1]}{" "}
+      {statsSummary.timestamp.slice(6, 10)}. In the past 24 hours,{" "}
+      {indPlaceVal(statsSummary.indiaNewConfirmed)} new cases were reported,
+      accounting for about{" "}
       {(
         (statsSummary.indiaNewDeaths / statsSummary.worldNewDeaths) *
         100

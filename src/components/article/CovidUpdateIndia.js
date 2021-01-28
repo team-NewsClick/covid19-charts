@@ -28,7 +28,7 @@ const CovidUpdateIndia = () => {
           COVID-19 UPDATE: INDIA
         </div>
         <div className="text-gray-700">
-          Data Last Updated at 8:00 AM, {new Date().toUTCString().slice(5, 16)}
+          Data Last Updated on {new Date().toUTCString().slice(5, 16)}
         </div>
       </div>
       <div className="">
@@ -121,8 +121,7 @@ const CovidUpdateIndia = () => {
         </div>
       </div>
       <div className="text-center text-gray-700 text-sm pt-4">
-        Source: Ministry of Health {"&"} Family Welfare AND and Indian Council
-        of Medical Research
+        Source: covid19india.org
       </div>
     </div>
   )

@@ -11,6 +11,19 @@ export const customColor = [
 ]
 
 /**
+ * Name of days of week
+ */
+export const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+]
+
+/**
  * Name of months for x-ticks
  */
 export const months = [
