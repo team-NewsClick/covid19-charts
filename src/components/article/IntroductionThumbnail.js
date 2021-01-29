@@ -25,7 +25,7 @@ const IntroductionThumbnail = () => {
     <div className="article-para">
       The total confirmed Covid-19 cases in India reached{" "}
       {indPlaceVal(statsSummary.indiaTotalConfirmed)} on{" "}
-      {new Date().getDay() - 1 >= 0 ? days[new Date().getDay() - 1] : "Sunday"},{" "}
+      {new Date().getDay() - 1 >= 0 ? days[new Date().getDay() - 1] : "Saturday"},{" "}
       {new Date().getDate() - 1}{" "}
       {months[parseInt(statsSummary.timestamp.slice(3, 5)) - 1]}{" "}
       {statsSummary.timestamp.slice(6, 10)}. In the past 24 hours,{" "}
