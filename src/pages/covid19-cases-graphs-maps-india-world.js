@@ -32,6 +32,7 @@ const Article = () => {
 
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: "Noto Sans" }}>
+      <title>COVID-19 Cases: Data and Graphs of India and the World</title>
       <div className="col-span-2 sm-hide"></div>
       <div className="col-span-12 mx-5 sm:col-span-8 sm:mx-0">
         <Header />
