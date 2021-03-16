@@ -72,6 +72,7 @@ const StatesMapWidget = ({
             <div>Total Cases: ${indPlaceVal(cases.total_cases)}</div>
             <div>Total Deaths: ${indPlaceVal(cases.total_deaths)}</div>
             <div>Total Recovered: ${indPlaceVal(cases.total_recovered)}</div>
+            <div>Total Vaccinated: ${indPlaceVal(cases.total_vaccinated)}</div>
           </div>
             `
         }
