@@ -114,7 +114,7 @@ const StatesMapWidget = ({
       case "total_deaths":
         return "Total Deaths"
       case "total_vaccinated_per_thousand":
-        return "Total Vaccinated/1000"
+        return "Total Vaccinations/1000"
       default:
         return ""
     }
