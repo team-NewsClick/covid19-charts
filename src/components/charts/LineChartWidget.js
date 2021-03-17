@@ -52,6 +52,7 @@ const LineChartWidget = (props) => {
   const [selectedHighlight, setSelectedHighlight] = useState(null)
   const [crosshairValue, setCrosshairValue] = useState(null)
   const [onMouseHover, setOnMouseHover] = useState(false)
+  const [selectedLabelSeriesData, setSelectedLabelSeriesData] = useState([])
 
   const yMinRangeLog = calculateYMinValue(dataType, casesType, datesAdjusted)
   const yMaxRange = calculateYMaxValue(data)
@@ -71,6 +72,34 @@ const LineChartWidget = (props) => {
       setselected([])
     }
   }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
+
+  useEffect(() => {
+    let temp = []
+    selected.map((d, index) => {
+      if(index === 0) {
+        temp.push({
+          x: d.data[d.data.length - 1].x,
+          y: d.data[d.data.length - 1].y,
+          region: d.region,
+        })
+      } else {
+        if(isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y}, temp, xMaxRange, yMaxRange) && scaleType==="linear") {
+          temp.push({
+            x: d.data[d.data.length - 1].x,
+            y: window.innerWidth > 400 ? (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.008)).toString() : (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.035)).toString(),
+            region: d.region,
+          })
+        } else {
+          temp.push({
+            x: d.data[d.data.length - 1].x,
+            y: d.data[d.data.length - 1].y,
+            region: d.region,
+          })
+        }
+      }
+    })
+    setSelectedLabelSeriesData(temp)
+  }, [selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   if (data.length == 0) {
     return (
@@ -108,31 +137,6 @@ const LineChartWidget = (props) => {
         ])
       }
     }
-
-    const selectedLabelSeriesData = []
-    selected.map((d, index) => {
-      if(index === 0) {
-        selectedLabelSeriesData.push({
-          x: d.data[d.data.length - 1].x,
-          y: d.data[d.data.length - 1].y,
-          region: d.region,
-        })
-      } else {
-        if(isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y}, selectedLabelSeriesData, xMaxRange, yMaxRange)) {
-          selectedLabelSeriesData.push({
-            x: d.data[d.data.length - 1].x,
-            y: window.innerWidth > 400 ? (parseInt(d.data[d.data.length - 1].y) - (yMaxRange*0.045)).toString() : (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.035)).toString(),
-            region: d.region,
-          })
-        } else {
-          selectedLabelSeriesData.push({
-            x: d.data[d.data.length - 1].x,
-            y: d.data[d.data.length - 1].y,
-            region: d.region,
-          })
-        }
-      }
-    })
    
     return (
       <div>
