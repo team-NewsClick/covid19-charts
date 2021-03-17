@@ -1,0 +1,47 @@
+# Changelog
+
+We use for versioning.
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). It diverges in the following ways:
+
+- Release titles do not link to the commits within the release
+- This project only strictly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for bug fix releases.
+
+## [1.1.0] - 2021-03-17
+
+### Added
+
+- Total Vaccinated per Thousand tab to the State Map
+
+- Total Vaccinated entry in the tooltip for the State Map
+
+### Changed
+
+- Renamed Confirmed with Cases in Chart buttons
+
+- Default select from Linear to Log
+
+- Label color for the selected region in Charts
+
+- LICENSE from GPLv3 to AGPLv3
+
+## [1.0.0] - 2021-01-20
+
+### Added
+
+- State Line Chart
+
+- City Line Chart
+
+- Country Line Chart
+
+- State Map
+
+- District Map
+
+- Summary Cards
+
+- SWR Functionality
+
+- Serverless
