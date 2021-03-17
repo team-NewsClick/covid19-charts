@@ -316,7 +316,7 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
  * @return {Boolean} - True if data is in near by of any points in the array or else false
  */
  export const isNearBy = (data, array, xMax, yMax, scaleType) => {
-  const interference = scaleType === "linear" ? window.innerWidth > 400 ? 0.0154 : 0.04 : window.innerWidth > 400 ? 0.154 :0.4
+  const interference = scaleType === "linear" ? window.innerWidth > 400 ? 0.0154 : 0.04 : window.innerWidth > 400 ? 0.15 : 0.1
   const isNearByX = (e) => {
     if(typeof(e) == "object"){
       return true

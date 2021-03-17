@@ -121,7 +121,9 @@ const LineChartWidget = (props) => {
         if(isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y}, selectedLabelSeriesData, xMaxRange, yMaxRange, scaleType)) {
           selectedLabelSeriesData.push({
             x: d.data[d.data.length - 1].x,
-            y: window.innerWidth > 400 ? (parseInt(d.data[d.data.length - 1].y) - (yMaxRange*0.045)).toString() : (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.035)).toString(),
+            y: scaleType === "linear"
+              ? window.innerWidth > 400 ? (parseInt(d.data[d.data.length - 1].y) - (yMaxRange*0.045)).toString() : (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.035)).toString()
+              : window.innerWidth > 400 ? (parseInt(d.data[d.data.length - 1].y) - (yMaxRange*0.5)).toString() : (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.5)).toString(),
             region: d.region,
           })
         } else {
