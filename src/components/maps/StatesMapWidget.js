@@ -15,7 +15,7 @@ import {
   sortLegends,
   indPlaceVal
 } from "../../utils"
-import { MAP_COLOR_DOMAIN } from "../../constants"
+import { MAP_COLOR_DOMAIN, MAP_VACCINE_COLOR_DOMAIN } from "../../constants"
 /**
  * Plot Map and Deckgl Layers
  * @component
@@ -36,7 +36,11 @@ const StatesMapWidget = ({
   const maxValue = calcuateMaximum(covidData, casesType)
   const minValue = calcuateMinimum(covidData, casesType)
   const domainValues = calculateDomain(covidData, casesType)
-  let colors = scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
+  let colors =
+    casesType === "total_vaccinated_per_thousand"
+      ? scaleQuantile().domain(domainValues).range(MAP_VACCINE_COLOR_DOMAIN)
+      : scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
+
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
     const casesObject = covidData.filter((row) => {
@@ -79,6 +83,7 @@ const StatesMapWidget = ({
       )
     }
   }
+
   const layer = [
     new GeoJsonLayer({
       id: "geojson-layer",
@@ -92,6 +97,7 @@ const StatesMapWidget = ({
       pickable: true
     })
   ]
+
   const colorDomains = colors.domain()
   const legends = sortLegends(maxValue, colors, colorDomains)
 
