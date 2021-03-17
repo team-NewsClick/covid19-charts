@@ -101,6 +101,24 @@ const StatesMapWidget = ({
   const colorDomains = colors.domain()
   const legends = sortLegends(maxValue, colors, colorDomains)
 
+  const LegendDescription = () => {
+    switch (casesType) {
+      case "active":
+        return "Active Cases"
+      case "new_cases":
+        return "New Cases"
+      case "new_deaths":
+        return "New Deaths"
+      case "total_cases":
+        return "Total Cases"
+      case "total_deaths":
+        return "Total Deaths"
+      case "total_vaccinated_per_thousand":
+        return "Total Vaccinated/1000"
+      default:
+        return ""
+    }
+  }
   return (
     <div>
       <DeckGL
@@ -129,7 +147,7 @@ const StatesMapWidget = ({
                 ? window.innerWidth > 500
                   ? { bottom: "2.5rem", right: "8.5rem", fontSize: "0.8rem" }
                   : { bottom: "0.2rem", right: "4.5rem" }
-                : { bottom: "6.5rem", right: "15rem", fontSize: "1rem" }
+                : { bottom: "6.5rem", right: "12rem", fontSize: "1rem" }
             }
           >
             <div
@@ -151,13 +169,14 @@ const StatesMapWidget = ({
               }
             >
               Number of{" "}
-              {casesType == "active"
-                ? "Active Cases"
-                : casesType == "new_cases"
-                ? "New Cases"
-                : casesType == "total_cases"
-                ? "Total Cases"
-                : "Total Deaths"}
+              {casesType === "total_vaccinated_per_thousand" ? (
+                <>
+                  <br />
+                  <LegendDescription />
+                </>
+              ) : (
+                <LegendDescription />
+              )}
             </div>
             {legends.map((l, i) => (
               <div

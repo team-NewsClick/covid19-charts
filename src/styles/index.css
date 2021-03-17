@@ -237,3 +237,6 @@ body {
   display: block;
 }
 /* hamberger-menu end */
+.totalVaccinated {
+  width: 7rem !important;
+}
