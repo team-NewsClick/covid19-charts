@@ -306,3 +306,31 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
   legends[legends.length - 1].upperBound = maxValue
   return legends
 }
+
+/**
+ * To check whether a data point is near by other points of the array or not
+ * @param {Object} data - Coordinte
+ * @param {Array<Object>} array - Selected Countries Data
+ * @param {Integer} xMax - Maximum Value of x-axis
+ * @param {Integer} yMax - Maximum Value of y-axis
+ * @return {Boolean} - True if data is in near by of any points in the array or else false
+ */
+ export const isNearBy = (data, array, xMax, yMax, scaleType) => {
+  const interference = scaleType === "linear" ? window.innerWidth > 400 ? 0.0154 : 0.04 : window.innerWidth > 400 ? 0.154 :0.4
+  const isNearByX = (e) => {
+    if(typeof(e) == "object"){
+      return true
+    }
+    const maxRange = (xMax*interference) + parseInt(e)
+    const minRange = Math.abs((xMax*interference) - parseInt(e))
+    const temp = array.filter((row) =>(parseInt(row.x) - minRange)*(parseInt(row.x) - maxRange) <= 0)
+    return temp.length > 0 ? true : false
+  }
+  const isNearByY = (e) => {
+    const maxRange = (yMax*interference) + parseInt(e)
+    const minRange = Math.abs((yMax*interference) - parseInt(e))
+    const temp = array.filter((row) =>(parseInt(row.y) - minRange)*(parseInt(row.y) - maxRange) <= 0)
+    return temp.length > 0 ? true : false
+  }
+  return isNearByX(data.x) && isNearByY(data.y) ? true : false
+}

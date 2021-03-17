@@ -133,9 +133,9 @@ const DistrictsMapWidget = ({
             style={
               window && window.innerWidth < 700
                 ? window.innerWidth > 500
-                  ? { bottom: "2.5rem", right: "8.5rem", fontSize: "0.8rem" }
-                  : { bottom: "0.2rem", right: "4.5rem" }
-                : { bottom: "6.5rem", right: "15rem", fontSize: "1rem" }
+                  ? { bottom: "2.5rem", right: "2rem", fontSize: "0.8rem" }
+                  : { bottom: "0.2rem", right: "1rem" }
+                : { bottom: "6.5rem", right: "10rem", fontSize: "1rem" }
             }
           >
             <div

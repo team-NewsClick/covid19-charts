@@ -170,7 +170,9 @@ body {
   color: black !important;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
-
+.totalVaccinatedLabel {
+  width: 7rem !important;
+}
 /* hamberger-menu start */
 #menu {
   width: 25px;
@@ -237,6 +239,3 @@ body {
   display: block;
 }
 /* hamberger-menu end */
-.totalVaccinated {
-  width: 7rem !important;
-}

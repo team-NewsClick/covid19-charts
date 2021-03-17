@@ -15,7 +15,8 @@ import {
   calculateYMaxValue,
   calculateYTickValues,
   calculateXMinValue,
-  calculateXMaxValue
+  calculateXMaxValue,
+  isNearBy
 } from "../../utils"
 import { customColor, months } from "../../constants"
 
@@ -108,6 +109,31 @@ const LineChartWidget = (props) => {
       }
     }
 
+    const selectedLabelSeriesData = []
+    selected.map((d, index) => {
+      if(index === 0) {
+        selectedLabelSeriesData.push({
+          x: d.data[d.data.length - 1].x,
+          y: d.data[d.data.length - 1].y,
+          region: d.region,
+        })
+      } else {
+        if(isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y}, selectedLabelSeriesData, xMaxRange, yMaxRange, scaleType)) {
+          selectedLabelSeriesData.push({
+            x: d.data[d.data.length - 1].x,
+            y: window.innerWidth > 400 ? (parseInt(d.data[d.data.length - 1].y) - (yMaxRange*0.045)).toString() : (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.035)).toString(),
+            region: d.region,
+          })
+        } else {
+          selectedLabelSeriesData.push({
+            x: d.data[d.data.length - 1].x,
+            y: d.data[d.data.length - 1].y,
+            region: d.region,
+          })
+        }
+      }
+    })
+   
     return (
       <div>
         <XYPlot
@@ -133,6 +159,8 @@ const LineChartWidget = (props) => {
               : { left: 40, right: 60 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
+          animation={true}
+          dontCheckIfEmpty={true}
         >
           <HorizontalGridLines />
           <XAxis
@@ -269,13 +297,13 @@ const LineChartWidget = (props) => {
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
-          {selected.map((d, index) => (
+          {selectedLabelSeriesData.map((d, index) => (
             <LabelSeries
               key={index}
               data={[
                 {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
+                  x: d.x,
+                  y: d.y,
                   label: d.region,
                   xOffset: 12
                 }
