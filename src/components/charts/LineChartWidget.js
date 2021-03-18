@@ -15,7 +15,8 @@ import {
   calculateYMaxValue,
   calculateYTickValues,
   calculateXMinValue,
-  calculateXMaxValue
+  calculateXMaxValue,
+  isNearBy
 } from "../../utils"
 import { customColor, months } from "../../constants"
 
@@ -51,6 +52,7 @@ const LineChartWidget = (props) => {
   const [selectedHighlight, setSelectedHighlight] = useState(null)
   const [crosshairValue, setCrosshairValue] = useState(null)
   const [onMouseHover, setOnMouseHover] = useState(false)
+  const [selectedLabelSeriesData, setSelectedLabelSeriesData] = useState([])
 
   const yMinRangeLog = calculateYMinValue(dataType, casesType, datesAdjusted)
   const yMaxRange = calculateYMaxValue(data)
@@ -70,6 +72,33 @@ const LineChartWidget = (props) => {
       setselected([])
     }
   }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
+
+  useEffect(() => {
+    let tempArray = []
+    let temp = null
+    selected.map((d, index) => {
+      if(index === 0) {
+        tempArray.push({
+          x: d.data[d.data.length - 1].x,
+          y: d.data[d.data.length - 1].y,
+          region: d.region,
+        })
+      } else {
+        if(scaleType === "linear") {
+          temp = (isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, xMaxRange, yMaxRange))
+          tempArray.push(temp)
+        }
+        else {
+          tempArray.push({
+            x: d.data[d.data.length - 1].x,
+            y: d.data[d.data.length - 1].y,
+            region: d.region,
+          })
+        }
+      }
+    })
+    setSelectedLabelSeriesData(tempArray)
+  }, [selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   if (data.length == 0) {
     return (
@@ -107,7 +136,7 @@ const LineChartWidget = (props) => {
         ])
       }
     }
-
+   
     return (
       <div>
         <XYPlot
@@ -133,6 +162,8 @@ const LineChartWidget = (props) => {
               : { left: 40, right: 60 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
+          animation={true}
+          dontCheckIfEmpty={true}
         >
           <HorizontalGridLines />
           <XAxis
@@ -269,13 +300,13 @@ const LineChartWidget = (props) => {
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
-          {selected.map((d, index) => (
+          {selectedLabelSeriesData.map((d, index) => (
             <LabelSeries
               key={index}
               data={[
                 {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
+                  x: d.x,
+                  y: d.y,
                   label: d.region,
                   xOffset: 12
                 }
