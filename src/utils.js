@@ -313,24 +313,21 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
  * @param {Array<Object>} array - Selected Countries Data
  * @param {Integer} xMax - Maximum Value of x-axis
  * @param {Integer} yMax - Maximum Value of y-axis
- * @return {Boolean} - True if data is in near by of any points in the array or else false
+ * @return {Object} - A data point which is not nearby other points in the array
  */
- export const isNearBy = (data, array, xMax, yMax, scaleType) => {
-  const interference = window.innerWidth > 400 ? 0.017 : 0.016
-  const isNearByX = (e) => {
-    if(typeof(e) == "object"){
-      return true
-    }
-    const maxRange = (xMax*interference) + parseInt(e)
-    const minRange = Math.abs((xMax*interference) - parseInt(e))
-    const temp = array.filter((row) =>(parseInt(row.x) - minRange)*(parseInt(row.x) - maxRange) <= 0)
-    return temp.length > 0 ? true : false
-  }
-  const isNearByY = (e) => {
-    const maxRange = (yMax*interference) + parseInt(e)
-    const minRange = Math.abs((yMax*interference) - parseInt(e))
-    const temp = array.filter((row) =>(parseInt(row.y) - minRange)*(parseInt(row.y) - maxRange) <= 0)
-    return temp.length > 0 ? true : false
-  }
-  return isNearByX(data.x) && isNearByY(data.y) ? true : false
+ export const isNearBy = (data, array, xMax, yMax) => {
+  const interferenceY = window.innerWidth > 400 ? 0.017 : 0.016
+  const maxRange = (yMax*interferenceY) + parseInt(data.y)
+  const minRange = Math.abs((yMax*interferenceY) - parseInt(data.y))
+  let tempArray =[-999999999]
+  tempArray = array.map((row) => {
+    let diff = (parseInt(row.y) - minRange)*(parseInt(row.y) - maxRange)
+    return diff <= 0
+      ? diff < -1
+        ? (parseInt(data.y) + 0.8*yMax*interferenceY)
+        : (parseInt(data.y) + 10*yMax*interferenceY)
+      : parseInt(0)
+  })
+  let sortedTempArray = tempArray.sort().reverse()
+  return ({x: data.x, y: sortedTempArray[0] == 0 ? data.y : sortedTempArray[0], region: data.region})
 }

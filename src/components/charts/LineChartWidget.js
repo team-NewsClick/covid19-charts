@@ -74,23 +74,22 @@ const LineChartWidget = (props) => {
   }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   useEffect(() => {
-    let temp = []
+    let tempArray = []
+    let temp = null
     selected.map((d, index) => {
       if(index === 0) {
-        temp.push({
+        tempArray.push({
           x: d.data[d.data.length - 1].x,
           y: d.data[d.data.length - 1].y,
           region: d.region,
         })
       } else {
-        if(isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y}, temp, xMaxRange, yMaxRange) && scaleType==="linear") {
-          temp.push({
-            x: d.data[d.data.length - 1].x,
-            y: window.innerWidth > 400 ? (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.008)).toString() : (parseInt(d.data[d.data.length - 1].y) + (yMaxRange*0.035)).toString(),
-            region: d.region,
-          })
-        } else {
-          temp.push({
+        if(scaleType === "linear") {
+          temp = (isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, xMaxRange, yMaxRange))
+          tempArray.push(temp)
+        }
+        else {
+          tempArray.push({
             x: d.data[d.data.length - 1].x,
             y: d.data[d.data.length - 1].y,
             region: d.region,
@@ -98,7 +97,7 @@ const LineChartWidget = (props) => {
         }
       }
     })
-    setSelectedLabelSeriesData(temp)
+    setSelectedLabelSeriesData(tempArray)
   }, [selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   if (data.length == 0) {
