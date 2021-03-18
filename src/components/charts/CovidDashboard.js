@@ -31,7 +31,7 @@ const CovidDashboard = (props) => {
 
   const [casesType, setCasesType] = useState("confirmed")
   const [dataType, setDataType] = useState("new")
-  const [scaleType, setScaleType] = useState("log")
+  const [scaleType, setScaleType] = useState("linear")
   const [datesAdjusted, setDatesAdjusted] = useState("off")
   const [interactiveSelects, setInteractiveSelects] = useState([])
   const [interactiveSelectsDisplay, setInteractiveSelectsDisplay] = useState([])
@@ -225,7 +225,6 @@ const CovidDashboard = (props) => {
               id="log"
               name="display-type"
               value="log"
-              defaultChecked
               onChange={(e) => _handleScaleType(e)}
             />
             <label htmlFor="log">Log</label>
@@ -234,6 +233,7 @@ const CovidDashboard = (props) => {
               id="linear"
               name="display-type"
               value="linear"
+              defaultChecked
               onChange={(e) => _handleScaleType(e)}
             />
             <label htmlFor="linear">Linear</label>
