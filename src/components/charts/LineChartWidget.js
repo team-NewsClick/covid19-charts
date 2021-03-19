@@ -162,8 +162,6 @@ const LineChartWidget = (props) => {
               : { left: 40, right: 60 }
           }
           onMouseLeave={() => _handleGreyMouseOut()}
-          animation={true}
-          dontCheckIfEmpty={true}
         >
           <HorizontalGridLines />
           <XAxis
