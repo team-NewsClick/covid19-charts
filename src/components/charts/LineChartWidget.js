@@ -16,7 +16,8 @@ import {
   calculateYTickValues,
   calculateXMinValue,
   calculateXMaxValue,
-  isNearBy
+  isNearByLinear,
+  isNearByLog
 } from "../../utils"
 import { customColor, months } from "../../constants"
 
@@ -78,15 +79,12 @@ const LineChartWidget = (props) => {
     let temp = null
     selected.map((d, index) => {
         if(scaleType === "linear") {
-          temp = (isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, xMaxRange, yMaxRange))
+          temp = (isNearByLinear({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, yMaxRange, scaleType))
           tempArray.push(temp)
         }
         else {
-          tempArray.push({
-            x: d.data[d.data.length - 1].x,
-            y: d.data[d.data.length - 1].y,
-            region: d.region,
-          })
+          temp = (isNearByLog({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, yMaxRange, scaleType))
+          tempArray.push(temp)
         }
     })
     setSelectedLabelSeriesData(tempArray)
