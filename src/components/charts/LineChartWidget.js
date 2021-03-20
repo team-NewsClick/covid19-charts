@@ -74,19 +74,18 @@ const LineChartWidget = (props) => {
   }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   useEffect(() => {
+    const sortedPreAdjustedLabelSeries = selected.map((d, i) => {
+      return {
+        x: d.data[d.data.length - 1].x,
+        y: d.data[d.data.length - 1].y,
+        region: d.region,
+        index: i
+      }
+    }).sort((a, b) => parseInt(a.y) - parseInt(b.y))
     let adjustedLabelSeries = []
     let adjustedPoint = null
-    selected.map((d) => {
-      adjustedPoint = isNearBy(
-        {
-          x: d.data[d.data.length - 1].x,
-          y: d.data[d.data.length - 1].y,
-          region: d.region
-        },
-        adjustedLabelSeries,
-        yMaxRange,
-        scaleType
-      )
+    sortedPreAdjustedLabelSeries.map((d) => {
+      adjustedPoint = isNearBy(d, adjustedLabelSeries, yMaxRange, scaleType)
       adjustedLabelSeries.push(adjustedPoint)
     })
     setSelectedLabelSeriesData(adjustedLabelSeries)
@@ -310,8 +309,8 @@ const LineChartWidget = (props) => {
               ]}
               style={
                 selectedHighlight == index
-                  ? { fontSize: "0.8rem", stroke: customColor[index] }
-                  : { fontSize: "0.7rem", stroke: customColor[index] }
+                  ? { fontSize: "0.8rem", stroke: customColor[d.index] }
+                  : { fontSize: "0.7rem", stroke: customColor[d.index] }
               }
               labelAnchorX="start"
               labelAnchorY="central"

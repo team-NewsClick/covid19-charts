@@ -320,7 +320,7 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
   let adjustedPoints_Y = []
 
   if (adjustedLabelSeries.length === 0) {
-    return { x: data.x, y: data.y, region: data.region }
+    return { x: data.x, y: data.y, region: data.region, index: data.index }
   } else {
     if (scaleType === "linear") {
       const interferenceY = window.innerWidth > 400 ? 0.014 : 0.016
@@ -351,10 +351,10 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
     }
     let sortedTempArray = adjustedPoints_Y.sort((a, b) => a - b).reverse()
     if (doRecurssion === false) {
-      return { x: data.x, y: sortedTempArray[0], region: data.region }
+      return { x: data.x, y: sortedTempArray[0], region: data.region, index: data.index }
     } else {
       return isNearBy(
-        { x: data.x, y: sortedTempArray[0], region: data.region },
+        { x: data.x, y: sortedTempArray[0], region: data.region, index: data.index },
         adjustedLabelSeries,
         yMax,
         scaleType
