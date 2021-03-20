@@ -321,22 +321,25 @@ export const isNearBy = (data, array, xMax, yMax) => {
   const minRange = Math.abs(yMax * interferenceY - parseInt(data.y))
   let tempArray = [-999999999]
 
-  tempArray = array.map((row) => {
-    let yValue = null
-    let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
-
-    if (diff < 0) {
-      if (diff < -1) {
-        yValue = parseInt(data.y) + 1.5 * yMax * interferenceY
-      } else if (diff > -1) {
-        yValue = parseInt(data.y) + 1 * yMax * interferenceY
-      }
-    } else {
-      yValue = parseInt(data.y)
-    }
-    return yValue
-  })
+  if(array.length === 0) {
+    return { x: data.x, y: data.y, region: data.region }
+  } else {
+    tempArray = array.map((row) => {
+      let yValue = null
+      let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
   
-  let sortedTempArray = tempArray.sort((a, b) => a - b).reverse()
-  return { x: data.x, y: sortedTempArray[0], region: data.region }
+      if (diff < 0) {
+        if (diff < -1) {
+          yValue = parseInt(data.y) + 1.5 * yMax * interferenceY
+        } else if (diff > -1) {
+          yValue = parseInt(data.y) + 1 * yMax * interferenceY
+        }
+      } else {
+        yValue = parseInt(data.y)
+      }
+      return yValue
+    })
+    let sortedTempArray = tempArray.sort((a, b) => a - b).reverse()
+    return { x: data.x, y: sortedTempArray[0], region: data.region }
+  }
 }
