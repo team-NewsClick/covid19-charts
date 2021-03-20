@@ -77,13 +77,6 @@ const LineChartWidget = (props) => {
     let tempArray = []
     let temp = null
     selected.map((d, index) => {
-      // if(index === 0) {
-      //   tempArray.push({
-      //     x: d.data[d.data.length - 1].x,
-      //     y: d.data[d.data.length - 1].y,
-      //     region: d.region,
-      //   })
-      // } else {
         if(scaleType === "linear") {
           temp = (isNearBy({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, xMaxRange, yMaxRange))
           tempArray.push(temp)
@@ -95,7 +88,6 @@ const LineChartWidget = (props) => {
             region: d.region,
           })
         }
-      // }
     })
     setSelectedLabelSeriesData(tempArray)
   }, [selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted])

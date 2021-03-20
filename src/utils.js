@@ -316,10 +316,11 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
  * @return {Object} - A data point which is not nearby other points in the array
  */
 export const isNearBy = (data, array, xMax, yMax) => {
-  const interferenceY = window.innerWidth > 400 ? 0.017 : 0.016
+  const interferenceY = window.innerWidth > 400 ? 0.015 : 0.016
   const maxRange = yMax * interferenceY + parseInt(data.y)
   const minRange = Math.abs(yMax * interferenceY - parseInt(data.y))
-  let tempArray = [-999999999]
+  let doRecurssion = false
+  let tempArray = []
 
   if(array.length === 0) {
     return { x: data.x, y: data.y, region: data.region }
@@ -329,17 +330,20 @@ export const isNearBy = (data, array, xMax, yMax) => {
       let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
   
       if (diff < 0) {
-        if (diff < -1) {
-          yValue = parseInt(data.y) + 1.5 * yMax * interferenceY
-        } else if (diff > -1) {
-          yValue = parseInt(data.y) + 1 * yMax * interferenceY
-        }
+        doRecurssion = true
+          yValue = parseInt(data.y) + 0.2 * yMax * interferenceY
       } else {
         yValue = parseInt(data.y)
       }
       return yValue
     })
     let sortedTempArray = tempArray.sort((a, b) => a - b).reverse()
-    return { x: data.x, y: sortedTempArray[0], region: data.region }
+    console.log(doRecurssion)
+
+    if(doRecurssion === false) {
+      return { x: data.x, y: sortedTempArray[0], region: data.region }
+    } else{
+      return isNearBy({ x: data.x, y: sortedTempArray[0], region: data.region }, array, xMax, yMax)
+    }
   }
 }
