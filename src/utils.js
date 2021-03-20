@@ -315,19 +315,28 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
  * @param {Integer} yMax - Maximum Value of y-axis
  * @return {Object} - A data point which is not nearby other points in the array
  */
- export const isNearBy = (data, array, xMax, yMax) => {
+export const isNearBy = (data, array, xMax, yMax) => {
   const interferenceY = window.innerWidth > 400 ? 0.017 : 0.016
-  const maxRange = (yMax*interferenceY) + parseInt(data.y)
-  const minRange = Math.abs((yMax*interferenceY) - parseInt(data.y))
-  let tempArray =[-999999999]
+  const maxRange = yMax * interferenceY + parseInt(data.y)
+  const minRange = Math.abs(yMax * interferenceY - parseInt(data.y))
+  let tempArray = [-999999999]
+
   tempArray = array.map((row) => {
-    let diff = (parseInt(row.y) - minRange)*(parseInt(row.y) - maxRange)
-    return diff <= 0
-      ? diff < -1
-        ? (parseInt(data.y) + 0.8*yMax*interferenceY)
-        : (parseInt(data.y) + 10*yMax*interferenceY)
-      : parseInt(0)
+    let yValue = null
+    let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
+
+    if (diff < 0) {
+      if (diff < -1) {
+        yValue = parseInt(data.y) + 1.5 * yMax * interferenceY
+      } else if (diff > -1) {
+        yValue = parseInt(data.y) + 1 * yMax * interferenceY
+      }
+    } else {
+      yValue = parseInt(data.y)
+    }
+    return yValue
   })
-  let sortedTempArray = tempArray.sort().reverse()
-  return ({x: data.x, y: sortedTempArray[0] == 0 ? data.y : sortedTempArray[0], region: data.region})
+  
+  let sortedTempArray = tempArray.sort((a, b) => a - b).reverse()
+  return { x: data.x, y: sortedTempArray[0], region: data.region }
 }
