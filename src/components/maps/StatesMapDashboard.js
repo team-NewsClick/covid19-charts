@@ -71,7 +71,7 @@ const StatesMapDashboard = ({
             onChange={(e) => _handleCasesType(e)}
           />
           <label htmlFor="total_vaccinated_per_thousand" className="totalVaccinatedLabel">
-            Total Vaccinated
+            Vaccinations
           </label>
         </div>
       </div>
