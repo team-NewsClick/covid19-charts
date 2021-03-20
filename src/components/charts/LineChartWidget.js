@@ -16,8 +16,7 @@ import {
   calculateYTickValues,
   calculateXMinValue,
   calculateXMaxValue,
-  isNearByLinear,
-  isNearByLog
+  isNearBy
 } from "../../utils"
 import { customColor, months } from "../../constants"
 
@@ -75,20 +74,30 @@ const LineChartWidget = (props) => {
   }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   useEffect(() => {
-    let tempArray = []
-    let temp = null
-    selected.map((d, index) => {
-        if(scaleType === "linear") {
-          temp = (isNearByLinear({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, yMaxRange, scaleType))
-          tempArray.push(temp)
-        }
-        else {
-          temp = (isNearByLog({x: d.data[d.data.length - 1].x, y: d.data[d.data.length - 1].y, region: d.region}, tempArray, yMaxRange, scaleType))
-          tempArray.push(temp)
-        }
+    let adjustedLabelSeries = []
+    let adjustedPoint = null
+    selected.map((d) => {
+      adjustedPoint = isNearBy(
+        {
+          x: d.data[d.data.length - 1].x,
+          y: d.data[d.data.length - 1].y,
+          region: d.region
+        },
+        adjustedLabelSeries,
+        yMaxRange,
+        scaleType
+      )
+      adjustedLabelSeries.push(adjustedPoint)
     })
-    setSelectedLabelSeriesData(tempArray)
-  }, [selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
+    setSelectedLabelSeriesData(adjustedLabelSeries)
+  }, [
+    selected,
+    interactiveSelects,
+    casesType,
+    scaleType,
+    dataType,
+    datesAdjusted
+  ])
 
   if (data.length == 0) {
     return (
@@ -126,7 +135,7 @@ const LineChartWidget = (props) => {
         ])
       }
     }
-   
+
     return (
       <div>
         <XYPlot
