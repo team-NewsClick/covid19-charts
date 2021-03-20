@@ -114,7 +114,7 @@ const StatesMapWidget = ({
       case "total_deaths":
         return "Total Deaths"
       case "total_vaccinated_per_thousand":
-        return "Total Vaccinations/1000"
+        return "Vaccinations/1000 Population"
       default:
         return ""
     }
@@ -147,7 +147,7 @@ const StatesMapWidget = ({
                 ? window.innerWidth > 500
                   ? { bottom: "2.5rem", right: "2rem", fontSize: "0.8rem" }
                   : { bottom: "0.2rem", right: "1rem" }
-                : { bottom: "6.5rem", right: "10rem", fontSize: "1rem" }
+                : { bottom: "6.5rem", right: "12rem", fontSize: "1rem" }
             }
           >
             <div
@@ -168,10 +168,8 @@ const StatesMapWidget = ({
                     }
               }
             >
-              Number of{" "}
               {casesType === "total_vaccinated_per_thousand" ? (
                 <>
-                  <br />
                   <LegendDescription />
                 </>
               ) : (

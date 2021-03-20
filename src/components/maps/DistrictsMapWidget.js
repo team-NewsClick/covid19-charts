@@ -135,7 +135,7 @@ const DistrictsMapWidget = ({
                 ? window.innerWidth > 500
                   ? { bottom: "2.5rem", right: "2rem", fontSize: "0.8rem" }
                   : { bottom: "0.2rem", right: "1rem" }
-                : { bottom: "6.5rem", right: "10rem", fontSize: "1rem" }
+                : { bottom: "6.5rem", right: "12rem", fontSize: "1rem" }
             }
           >
             <div
@@ -156,7 +156,6 @@ const DistrictsMapWidget = ({
                     }
               }
             >
-              Number of{" "}
               {casesType == "active"
                 ? "Active Cases"
                 : casesType == "confirmed"

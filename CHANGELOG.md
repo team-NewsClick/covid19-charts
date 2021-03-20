@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Release titles do not link to the commits within the release
 - This project only strictly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for bug fix releases.
 
-## [1.1.0] - 2021-03-17
+## [1.1.1] - 2021-03-20
 
 ### Added
 
@@ -24,7 +24,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Label color for the selected region in Charts
 
+- Renamed description in Map legends
+
 - LICENSE from GPLv3 to AGPLv3
+
+### Fixed
+
+- Label Series Overlapping in Linear and Log Charts
 
 ## [1.0.0] - 2021-01-20
 
