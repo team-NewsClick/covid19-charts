@@ -15,7 +15,8 @@ import {
   calculateYMaxValue,
   calculateYTickValues,
   calculateXMinValue,
-  calculateXMaxValue
+  calculateXMaxValue,
+  isNearBy
 } from "../../utils"
 import { customColor, months } from "../../constants"
 
@@ -51,6 +52,7 @@ const LineChartWidget = (props) => {
   const [selectedHighlight, setSelectedHighlight] = useState(null)
   const [crosshairValue, setCrosshairValue] = useState(null)
   const [onMouseHover, setOnMouseHover] = useState(false)
+  const [selectedLabelSeriesData, setSelectedLabelSeriesData] = useState([])
 
   const yMinRangeLog = calculateYMinValue(dataType, casesType, datesAdjusted)
   const yMaxRange = calculateYMaxValue(data)
@@ -70,6 +72,32 @@ const LineChartWidget = (props) => {
       setselected([])
     }
   }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
+
+  useEffect(() => {
+    let adjustedLabelSeries = []
+    let adjustedPoint = null
+    selected.map((d) => {
+      adjustedPoint = isNearBy(
+        {
+          x: d.data[d.data.length - 1].x,
+          y: d.data[d.data.length - 1].y,
+          region: d.region
+        },
+        adjustedLabelSeries,
+        yMaxRange,
+        scaleType
+      )
+      adjustedLabelSeries.push(adjustedPoint)
+    })
+    setSelectedLabelSeriesData(adjustedLabelSeries)
+  }, [
+    selected,
+    interactiveSelects,
+    casesType,
+    scaleType,
+    dataType,
+    datesAdjusted
+  ])
 
   if (data.length == 0) {
     return (
@@ -269,21 +297,21 @@ const LineChartWidget = (props) => {
               onSeriesMouseOut={(e) => _handleSelectedMouseOut()}
             />
           ))}
-          {selected.map((d, index) => (
+          {selectedLabelSeriesData.map((d, index) => (
             <LabelSeries
               key={index}
               data={[
                 {
-                  x: d.data[d.data.length - 1].x,
-                  y: d.data[d.data.length - 1].y,
+                  x: d.x,
+                  y: d.y,
                   label: d.region,
                   xOffset: 12
                 }
               ]}
               style={
                 selectedHighlight == index
-                  ? { fontSize: "0.7rem", stroke: "#777" }
-                  : { fontSize: "0.7rem", stroke: "#999" }
+                  ? { fontSize: "0.8rem", stroke: customColor[index] }
+                  : { fontSize: "0.7rem", stroke: customColor[index] }
               }
               labelAnchorX="start"
               labelAnchorY="central"

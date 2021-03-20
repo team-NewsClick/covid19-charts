@@ -7,7 +7,7 @@ import StatesMapWidget from "./StatesMapWidget"
  * @param {Object} param0 - Dashboard Objects (GeoJSON, intialView, Data, regionKey)
  * @returns {JSX.Element} Radio Buttons and Map Widget
  */
-const StateMapDashboard = ({
+const StatesMapDashboard = ({
   geoJsonData,
   initialViewState,
   covidData,
@@ -63,6 +63,16 @@ const StateMapDashboard = ({
             onChange={(e) => _handleCasesType(e)}
           />
           <label htmlFor="total_deaths">Total Deaths</label>
+          <input
+            type="radio"
+            id="total_vaccinated_per_thousand"
+            name="cases"
+            value="total_vaccinated_per_thousand"
+            onChange={(e) => _handleCasesType(e)}
+          />
+          <label htmlFor="total_vaccinated_per_thousand" className="totalVaccinatedLabel">
+            Total Vaccinated
+          </label>
         </div>
       </div>
       <div>
@@ -78,4 +88,4 @@ const StateMapDashboard = ({
   )
 }
 
-export default StateMapDashboard
+export default StatesMapDashboard

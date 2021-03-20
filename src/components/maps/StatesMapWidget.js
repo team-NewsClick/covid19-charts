@@ -15,7 +15,7 @@ import {
   sortLegends,
   indPlaceVal
 } from "../../utils"
-import { MAP_COLOR_DOMAIN } from "../../constants"
+import { MAP_COLOR_DOMAIN, MAP_VACCINE_COLOR_DOMAIN } from "../../constants"
 /**
  * Plot Map and Deckgl Layers
  * @component
@@ -36,7 +36,11 @@ const StatesMapWidget = ({
   const maxValue = calcuateMaximum(covidData, casesType)
   const minValue = calcuateMinimum(covidData, casesType)
   const domainValues = calculateDomain(covidData, casesType)
-  let colors = scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
+  let colors =
+    casesType === "total_vaccinated_per_thousand"
+      ? scaleQuantile().domain(domainValues).range(MAP_VACCINE_COLOR_DOMAIN)
+      : scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
+
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
     const casesObject = covidData.filter((row) => {
@@ -72,12 +76,14 @@ const StatesMapWidget = ({
             <div>Total Cases: ${indPlaceVal(cases.total_cases)}</div>
             <div>Total Deaths: ${indPlaceVal(cases.total_deaths)}</div>
             <div>Total Recovered: ${indPlaceVal(cases.total_recovered)}</div>
+            <div>Total Vaccinated: ${indPlaceVal(cases.total_vaccinated)}</div>
           </div>
             `
         }
       )
     }
   }
+
   const layer = [
     new GeoJsonLayer({
       id: "geojson-layer",
@@ -91,9 +97,28 @@ const StatesMapWidget = ({
       pickable: true
     })
   ]
+
   const colorDomains = colors.domain()
   const legends = sortLegends(maxValue, colors, colorDomains)
 
+  const LegendDescription = () => {
+    switch (casesType) {
+      case "active":
+        return "Active Cases"
+      case "new_cases":
+        return "New Cases"
+      case "new_deaths":
+        return "New Deaths"
+      case "total_cases":
+        return "Total Cases"
+      case "total_deaths":
+        return "Total Deaths"
+      case "total_vaccinated_per_thousand":
+        return "Vaccinations/1000 Population"
+      default:
+        return ""
+    }
+  }
   return (
     <div>
       <DeckGL
@@ -120,9 +145,9 @@ const StatesMapWidget = ({
             style={
               window && window.innerWidth < 700
                 ? window.innerWidth > 500
-                  ? { bottom: "2.5rem", right: "8.5rem", fontSize: "0.8rem" }
-                  : { bottom: "0.2rem", right: "4.5rem" }
-                : { bottom: "6.5rem", right: "15rem", fontSize: "1rem" }
+                  ? { bottom: "2.5rem", right: "2rem", fontSize: "0.8rem" }
+                  : { bottom: "0.2rem", right: "1rem" }
+                : { bottom: "6.5rem", right: "12rem", fontSize: "1rem" }
             }
           >
             <div
@@ -143,14 +168,13 @@ const StatesMapWidget = ({
                     }
               }
             >
-              Number of{" "}
-              {casesType == "active"
-                ? "Active Cases"
-                : casesType == "new_cases"
-                ? "New Cases"
-                : casesType == "total_cases"
-                ? "Total Cases"
-                : "Total Deaths"}
+              {casesType === "total_vaccinated_per_thousand" ? (
+                <>
+                  <LegendDescription />
+                </>
+              ) : (
+                <LegendDescription />
+              )}
             </div>
             {legends.map((l, i) => (
               <div

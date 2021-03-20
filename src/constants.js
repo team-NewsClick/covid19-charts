@@ -127,6 +127,18 @@ export const MAP_COLOR_DOMAIN = [
 ]
 
 /**
+ * Color Domain for the Vaccinated Heat Maps
+ */
+export const MAP_VACCINE_COLOR_DOMAIN = [
+  [237, 248, 251],
+  [204, 236, 230],
+  [153, 216, 201],
+  [102, 194, 164],
+  [44, 162, 95],
+  [0, 109, 44]
+]
+
+/**
  * Color for State Border in District Maps
  */
 export const DISTRICT_STATE_BORDER_COLOR = [245, 245, 245, 255]

@@ -198,7 +198,7 @@ const CovidDashboard = (props) => {
               defaultChecked
               onChange={(e) => _handleCasesType(e)}
             />
-            <label htmlFor="confirmed">Confirmed</label>
+            <label htmlFor="confirmed">Cases</label>
           </div>
           <div className="radio-toolbar m-2">
             <input

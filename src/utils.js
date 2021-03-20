@@ -306,3 +306,59 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
   legends[legends.length - 1].upperBound = maxValue
   return legends
 }
+
+/**
+ * To check whether a data point is near by other points of the array
+ * @param {Object} data - Coordinte
+ * @param {Array<Object>} adjustedLabelSeries - Selected Countries Data
+ * @param {Integer} yMax - Maximum Value of y-axis
+ * @param {String} scaleType - Log or Linear
+ * @return {Object} - A data point which is not nearby other points in the array
+ */
+export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
+  let doRecurssion = false
+  let adjustedPoints_Y = []
+
+  if (adjustedLabelSeries.length === 0) {
+    return { x: data.x, y: data.y, region: data.region }
+  } else {
+    if (scaleType === "linear") {
+      const interferenceY = window.innerWidth > 400 ? 0.014 : 0.016
+      const maxRange = yMax * interferenceY + parseInt(data.y)
+      const minRange = Math.abs(yMax * interferenceY - parseInt(data.y))
+      adjustedPoints_Y = adjustedLabelSeries.map((row) => {
+        let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
+        if (diff < 0) {
+          doRecurssion = true
+          return parseInt(data.y) + 0.2 * yMax * interferenceY
+        } else {
+          return parseInt(data.y)
+        }
+      })
+    } else {
+      const interferenceY = parseInt(data.y) * 0.2
+      const maxRange = parseInt(data.y) + interferenceY
+      const minRange = Math.abs(parseInt(data.y) - interferenceY)
+      adjustedPoints_Y = adjustedLabelSeries.map((row) => {
+        let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
+        if (diff < 0) {
+          doRecurssion = true
+          return parseInt(data.y) + 0.5 * interferenceY
+        } else {
+          return parseInt(data.y)
+        }
+      })
+    }
+    let sortedTempArray = adjustedPoints_Y.sort((a, b) => a - b).reverse()
+    if (doRecurssion === false) {
+      return { x: data.x, y: sortedTempArray[0], region: data.region }
+    } else {
+      return isNearBy(
+        { x: data.x, y: sortedTempArray[0], region: data.region },
+        adjustedLabelSeries,
+        yMax,
+        scaleType
+      )
+    }
+  }
+}
