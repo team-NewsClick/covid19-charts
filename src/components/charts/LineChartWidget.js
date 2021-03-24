@@ -308,7 +308,7 @@ const LineChartWidget = (props) => {
                 }
               ]}
               style={
-                selectedHighlight == index
+                selectedHighlight == d.index
                   ? { fontSize: "0.8rem", stroke: customColor[d.index] }
                   : { fontSize: "0.7rem", stroke: customColor[d.index] }
               }
