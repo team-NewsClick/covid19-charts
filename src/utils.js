@@ -316,6 +316,7 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
  * @return {Object} - A data point which is not nearby other points in the array
  */
 export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
+
   let doRecurssion = false
   let adjustedPoints_Y = []
 
@@ -343,7 +344,7 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
         let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
         if (diff < 0) {
           doRecurssion = true
-          return parseInt(data.y) + 0.5 * interferenceY
+          return parseInt(data.y) + 0.8 * interferenceY
         } else {
           return parseInt(data.y)
         }
