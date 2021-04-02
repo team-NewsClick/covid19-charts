@@ -63,16 +63,6 @@ const StatesMapDashboard = ({
             onChange={(e) => _handleCasesType(e)}
           />
           <label htmlFor="total_deaths">Total Deaths</label>
-          <input
-            type="radio"
-            id="total_vaccinated_per_thousand"
-            name="cases"
-            value="total_vaccinated_per_thousand"
-            onChange={(e) => _handleCasesType(e)}
-          />
-          <label htmlFor="total_vaccinated_per_thousand" className="totalVaccinatedLabel">
-            Vaccinations
-          </label>
         </div>
       </div>
       <div>

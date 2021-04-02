@@ -173,6 +173,10 @@ body {
 .totalVaccinatedLabel {
   width: 5rem !important;
 }
+.vaccinationVizLabel {
+  width: max-content !important;
+  padding: 1rem;
+}
 /* hamberger-menu start */
 #menu {
   width: 25px;

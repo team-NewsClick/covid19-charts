@@ -329,9 +329,12 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
       const minRange = Math.abs(yMax * interferenceY - parseInt(data.y))
       adjustedPoints_Y = adjustedLabelSeries.map((row) => {
         let diff = (parseInt(row.y) - minRange) / (parseInt(row.y) - maxRange)
-        if (diff < 0) {
+        if (diff <= 0) {
           doRecurssion = true
-          return parseInt(data.y) + 0.2 * yMax * interferenceY
+          return parseInt(data.y) + 0.4 * yMax * interferenceY
+        } else if (diff == 1) {
+          doRecurssion = true
+          return parseInt(data.y) + 1.5 * yMax * interferenceY
         } else {
           return parseInt(data.y)
         }

@@ -89,14 +89,7 @@ const LineChartWidget = (props) => {
       adjustedLabelSeries.push(adjustedPoint)
     })
     setSelectedLabelSeriesData(adjustedLabelSeries)
-  }, [
-    selected,
-    interactiveSelects,
-    casesType,
-    scaleType,
-    dataType,
-    datesAdjusted
-  ])
+  }, [ selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
 
   if (data.length == 0) {
     return (
@@ -289,7 +282,7 @@ const LineChartWidget = (props) => {
             <LineSeries
               key={index}
               curve={"curveMonotoneX"}
-              data={casesType && d.data}
+              data={dataType && d.data}
               color={customColor[index]}
               strokeWidth={2}
               onSeriesMouseOver={(e) => _handleSelectedMouseOver(e, index)}

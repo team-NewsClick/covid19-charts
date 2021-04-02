@@ -8,6 +8,7 @@ import ArticleTitle from "../components/article/ArticleTitle"
 import FeatureImage from "../components/article/FeatureImage"
 import CovidUpdateIndia from "../components/article/CovidUpdateIndia"
 import CovidUpdateWorld from "../components/article/CovidUpdateWorld"
+import StateVaccination from "../components/StateVaccination"
 // import RelatedPosts from "../components/article/RelatedPosts"
 
 /**
@@ -74,6 +75,7 @@ const Article = () => {
               className="mx-auto mt-16"
             ></iframe>
           </div>
+          <StateVaccination className="mx-auto" />
           <div className="article-para">
             The Table below shows the movement of the 7-day moving average of
             Daily Covid-19 cases, Tests conducted and Positivity Rate (daily

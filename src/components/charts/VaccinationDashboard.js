@@ -3,7 +3,7 @@ import {
   processLogData,
   filterCases,
   processCumulativeData,
-  processDatesAdjusted
+  processPopulationPerThousand
 } from "../../utils"
 import {
   CasesType,
@@ -29,10 +29,9 @@ const CovidDashboard = (props) => {
   const data = props.data.data
   const trackerType = props.data.trackerType
 
-  const [casesType, setCasesType] = useState("confirmed")
   const [dataType, setDataType] = useState("new")
   const [scaleType, setScaleType] = useState("linear")
-  const [datesAdjusted, setDatesAdjusted] = useState("off")
+  const [populationPerThousand, setPopulationPerThousand] = useState("off")
   const [interactiveSelects, setInteractiveSelects] = useState([])
   const [interactiveSelectsDisplay, setInteractiveSelectsDisplay] = useState([])
   const [initBool, setInitBool] = useState(true)
@@ -40,13 +39,11 @@ const CovidDashboard = (props) => {
   const propsData = {
     data: null,
     interactiveSelects,
-    casesType,
     dataType,
     scaleType,
-    datesAdjusted,
+    populationPerThousand,
     trackerType,
-    lineLabel: "",
-    footNote: ""
+    lineLabel: ""
   }
   let chartHeading = ""
   let defaultSelect = {}
@@ -91,58 +88,25 @@ const CovidDashboard = (props) => {
     }
   }, [interactiveSelects])
 
-  if (casesType === "confirmed") {
-    propsData.lineLabel = "New Cases"
-    const initData =
-      dataType === "cumulative"
-        ? processCumulativeData(
-            filterCases(data, CasesType.CONFIRMED, dataType)
-          )
-        : filterCases(data, CasesType.CONFIRMED)
-    const scaleAdjustedData =
-      scaleType === "log" ? processLogData(initData) : initData
-    propsData.data =
-      datesAdjusted === "on"
-        ? processDatesAdjusted(scaleAdjustedData, CasesType.CONFIRMED, dataType)
-        : scaleAdjustedData
-  } else if (casesType === "deaths") {
-    propsData.lineLabel = "Deaths"
-    const initData =
-      dataType === "cumulative"
-        ? processCumulativeData(filterCases(data, CasesType.DEATHS, dataType))
-        : filterCases(data, CasesType.DEATHS)
-    const scaleAdjustedData =
-      scaleType === "log" ? processLogData(initData) : initData
-    propsData.data =
-      datesAdjusted === "on"
-        ? processDatesAdjusted(scaleAdjustedData, CasesType.DEATHS, dataType)
-        : scaleAdjustedData
+  let initData = []
+  switch (dataType) {
+    case "cumulative":
+      chartHeading = "Cumulative Vaccination"
+      propsData.lineLabel = "Total Vaccination"
+      initData = processCumulativeData(filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED))
+      break
+    case "new":
+      chartHeading = "Daily Vaccination"
+      propsData.lineLabel = "Vaccination"
+      initData = filterCases(data, CasesType.NEW_DOSES_ADMINISTERED)
+      break
+    case "per-thousand":
+      chartHeading = "Vaccination/1000 population"
+      propsData.lineLabel = "Vaccination/1000"
+      initData = filterCases(data, CasesType.TOTAL_VACCINATED_PER_THOUSAND)
+      break
   }
-  if (datesAdjusted === "on") {
-    if (dataType === "cumulative") {
-      propsData.footNote =
-        casesType === "confirmed"
-          ? `Number of days since ${cutoffValues.CUMMULATIVE} cases first recorded`
-          : `Number of days since ${cutoffValues.CUMMULATIVE} deaths first recorded`
-    } else if (dataType === "new") {
-      propsData.footNote =
-        casesType === "confirmed"
-          ? `Number of days since ${cutoffValues.CONFIRMED} cases first recorded`
-          : `Number of days since ${cutoffValues.DEATHS} deaths first recorded`
-    }
-  }
-
-  if (dataType === "cumulative") {
-    chartHeading =
-      casesType === "confirmed"
-        ? "Cumulative confirmed cases"
-        : "Cumulative deaths attributed"
-  } else {
-    chartHeading =
-      casesType === "confirmed"
-        ? "New confirmed cases"
-        : "New deaths attributed"
-  }
+  propsData.data = scaleType === "log" ? processLogData(initData) : initData
 
   const _handleSelectChange = (e) => {
     if (e && e.length > 0) {
@@ -161,45 +125,23 @@ const CovidDashboard = (props) => {
       setInteractiveSelectsDisplay([])
     }
   }
-  const _handleCasesType = (e) => {
-    setCasesType(e.currentTarget.value)
-  }
   const _handleDataType = (e) => {
     setDataType(e.currentTarget.value)
   }
   const _handleScaleType = (e) => {
     setScaleType(e.currentTarget.value)
   }
-  const _handleDatesAdjusted = (e) => {
-    setDatesAdjusted(e.currentTarget.value)
+  const _handlePopulationPerThousand = (e) => {
+    setPopulationPerThousand(e.currentTarget.value)
   }
 
   return (
     <div>
       <div>
         <div className="text-2xl text-center font-black m-2 leading-7">
-          COVID-19 Tracker
+          Vaccination Tracker
         </div>
         <div className="flex justify-center">
-          <div className="radio-toolbar m-2">
-            <input
-              type="radio"
-              id="deaths"
-              name="cases"
-              value="deaths"
-              onChange={(e) => _handleCasesType(e)}
-            />
-            <label htmlFor="deaths">Deaths</label>
-            <input
-              type="radio"
-              id="confirmed"
-              name="cases"
-              value="confirmed"
-              defaultChecked
-              onChange={(e) => _handleCasesType(e)}
-            />
-            <label htmlFor="confirmed">Cases</label>
-          </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
@@ -218,6 +160,14 @@ const CovidDashboard = (props) => {
               onChange={(e) => _handleDataType(e)}
             />
             <label htmlFor="cumulative">Cumulative</label>
+            <input
+              type="radio"
+              id="per-thousand"
+              name="data-type"
+              value="per-thousand"
+              onChange={(e) => _handleDataType(e)}
+            />
+            <label htmlFor="per-thousand">Per Thousand</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
@@ -237,26 +187,6 @@ const CovidDashboard = (props) => {
               onChange={(e) => _handleScaleType(e)}
             />
             <label htmlFor="linear">Linear</label>
-          </div>
-          <div className="radio-toolbar m-2">
-            <input
-              type="radio"
-              id="on"
-              name="adjust-date"
-              value="on"
-              onChange={(e) => _handleDatesAdjusted(e)}
-            />
-            <label htmlFor="on">On</label>
-            <input
-              type="radio"
-              id="off"
-              name="adjust-date"
-              value="off"
-              defaultChecked
-              onChange={(e) => _handleDatesAdjusted(e)}
-            />
-            <label htmlFor="off">Off</label>
-            <div className="radio-title">Date adjusted to outbreak start</div>
           </div>
         </div>
       </div>
@@ -292,7 +222,7 @@ const CovidDashboard = (props) => {
       >
         {interactiveSelectsDisplay && (
           <div className="text-lg font-semibold mt-4">
-            {chartHeading} of Covid-19 in{" "}
+            {chartHeading} for Covid-19 in{" "}
             {interactiveSelectsDisplay
               .join(", ")
               .replace(/, ([^,]*)$/, " and $1")}

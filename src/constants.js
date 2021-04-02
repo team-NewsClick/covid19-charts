@@ -57,7 +57,10 @@ export const cutoffValues = {
  */
 export const CasesType = {
   CONFIRMED: "new_cases",
-  DEATHS: "new_deaths"
+  DEATHS: "new_deaths",
+  NEW_DOSES_ADMINISTERED: "new_doses_administered",
+  TOTAL_DOSES_ADMINISTERED: "total_doses_administered",
+  TOTAL_VACCINATED_PER_THOUSAND: "total_vaccinated_per_thousand"
 }
 
 /**
