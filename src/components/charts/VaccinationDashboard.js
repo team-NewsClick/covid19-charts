@@ -43,7 +43,8 @@ const CovidDashboard = (props) => {
     scaleType,
     populationPerThousand,
     trackerType,
-    lineLabel: ""
+    lineLabel: "",
+    tickTotalValue: 5
   }
   let chartHeading = ""
   let defaultSelect = {}

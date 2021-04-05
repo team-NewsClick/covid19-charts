@@ -44,6 +44,7 @@ const LineChartWidget = (props) => {
   const datesAdjusted = props.data.datesAdjusted
   const casesType = props.data.casesType
   const dataType = props.data.dataType
+  const tickTotalValue = props.data.tickTotalValue
   const interactiveSelects = props.data.interactiveSelects
   const footNote = props.data.footNote
 
@@ -156,7 +157,7 @@ const LineChartWidget = (props) => {
         >
           <HorizontalGridLines />
           <XAxis
-            tickTotal={12}
+            tickTotal={tickTotalValue}
             tickFormat={(d) =>
               datesAdjusted === "on"
                 ? d

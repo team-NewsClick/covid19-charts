@@ -45,6 +45,7 @@ const CovidDashboard = (props) => {
     scaleType,
     datesAdjusted,
     trackerType,
+    tickTotalValue: 12,
     lineLabel: "",
     footNote: ""
   }
