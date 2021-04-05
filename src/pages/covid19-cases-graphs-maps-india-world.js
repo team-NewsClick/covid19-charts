@@ -17,7 +17,6 @@ import StateVaccination from "../components/StateVaccination"
  */
 const Article = () => {
   const [windowWidth, setWindowWidth] = useState("200px")
-  const [vaccinationViz, setVaccinationViz] = useState("vaccination-chart")
 
   useEffect(() => {
     setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
@@ -32,9 +31,6 @@ const Article = () => {
     })
   }, [])
 
-  const _handleVaccinationViz = (e) => {
-    setVaccinationViz(e.currentTarget.value)
-  }
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: "Noto Sans" }}>
       <title>COVID-19 Cases: Data and Graphs of India and the World</title>
@@ -79,39 +75,7 @@ const Article = () => {
               className="mx-auto mt-16"
             ></iframe>
           </div>
-          <iframe
-            id="cityTracker"
-            src="/charts/VaccinationStateTracker"
-            scrolling="no"
-            frameBorder="0"
-            width={windowWidth > 700 ? windowWidth * 0.67 : windowWidth * 0.95}
-            height={windowWidth < 800
-              ? windowWidth > 700
-                ? windowWidth * 0.92
-                : windowWidth * 1.6
-              : windowWidth * 0.52
-            }
-            className="mx-auto mt-16"
-          ></iframe>
-            <iframe
-              id="states-map"
-              src="/maps/VaccinationStates"
-              scrolling="no"
-              frameBorder="0"
-              width={windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.67
-                  : windowWidth * 0.9
-                : windowWidth * 0.4
-              }
-              height={windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.8
-                  : windowWidth * 1.18
-                : windowWidth * 0.48
-              }
-              className="mx-auto mt-16"
-            ></iframe>
+          <StateVaccination className="mx-auto" />
           <div className="article-para">
             The Table below shows the movement of the 7-day moving average of
             Daily Covid-19 cases, Tests conducted and Positivity Rate (daily
