@@ -138,9 +138,6 @@ const CovidDashboard = (props) => {
   return (
     <div>
       <div>
-        <div className="text-2xl text-center font-black m-2 leading-7">
-          Vaccination Tracker
-        </div>
         <div className="flex justify-center">
           <div className="radio-toolbar m-2">
             <input

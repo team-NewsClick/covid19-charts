@@ -99,7 +99,7 @@ const VaccinationStatesMapWidget = ({
         height={window.innerWidth * 1.25}
         ContextProvider={MapContext.Provider}
       >
-        <div style={{ position: "absolute", right: 7, top: 5, zIndex: 1 }}>
+        <div style={{ position: "absolute", right: 7, top: 0, zIndex: 1 }}>
           <NavigationControl />
         </div>
         <StaticMap

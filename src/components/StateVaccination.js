@@ -8,11 +8,14 @@ const StateVaccination = () => {
   }, [])
 
   const _handleVaccinationViz = (e) => {
-      setVaccinationViz(e.currentTarget.value)
+    setVaccinationViz(e.currentTarget.value)
   }
 
   return (
     <div>
+      <div className="text-2xl text-center font-black m-2 leading-7">
+        Vaccination Tracker
+      </div>
       <div className="radio-toolbar m-2 flex justify-center">
         <input
           type="radio"
@@ -21,52 +24,60 @@ const StateVaccination = () => {
           value="vaccination-chart"
           defaultChecked
           onChange={(e) => _handleVaccinationViz(e)}
-          />
-        <label htmlFor="vaccination-chart" className="vaccinationVizLabel">Vaccination Chart</label>
+        />
+        <label htmlFor="vaccination-chart" className="vaccinationVizLabel">
+          Vaccination Chart
+        </label>
         <input
           type="radio"
           id="vaccination-map"
           name="vaccination-viz"
           value="vaccination-map"
           onChange={(e) => _handleVaccinationViz(e)}
-          />
-        <label htmlFor="vaccination-map" className="vaccinationVizLabel">Vaccination Map</label>
+        />
+        <label htmlFor="vaccination-map" className="vaccinationVizLabel">
+          Vaccination Map
+        </label>
       </div>
-      {vaccinationViz === "vaccination-chart"
-        ? <iframe
-            id="cityTracker"
-            src="/charts/VaccinationStateTracker"
-            scrolling="no"
-            frameBorder="0"
-            width={windowWidth > 700 ? windowWidth * 0.67 : windowWidth * 0.95}
-            height={windowWidth < 800
+      {vaccinationViz === "vaccination-chart" ? (
+        <iframe
+          id="cityTracker"
+          src="/charts/VaccinationStateTracker"
+          scrolling="no"
+          frameBorder="0"
+          width={windowWidth > 700 ? windowWidth * 0.67 : windowWidth * 0.95}
+          height={
+            windowWidth < 800
               ? windowWidth > 700
                 ? windowWidth * 0.92
                 : windowWidth * 1.6
               : windowWidth * 0.52
-            }
-            className="mx-auto mt-16"
-          ></iframe>
-        : <iframe
-            id="states-map"
-            src="/maps/VaccinationStates"
-            scrolling="no"
-            frameBorder="0"
-            width={windowWidth < 800
+          }
+          className="mx-auto mt-8"
+        ></iframe>
+      ) : (
+        <iframe
+          id="states-map"
+          src="/maps/VaccinationStates"
+          scrolling="no"
+          frameBorder="0"
+          width={
+            windowWidth < 800
               ? windowWidth > 700
                 ? windowWidth * 0.67
                 : windowWidth * 0.9
               : windowWidth * 0.4
-            }
-            height={windowWidth < 800
+          }
+          height={
+            windowWidth < 800
               ? windowWidth > 700
                 ? windowWidth * 0.8
                 : windowWidth * 1.18
               : windowWidth * 0.48
-            }
-            className="mx-auto mt-16"
-          ></iframe>
-      }
+          }
+          className="mx-auto"
+        ></iframe>
+      )}
     </div>
   )
 }
