@@ -137,7 +137,7 @@ const VaccinationStatesMapWidget = ({
                     }
               }
             >
-            Vaccinations/100000 Population
+            Vaccinations/1 Lakh Population
             </div>
             {legends.map((l, i) => (
               <div
