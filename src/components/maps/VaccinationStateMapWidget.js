@@ -137,7 +137,7 @@ const VaccinationStatesMapWidget = ({
                     }
               }
             >
-            Vaccinations/1000 Population
+            Vaccinations/100000 Population
             </div>
             {legends.map((l, i) => (
               <div
