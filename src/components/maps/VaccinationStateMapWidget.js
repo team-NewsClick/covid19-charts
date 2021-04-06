@@ -62,7 +62,7 @@ const VaccinationStatesMapWidget = ({
           html: `\
           <div>
             <div><b>State: ${cases.region}</b></div>
-            <div>Vaccinated per Lakh: ${indPlaceVal(cases.total_vaccinated_per_one_lakh)}</div>
+            <div>Vaccinated Per Lakh: ${indPlaceVal(cases.total_vaccinated_per_one_lakh)}</div>
             <div>Total Vaccinated: ${indPlaceVal(cases.total_vaccinated)}</div>
           </div>
             `
