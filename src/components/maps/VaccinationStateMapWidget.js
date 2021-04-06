@@ -29,20 +29,20 @@ const VaccinationStatesMapWidget = ({
   regionKey
 }) => {
   const [jsonData, setJsonData] = useState(geoJsonData)
-  const maxValue = calcuateMaximum(vaccinationStateData, "total_vaccinated_per_thousand")
-  const minValue = calcuateMinimum(vaccinationStateData, "total_vaccinated_per_thousand")
-  const domainValues = calculateDomain(vaccinationStateData, "total_vaccinated_per_thousand")
+  const maxValue = calcuateMaximum(vaccinationStateData, "total_vaccinated_per_one_lakh")
+  const minValue = calcuateMinimum(vaccinationStateData, "total_vaccinated_per_one_lakh")
+  const domainValues = calculateDomain(vaccinationStateData, "total_vaccinated_per_one_lakh")
   let colors = scaleQuantile().domain(domainValues).range(MAP_VACCINE_COLOR_DOMAIN)
   
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
     const casesObject = vaccinationStateData.filter((row) => {
       if (sortByKey == row.region) {
-        return row["total_vaccinated_per_thousand"]
+        return row["total_vaccinated_per_one_lakh"]
       }
     })
     if (casesObject.length !== 0) {
-      const cases = casesObject[0]["total_vaccinated_per_thousand"]
+      const cases = casesObject[0]["total_vaccinated_per_one_lakh"]
       return colors(normalizeValue(cases, maxValue, minValue))
     } else {
       return [255, 255, 255, 0]
@@ -62,7 +62,7 @@ const VaccinationStatesMapWidget = ({
           html: `\
           <div>
             <div><b>State: ${cases.region}</b></div>
-            <div>Total Vaccinated: ${indPlaceVal(cases.total_vaccinated)}</div>
+            <div>Vaccinated/Lakh: ${indPlaceVal(cases.total_vaccinated_per_one_lakh)}</div>
           </div>
             `
         }

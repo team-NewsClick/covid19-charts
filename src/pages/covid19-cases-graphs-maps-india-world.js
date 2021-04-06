@@ -75,6 +75,9 @@ const Article = () => {
               className="mx-auto mt-16"
             ></iframe>
           </div>
+          <div className="article-para">
+            The section below displays state-wise vaccination data.
+          </div>
           <StateVaccination className="mx-auto" />
           <div className="article-para">
             The Table below shows the movement of the 7-day moving average of

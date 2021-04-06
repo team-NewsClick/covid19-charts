@@ -31,7 +31,7 @@ const CovidDashboard = (props) => {
 
   const [dataType, setDataType] = useState("new")
   const [scaleType, setScaleType] = useState("linear")
-  const [populationPerThousand, setPopulationPerThousand] = useState("off")
+  const [perLakh, setPerLakh] = useState("off")
   const [interactiveSelects, setInteractiveSelects] = useState([])
   const [interactiveSelectsDisplay, setInteractiveSelectsDisplay] = useState([])
   const [initBool, setInitBool] = useState(true)
@@ -41,7 +41,7 @@ const CovidDashboard = (props) => {
     interactiveSelects,
     dataType,
     scaleType,
-    populationPerThousand,
+    perLakh,
     trackerType,
     lineLabel: "",
     tickTotalValue: 5
@@ -90,23 +90,28 @@ const CovidDashboard = (props) => {
   }, [interactiveSelects])
 
   let initData = []
-  switch (dataType) {
-    case "cumulative":
-      chartHeading = "Cumulative Vaccination"
-      propsData.lineLabel = "Total Vaccination"
-      initData = processCumulativeData(filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED))
-      break
-    case "new":
-      chartHeading = "Daily Vaccination"
-      propsData.lineLabel = "Vaccination"
-      initData = filterCases(data, CasesType.NEW_DOSES_ADMINISTERED)
-      break
-    case "per-thousand":
-      chartHeading = "Vaccination/1000 population"
-      propsData.lineLabel = "Vaccination/1000"
-      initData = filterCases(data, CasesType.TOTAL_VACCINATED_PER_THOUSAND)
-      break
-  }
+  chartHeading = dataType === "cumulative" 
+    ? perLakh === "on"
+      ? "Total vaccinations/1000"
+      : "Total vaccinations"
+    : perLakh === "on"
+      ? "Daily Vaccinations/1000"
+      : "Daily Vaccinations"
+
+  propsData.lineLabel = dataType === "cumulative" 
+    ? perLakh === "on"
+      ? "Total vaccinations/1000"
+      : "Total vaccinations"
+    : perLakh === "on"
+      ? "Vaccinations/1000"
+      : "Vaccinations"
+  initData = dataType === "cumulative" 
+    ? perLakh === "on"
+    ? processCumulativeData(filterCases(data, CasesType.TOTAL_VACCINATED_PER_LAKH))
+    : processCumulativeData(filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED))
+    : perLakh === "on"
+      ? filterCases(data, CasesType.NEW_VACCINATED_PER_LAKH)
+      : filterCases(data, CasesType.NEW_DOSES_ADMINISTERED)
   propsData.data = scaleType === "log" ? processLogData(initData) : initData
 
   const _handleSelectChange = (e) => {
@@ -132,8 +137,8 @@ const CovidDashboard = (props) => {
   const _handleScaleType = (e) => {
     setScaleType(e.currentTarget.value)
   }
-  const _handlePopulationPerThousand = (e) => {
-    setPopulationPerThousand(e.currentTarget.value)
+  const _handlePerLakh = (e) => {
+    setPerLakh(e.currentTarget.value)
   }
 
   return (
@@ -158,14 +163,6 @@ const CovidDashboard = (props) => {
               onChange={(e) => _handleDataType(e)}
             />
             <label htmlFor="cumulative">Cumulative</label>
-            <input
-              type="radio"
-              id="per-thousand"
-              name="data-type"
-              value="per-thousand"
-              onChange={(e) => _handleDataType(e)}
-            />
-            <label htmlFor="per-thousand">Per Thousand</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
@@ -185,6 +182,25 @@ const CovidDashboard = (props) => {
               onChange={(e) => _handleScaleType(e)}
             />
             <label htmlFor="linear">Linear</label>
+          </div>
+          <div className="radio-toolbar m-2">
+            <input
+              type="radio"
+              id="off"
+              name="perLakh"
+              value="off"
+              defaultChecked
+              onChange={(e) => _handlePerLakh(e)}
+            />
+            <label htmlFor="off">Raw</label>
+            <input
+              type="radio"
+              id="on"
+              name="perLakh"
+              value="on"
+              onChange={(e) => _handlePerLakh(e)}
+            />
+            <label htmlFor="on">Per 1L</label>
           </div>
         </div>
       </div>

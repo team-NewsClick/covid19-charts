@@ -32,6 +32,7 @@ const CovidDashboard = (props) => {
   const [casesType, setCasesType] = useState("confirmed")
   const [dataType, setDataType] = useState("new")
   const [scaleType, setScaleType] = useState("linear")
+  const [perLakh, setperLakh] = useState("off")
   const [datesAdjusted, setDatesAdjusted] = useState("off")
   const [interactiveSelects, setInteractiveSelects] = useState([])
   const [interactiveSelectsDisplay, setInteractiveSelectsDisplay] = useState([])
@@ -45,6 +46,7 @@ const CovidDashboard = (props) => {
     scaleType,
     datesAdjusted,
     trackerType,
+    perLakh,
     tickTotalValue: 12,
     lineLabel: "",
     footNote: ""

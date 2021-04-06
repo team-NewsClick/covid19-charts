@@ -42,6 +42,7 @@ const LineChartWidget = (props) => {
   const lineLabel = props.data.lineLabel
   const scaleType = props.data.scaleType
   const datesAdjusted = props.data.datesAdjusted
+  const perLakh = props.data.perLakh
   const casesType = props.data.casesType
   const dataType = props.data.dataType
   const tickTotalValue = props.data.tickTotalValue
@@ -72,7 +73,7 @@ const LineChartWidget = (props) => {
     } else {
       setselected([])
     }
-  }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
+  }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted, perLakh])
 
   useEffect(() => {
     const sortedPreAdjustedLabelSeries = selected.map((d, i) => {
@@ -86,11 +87,11 @@ const LineChartWidget = (props) => {
     let adjustedLabelSeries = []
     let adjustedPoint = null
     sortedPreAdjustedLabelSeries.map((d) => {
-      adjustedPoint = isNearBy(d, adjustedLabelSeries, yMaxRange, scaleType)
+      adjustedPoint = isNearBy(d, adjustedLabelSeries, yMaxRange, scaleType, perLakh)
       adjustedLabelSeries.push(adjustedPoint)
     })
     setSelectedLabelSeriesData(adjustedLabelSeries)
-  }, [ selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted])
+  }, [ selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted, perLakh])
 
   if (data.length == 0) {
     return (
