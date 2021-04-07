@@ -132,24 +132,29 @@ const Article = () => {
               className="mx-auto mt-16"
             ></iframe>
           </div>
-          <div className="article-para">
-            The set of maps below shows statistics for all the States in India.
-          </div>
-          <div className="flex pb-12">
-            <iframe
-              id="states-map"
-              src="/maps/states"
-              scrolling="no"
-              frameBorder="0"
-              width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.8
-                  : windowWidth * 1.18
-                : windowWidth * 0.48
-              ).toString()}
-              className="mx-auto mt-16"
-            ></iframe>
+          <div>
+            <div className="create-anchor opacity-0 height-0">
+              COVID Maps: India
+            </div>
+            <div className="article-para">
+              The set of maps below shows statistics for all the States in India.
+            </div>
+            <div className="flex pb-12">
+              <iframe
+                id="states-map"
+                src="/maps/states"
+                scrolling="no"
+                frameBorder="0"
+                width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
+                height={(windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.8
+                    : windowWidth * 1.18
+                  : windowWidth * 0.48
+                ).toString()}
+                className="mx-auto mt-16"
+              ></iframe>
+            </div>
           </div>
           <div className="article-para">
             The set of maps below shows district level statistics for all the
