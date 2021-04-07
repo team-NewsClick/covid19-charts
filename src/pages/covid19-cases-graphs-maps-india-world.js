@@ -43,7 +43,7 @@ const Article = () => {
           <FeatureImage />
           <AnchorLinks />
           <IntroductionThumbnail />
-          <div className="article-subheading">
+          <div className="create-anchor article-subheading">
             COVID-19 Infections and Deaths : India
           </div>
           <CovidUpdateIndia />
@@ -78,7 +78,12 @@ const Article = () => {
           <div className="article-para">
             The section below displays state-wise vaccination data.
           </div>
-          <StateVaccination className="mx-auto" />
+          <div>
+            <div className="create-anchor opacity-0 height-0">
+                Vaccination: India
+            </div>
+            <StateVaccination className="mx-auto" />
+          </div>
           <div className="article-para">
             The Table below shows the movement of the 7-day moving average of
             Daily Covid-19 cases, Tests conducted and Positivity Rate (daily
@@ -87,6 +92,9 @@ const Article = () => {
             tests is also shown for each state.
           </div>
           <div className="my-16">
+            <div className="create-anchor opacity-0 height-0">
+              Testing Data: India
+            </div>
             <iframe
               title="COVID-19 Testing Data for Indian States &amp;amp; UT"
               aria-label="chart"
@@ -175,7 +183,7 @@ const Article = () => {
               className="mx-auto mt-16"
             ></iframe>
           </div>
-          <div className="article-subheading">
+          <div className="create-anchor article-subheading">
             COVID-19 Infections and Deaths: Global
           </div>
           <CovidUpdateWorld />

@@ -5,7 +5,7 @@
  */
 const AnchorLinks = () => {
   if (typeof window !== "undefined") {
-    let anchorPoints = document.getElementsByClassName("article-subheading")
+    let anchorPoints = document.getElementsByClassName("create-anchor")
     let anchorLinks = document.getElementById("anchor-links")
     for (let i = 0; i < anchorPoints.length; i++) {
       anchorPoints[i].id = anchorPoints[i].textContent
