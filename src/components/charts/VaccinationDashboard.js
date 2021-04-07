@@ -90,26 +90,29 @@ const CovidDashboard = (props) => {
   }, [interactiveSelects])
 
   let initData = []
-  chartHeading = dataType === "cumulative" 
-    ? perLakh === "on"
-      ? "Total vaccinations/Lakh"
-      : "Total vaccinations"
-    : perLakh === "on"
+  chartHeading =
+    dataType === "cumulative"
+      ? perLakh === "on"
+        ? "Total vaccinations/Lakh"
+        : "Total vaccinations"
+      : perLakh === "on"
       ? "Daily Vaccinations/Lakh"
       : "Daily Vaccinations"
 
-  propsData.lineLabel = dataType === "cumulative" 
-    ? perLakh === "on"
-      ? "Total vaccinations/Lakh"
-      : "Total vaccinations"
-    : perLakh === "on"
+  propsData.lineLabel =
+    dataType === "cumulative"
+      ? perLakh === "on"
+        ? "Total vaccinations/Lakh"
+        : "Total vaccinations"
+      : perLakh === "on"
       ? "Vaccinations/Lakh"
       : "Vaccinations"
-  initData = dataType === "cumulative" 
-    ? perLakh === "on"
-    ? processCumulativeData(filterCases(data, CasesType.TOTAL_VACCINATED_PER_LAKH))
-    : processCumulativeData(filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED))
-    : perLakh === "on"
+  initData =
+    dataType === "cumulative"
+      ? perLakh === "on"
+        ? filterCases(data, CasesType.TOTAL_VACCINATED_PER_LAKH)
+        : filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED)
+      : perLakh === "on"
       ? filterCases(data, CasesType.NEW_VACCINATED_PER_LAKH)
       : filterCases(data, CasesType.NEW_DOSES_ADMINISTERED)
   propsData.data = scaleType === "log" ? processLogData(initData) : initData
@@ -217,9 +220,7 @@ const CovidDashboard = (props) => {
           options={interactiveSelects.length >= 6 ? [] : dropDownOptions}
           components={{
             NoOptionsMessage: () => (
-              <div className="noOptions">
-                No options available
-              </div>
+              <div className="noOptions">No options available</div>
             )
           }}
           isSearchable
