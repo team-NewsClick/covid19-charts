@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Release titles do not link to the commits within the release
 - This project only strictly adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for bug fix releases.
 
+## [1.3.1] - 2021-04-09
+
+### Added
+
+- Total Vaccinations and New Vaccines Administered to COVID-19 UPDATE: India Card
+
 ## [1.2.1] - 2021-04-07
 
 ### Added
