@@ -1,6 +1,32 @@
 import { cutoffValues, CasesType } from "./constants"
 
 /**
+ * To find region the highest new confirmed cases
+ * @param {Array<Object>} data List of regions and their respective new confirmed cases data
+ * @returns {Array<Object>} - Three regions with highest new confirmed cases
+ */
+export const getDefaultSelects = (data) => {
+  let newConfirmedCases = filterCases(data, "new_cases")
+  const lastDayData = []
+  let sorted =[]
+  let defaultRegions = []
+  newConfirmedCases.length > 0 && newConfirmedCases.map((d) => {
+    lastDayData.push({
+      region: d.region,
+      y: parseInt(d.data[d.data.length -1].y)
+    })
+  })
+  sorted = lastDayData.sort((a, b) => a.y < b.y ? 1 : (a.y) > b.y ? -1 : 0)
+  for(let i = 0; i <3; i++) {
+    defaultRegions.push({
+      value: sorted[i].region,
+      label: sorted[i].region
+    })
+  }
+  return defaultRegions
+}
+
+/**
  * Filter COVID-19 cases by caseType with a cutoff date
  * @param {Array.<Object>} data - Array of Objects for COVID-19 cases
  * @param {string} caseType - Cases to Filter

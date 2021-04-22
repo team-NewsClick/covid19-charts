@@ -3,7 +3,8 @@ import {
   processLogData,
   filterCases,
   processCumulativeData,
-  processDatesAdjusted
+  processDatesAdjusted,
+  getDefaultSelects
 } from "../../utils"
 import {
   CasesType,
@@ -52,19 +53,7 @@ const CovidDashboard = (props) => {
     footNote: ""
   }
   let chartHeading = ""
-  let defaultSelect = {}
-
-  switch (trackerType) {
-    case "country":
-      defaultSelect = DefaultSelectCountry
-      break
-    case "state":
-      defaultSelect = DefaultSelectState
-      break
-    case "city":
-      defaultSelect = DefaultSelectCity
-      break
-  }
+  let defaultSelect = getDefaultSelects(data)
 
   const uniqueSelect = [...new Set(data.map((row) => row.region))]
   const dropDownOptions = uniqueSelect.map((row) => {
