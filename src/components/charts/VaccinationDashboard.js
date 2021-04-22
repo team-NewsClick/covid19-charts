@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import {
   processLogData,
   filterCases,
-  processCumulativeData,
-  processPopulationPerThousand
+  getDefaultSelects
 } from "../../utils"
 import {
   CasesType,
@@ -47,19 +46,7 @@ const CovidDashboard = (props) => {
     tickTotalValue: 5
   }
   let chartHeading = ""
-  let defaultSelect = {}
-
-  switch (trackerType) {
-    case "country":
-      defaultSelect = DefaultSelectCountry
-      break
-    case "state":
-      defaultSelect = DefaultSelectState
-      break
-    case "city":
-      defaultSelect = DefaultSelectCity
-      break
-  }
+  let defaultSelect = getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)
 
   const uniqueSelect = [...new Set(data.map((row) => row.region))]
   const dropDownOptions = uniqueSelect.map((row) => {

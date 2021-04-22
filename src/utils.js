@@ -5,8 +5,8 @@ import { cutoffValues, CasesType } from "./constants"
  * @param {Array<Object>} data List of regions and their respective new confirmed cases data
  * @returns {Array<Object>} - Three regions with highest new confirmed cases
  */
-export const getDefaultSelects = (data) => {
-  let newConfirmedCases = filterCases(data, "new_cases")
+export const getDefaultSelects = (data, casesType) => {
+  let newConfirmedCases = filterCases(data, casesType)
   const lastDayData = []
   let sorted =[]
   let defaultRegions = []

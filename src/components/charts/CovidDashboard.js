@@ -53,7 +53,7 @@ const CovidDashboard = (props) => {
     footNote: ""
   }
   let chartHeading = ""
-  let defaultSelect = getDefaultSelects(data)
+  let defaultSelect = getDefaultSelects(data, CasesType.CONFIRMED)
 
   const uniqueSelect = [...new Set(data.map((row) => row.region))]
   const dropDownOptions = uniqueSelect.map((row) => {
