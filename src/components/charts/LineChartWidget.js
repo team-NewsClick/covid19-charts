@@ -57,7 +57,7 @@ const LineChartWidget = (props) => {
   const [selectedLabelSeriesData, setSelectedLabelSeriesData] = useState([])
 
   const yMinRangeLog = calculateYMinValue(dataType, casesType, datesAdjusted)
-  const yMaxRange = calculateYMaxValue(data)
+  const yMaxRange = calculateYMaxValue(data, scaleType)
   const xMinRange = calculateXMinValue(data, datesAdjusted)
   const xMaxRange = calculateXMaxValue(data)
 

@@ -165,7 +165,7 @@ export const calculateYMinValue = (dataType, casesType, datesAdjusted) => {
  * @param {Array.<Object>} data - Array of Objects for COVID-19 cases
  * @return {number} Vertex for y-axis
  */
-export const calculateYMaxValue = (data) => {
+export const calculateYMaxValue = (data, scaleType) => {
   let allRegionsMax = data.map((rd) => {
     let d = rd.data
     let regionMax = d.reduce((acc, e) => {
@@ -178,7 +178,7 @@ export const calculateYMaxValue = (data) => {
     acc = parseInt(e) > acc ? e : acc
     return acc
   }, 0)
-  return max * 1.15
+  return scaleType === "linear"  ? max * 1.15 : max * 4.5
 }
 
 /**
