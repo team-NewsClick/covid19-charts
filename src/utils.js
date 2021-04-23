@@ -204,7 +204,7 @@ export const calculateYMaxValue = (data, scaleType) => {
     acc = parseInt(e) > acc ? e : acc
     return acc
   }, 0)
-  return scaleType === "linear"  ? max * 1.15 : max * 4.5
+  return scaleType === "linear"  ? max * 1.15 : max * 2
 }
 
 /**
