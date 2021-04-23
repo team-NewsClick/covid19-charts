@@ -328,7 +328,7 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
           color: s.color
         })
   })
-  legends[0].lowerBound = 0
+  legends[0].lowerBound = 1
   legends[legends.length - 1].upperBound = maxValue
   return legends
 }

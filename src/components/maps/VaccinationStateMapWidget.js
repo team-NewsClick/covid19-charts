@@ -56,7 +56,7 @@ const VaccinationStatesMapWidget = ({
       const cases = casesObject[0]["total_vaccinated_per_one_lakh"]
       return colors(normalizeValue(cases, maxValue, minValue))
     } else {
-      return [255, 255, 255, 0]
+      return [255, 255, 255, 255]
     }
   }
   const _getTooltip = ({ object }) => {

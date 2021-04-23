@@ -50,9 +50,10 @@ const StatesMapWidget = ({
     })
     if (casesObject.length !== 0) {
       const cases = casesObject[0][casesType]
+      console.log(colors(normalizeValue(cases, maxValue, minValue)))
       return colors(normalizeValue(cases, maxValue, minValue))
     } else {
-      return [255, 255, 255, 0]
+      return [255, 255, 255, 255]
     }
   }
   const _getTooltip = ({ object }) => {
@@ -119,6 +120,7 @@ const StatesMapWidget = ({
         return ""
     }
   }
+
   return (
     <div>
       <DeckGL
@@ -168,13 +170,7 @@ const StatesMapWidget = ({
                     }
               }
             >
-              {casesType === "total_vaccinated_per_thousand" ? (
-                <>
-                  <LegendDescription />
-                </>
-              ) : (
-                <LegendDescription />
-              )}
+              <LegendDescription />
             </div>
             {legends.map((l, i) => (
               <div

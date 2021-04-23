@@ -53,7 +53,7 @@ const DistrictsMapWidget = ({
       const cases = casesObject[0][casesType]
       return colors(normalizeValue(cases, maxValue, minValue))
     } else {
-      return [255, 255, 255, 0]
+      return [255, 255, 255, 255]
     }
   }
   const _getTooltip = ({ object }) => {
