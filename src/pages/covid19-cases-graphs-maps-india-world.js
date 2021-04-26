@@ -51,8 +51,6 @@ const Article = () => {
             The chart below shows the trajectory of the pandemic in each state
             from March 2020, with a 7-day moving average. The user can select up
             to six States at a time.
-            <br />
-            <br />
             If the date adjusted tab is selected to on, it shows progression of
             the pandemic from when each state reached its first 100 cumulative
             cases and 10 new cases; e.g., Maharashtra reached its first 10 cases
@@ -115,8 +113,6 @@ const Article = () => {
             The chart below show the trajectory of the pandemic in each select
             city from April end, 2020 with a 7-day moving average. The user can
             select up to six States at a time.
-            <br />
-            <br />
             If the date adjusted tab is selected to on, it shows the progression
             of the pandemic from when each city reached cumulative 100 or 10 new
             cases per day, e.g, Mumbai reached this on 28 March 2020 and is
@@ -145,7 +141,7 @@ const Article = () => {
               COVID Maps: India
             </div>
             <div className="article-para">
-              The Map gives data on Total Cases, Active Cases, Total Deaths, New
+              The Map gives state-wise data on Total Cases, Active Cases, Total Deaths, New
               cases, and New Deaths with appropriate tabs.
             </div>
             <div className="flex pb-12">
@@ -196,8 +192,6 @@ const Article = () => {
             The chart below shows the trajectory of the pandemic across
             countries, with a 7-day moving average. The user can select up to
             six countries at a time.
-            <br />
-            <br />
             The starting point of a country is adjusted to a common zero day
             when each of them crossed the 100 mark for total cases, e.g., Italy
             started before others, and has been given the starting date of 0, on
