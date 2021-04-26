@@ -48,16 +48,18 @@ const Article = () => {
           </div>
           <CovidUpdateIndia />
           <div className="article-para">
-            In the chart below is shown the progress of the pandemic from when
-            each state reached its first 100 cases. Maharashtra and Kerala were
-            the two states that had their first 100 cases on the calendar day
-            March 25. That is considered day 0. The number of days each state is
-            behind Maharashtra is mentioned in the table below.
-          </div>
-          <div className="article-para">
-            Similarly, for new deaths, it is consider day 0 when the state
-            reached 2 cases per day. Maharashtra (day 0) reached it on April 2,
-            2020.
+            The chart below shows the trajectory of the pandemic in each state
+            from March 2020, with a 7-day moving average. The user can select up
+            to six States at a time.
+            <br />
+            <br />
+            If the date adjusted tab is selected to on, it shows progression of
+            the pandemic from when each state reached its first 100 cumulative
+            cases and 10 new cases; e.g., Maharashtra reached its first 10 cases
+            on March 25, 2020, and is taken as Day 0. Similarly, it is
+            considered Day 0 when a state reached the mark of first 3 new deaths
+            per day and first 100 cumulative deaths, e.g., Maharashtra (Day 0)
+            reached it on April 2, 2020.
           </div>
           <div className="flex items-center">
             <iframe
@@ -76,20 +78,23 @@ const Article = () => {
             ></iframe>
           </div>
           <div className="article-para">
-            The section below displays state-wise vaccination data.
+            The section below displays state-wise vaccination data. The
+            selections allow the user to get data on total vaccination doses
+            administered till date, daily vaccination doses and vaccination
+            doses administered per lakh (100,000) of population across States.
+            The data is also shown in the form of a Map.
           </div>
           <div>
             <div className="create-anchor opacity-0 height-0">
-                Vaccination: India
+              Vaccination: India
             </div>
             <StateVaccination className="mx-auto" />
           </div>
           <div className="article-para">
-            The Table below shows the movement of the 7-day moving average of
-            Daily Covid-19 cases, Tests conducted and Positivity Rate (daily
-            cases/tests) for the last 30 days for each state. Total Tests,
-            Tests/Million population and percentage of RT-PCR tests out of all
-            tests is also shown for each state.
+            The table below shows the 7-day moving average of Daily Covid-19
+            cases, Tests conducted and Positivity Rate (daily cases/tests) for
+            the last 30 days for each state. Total Tests and Tests/Million
+            population is also shown for each state.
           </div>
           <div className="my-16">
             <div className="create-anchor opacity-0 height-0">
@@ -107,14 +112,17 @@ const Article = () => {
             ></iframe>
           </div>
           <div className="article-para">
-            The graphs below show the statistics for selected cities. We have
-            adjusted starting point of the cities to a common zero day when each
-            of them crossed the 100 mark for total infected and 10 new cases per
-            day. Mumbai has surpassed this point on 28 March 2020. For total
-            deaths and new deaths, we have taken the starting point to be when
-            they have reported 5 deaths per day and 1 new death per day
-            respectively. For total deaths, Hyderabad and Ahmedabad will be
-            added as we gather the data.
+            The chart below show the trajectory of the pandemic in each select
+            city from April end, 2020 with a 7-day moving average. The user can
+            select up to six States at a time.
+            <br />
+            <br />
+            If the date adjusted tab is selected to on, it shows the progression
+            of the pandemic from when each city reached cumulative 100 or 10 new
+            cases per day, e.g, Mumbai reached this on 28 March 2020 and is
+            taken as zero date. For total deaths and new deaths, the starting
+            point is 100 deaths per day and 3 new death per day respectively in
+            Mumbai.
           </div>
           <div className="flex">
             <iframe
@@ -137,7 +145,8 @@ const Article = () => {
               COVID Maps: India
             </div>
             <div className="article-para">
-              The set of maps below shows statistics for all the States in India.
+              The Map gives data on Total Cases, Active Cases, Total Deaths, New
+              cases, and New Deaths with appropriate tabs.
             </div>
             <div className="flex pb-12">
               <iframe
@@ -157,20 +166,11 @@ const Article = () => {
             </div>
           </div>
           <div className="article-para">
-            The set of maps below shows district level statistics for all the
-            districts in India. However, for six States/UTs - Andaman and
-            Nicobar Islands, Assam, Goa, Manipur, Sikkim and Telangana, the
-            district wise data taken from government sources has some
-            discrepancies. For instance, for Active Cases in a particular State,
-            the separate district-wise data does not add up to the figure
-            provided for the entire State. The discrepancies in the data for
-            these six States/UTs may be present in categories - Active Cases,
-            Total Deaths, New cases, and New Deaths. We are showing all the
-            available data and request the readers to exercise caution while
-            studying/interpreting the data for these six States/UTs under these
-            four categories. The data for Total Cases has no such discrepancy.
-            Also, the district-wise data for Delhi is not given and in the Map
-            all seven districts show the data for the NCT of Delhi as a whole.
+            The map below gives district level Active Cases, Total Cases and
+            Total Deaths. For six States/UTs - Andaman and Nicobar Islands,
+            Assam, Goa, Manipur, Sikkim and Telangana, the district wise data
+            may have some discrepancies. Also, the district-wise data for Delhi
+            is not available and the map shows the data for the NCT of Delhi.
           </div>
           <div className="flex pb-12">
             <iframe
@@ -193,18 +193,16 @@ const Article = () => {
           </div>
           <CovidUpdateWorld />
           <div className="article-para">
-            The graph below show the progress of the disease in a country once
-            the number of total infected persons crosses the 100 mark. Since the
-            epidemic started in different countries at different times, it is
-            difficult to compare them. We have adjusted the starting point of a
-            country to a common zero day when each of them crossed the 100 mark
-            for total infected. In this group of countries, as Italy started
-            before others, it has been given the starting date of 0, which in
-            calendar terms was 23rd February. The table below the chart shows
-            how many days behind Italy they are. In the charts for total deaths
-            7-day moving average of new infections, instead of 100 mark for
-            infected, 10 for deaths and new infected have been used as the
-            benchmark.
+            The chart below shows the trajectory of the pandemic across
+            countries, with a 7-day moving average. The user can select up to
+            six countries at a time.
+            <br />
+            <br />
+            The starting point of a country is adjusted to a common zero day
+            when each of them crossed the 100 mark for total cases, e.g., Italy
+            started before others, and has been given the starting date of 0, on
+            23rd February, 2020. For total deaths, the starting point is 100
+            deaths and for new deaths it is 3 recorded deaths.
           </div>
           <div className="flex">
             <iframe
