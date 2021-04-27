@@ -83,14 +83,17 @@ const CovidDashboard = (props) => {
     }
   }, [interactiveSelects])
 
+  let initData = []
   if (casesType === "confirmed") {
-    propsData.lineLabel = "New Cases"
-    const initData =
-      dataType === "cumulative"
-        ? processCumulativeData(
-            filterCases(data, CasesType.CONFIRMED, dataType)
-          )
-        : filterCases(data, CasesType.CONFIRMED)
+    if(dataType === "new") {
+     propsData.lineLabel = "New Cases"
+     initData = filterCases(data, CasesType.CONFIRMED)
+    } else {
+      propsData.lineLabel = "Total Cases"
+      processCumulativeData(
+        initData = filterCases(data, CasesType.CONFIRMED, dataType)
+      )
+    }
     const scaleAdjustedData =
       scaleType === "log" ? processLogData(initData) : initData
     propsData.data =
@@ -98,11 +101,13 @@ const CovidDashboard = (props) => {
         ? processDatesAdjusted(scaleAdjustedData, CasesType.CONFIRMED, dataType)
         : scaleAdjustedData
   } else if (casesType === "deaths") {
-    propsData.lineLabel = "Deaths"
-    const initData =
-      dataType === "cumulative"
-        ? processCumulativeData(filterCases(data, CasesType.DEATHS, dataType))
-        : filterCases(data, CasesType.DEATHS)
+    if(dataType === "new") {
+      propsData.lineLabel = "New Deaths"
+      initData = filterCases(data, CasesType.DEATHS)
+    } else {
+      propsData.lineLabel = "Total Deaths"
+      initData = processCumulativeData(filterCases(data, CasesType.DEATHS, dataType))
+    }
     const scaleAdjustedData =
       scaleType === "log" ? processLogData(initData) : initData
     propsData.data =

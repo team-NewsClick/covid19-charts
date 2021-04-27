@@ -80,8 +80,8 @@ const CovidDashboard = (props) => {
   chartHeading =
     dataType === "cumulative"
       ? perLakh === "on"
-        ? "Total vaccinations/Lakh"
-        : "Total vaccinations"
+        ? "Total Vaccinations/Lakh"
+        : "Total Vaccinations"
       : perLakh === "on"
       ? "Daily Vaccinations/Lakh"
       : "Daily Vaccinations"
@@ -89,8 +89,8 @@ const CovidDashboard = (props) => {
   propsData.lineLabel =
     dataType === "cumulative"
       ? perLakh === "on"
-        ? "Total vaccinations/Lakh"
-        : "Total vaccinations"
+        ? "Total Vaccinations/Lakh"
+        : "Total Vaccinations"
       : perLakh === "on"
       ? "Vaccinations/Lakh"
       : "Vaccinations"

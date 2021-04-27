@@ -112,7 +112,7 @@ const Article = () => {
           <div className="article-para">
             The chart below show the trajectory of the pandemic in each select
             city from April end, 2020 with a 7-day moving average. The user can
-            select up to six States at a time.
+            select up to six Cities at a time.
             If the date adjusted tab is selected to on, it shows the progression
             of the pandemic from when each city reached cumulative 100 or 10 new
             cases per day, e.g, Mumbai reached this on 28 March 2020 and is
