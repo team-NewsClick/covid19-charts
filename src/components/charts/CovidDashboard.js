@@ -90,8 +90,8 @@ const CovidDashboard = (props) => {
      initData = filterCases(data, CasesType.CONFIRMED)
     } else {
       propsData.lineLabel = "Total Cases"
-      processCumulativeData(
-        initData = filterCases(data, CasesType.CONFIRMED, dataType)
+      initData = processCumulativeData(
+        filterCases(data, CasesType.CONFIRMED, dataType)
       )
     }
     const scaleAdjustedData =

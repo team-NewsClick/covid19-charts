@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import {
   processLogData,
   filterCases,
-  getDefaultSelects
+  getDefaultSelects,
+  processCumulativeData
 } from "../../utils"
 import {
   CasesType,
@@ -97,8 +98,8 @@ const CovidDashboard = (props) => {
   initData =
     dataType === "cumulative"
       ? perLakh === "on"
-        ? filterCases(data, CasesType.TOTAL_VACCINATED_PER_LAKH)
-        : filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED)
+        ? processCumulativeData(filterCases(data, CasesType.TOTAL_VACCINATED_PER_LAKH))
+        : processCumulativeData(filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED))
       : perLakh === "on"
       ? filterCases(data, CasesType.NEW_VACCINATED_PER_LAKH)
       : filterCases(data, CasesType.NEW_DOSES_ADMINISTERED)
