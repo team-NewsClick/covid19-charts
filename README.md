@@ -1,4 +1,5 @@
 # Covid19-Charts
+[![Netlify Status](https://api.netlify.com/api/v1/badges/59b044df-0adb-4c86-a56a-50351724a7e8/deploy-status)](https://app.netlify.com/sites/covid19-charts-newsclick/deploys)
 
 This project is a live and customizable version of Newsclick's COVID-19 trajectory Charts and Maps
 
