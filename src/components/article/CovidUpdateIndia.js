@@ -89,7 +89,7 @@ const CovidUpdateIndia = () => {
         <div className="lg:flex lg:px-10 lg:pb-8">
           <div className="md:flex lg:w-1/2 pb-8 lg:p-0 lg:pl-12">
             <div className="text-2xl font-bold text-blue-900">
-              Total First Dose Administered: &nbsp;
+              First Dose Vaccinations: &nbsp;
             </div>
             <div className="text-3xl md:text-2xl font-bold pt-2 md:p-0">
               {statsSummary.firstDoseAdministered}%
@@ -97,7 +97,7 @@ const CovidUpdateIndia = () => {
           </div>
           <div className="md:flex lg:w-1/2 pb-8 lg:p-0 lg:pl-12">
             <div className="text-2xl font-bold text-green-900">
-              Total Second Dose Administered: &nbsp;
+              Fully Vaccinated: &nbsp;
             </div>
             <div className="text-3xl md:text-2xl font-bold pt-2 md:p-0">
               {statsSummary.secondDoseAdministered}%
