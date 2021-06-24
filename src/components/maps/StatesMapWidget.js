@@ -50,7 +50,6 @@ const StatesMapWidget = ({
     })
     if (casesObject.length !== 0) {
       const cases = casesObject[0][casesType]
-      console.log(colors(normalizeValue(cases, maxValue, minValue)))
       return colors(normalizeValue(cases, maxValue, minValue))
     } else {
       return [255, 255, 255, 255]
