@@ -20,40 +20,36 @@ const Header = () => {
   return (
     <div className="header">
       <div className="flex header-logos">
-        <a href="https://www.newsclick.in/" target="_blank">
+        <a href="https://www.newsclick.in/" target="_blank" rel="noreferrer" >
           <img
             src="../img/newsclick-logo.png"
             alt="Newsclick Logo"
             className="w-40 h-auto"
-            width="100%" height="auto"
           />
         </a>
         <div
           className="flex self-end justify-end flex-auto"
           style={{ height: "29px" }}
         >
-          <a href="https://www.facebook.com/newsclickonline/" target="_blank">
+          <a href="https://www.facebook.com/newsclickonline/" target="_blank" rel="noreferrer" >
             <img
               src="../img/fb.png"
               alt="Facebook"
               className="social-icon block"
-              width="100%" height="auto"
             />
           </a>
-          <a href="https://twitter.com/newsclickin">
+          <a href="https://twitter.com/newsclickin" rel="noreferrer" >
             <img
               src="../img/twitter.png"
               alt="Twitter"
               className="social-icon block"
-              width="100%" height="auto"
             />
           </a>
-          <a href="https://www.youtube.com/user/NewsClickin">
+          <a href="https://www.youtube.com/user/NewsClickin" rel="noreferrer" >
             <img
               src="../img/yt.png"
               alt="YouTube"
               className="social-icon block"
-              width="100%" height="auto"
             />
           </a>
 
@@ -63,7 +59,6 @@ const Header = () => {
               src="../img/fb.png"
               alt="Facebook"
               className="social-icon sm-hide md:hidden lg:block"
-            width="100%" height="auto"
             />
           </a>
           <a href="https://twitter.com/newsclickin">
@@ -78,7 +73,6 @@ const Header = () => {
               src="../img/yt.png"
               alt="YouTube"
               className="social-icon sm-hide md:hidden lg:block"
-            width="100%" height="auto"
             />
           </a> */}
 
@@ -107,13 +101,13 @@ const Header = () => {
               <li>
                 <div className="flex" style={{ height: '29px' }}>
                   <a href="https://www.facebook.com/newsclickonline/" target="_blank">
-                    <img src="../img/fb.png" alt="Facebook" className="mr-2" width="100%" height="auto" />
+                    <img src="../img/fb.png" alt="Facebook" className="mr-2"  />
                   </a> 
                   <a href="https://twitter.com/newsclickin" target="_blank">
-                  <img src="../img/twitter.png" alt="Twitter" className="mr-2" width="100%" height="auto" />
+                  <img src="../img/twitter.png" alt="Twitter" className="mr-2"  />
                   </a> 
                   <a href="https://www.youtube.com/user/NewsClickin" target="_blank">
-                  <img src="../img/yt.png" alt="YouTube" className="mr-2" width="100%" height="auto" />
+                  <img src="../img/yt.png" alt="YouTube" className="mr-2"  />
                   </a> 
                 </div>
               </li>
@@ -127,7 +121,6 @@ const Header = () => {
           src="../img/page-title.png"
           alt="Data Visualization"
           className="mx-auto my-8"
-          width="100%" height="auto"
         />
       </div>
       {/* <div className="categories sm-hide md:hidden lg:flex">
@@ -139,7 +132,7 @@ const Header = () => {
         <div className="category">ENTERTAINMENT</div>
         <div className="category">MISCELLANEOUS</div>
         <div className="search ml-2 cursor-pointer">
-          <img src="../img/search.svg" alt="Search" onClick={showHideSearch} width="100%" height="auto"/>
+          <img src="../img/search.svg" alt="Search" onClick={showHideSearch} />
         </div>
       </div> */}
       <div id="search-bar" style={{ display: "none" }}>

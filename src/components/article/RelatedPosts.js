@@ -13,7 +13,7 @@ const RelatedPosts = () => {
       <div className="lg:flex md:flex sm:block">
         <div className="article-thumbnail">
           <div>
-            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md" width="100%" height="auto"/>
+            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md"/>
           </div>
           <div className="article-thumbnail-title">
             COVID-19 Cases: Data and Graphs of India and the World
@@ -33,7 +33,7 @@ const RelatedPosts = () => {
         </div>
         <div className="article-thumbnail">
           <div>
-            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md" width="100%" height="auto"/>
+            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md"/>
           </div>
           <div className="article-thumbnail-title">
             COVID-19 Cases: Data and Graphs of India and the World
@@ -53,7 +53,7 @@ const RelatedPosts = () => {
         </div>
         <div className="article-thumbnail">
           <div>
-            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md" width="100%" height="auto"/>
+            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md"/>
           </div>
           <div className="article-thumbnail-title">
             COVID-19 Cases: Data and Graphs of India and the World
@@ -78,7 +78,6 @@ const RelatedPosts = () => {
             src="../img/browse-prev.svg"
             alt="Browse Previous"
             className="hover:opacity-50 cursor-pointer"
-            width="100%" height="auto"
           />
         </div>
         <div>
@@ -86,7 +85,6 @@ const RelatedPosts = () => {
             src="../img/browse-next.svg"
             alt="Next Previous"
             className="hover:opacity-50 mx-3 cursor-pointer"
-            width="100%" height="auto"
           />
         </div>
       </div>
