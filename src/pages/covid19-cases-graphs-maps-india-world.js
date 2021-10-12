@@ -1,3 +1,4 @@
+import Head from "next/head"
 import { useEffect, useState } from "react"
 import Header from "../components/article/Header"
 import Footer from "../components/article/Footer"
@@ -33,7 +34,29 @@ const Article = () => {
 
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: "Noto Sans" }}>
-      <title>COVID-19 Cases: Data and Graphs of India and the World</title>
+      <Head>
+        <title>COVID-19 Cases: Data and Graphs of India and the World</title>
+        <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+        />
+        <meta
+          name="description"
+          content="Visual analysis of COVID-19 cases, deatha nd vaccination in form of maps and graphs"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Newsclick COVID-19 Cases-Data and Graphs of India and the World" key="title" />
+        <meta
+          name="og:description"
+          content="Visual analysis of COVID-19 cases, deatha nd vaccination in form of maps and graphs"
+        />
+        <meta
+          property="og:site_name"
+          content="Newsclick COVID-19 Cases-Data and Graphs of India and the World"
+        />
+      </Head>
       <div className="col-span-2 sm-hide"></div>
       <div className="col-span-12 mx-5 sm:col-span-8 sm:mx-0">
         <Header />
@@ -61,6 +84,7 @@ const Article = () => {
           </div>
           <div className="flex items-center">
             <iframe
+              title="state tracker"
               id="stateTracker"
               src="/charts/StateTracker"
               scrolling="no"
@@ -121,7 +145,8 @@ const Article = () => {
             Mumbai.
           </div>
           <div className="flex">
-            <iframe
+            <iframe 
+              title="city tracker"
               id="cityTracker"
               src="/charts/CityTracker"
               scrolling="no"
@@ -146,6 +171,7 @@ const Article = () => {
             </div>
             <div className="flex pb-12">
               <iframe
+                title="states map"
                 id="states-map"
                 src="/maps/states"
                 scrolling="no"
@@ -170,6 +196,7 @@ const Article = () => {
           </div>
           <div className="flex pb-12">
             <iframe
+              title="districts map"
               id="districts-map"
               src="/maps/districts"
               scrolling="no"
@@ -200,6 +227,7 @@ const Article = () => {
           </div>
           <div className="flex">
             <iframe
+              title="country tracker"
               id="countryTracker"
               src="/charts/CountryTracker"
               scrolling="no"

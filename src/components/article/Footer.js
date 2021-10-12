@@ -25,16 +25,16 @@ const Footer = () => {
         <div>Connect on:</div>
         <div className="flex">
           <a href="https://www.facebook.com/newsclickonline/" target="_blank">
-            <img src="../img/fb.png" alt="Facebook" className="social-icon" />
+            <img src="../img/fb.png" alt="Facebook" className="social-icon" width="100%" height="auto" />
           </a>
           <a href="https://twitter.com/newsclickin" target="_blank">
-            <img src="../img/twitter.png" alt="Twitter" className="social-icon" />
+            <img src="../img/twitter.png" alt="Twitter" className="social-icon" width="100%" height="auto" />
           </a>
           <a href="https://www.youtube.com/user/NewsClickin" target="_blank">
-            <img src="../img/yt.png" alt="YouTube" className="social-icon " />
+            <img src="../img/yt.png" alt="YouTube" className="social-icon" width="100%" height="auto" />
           </a>
           <a href="https://www.newsclick.in/add-newsclick-to-mobile" target="_blank">
-            <img src="../img/mobile-icon.png" alt="NewsClick Mobile" style={{height: "26px", width: "auto", paddingLeft:"0.75rem"}} />
+            <img src="../img/mobile-icon.png" alt="NewsClick Mobile" style={{height: "26px", width: "auto", paddingLeft:"0.75rem"}} width="100%" height="auto" />
           </a>
         </div>
       </div>

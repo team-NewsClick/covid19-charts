@@ -25,6 +25,7 @@ const Header = () => {
             src="../img/newsclick-logo.png"
             alt="Newsclick Logo"
             className="w-40 h-auto"
+            width="100%" height="auto"
           />
         </a>
         <div
@@ -36,6 +37,7 @@ const Header = () => {
               src="../img/fb.png"
               alt="Facebook"
               className="social-icon block"
+              width="100%" height="auto"
             />
           </a>
           <a href="https://twitter.com/newsclickin">
@@ -43,6 +45,7 @@ const Header = () => {
               src="../img/twitter.png"
               alt="Twitter"
               className="social-icon block"
+              width="100%" height="auto"
             />
           </a>
           <a href="https://www.youtube.com/user/NewsClickin">
@@ -50,6 +53,7 @@ const Header = () => {
               src="../img/yt.png"
               alt="YouTube"
               className="social-icon block"
+              width="100%" height="auto"
             />
           </a>
 
@@ -59,6 +63,7 @@ const Header = () => {
               src="../img/fb.png"
               alt="Facebook"
               className="social-icon sm-hide md:hidden lg:block"
+            width="100%" height="auto"
             />
           </a>
           <a href="https://twitter.com/newsclickin">
@@ -73,6 +78,7 @@ const Header = () => {
               src="../img/yt.png"
               alt="YouTube"
               className="social-icon sm-hide md:hidden lg:block"
+            width="100%" height="auto"
             />
           </a> */}
 
@@ -101,13 +107,13 @@ const Header = () => {
               <li>
                 <div className="flex" style={{ height: '29px' }}>
                   <a href="https://www.facebook.com/newsclickonline/" target="_blank">
-                    <img src="../img/fb.png" alt="Facebook" className="mr-2" />
+                    <img src="../img/fb.png" alt="Facebook" className="mr-2" width="100%" height="auto" />
                   </a> 
                   <a href="https://twitter.com/newsclickin" target="_blank">
-                  <img src="../img/twitter.png" alt="Twitter" className="mr-2" />
+                  <img src="../img/twitter.png" alt="Twitter" className="mr-2" width="100%" height="auto" />
                   </a> 
                   <a href="https://www.youtube.com/user/NewsClickin" target="_blank">
-                  <img src="../img/yt.png" alt="YouTube" className="mr-2" />
+                  <img src="../img/yt.png" alt="YouTube" className="mr-2" width="100%" height="auto" />
                   </a> 
                 </div>
               </li>
@@ -121,6 +127,7 @@ const Header = () => {
           src="../img/page-title.png"
           alt="Data Visualization"
           className="mx-auto my-8"
+          width="100%" height="auto"
         />
       </div>
       {/* <div className="categories sm-hide md:hidden lg:flex">
@@ -132,7 +139,7 @@ const Header = () => {
         <div className="category">ENTERTAINMENT</div>
         <div className="category">MISCELLANEOUS</div>
         <div className="search ml-2 cursor-pointer">
-          <img src="../img/search.svg" alt="Search" onClick={showHideSearch} />
+          <img src="../img/search.svg" alt="Search" onClick={showHideSearch} width="100%" height="auto"/>
         </div>
       </div> */}
       <div id="search-bar" style={{ display: "none" }}>

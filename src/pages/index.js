@@ -16,25 +16,25 @@ const IndexPage = () => {
       </div>
       <div className="flex justify-center">
         <Link href="/charts/CountryTracker">
-          <a className="btns">Countries Chart</a>
+          <div className="btns">Countries Chart</div>
         </Link>
         <Link href="/charts/StateTracker">
-          <a className="btns">States Chart</a>
+          <div className="btns">States Chart</div>
         </Link>
         <Link href="/charts/VaccinationStateTracker">
-          <a className="btns">States Vaccination Chart</a>
+          <div className="btns">States Vaccination Chart</div>
         </Link>
         <Link href="/charts/CityTracker">
-          <a className="btns">Cities Chart</a>
+          <div className="btns">Cities Chart</div>
         </Link>
         <Link href="/maps/states">
-          <a className="btns">States Map</a>
+          <div className="btns">States Map</div>
         </Link>
         <Link href="/maps/districts">
-          <a className="btns">Districts Map</a>
+          <div className="btns">Districts Map</div>
         </Link>
         <Link href="/maps/VaccinationStates">
-          <a className="btns">States Vaccination Map</a>
+          <div className="btns">States Vaccination Map</div>
         </Link>
       </div>
     </div>

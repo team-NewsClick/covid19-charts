@@ -41,6 +41,7 @@ const StateVaccination = () => {
       </div>
       {vaccinationViz === "vaccination-chart" ? (
         <iframe
+          title="city tracker"
           id="cityTracker"
           src="/charts/VaccinationStateTracker"
           scrolling="no"
@@ -57,6 +58,7 @@ const StateVaccination = () => {
         ></iframe>
       ) : (
         <iframe
+          title="states map"
           id="states-map"
           src="/maps/VaccinationStates"
           scrolling="no"
