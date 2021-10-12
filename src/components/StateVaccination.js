@@ -46,14 +46,14 @@ const StateVaccination = () => {
           src="/charts/VaccinationStateTracker"
           scrolling="no"
           frameBorder="0"
-          width={windowWidth > 700 ? windowWidth * 0.67 : windowWidth * 0.95}
-          height={
+          width={String(windowWidth > 700 ? windowWidth * 0.67 : windowWidth * 0.95)}
+          height={String(
             windowWidth < 800
               ? windowWidth > 700
                 ? windowWidth * 0.92
                 : windowWidth * 1.6
               : windowWidth * 0.52
-          }
+          )}
           className="mx-auto mt-8"
         ></iframe>
       ) : (
@@ -63,20 +63,20 @@ const StateVaccination = () => {
           src="/maps/VaccinationStates"
           scrolling="no"
           frameBorder="0"
-          width={
+          width={String(
             windowWidth < 800
               ? windowWidth > 700
                 ? windowWidth * 0.67
                 : windowWidth * 0.9
               : windowWidth * 0.4
-          }
-          height={
+          )}
+          height={String(
             windowWidth < 800
               ? windowWidth > 700
                 ? windowWidth * 0.8
                 : windowWidth * 1.18
               : windowWidth * 0.48
-          }
+          )}
           className="mx-auto"
         ></iframe>
       )}

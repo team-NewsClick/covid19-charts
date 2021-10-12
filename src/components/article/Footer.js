@@ -38,8 +38,8 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <a href="https://www.newsclick.in/about-us" target="_blank" className="lg:mr-10" rel="noreferrer" >
-        <div className="mx-auto cursor-pointer text-white">About NewsClick</div>
+      <a href="https://www.newsclick.in/about-us" target="_blank" className="lg:mr-10 mx-auto cursor-pointer text-white" rel="noreferrer" >
+        About NewsClick
       </a>
     </div>
   )

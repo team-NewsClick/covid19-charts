@@ -52,6 +52,7 @@ const Article = () => {
           name="og:description"
           content="Visual analysis of COVID-19 cases, deatha nd vaccination in form of maps and graphs"
         />
+        <meta property="og:image" content="../../public/img/covid-19-fi.jpg" />
         <meta
           property="og:site_name"
           content="Newsclick COVID-19 Cases-Data and Graphs of India and the World"
@@ -89,13 +90,14 @@ const Article = () => {
               src="/charts/StateTracker"
               scrolling="no"
               frameBorder="0"
-              width={windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.92
-                  : windowWidth * 1.6
-                : windowWidth * 0.52
-              ).toString()}
+              width={String(windowWidth)}
+              height={String(
+                  windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.92
+                    : windowWidth * 1.6
+                  : windowWidth * 0.52
+              )}
               className="mx-auto mt-16"
             ></iframe>
           </div>
@@ -151,13 +153,14 @@ const Article = () => {
               src="/charts/CityTracker"
               scrolling="no"
               frameBorder="0"
-              width={windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.92
-                  : windowWidth * 1.6
-                : windowWidth * 0.52
-              ).toString()}
+              width={String(windowWidth)}
+              height={String(
+                  windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.92
+                    : windowWidth * 1.6
+                  : windowWidth * 0.52
+                )}
               className="mx-auto mt-16"
             ></iframe>
           </div>
@@ -176,13 +179,14 @@ const Article = () => {
                 src="/maps/states"
                 scrolling="no"
                 frameBorder="0"
-                width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
-                height={(windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.8
-                    : windowWidth * 1.18
-                  : windowWidth * 0.48
-                ).toString()}
+                width={String(windowWidth > 800 ? windowWidth * 0.4 : windowWidth)}
+                height={String(
+                    windowWidth < 800
+                    ? windowWidth > 700
+                      ? windowWidth * 0.8
+                      : windowWidth * 1.18
+                    : windowWidth * 0.48
+                  )}
                 className="mx-auto mt-16"
               ></iframe>
             </div>
@@ -201,13 +205,14 @@ const Article = () => {
               src="/maps/districts"
               scrolling="no"
               frameBorder="0"
-              width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.8
-                  : windowWidth * 1.18
-                : windowWidth * 0.48
-              ).toString()}
+              width={String(windowWidth > 800 ? windowWidth * 0.4 : windowWidth)}
+              height={String(
+                  windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.8
+                    : windowWidth * 1.18
+                  : windowWidth * 0.48
+                )}
               className="mx-auto mt-16"
             ></iframe>
           </div>
@@ -232,13 +237,14 @@ const Article = () => {
               src="/charts/CountryTracker"
               scrolling="no"
               frameBorder="0"
-              width={windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.92
-                  : windowWidth * 1.6
-                : windowWidth * 0.52
-              ).toString()}
+              width={String(windowWidth)}
+              height={String(
+                  windowWidth < 800
+                  ? windowWidth > 700
+                    ? windowWidth * 0.92
+                    : windowWidth * 1.6
+                  : windowWidth * 0.52
+                )}
               className="mx-auto mt-16"
             ></iframe>
           </div>
