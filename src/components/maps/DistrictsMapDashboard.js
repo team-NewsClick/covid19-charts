@@ -7,14 +7,7 @@ import DistrictsMapWidget from "./DistrictsMapWidget"
  * @param {Object} param0 - Dashboard Objects (GeoJSONs, intialView, Data, regionKey)
  * @return {JSX.Element} Radio Buttons and Map Widget
  */
-const DistrictsMapDashboard = ({
-  initialViewState,
-  stateGeoJsonData,
-  districtGeoJsonData,
-  covidData,
-  stateRegionKey,
-  districtRegionKey
-}) => {
+const DistrictsMapDashboard = ({ trackerType }) => {
   const [casesType, setCasesType] = useState("active")
   const _handleCasesType = (e) => {
     setCasesType(e.currentTarget.value)
@@ -26,41 +19,36 @@ const DistrictsMapDashboard = ({
         <div className="radio-toolbar m-2">
           <input
             type="radio"
-            id="active"
-            name="cases"
+            id={trackerType+"-map-active"}
+            name={trackerType+"-map-cases"}
             value="active"
             defaultChecked
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="active">Active Cases</label>
+          <label htmlFor={trackerType+"-map-active"}>Active Cases</label>
           <input
             type="radio"
-            id="confirmed"
-            name="cases"
+            id={trackerType+"-map-confirmed"}
+            name={trackerType+"-map-cases"}
             value="confirmed"
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="confirmed">Total Cases</label>
+          <label htmlFor={trackerType+"-map-confirmed"}>Total Cases</label>
           <input
             type="radio"
-            id="deceased"
-            name="cases"
+            id={trackerType+"-map-deceased"}
+            name={trackerType+"-map-cases"}
             value="deceased"
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="deceased">Total Deaths</label>
+          <label htmlFor={trackerType+"-map-deceased"}>Total Deaths</label>
         </div>
       </div>
-      <div>
+      <div className="pt-8">
         <DistrictsMapWidget
-          initialViewState={initialViewState}
-          stateGeoJsonData={stateGeoJsonData}
-          districtGeoJsonData={districtGeoJsonData}
-          covidData={covidData}
-          stateRegionKey={stateRegionKey}
-          districtRegionKey={districtRegionKey}
+          trackerType={trackerType}
           casesType={casesType}
-        />
+          />
       </div>
     </div>
   )

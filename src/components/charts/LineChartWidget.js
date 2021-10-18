@@ -8,8 +8,7 @@ import {
   MarkSeries,
   LabelSeries
 } from "react-vis"
-import LoaderFunction from "../LoaderFunction"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   calculateYMinValue,
   calculateYMaxValue,
@@ -19,6 +18,7 @@ import {
   isNearBy
 } from "../../utils"
 import { customColor, months } from "../../constants"
+import Loading from "../helpers/Loading"
 
 /**
  * Linear graph for multiple regions
@@ -97,7 +97,7 @@ const LineChartWidget = (props) => {
     return (
       <div className="flex h-screen">
         <div className="m-auto">
-          <LoaderFunction />
+          <Loading />
         </div>
       </div>
     )
@@ -137,18 +137,16 @@ const LineChartWidget = (props) => {
           yType={scaleType}
           width={
             window.innerWidth > 800
-              ? window.innerWidth * 1
-              : window.innerWidth * 1
+              ? window.innerWidth * 0.65
+              : window.innerWidth * 0.9
           }
           height={
             window.innerWidth > 800
-              ? window.innerWidth * 0.55
+              ? window.innerWidth * 0.35
               : window.innerWidth * 0.85
           }
           xDomain={datesAdjusted === "on" ? null : [xMinRange, xMaxRange]}
-          yDomain={
-            scaleType === "log" ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
-          }
+          yDomain={scaleType === "log" ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]}
           margin={
             window.innerWidth > 800
               ? { left: 100, right: 200 }
@@ -327,4 +325,4 @@ const LineChartWidget = (props) => {
   }
 }
 
-export default LineChartWidget
+export default React.memo(LineChartWidget)

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
+import { csvParse } from "d3-dsv"
 import {
   processLogData,
   filterCases,
@@ -25,16 +26,44 @@ import LineChartWidget from "./LineChartWidget"
  * @param {string} props.data.trackertype Region type
  * @return {JSX.Element} Buttons with option of viewing data with different type and condition
  */
-const CovidDashboard = (props) => {
-  const data = props.data.data
-  const trackerType = props.data.trackerType
+const CovidDashboard = ({ trackerType }) => {
 
+  const [windowInnerWidth, setWindowInnerWidth] = useState("200")
+  const [data, setData] = useState([])
+  const [defaultSelect, setDefaultSelect] = useState([])
+  const [selectedRegions, setSelectedRegions] = useState([])
   const [dataType, setDataType] = useState("new")
   const [scaleType, setScaleType] = useState("linear")
   const [perLakh, setPerLakh] = useState("off")
   const [interactiveSelects, setInteractiveSelects] = useState([])
   const [interactiveSelectsDisplay, setInteractiveSelectsDisplay] = useState([])
   const [initBool, setInitBool] = useState(true)
+
+  useEffect(() => {
+    setWindowInnerWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
+  }, [])
+
+  useEffect(() => {
+    let dataURL
+    switch (trackerType) {
+      case "state":
+        dataURL = process.env.API_URL_STATE_VACCINES
+        break
+    }
+    fetch(dataURL)
+      .then((res) => res.text())
+      .then(csvParse)
+      .then(setData)
+  }, [])
+
+  useEffect(() => {
+    data.length !== 0
+      ? (
+          setDefaultSelect(getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)),
+          setSelectedRegions(getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED))
+        )
+      : setDefaultSelect([])
+  }, [data])
 
   const propsData = {
     data: null,
@@ -47,7 +76,6 @@ const CovidDashboard = (props) => {
     tickTotalValue: 5
   }
   let chartHeading = ""
-  let defaultSelect = getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)
 
   const uniqueSelect = [...new Set(data.map((row) => row.region))]
   const dropDownOptions = uniqueSelect.map((row) => {
@@ -57,7 +85,7 @@ const CovidDashboard = (props) => {
     }
   })
 
-  if (initBool) {
+  if (initBool && defaultSelect.length !== 0) {
     setInitBool(false)
     const setSelect = defaultSelect.map((row) => {
       return {
@@ -106,6 +134,7 @@ const CovidDashboard = (props) => {
   propsData.data = scaleType === "log" ? processLogData(initData) : initData
 
   const _handleSelectChange = (e) => {
+    setSelectedRegions(e)
     if (e && e.length > 0) {
       const selects = e.map((row) => {
         const region = data.filter((d) => {
@@ -133,65 +162,65 @@ const CovidDashboard = (props) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col w-full p-0">
       <div>
         <div className="flex justify-center">
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id="new"
-              name="data-type"
+              id={trackerType+"-new"}
+              name={trackerType+"-data-type"}
               value="new"
               defaultChecked
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor="new">New</label>
+            <label htmlFor={trackerType+"-new"}>New</label>
             <input
               type="radio"
-              id="cumulative"
-              name="data-type"
+              id={trackerType+"-cumulative"}
+              name={trackerType+"-data-type"}
               value="cumulative"
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor="cumulative">Cumulative</label>
+            <label htmlFor={trackerType+"-cumulative"}>Cumulative</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id="log"
-              name="display-type"
+              id={trackerType+"-log"}
+              name={trackerType+"-display-type"}
               value="log"
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor="log">Log</label>
+            <label htmlFor={trackerType+"-log"}>Log</label>
             <input
               type="radio"
-              id="linear"
-              name="display-type"
+              id={trackerType+"-linear"}
+              name={trackerType+"-display-type"}
               value="linear"
               defaultChecked
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor="linear">Linear</label>
+            <label htmlFor={trackerType+"-linear"}>Linear</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id="off"
-              name="perLakh"
+              id={trackerType+"-off"}
+              name={trackerType+"-perLakh"}
               value="off"
               defaultChecked
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor="off">Raw</label>
+            <label htmlFor={trackerType+"-off"}>Raw</label>
             <input
               type="radio"
-              id="on"
-              name="perLakh"
+              id={trackerType+"-on"}
+              name={trackerType+"-perLakh"}
               value="on"
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor="on">Per 1L</label>
+            <label htmlFor={trackerType+"-on"}>Per 1L</label>
           </div>
         </div>
       </div>
@@ -205,6 +234,7 @@ const CovidDashboard = (props) => {
           name="selectOptions"
           onChange={_handleSelectChange}
           defaultValue={defaultSelect}
+          value={selectedRegions}
           options={interactiveSelects.length >= 6 ? [] : dropDownOptions}
           components={{
             NoOptionsMessage: () => (
@@ -217,7 +247,7 @@ const CovidDashboard = (props) => {
       </div>
       <div
         style={
-          window.innerWidth > 800
+          windowInnerWidth > 800
             ? { marginLeft: "5%" }
             : { marginLeft: "5%", marginRight: "5%" }
         }
@@ -237,4 +267,4 @@ const CovidDashboard = (props) => {
   )
 }
 
-export default CovidDashboard
+export default React.memo(CovidDashboard)

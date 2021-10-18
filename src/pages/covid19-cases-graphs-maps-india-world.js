@@ -10,6 +10,9 @@ import FeatureImage from "../components/article/FeatureImage"
 import CovidUpdateIndia from "../components/article/CovidUpdateIndia"
 import CovidUpdateWorld from "../components/article/CovidUpdateWorld"
 import StateVaccination from "../components/StateVaccination"
+import CovidDashboard from "../components/charts/CovidDashboard"
+import StatesMapDashboard from "../components/maps/StatesMapDashboard"
+import DistrictsMapDashboard from "../components/maps/DistrictsMapDashboard"
 // import RelatedPosts from "../components/article/RelatedPosts"
 
 /**
@@ -83,21 +86,7 @@ const Article = () => {
             reached it on April 2, 2020.
           </div>
           <div className="flex items-center">
-            <iframe
-              title="state tracker"
-              id="stateTracker"
-              src="/charts/StateTracker"
-              scrolling="no"
-              frameBorder="0"
-              width={windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.92
-                  : windowWidth * 1.6
-                : windowWidth * 0.52
-              ).toString()}
-              className="mx-auto mt-16"
-            ></iframe>
+            <CovidDashboard trackerType="state" />
           </div>
           <div className="article-para">
             The section below displays state-wise vaccination data. The
@@ -145,21 +134,7 @@ const Article = () => {
             Mumbai.
           </div>
           <div className="flex">
-            <iframe 
-              title="city tracker"
-              id="cityTracker"
-              src="/charts/CityTracker"
-              scrolling="no"
-              frameBorder="0"
-              width={windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.92
-                  : windowWidth * 1.6
-                : windowWidth * 0.52
-              ).toString()}
-              className="mx-auto mt-16"
-            ></iframe>
+            <CovidDashboard trackerType="city" />
           </div>
           <div>
             <div className="create-anchor opacity-0 height-0">
@@ -169,22 +144,8 @@ const Article = () => {
               The Map gives state-wise data on Total Cases, Active Cases, Total Deaths, New
               cases, and New Deaths with appropriate tabs.
             </div>
-            <div className="flex pb-12">
-              <iframe
-                title="states map"
-                id="states-map"
-                src="/maps/states"
-                scrolling="no"
-                frameBorder="0"
-                width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
-                height={(windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.8
-                    : windowWidth * 1.18
-                  : windowWidth * 0.48
-                ).toString()}
-                className="mx-auto mt-16"
-              ></iframe>
+            <div className="flex pb-12 justify-center">
+              <StatesMapDashboard trackerType="state" />
             </div>
           </div>
           <div className="article-para">
@@ -194,22 +155,8 @@ const Article = () => {
             may have some discrepancies. Also, the district-wise data for Delhi
             is not available and the map shows the data for the NCT of Delhi.
           </div>
-          <div className="flex pb-12">
-            <iframe
-              title="districts map"
-              id="districts-map"
-              src="/maps/districts"
-              scrolling="no"
-              frameBorder="0"
-              width={windowWidth > 800 ? windowWidth * 0.4 : windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.8
-                  : windowWidth * 1.18
-                : windowWidth * 0.48
-              ).toString()}
-              className="mx-auto mt-16"
-            ></iframe>
+          <div className="flex pb-12 justify-center">
+            <DistrictsMapDashboard trackerType="district" />
           </div>
           <div className="create-anchor article-subheading">
             COVID-19 Infections and Deaths: Global
@@ -226,21 +173,7 @@ const Article = () => {
             deaths and for new deaths it is 3 recorded deaths.
           </div>
           <div className="flex">
-            <iframe
-              title="country tracker"
-              id="countryTracker"
-              src="/charts/CountryTracker"
-              scrolling="no"
-              frameBorder="0"
-              width={windowWidth}
-              height={(windowWidth < 800
-                ? windowWidth > 700
-                  ? windowWidth * 0.92
-                  : windowWidth * 1.6
-                : windowWidth * 0.52
-              ).toString()}
-              className="mx-auto mt-16"
-            ></iframe>
+            <CovidDashboard trackerType="country" />
           </div>
         </div>
         {/* <RelatedPosts /> */}

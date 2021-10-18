@@ -1,3 +1,5 @@
+import React from "react"
+
 /**
  * Category and Publishing Date
  * @component
@@ -14,4 +16,4 @@ const CategoryPublishingDate = () => {
   )
 }
 
-export default CategoryPublishingDate
+export default React.memo(CategoryPublishingDate)

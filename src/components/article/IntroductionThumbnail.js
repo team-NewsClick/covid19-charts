@@ -1,7 +1,8 @@
 import useSWR from "swr"
-import LoaderFunction from "../LoaderFunction"
 import { indPlaceVal } from "../../utils"
 import { days, months } from "../../constants"
+import Loading from "../helpers/Loading"
+import React from "react"
 
 /**
  * Article's Introduction in Summary to be used in Article's Thumbnail and also as first paragraph in the article
@@ -16,7 +17,7 @@ const IntroductionThumbnail = () => {
     return (
       <div className="flex h-screen">
         <div className="m-auto">
-          <LoaderFunction />
+          <Loading />
         </div>
       </div>
     )
@@ -46,4 +47,4 @@ const IntroductionThumbnail = () => {
   )
 }
 
-export default IntroductionThumbnail
+export default React.memo(IntroductionThumbnail)

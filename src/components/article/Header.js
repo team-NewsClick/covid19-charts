@@ -1,3 +1,5 @@
+import React from "react"
+
 /**
  * Contains website-logo, web-app-logo, categories, search-bar, menu and social-media links
  * @component
@@ -153,4 +155,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default React.memo(Header)

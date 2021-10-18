@@ -151,3 +151,16 @@ export const DISTRICT_STATE_BORDER_COLOR = [245, 245, 245, 255]
  * Color for District Border in District Maps
  */
 export const DISTRICT_BORDER_COLOR = [255, 255, 255, 125]
+
+/**
+ * Initial View State for maps
+ */
+export const INITIAL_VIEW_STATE = {
+  latitude: 22.7,
+  longitude: 82.8,
+  zoom: 4.3,
+  minZoom: 4.3,
+  maxZoom: 4.3,
+  pitch: 0,
+  bearing: 0,
+}

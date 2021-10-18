@@ -392,3 +392,54 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
     }
   }
 }
+
+/**
+ * Calculate Inital view state of map
+ * @param {Number} windowWidth size of window innerwidth
+ * @param {Object} initialViewState Inital View State of map
+ * @returns {Object} Inital View State of Map
+ */
+export const getInitalViewStateByWidth = (windowWidth, initialViewState) => {
+  return windowWidth < 700
+  ? windowWidth > 500
+    ? {
+        ...initialViewState,
+        zoom: 3.5,
+        minZoom: 2.8,
+        maxZoom: 4.3,
+      }
+    : {
+        ...initialViewState,
+        zoom: 2.9,
+        minZoom: 2.5,
+        maxZoom: 3.5,
+      }
+  : {
+      ...initialViewState,
+      zoom: 4.1,
+      minZoom: 3.5,
+      maxZoom: 5.5,
+    }
+}
+
+/**
+ * return width size for map
+ * @param {Number} windowWidth window inner width
+ * @returns {Number} width size for map
+ */
+export const getMapWidth = (windowWidth) => {
+  return windowWidth > 800
+    ? windowWidth * 0.4
+    : windowWidth * 0.95
+}
+
+/**
+ * return height size for map
+ * @param {Number} windowWidth window inner width
+ * @returns {Number} height size for map
+ */
+export const getMapHeight = (windowWidth) => {
+  return windowWidth > 800
+    ? windowWidth * 0.45
+    : windowWidth * 1.15
+}

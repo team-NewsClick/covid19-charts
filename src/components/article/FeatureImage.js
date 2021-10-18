@@ -1,3 +1,5 @@
+import React from "react"
+
 /**
  * Feature image of the article
  * @component
@@ -11,4 +13,4 @@ const FeatureImage = () => {
   )
 }
 
-export default FeatureImage
+export default React.memo(FeatureImage)

@@ -1,3 +1,5 @@
+import React from "react"
+
 /**
  * Contains e-mail subscribe form, containing social-media links, about-page link
  * @component
@@ -45,4 +47,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default React.memo(Footer)
