@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
 import VaccinationDashboard from "../components/charts/VaccinationDashboard"
 import VaccinationStatesMapWidget from "./maps/VaccinationStateMapWidget"
+import { VACCINATION_VIZ } from "../constants"
 
 const StateVaccination = () => {
-  const [vaccinationViz, setVaccinationViz] = useState("vaccination-chart")
+  const [vaccinationViz, setVaccinationViz] = useState(VACCINATION_VIZ.CHART)
   const [windowWidth, setWindowWidth] = useState("200px")
   useEffect(() => {
     setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
@@ -21,28 +22,28 @@ const StateVaccination = () => {
       <div className="radio-toolbar m-2 flex justify-center">
         <input
           type="radio"
-          id="vaccination-chart"
+          id={VACCINATION_VIZ.CHART}
           name="vaccination-viz"
-          value="vaccination-chart"
+          value={VACCINATION_VIZ.CHART}
           defaultChecked
           onChange={(e) => _handleVaccinationViz(e)}
         />
-        <label htmlFor="vaccination-chart" className="vaccinationVizLabel">
+        <label htmlFor={VACCINATION_VIZ.CHART} className="vaccinationVizLabel">
           Vaccination Chart
         </label>
         <input
           type="radio"
-          id="vaccination-map"
+          id={VACCINATION_VIZ.MAP}
           name="vaccination-viz"
-          value="vaccination-map"
+          value={VACCINATION_VIZ.MAP}
           onChange={(e) => _handleVaccinationViz(e)}
         />
-        <label htmlFor="vaccination-map" className="vaccinationVizLabel">
+        <label htmlFor={VACCINATION_VIZ.MAP} className="vaccinationVizLabel">
           Vaccination Map
         </label>
       </div>
       <div>
-        {vaccinationViz === "vaccination-chart" ? (
+        {vaccinationViz === VACCINATION_VIZ.CHART ? (
           <VaccinationDashboard trackerType="state" />
         ) : (
           <VaccinationStatesMapWidget trackerType="state" />

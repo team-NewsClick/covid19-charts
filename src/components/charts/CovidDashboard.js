@@ -14,7 +14,7 @@ import {
   CasesType,
   cutoffValues,
   PER_LAKH,
-  CASES_TYPE,
+  CASE_TYPE,
   DATA_TYPE,
   SCALE_TYPE,
   DATE_ADJUSTED
@@ -34,7 +34,7 @@ const CovidDashboard = ({ trackerType }) => {
   const [data, setData] = useState([])
   const [defaultSelect, setDefaultSelect] = useState([])
   const [selectedRegions, setSelectedRegions] = useState([])
-  const [casesType, setCasesType] = useState(CASES_TYPE.CONFIRMED)
+  const [casesType, setCasesType] = useState(CASE_TYPE.CONFIRMED)
   const [dataType, setDataType] = useState(DATA_TYPE.NEW)
   const [scaleType, setScaleType] = useState(SCALE_TYPE.LINEAR)
   const [perLakh, setperLakh] = useState(PER_LAKH.OFF)
@@ -120,7 +120,7 @@ const CovidDashboard = ({ trackerType }) => {
   }
 
   let initData = []
-  if (casesType === CASES_TYPE.CONFIRMED) {
+  if (casesType === CASE_TYPE.CONFIRMED) {
     if (dataType === DATA_TYPE.NEW) {
       propsData.lineLabel = "New Cases"
       initData = filterCases(data, CasesType.CONFIRMED)
@@ -136,7 +136,7 @@ const CovidDashboard = ({ trackerType }) => {
       datesAdjusted === DATE_ADJUSTED.ON
         ? processDatesAdjusted(scaleAdjustedData, CasesType.CONFIRMED, dataType)
         : scaleAdjustedData
-  } else if (casesType === CASES_TYPE.DEATHS) {
+  } else if (casesType === CASE_TYPE.DEATHS) {
     if (dataType === DATA_TYPE.NEW) {
       propsData.lineLabel = "New Deaths"
       initData = filterCases(data, CasesType.DEATHS)
@@ -156,12 +156,12 @@ const CovidDashboard = ({ trackerType }) => {
   if (datesAdjusted === DATE_ADJUSTED.ON) {
     if (dataType === DATA_TYPE.CUMULATIVE) {
       propsData.footNote =
-        casesType === CASES_TYPE.CONFIRMED
+        casesType === CASE_TYPE.CONFIRMED
           ? `Number of days since ${cutoffValues.CUMMULATIVE} cases first recorded`
           : `Number of days since ${cutoffValues.CUMMULATIVE} deaths first recorded`
     } else if (dataType === DATA_TYPE.NEW) {
       propsData.footNote =
-        casesType === CASES_TYPE.CONFIRMED
+        casesType === CASE_TYPE.CONFIRMED
           ? `Number of days since ${cutoffValues.CONFIRMED} cases first recorded`
           : `Number of days since ${cutoffValues.DEATHS} deaths first recorded`
     }
@@ -169,12 +169,12 @@ const CovidDashboard = ({ trackerType }) => {
 
   if (dataType === DATA_TYPE.CUMULATIVE) {
     chartHeading =
-      casesType === CASES_TYPE.CONFIRMED
+      casesType === CASE_TYPE.CONFIRMED
         ? "Cumulative confirmed cases"
         : "Cumulative deaths attributed"
   } else {
     chartHeading =
-      casesType === CASES_TYPE.CONFIRMED
+      casesType === CASE_TYPE.CONFIRMED
         ? "New confirmed cases"
         : "New deaths attributed"
   }
@@ -220,21 +220,21 @@ const CovidDashboard = ({ trackerType }) => {
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType + "-chart-" + CASES_TYPE.DEATHS}
+              id={trackerType + "-chart-" + CASE_TYPE.DEATHS}
               name={trackerType + "-chart-cases"}
-              value={CASES_TYPE.DEATHS}
+              value={CASE_TYPE.DEATHS}
               onChange={(e) => _handleCasesType(e)}
             />
-            <label htmlFor={trackerType + "-chart-" + CASES_TYPE.DEATHS}>Deaths</label>
+            <label htmlFor={trackerType + "-chart-" + CASE_TYPE.DEATHS}>Deaths</label>
             <input
               type="radio"
-              id={trackerType + "-chart-" + CASES_TYPE.CONFIRMED}
+              id={trackerType + "-chart-" + CASE_TYPE.CONFIRMED}
               name={trackerType + "-chart-cases"}
-              value={CASES_TYPE.CONFIRMED}
+              value={CASE_TYPE.CONFIRMED}
               defaultChecked
               onChange={(e) => _handleCasesType(e)}
             />
-            <label htmlFor={trackerType + "-chart-" + CASES_TYPE.CONFIRMED}>Cases</label>
+            <label htmlFor={trackerType + "-chart-" + CASE_TYPE.CONFIRMED}>Cases</label>
           </div>
           <div className="radio-toolbar m-2">
             <input

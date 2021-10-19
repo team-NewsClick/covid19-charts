@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { STATE_MAP_CASE_TYPE as CASE_TYPE } from "../../constants"
 import StatesMapWidget from "./StatesMapWidget"
 
 /**
@@ -8,7 +9,7 @@ import StatesMapWidget from "./StatesMapWidget"
  * @returns {JSX.Element} Radio Buttons and Map Widget
  */
 const StatesMapDashboard = ({ trackerType }) => {
-  const [casesType, setCasesType] = useState("active")
+  const [casesType, setCasesType] = useState(CASE_TYPE.ACTIVE)
   const _handleCasesType = (e) => {
     setCasesType(e.currentTarget.value)
   }
@@ -19,45 +20,45 @@ const StatesMapDashboard = ({ trackerType }) => {
         <div className="radio-toolbar m-2">
           <input
             type="radio"
-            id={trackerType + "-map-active"}
+            id={trackerType + "-map-" + CASE_TYPE.ACTIVE}
             name={trackerType + "-map-cases"}
-            value="active"
+            value={CASE_TYPE.ACTIVE}
             defaultChecked
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor={trackerType + "-map-active"}>Active Cases</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.ACTIVE}>Active Cases</label>
           <input
             type="radio"
-            id="new_cases"
+            id={trackerType + "-map-" + CASE_TYPE.NEW_CASES}
             name={trackerType + "-map-cases"}
-            value="new_cases"
+            value={CASE_TYPE.NEW_CASES}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="new_cases">New Cases</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.NEW_CASES}>New Cases</label>
           <input
             type="radio"
-            id={trackerType + "-map-total_cases"}
+            id={trackerType + "-map-" + CASE_TYPE.TOTAL_CASES}
             name={trackerType + "-map-cases"}
-            value="total_cases"
+            value={CASE_TYPE.TOTAL_CASES}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor={trackerType + "-map-total_cases"}>Total Cases</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.TOTAL_CASES}>Total Cases</label>
           <input
             type="radio"
-            id={trackerType + "-map-new_deaths"}
+            id={trackerType + "-map-" + CASE_TYPE.NEW_DEATHS}
             name={trackerType + "-map-cases"}
-            value="new_deaths"
+            value={CASE_TYPE.NEW_DEATHS}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor={trackerType + "-map-new_deaths"}>New Deaths</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.NEW_DEATHS}>New Deaths</label>
           <input
             type="radio"
-            id={trackerType + "-map-total_deaths"}
+            id={trackerType + "-map-" + CASE_TYPE.TOTAL_DEATHS}
             name={trackerType + "-map-cases"}
-            value="total_deaths"
+            value={CASE_TYPE.TOTAL_DEATHS}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor={trackerType + "-map-total_deaths"}>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.TOTAL_DEATHS}>
             Total Deaths
           </label>
         </div>

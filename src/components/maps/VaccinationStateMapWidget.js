@@ -20,7 +20,6 @@ import {
 } from "../../utils"
 import {
   INITIAL_VIEW_STATE,
-  MAP_COLOR_DOMAIN,
   MAP_VACCINE_COLOR_DOMAIN
 } from "../../constants"
 import Loading from "../helpers/Loading"

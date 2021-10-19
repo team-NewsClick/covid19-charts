@@ -168,7 +168,7 @@ export const INITIAL_VIEW_STATE = {
 /**
  * Cases type for charts
  */
-export const CASES_TYPE = {
+export const CASE_TYPE = {
   CONFIRMED: "confirmed",
   DEATHS: "deaths"
 }
@@ -203,4 +203,33 @@ export const DATE_ADJUSTED = {
 export const PER_LAKH = {
   ON: "on",
   OFF: "off"
+}
+
+/**
+ * case type for district maps
+ */
+export const DIST_MAP_CASE_TYPE = {
+  ACTIVE: "active",
+  CONFIRMED: "confirmed",
+  DECEASED: "deceased",
+}
+
+/**
+ * case type for state maps
+ */
+export const STATE_MAP_CASE_TYPE = {
+  ACTIVE: "active",
+  NEW_CASES: "new_cases",
+  TOTAL_CASES: "total_cases",
+  NEW_DEATHS: "new_deaths",
+  TOTAL_DEATHS: "total_deaths",
+  TOTAL_VACCINATED_PER_THOUSAND: "total_vaccinated_per_thousand"
+}
+
+/**
+ * Visualisation type of vaccination
+ */
+export const VACCINATION_VIZ = {
+  CHART: "vaccination-chart",
+  MAP: "vaccination-map"
 }

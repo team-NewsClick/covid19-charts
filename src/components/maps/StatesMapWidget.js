@@ -21,7 +21,8 @@ import {
 import {
   INITIAL_VIEW_STATE,
   MAP_COLOR_DOMAIN,
-  MAP_VACCINE_COLOR_DOMAIN
+  MAP_VACCINE_COLOR_DOMAIN,
+  STATE_MAP_CASE_TYPE as CASE_TYPE
 } from "../../constants"
 import Loading from "../helpers/Loading"
 /**
@@ -148,17 +149,17 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
 
   const LegendDescription = () => {
     switch (casesType) {
-      case "active":
+      case CASE_TYPE.ACTIVE:
         return "Active Cases"
-      case "new_cases":
+      case CASE_TYPE.NEW_CASES:
         return "New Cases"
-      case "new_deaths":
+      case CASE_TYPE.NEW_DEATHS:
         return "New Deaths"
-      case "total_cases":
+      case CASE_TYPE.TOTAL_CASES:
         return "Total Cases"
-      case "total_deaths":
+      case CASE_TYPE.TOTAL_DEATHS:
         return "Total Deaths"
-      case "total_vaccinated_per_thousand":
+      case CASE_TYPE.TOTAL_VACCINATED_PER_THOUSAND:
         return "Vaccinations/1000 Population"
       default:
         return ""

@@ -22,7 +22,8 @@ import {
   MAP_COLOR_DOMAIN,
   DISTRICT_STATE_BORDER_COLOR,
   DISTRICT_BORDER_COLOR,
-  INITIAL_VIEW_STATE
+  INITIAL_VIEW_STATE,
+  DIST_MAP_CASE_TYPE as CASE_TYPE
 } from "../../constants"
 import Loading from "../helpers/Loading"
 /**
@@ -211,9 +212,9 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
                       }
                 }
               >
-                {casesType == "active"
+                {casesType == CASE_TYPE.ACTIVE
                   ? "Active Cases"
-                  : casesType == "confirmed"
+                  : casesType == CASE_TYPE.CONFIRMED
                   ? "Total Cases"
                   : "Total Deaths"}
               </div>
