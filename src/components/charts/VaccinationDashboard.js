@@ -3,15 +3,13 @@ import { csvParse } from "d3-dsv"
 import {
   processLogData,
   filterCases,
-  getDefaultSelects,
-  processCumulativeData
+  getDefaultSelects
 } from "../../utils"
 import {
   CasesType,
-  cutoffValues,
-  DefaultSelectCountry,
-  DefaultSelectState,
-  DefaultSelectCity
+  DATA_TYPE,
+  PER_LAKH,
+  SCALE_TYPE
 } from "../../constants"
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
@@ -31,9 +29,9 @@ const CovidDashboard = ({ trackerType }) => {
   const [data, setData] = useState([])
   const [defaultSelect, setDefaultSelect] = useState([])
   const [selectedRegions, setSelectedRegions] = useState([])
-  const [dataType, setDataType] = useState("new")
-  const [scaleType, setScaleType] = useState("linear")
-  const [perLakh, setPerLakh] = useState("off")
+  const [dataType, setDataType] = useState(DATA_TYPE.NEW)
+  const [scaleType, setScaleType] = useState(SCALE_TYPE.LINEAR)
+  const [perLakh, setPerLakh] = useState(PER_LAKH.OFF)
   const [interactiveSelects, setInteractiveSelects] = useState([])
   const [interactiveSelectsDisplay, setInteractiveSelectsDisplay] = useState([])
   const [initBool, setInitBool] = useState(true)
@@ -110,31 +108,31 @@ const CovidDashboard = ({ trackerType }) => {
 
   let initData = []
   chartHeading =
-    dataType === "cumulative"
-      ? perLakh === "on"
+    dataType === DATA_TYPE.CUMULATIVE
+      ? perLakh === PER_LAKH.ON
         ? "Total Vaccinations/Lakh"
         : "Total Vaccinations"
-      : perLakh === "on"
-      ? "Daily Vaccinations/Lakh"
-      : "Daily Vaccinations"
+      : perLakh === PER_LAKH.ON
+        ? "Daily Vaccinations/Lakh"
+        : "Daily Vaccinations"
 
   propsData.lineLabel =
-    dataType === "cumulative"
-      ? perLakh === "on"
+    dataType === DATA_TYPE.CUMULATIVE
+      ? perLakh === PER_LAKH.ON
         ? "Total Vaccinations/Lakh"
         : "Total Vaccinations"
-      : perLakh === "on"
-      ? "Vaccinations/Lakh"
-      : "Vaccinations"
+      : perLakh === PER_LAKH.ON
+        ? "Vaccinations/Lakh"
+        : "Vaccinations"
   initData =
-    dataType === "cumulative"
-      ? perLakh === "on"
+    dataType === DATA_TYPE.CUMULATIVE
+      ? perLakh === PER_LAKH.ON
         ? filterCases(data, CasesType.TOTAL_VACCINATED_PER_LAKH)
         : filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED)
-      : perLakh === "on"
+      : perLakh === PER_LAKH.ON
       ? filterCases(data, CasesType.NEW_VACCINATED_PER_LAKH)
       : filterCases(data, CasesType.NEW_DOSES_ADMINISTERED)
-  propsData.data = scaleType === "log" ? processLogData(initData) : initData
+  propsData.data = scaleType === SCALE_TYPE.LOG ? processLogData(initData) : initData
 
   const _handleSelectChange = (e) => {
     setSelectedRegions(e)
@@ -171,59 +169,59 @@ const CovidDashboard = ({ trackerType }) => {
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType + "-new"}
+              id={trackerType + "-" + DATA_TYPE.NEW}
               name={trackerType + "-data-type"}
-              value="new"
+              value={DATA_TYPE.NEW}
               defaultChecked
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor={trackerType + "-new"}>New</label>
+            <label htmlFor={trackerType + "-" + DATA_TYPE.NEW}>New</label>
             <input
               type="radio"
-              id={trackerType + "-cumulative"}
+              id={trackerType + "-" + DATA_TYPE.CUMULATIVE}
               name={trackerType + "-data-type"}
-              value="cumulative"
+              value={DATA_TYPE.CUMULATIVE}
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor={trackerType + "-cumulative"}>Cumulative</label>
+            <label htmlFor={trackerType + "-" + DATA_TYPE.CUMULATIVE}>Cumulative</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType + "-log"}
+              id={trackerType + "-" + SCALE_TYPE.LOG}
               name={trackerType + "-display-type"}
-              value="log"
+              value={SCALE_TYPE.LOG}
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor={trackerType + "-log"}>Log</label>
+            <label htmlFor={trackerType + "-" + SCALE_TYPE.LOG}>Log</label>
             <input
               type="radio"
-              id={trackerType + "-linear"}
+              id={trackerType + "-" + SCALE_TYPE.LINEAR}
               name={trackerType + "-display-type"}
-              value="linear"
+              value={SCALE_TYPE.LINEAR}
               defaultChecked
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor={trackerType + "-linear"}>Linear</label>
+            <label htmlFor={trackerType + "-" + SCALE_TYPE.LINEAR}>Linear</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType + "-off"}
+              id={trackerType + "-" + PER_LAKH.OFF}
               name={trackerType + "-perLakh"}
-              value="off"
+              value={PER_LAKH.OFF}
               defaultChecked
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor={trackerType + "-off"}>Raw</label>
+            <label htmlFor={trackerType + "-" + PER_LAKH.OFF}>Raw</label>
             <input
               type="radio"
-              id={trackerType + "-on"}
+              id={trackerType + "-" + PER_LAKH.ON}
               name={trackerType + "-perLakh"}
-              value="on"
+              value={PER_LAKH.ON}
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor={trackerType + "-on"}>Per 1L</label>
+            <label htmlFor={trackerType + "-" + PER_LAKH.ON}>Per 1L</label>
           </div>
         </div>
       </div>

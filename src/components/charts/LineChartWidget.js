@@ -17,8 +17,13 @@ import {
   calculateXMaxValue,
   isNearBy
 } from "../../utils"
-import { customColor, months } from "../../constants"
 import Loading from "../helpers/Loading"
+import {
+  customColor,
+  DATE_ADJUSTED,
+  months,
+  SCALE_TYPE
+} from "../../constants"
 
 /**
  * Linear graph for multiple regions
@@ -147,7 +152,7 @@ const LineChartWidget = (props) => {
             x: d.x,
             y: d.y,
             region: selected[selectedHighlight].region,
-            date: datesAdjusted === "on" ? d.date : d.x
+            date: datesAdjusted === DATE_ADJUSTED.ON ? d.date : d.x
           }
         ])
       }
@@ -156,7 +161,7 @@ const LineChartWidget = (props) => {
     return (
       <div>
         <XYPlot
-          xType={datesAdjusted === "on" ? "linear" : "time"}
+          xType={datesAdjusted === DATE_ADJUSTED.ON ? "linear" : "time"}
           yType={scaleType}
           width={
             window.innerWidth > 800
@@ -168,9 +173,9 @@ const LineChartWidget = (props) => {
               ? window.innerWidth * 0.35
               : window.innerWidth * 0.85
           }
-          xDomain={datesAdjusted === "on" ? null : [xMinRange, xMaxRange]}
+          xDomain={datesAdjusted === DATE_ADJUSTED.ON ? null : [xMinRange, xMaxRange]}
           yDomain={
-            scaleType === "log" ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
+            scaleType === SCALE_TYPE.LOG ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
           margin={
             window.innerWidth > 800
@@ -193,11 +198,11 @@ const LineChartWidget = (props) => {
               ticks: { stroke: "#acaeb5" },
               text: { stroke: "none" }
             }}
-            className={datesAdjusted === "on" ? null : "xTicks"}
+            className={datesAdjusted === DATE_ADJUSTED.ON ? null : "xTicks"}
           />
           <YAxis
             tickValues={
-              scaleType === "log"
+              scaleType === SCALE_TYPE.LOG
                 ? calculateYTickValues(yMinRangeLog, yMaxRange)
                 : null
             }
@@ -339,7 +344,7 @@ const LineChartWidget = (props) => {
           }
           className="text-xs text-gray-600"
         >
-          {datesAdjusted === "on" ? footNote : ""}
+          {datesAdjusted === DATE_ADJUSTED.ON ? footNote : ""}
         </div>
       </div>
     )

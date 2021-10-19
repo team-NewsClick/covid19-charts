@@ -164,3 +164,43 @@ export const INITIAL_VIEW_STATE = {
   pitch: 0,
   bearing: 0
 }
+
+/**
+ * Cases type for charts
+ */
+export const CASES_TYPE = {
+  CONFIRMED: "confirmed",
+  DEATHS: "deaths"
+}
+
+/**
+ * Data type for charts
+ */
+export const DATA_TYPE = {
+  NEW: "new",
+  CUMULATIVE: "cumulative"
+}
+
+/**
+ * Scale type for charts
+ */
+export const SCALE_TYPE = {
+  LOG: "log",
+  LINEAR: "linear"
+}
+
+/**
+ * Date adjusted mode for charts
+ */
+export const DATE_ADJUSTED = {
+  ON: "on",
+  OFF: "off"
+}
+
+/**
+ * Per lakh mode fro charts
+ */
+export const PER_LAKH = {
+  ON: "on",
+  OFF: "off"
+}
