@@ -19,36 +19,33 @@ const DistrictsMapDashboard = ({ trackerType }) => {
         <div className="radio-toolbar m-2">
           <input
             type="radio"
-            id={trackerType+"-map-active"}
-            name={trackerType+"-map-cases"}
+            id={trackerType + "-map-active"}
+            name={trackerType + "-map-cases"}
             value="active"
             defaultChecked
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor={trackerType+"-map-active"}>Active Cases</label>
+          <label htmlFor={trackerType + "-map-active"}>Active Cases</label>
           <input
             type="radio"
-            id={trackerType+"-map-confirmed"}
-            name={trackerType+"-map-cases"}
+            id={trackerType + "-map-confirmed"}
+            name={trackerType + "-map-cases"}
             value="confirmed"
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor={trackerType+"-map-confirmed"}>Total Cases</label>
+          <label htmlFor={trackerType + "-map-confirmed"}>Total Cases</label>
           <input
             type="radio"
-            id={trackerType+"-map-deceased"}
-            name={trackerType+"-map-cases"}
+            id={trackerType + "-map-deceased"}
+            name={trackerType + "-map-cases"}
             value="deceased"
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor={trackerType+"-map-deceased"}>Total Deaths</label>
+          <label htmlFor={trackerType + "-map-deceased"}>Total Deaths</label>
         </div>
       </div>
       <div className="pt-8">
-        <DistrictsMapWidget
-          trackerType={trackerType}
-          casesType={casesType}
-          />
+        <DistrictsMapWidget trackerType={trackerType} casesType={casesType} />
       </div>
     </div>
   )

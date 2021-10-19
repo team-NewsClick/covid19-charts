@@ -27,7 +27,6 @@ import LineChartWidget from "./LineChartWidget"
  * @return {JSX.Element} Buttons with option of viewing data with different type and condition
  */
 const CovidDashboard = ({ trackerType }) => {
-
   const [windowInnerWidth, setWindowInnerWidth] = useState("200")
   const [data, setData] = useState([])
   const [defaultSelect, setDefaultSelect] = useState([])
@@ -40,7 +39,9 @@ const CovidDashboard = ({ trackerType }) => {
   const [initBool, setInitBool] = useState(true)
 
   useEffect(() => {
-    setWindowInnerWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
+    setWindowInnerWidth(
+      typeof window !== "undefined" ? window.innerWidth : "800px"
+    )
   }, [])
 
   useEffect(() => {
@@ -58,10 +59,12 @@ const CovidDashboard = ({ trackerType }) => {
 
   useEffect(() => {
     data.length !== 0
-      ? (
-          setDefaultSelect(getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)),
-          setSelectedRegions(getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED))
-        )
+      ? (setDefaultSelect(
+          getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)
+        ),
+        setSelectedRegions(
+          getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)
+        ))
       : setDefaultSelect([])
   }, [data])
 
@@ -168,59 +171,59 @@ const CovidDashboard = ({ trackerType }) => {
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType+"-new"}
-              name={trackerType+"-data-type"}
+              id={trackerType + "-new"}
+              name={trackerType + "-data-type"}
               value="new"
               defaultChecked
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor={trackerType+"-new"}>New</label>
+            <label htmlFor={trackerType + "-new"}>New</label>
             <input
               type="radio"
-              id={trackerType+"-cumulative"}
-              name={trackerType+"-data-type"}
+              id={trackerType + "-cumulative"}
+              name={trackerType + "-data-type"}
               value="cumulative"
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor={trackerType+"-cumulative"}>Cumulative</label>
+            <label htmlFor={trackerType + "-cumulative"}>Cumulative</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType+"-log"}
-              name={trackerType+"-display-type"}
+              id={trackerType + "-log"}
+              name={trackerType + "-display-type"}
               value="log"
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor={trackerType+"-log"}>Log</label>
+            <label htmlFor={trackerType + "-log"}>Log</label>
             <input
               type="radio"
-              id={trackerType+"-linear"}
-              name={trackerType+"-display-type"}
+              id={trackerType + "-linear"}
+              name={trackerType + "-display-type"}
               value="linear"
               defaultChecked
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor={trackerType+"-linear"}>Linear</label>
+            <label htmlFor={trackerType + "-linear"}>Linear</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType+"-off"}
-              name={trackerType+"-perLakh"}
+              id={trackerType + "-off"}
+              name={trackerType + "-perLakh"}
               value="off"
               defaultChecked
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor={trackerType+"-off"}>Raw</label>
+            <label htmlFor={trackerType + "-off"}>Raw</label>
             <input
               type="radio"
-              id={trackerType+"-on"}
-              name={trackerType+"-perLakh"}
+              id={trackerType + "-on"}
+              name={trackerType + "-perLakh"}
               value="on"
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor={trackerType+"-on"}>Per 1L</label>
+            <label htmlFor={trackerType + "-on"}>Per 1L</label>
           </div>
         </div>
       </div>

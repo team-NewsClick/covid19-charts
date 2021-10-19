@@ -11,9 +11,9 @@ const covidSummary = async (req, res) => {
 }
 
 const handleGet = async (_, res) => {
-  const statsSummmary = await fetch(
-    process.env.API_URL_COVIDSUMMARY
-  ).then((res) => res.text())
+  const statsSummmary = await fetch(process.env.API_URL_COVIDSUMMARY).then(
+    (res) => res.text()
+  )
   res.setHeader("Cache-Control", "max-age=3600")
   return res.json(statsSummmary)
 }

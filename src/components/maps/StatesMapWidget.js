@@ -18,7 +18,11 @@ import {
   getMapWidth,
   getMapHeight
 } from "../../utils"
-import { INITIAL_VIEW_STATE, MAP_COLOR_DOMAIN, MAP_VACCINE_COLOR_DOMAIN } from "../../constants"
+import {
+  INITIAL_VIEW_STATE,
+  MAP_COLOR_DOMAIN,
+  MAP_VACCINE_COLOR_DOMAIN
+} from "../../constants"
 import Loading from "../helpers/Loading"
 /**
  * Plot Map and Deckgl Layers
@@ -27,7 +31,6 @@ import Loading from "../helpers/Loading"
  * @return {JSX.Element} Map Widget
  */
 const StatesMapWidget = ({ trackerType, casesType }) => {
-                   
   const [windowWidth, setWindowWidth] = useState("200")
   const [regionKey, setRegionKey] = useState("")
   const [geoJsonData, setGeoJsonData] = useState({})
@@ -46,7 +49,7 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
   useEffect(() => {
     setInitialViewState(
       getInitalViewStateByWidth(windowWidth, initialViewState)
-      )
+    )
   }, [windowWidth])
 
   useEffect(() => {
@@ -76,9 +79,9 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
     minValue = calcuateMinimum(covidData, casesType)
     domainValues = calculateDomain(covidData, casesType)
     colors =
-    casesType === "total_vaccinated_per_thousand"
-      ? scaleQuantile().domain(domainValues).range(MAP_VACCINE_COLOR_DOMAIN)
-      : scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
+      casesType === "total_vaccinated_per_thousand"
+        ? scaleQuantile().domain(domainValues).range(MAP_VACCINE_COLOR_DOMAIN)
+        : scaleQuantile().domain(domainValues).range(MAP_COLOR_DOMAIN)
   }
 
   const _fillColor = (d) => {
@@ -124,20 +127,20 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
     }
   }
 
-  const layer =  geoJsonData &&
-  geoJsonData.length !== 0 && [
-    new GeoJsonLayer({
-      id: "geojson-layer",
-      data: geoJsonData,
-      stroked: true,
-      filled: true,
-      lineWidthScale: 600,
-      getFillColor: (d) => _fillColor(d),
-      getLineColor: [255, 255, 255, 255],
-      getLineWidth: 5,
-      pickable: true
-    })
-  ]
+  const layer = geoJsonData &&
+    geoJsonData.length !== 0 && [
+      new GeoJsonLayer({
+        id: "geojson-layer",
+        data: geoJsonData,
+        stroked: true,
+        filled: true,
+        lineWidthScale: 600,
+        getFillColor: (d) => _fillColor(d),
+        getLineColor: [255, 255, 255, 255],
+        getLineWidth: 5,
+        pickable: true
+      })
+    ]
 
   const colorDomains = colors && colors.length !== 0 && colors.domain()
   const legends =
@@ -167,7 +170,7 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
     geoJsonData.features &&
     geoJsonData.features.length !== 0 &&
     covidData.length !== 0
-  ) { 
+  ) {
     return (
       <div className="flex relative my-8 justify-center">
         <DeckGL
@@ -197,33 +200,32 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
                   ? { bottom: "1.0rem", right: "5rem", fontSize: "0.8rem" }
                   : { bottom: "4.5rem", right: "12rem", fontSize: "1rem" }
               }
-              >
-              <div
-                className="border-b mb-1 md:mb-2 font-bold leading-4"
-              >
+            >
+              <div className="border-b mb-1 md:mb-2 font-bold leading-4">
                 <LegendDescription />
               </div>
-              {legends && legends.map((l, i) => (
-                <div
-                  key={i}
-                  className="flex leading-4"
-                  style={
-                    windowWidth < 700
-                      ? windowWidth > 500
-                        ? { paddingBottom: "0.25rem" }
-                        : {}
-                      : { paddingBottom: "0.5rem" }
-                  }
-                >
+              {legends &&
+                legends.map((l, i) => (
                   <div
-                    className="legend-color"
-                    style={{ backgroundColor: `rgb${l.color}` }}
-                  ></div>
-                  <div>
-                    {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
+                    key={i}
+                    className="flex leading-4"
+                    style={
+                      windowWidth < 700
+                        ? windowWidth > 500
+                          ? { paddingBottom: "0.25rem" }
+                          : {}
+                        : { paddingBottom: "0.5rem" }
+                    }
+                  >
+                    <div
+                      className="legend-color"
+                      style={{ backgroundColor: `rgb${l.color}` }}
+                    ></div>
+                    <div>
+                      {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </DeckGL>

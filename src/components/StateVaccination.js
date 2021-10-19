@@ -42,11 +42,11 @@ const StateVaccination = () => {
         </label>
       </div>
       <div>
-        {
-        vaccinationViz === "vaccination-chart"
-          ? <VaccinationDashboard trackerType="state" />
-          : <VaccinationStatesMapWidget trackerType="state" />
-        }
+        {vaccinationViz === "vaccination-chart" ? (
+          <VaccinationDashboard trackerType="state" />
+        ) : (
+          <VaccinationStatesMapWidget trackerType="state" />
+        )}
       </div>
     </div>
   )

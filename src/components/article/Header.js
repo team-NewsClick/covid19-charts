@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="flex header-logos">
-        <a href="https://www.newsclick.in/" target="_blank" rel="noreferrer" >
+        <a href="https://www.newsclick.in/" target="_blank" rel="noreferrer">
           <img
             src="../img/newsclick-logo.png"
             alt="Newsclick Logo"
@@ -33,21 +33,25 @@ const Header = () => {
           className="flex self-end justify-end flex-auto"
           style={{ height: "29px" }}
         >
-          <a href="https://www.facebook.com/newsclickonline/" target="_blank" rel="noreferrer" >
+          <a
+            href="https://www.facebook.com/newsclickonline/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <img
               src="../img/fb.png"
               alt="Facebook"
               className="social-icon block"
             />
           </a>
-          <a href="https://twitter.com/newsclickin" rel="noreferrer" >
+          <a href="https://twitter.com/newsclickin" rel="noreferrer">
             <img
               src="../img/twitter.png"
               alt="Twitter"
               className="social-icon block"
             />
           </a>
-          <a href="https://www.youtube.com/user/NewsClickin" rel="noreferrer" >
+          <a href="https://www.youtube.com/user/NewsClickin" rel="noreferrer">
             <img
               src="../img/yt.png"
               alt="YouTube"

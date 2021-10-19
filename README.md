@@ -21,8 +21,6 @@ npm run dev
 yarn dev
 ```
 
-- Open [http://localhost:3000](http://localhost:3000) from the browser to see the result.
-
 - To get COVID-19 article open [http://localhost:9000/covid19-cases-graphs-maps-india-world](http://localhost:9000/covid19-cases-graphs-maps-india-world) from the browser to see the result.
 
 ## Dependencies

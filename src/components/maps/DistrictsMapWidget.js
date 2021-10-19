@@ -32,7 +32,6 @@ import Loading from "../helpers/Loading"
  * @return {JSX.Element} Map Widget
  */
 const DistrictsMapWidget = ({ trackerType, casesType }) => {
-
   const [stateGeoJsonData, setStateGeoJsonData] = useState([])
   const [districtGeoJsonData, setDistrictGeoJsonData] = useState([])
   const [covidData, setCovidData] = useState([])
@@ -49,13 +48,11 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
     setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800")
   }, [])
 
-
   useEffect(() => {
     setInitialViewState(
       getInitalViewStateByWidth(windowWidth, initialViewState)
-      )
+    )
   }, [windowWidth])
-
 
   useEffect(() => {
     /**
@@ -157,10 +154,11 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
       pickable: true
     })
   ]
-  const colorDomains =  colors && colors.length !== 0 && colors.domain()
-  const legends =  colors && colors.length !== 0 && sortLegends(maxValue, colors, colorDomains)
+  const colorDomains = colors && colors.length !== 0 && colors.domain()
+  const legends =
+    colors && colors.length !== 0 && sortLegends(maxValue, colors, colorDomains)
 
-  if(
+  if (
     districtGeoJsonData &&
     districtGeoJsonData.features &&
     districtGeoJsonData.features.length !== 0 &&
@@ -194,7 +192,7 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
                   ? { bottom: "2.5rem", right: "5rem", fontSize: "0.8rem" }
                   : { bottom: "6.5rem", right: "11rem", fontSize: "1rem" }
               }
-              >
+            >
               <div
                 className="border-b mb-1 md:mb-2 font-bold leading-4"
                 style={
@@ -219,34 +217,35 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
                   ? "Total Cases"
                   : "Total Deaths"}
               </div>
-              {legends && legends.map((l, i) => (
-                <div
-                  key={i}
-                  className="flex leading-4"
-                  style={
-                    windowWidth < 700
-                      ? windowWidth > 500
-                        ? { paddingBottom: "0.25rem" }
-                        : {}
-                      : { paddingBottom: "0.5rem" }
-                  }
-                >
+              {legends &&
+                legends.map((l, i) => (
                   <div
-                    className="legend-color"
-                    style={{ backgroundColor: `rgb${l.color}` }}
-                  ></div>
-                  <div>
-                    {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
+                    key={i}
+                    className="flex leading-4"
+                    style={
+                      windowWidth < 700
+                        ? windowWidth > 500
+                          ? { paddingBottom: "0.25rem" }
+                          : {}
+                        : { paddingBottom: "0.5rem" }
+                    }
+                  >
+                    <div
+                      className="legend-color"
+                      style={{ backgroundColor: `rgb${l.color}` }}
+                    ></div>
+                    <div>
+                      {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </DeckGL>
       </div>
     )
   } else {
-    return(
+    return (
       <div className="flex h-screen">
         <div className="m-auto">
           <Loading />

@@ -13,7 +13,7 @@ const RelatedPosts = () => {
       <div className="lg:flex md:flex sm:block">
         <div className="article-thumbnail">
           <div>
-            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md"/>
+            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md" />
           </div>
           <div className="article-thumbnail-title">
             COVID-19 Cases: Data and Graphs of India and the World
@@ -33,7 +33,7 @@ const RelatedPosts = () => {
         </div>
         <div className="article-thumbnail">
           <div>
-            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md"/>
+            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md" />
           </div>
           <div className="article-thumbnail-title">
             COVID-19 Cases: Data and Graphs of India and the World
@@ -53,7 +53,7 @@ const RelatedPosts = () => {
         </div>
         <div className="article-thumbnail">
           <div>
-            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md"/>
+            <img src="../img/covid-19-fi.jpg" alt="" className="rounded-t-md" />
           </div>
           <div className="article-thumbnail-title">
             COVID-19 Cases: Data and Graphs of India and the World

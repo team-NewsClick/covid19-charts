@@ -8,16 +8,17 @@ import { cutoffValues, CasesType } from "./constants"
 export const getDefaultSelects = (data, casesType) => {
   let newConfirmedCases = filterCases(data, casesType)
   const lastDayData = []
-  let sorted =[]
+  let sorted = []
   let defaultRegions = []
-  newConfirmedCases.length > 0 && newConfirmedCases.map((d) => {
-    lastDayData.push({
-      region: d.region,
-      y: parseInt(d.data[d.data.length -1].y)
+  newConfirmedCases.length > 0 &&
+    newConfirmedCases.map((d) => {
+      lastDayData.push({
+        region: d.region,
+        y: parseInt(d.data[d.data.length - 1].y)
+      })
     })
-  })
-  sorted = lastDayData.sort((a, b) => a.y < b.y ? 1 : (a.y) > b.y ? -1 : 0)
-  for(let i = 0; i <3; i++) {
+  sorted = lastDayData.sort((a, b) => (a.y < b.y ? 1 : a.y > b.y ? -1 : 0))
+  for (let i = 0; i < 3; i++) {
     defaultRegions.push({
       value: sorted[i].region,
       label: sorted[i].region
@@ -204,7 +205,7 @@ export const calculateYMaxValue = (data, scaleType) => {
     acc = parseInt(e) > acc ? e : acc
     return acc
   }, 0)
-  return scaleType === "linear"  ? max * 1.15 : max * 2
+  return scaleType === "linear" ? max * 1.15 : max * 2
 }
 
 /**
@@ -342,7 +343,6 @@ export const sortLegends = (maxValue, colors, colorDomains) => {
  * @return {Object} - A data point which is not nearby other points in the array
  */
 export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
-
   let doRecurssion = false
   let adjustedPoints_Y = []
 
@@ -381,10 +381,20 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
     }
     let sortedTempArray = adjustedPoints_Y.sort((a, b) => a - b).reverse()
     if (doRecurssion === false) {
-      return { x: data.x, y: sortedTempArray[0], region: data.region, index: data.index }
+      return {
+        x: data.x,
+        y: sortedTempArray[0],
+        region: data.region,
+        index: data.index
+      }
     } else {
       return isNearBy(
-        { x: data.x, y: sortedTempArray[0], region: data.region, index: data.index },
+        {
+          x: data.x,
+          y: sortedTempArray[0],
+          region: data.region,
+          index: data.index
+        },
         adjustedLabelSeries,
         yMax,
         scaleType
@@ -401,25 +411,25 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
  */
 export const getInitalViewStateByWidth = (windowWidth, initialViewState) => {
   return windowWidth < 700
-  ? windowWidth > 500
-    ? {
-        ...initialViewState,
-        zoom: 3.5,
-        minZoom: 2.8,
-        maxZoom: 4.3,
-      }
+    ? windowWidth > 500
+      ? {
+          ...initialViewState,
+          zoom: 3.5,
+          minZoom: 2.8,
+          maxZoom: 4.3
+        }
+      : {
+          ...initialViewState,
+          zoom: 2.9,
+          minZoom: 2.5,
+          maxZoom: 3.5
+        }
     : {
         ...initialViewState,
-        zoom: 2.9,
-        minZoom: 2.5,
-        maxZoom: 3.5,
+        zoom: 4.1,
+        minZoom: 3.5,
+        maxZoom: 5.5
       }
-  : {
-      ...initialViewState,
-      zoom: 4.1,
-      minZoom: 3.5,
-      maxZoom: 5.5,
-    }
 }
 
 /**
@@ -428,9 +438,7 @@ export const getInitalViewStateByWidth = (windowWidth, initialViewState) => {
  * @returns {Number} width size for map
  */
 export const getMapWidth = (windowWidth) => {
-  return windowWidth > 800
-    ? windowWidth * 0.4
-    : windowWidth * 0.95
+  return windowWidth > 800 ? windowWidth * 0.4 : windowWidth * 0.95
 }
 
 /**
@@ -439,7 +447,5 @@ export const getMapWidth = (windowWidth) => {
  * @returns {Number} height size for map
  */
 export const getMapHeight = (windowWidth) => {
-  return windowWidth > 800
-    ? windowWidth * 0.45
-    : windowWidth * 1.15
+  return windowWidth > 800 ? windowWidth * 0.45 : windowWidth * 1.15
 }

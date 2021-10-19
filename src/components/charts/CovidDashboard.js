@@ -7,10 +7,7 @@ import {
   processDatesAdjusted,
   getDefaultSelects
 } from "../../utils"
-import {
-  CasesType,
-  cutoffValues
-} from "../../constants"
+import { CasesType, cutoffValues } from "../../constants"
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
 import LineChartWidget from "./LineChartWidget"
@@ -24,8 +21,7 @@ import LineChartWidget from "./LineChartWidget"
  * @param {string} props.data.trackertype Region type
  * @return {JSX.Element} Buttons with option of viewing data with different type and condition
  */
-const CovidDashboard = ({trackerType}) => {
-
+const CovidDashboard = ({ trackerType }) => {
   const [windowInnerWidth, setWindowInnerWidth] = useState("200")
   const [data, setData] = useState([])
   const [defaultSelect, setDefaultSelect] = useState([])
@@ -40,7 +36,9 @@ const CovidDashboard = ({trackerType}) => {
   const [initBool, setInitBool] = useState(true)
 
   useEffect(() => {
-    setWindowInnerWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
+    setWindowInnerWidth(
+      typeof window !== "undefined" ? window.innerWidth : "800px"
+    )
   }, [])
 
   useEffect(() => {
@@ -64,10 +62,8 @@ const CovidDashboard = ({trackerType}) => {
 
   useEffect(() => {
     data.length !== 0
-      ? (
-          setDefaultSelect(getDefaultSelects(data, CasesType.CONFIRMED)),
-          setSelectedRegions(getDefaultSelects(data, CasesType.CONFIRMED))
-        )
+      ? (setDefaultSelect(getDefaultSelects(data, CasesType.CONFIRMED)),
+        setSelectedRegions(getDefaultSelects(data, CasesType.CONFIRMED)))
       : setDefaultSelect([])
   }, [data])
 
@@ -116,9 +112,9 @@ const CovidDashboard = ({trackerType}) => {
 
   let initData = []
   if (casesType === "confirmed") {
-    if(dataType === "new") {
-     propsData.lineLabel = "New Cases"
-     initData = filterCases(data, CasesType.CONFIRMED)
+    if (dataType === "new") {
+      propsData.lineLabel = "New Cases"
+      initData = filterCases(data, CasesType.CONFIRMED)
     } else {
       propsData.lineLabel = "Total Cases"
       initData = processCumulativeData(
@@ -132,12 +128,14 @@ const CovidDashboard = ({trackerType}) => {
         ? processDatesAdjusted(scaleAdjustedData, CasesType.CONFIRMED, dataType)
         : scaleAdjustedData
   } else if (casesType === "deaths") {
-    if(dataType === "new") {
+    if (dataType === "new") {
       propsData.lineLabel = "New Deaths"
       initData = filterCases(data, CasesType.DEATHS)
     } else {
       propsData.lineLabel = "Total Deaths"
-      initData = processCumulativeData(filterCases(data, CasesType.DEATHS, dataType))
+      initData = processCumulativeData(
+        filterCases(data, CasesType.DEATHS, dataType)
+      )
     }
     const scaleAdjustedData =
       scaleType === "log" ? processLogData(initData) : initData
@@ -213,78 +211,80 @@ const CovidDashboard = ({trackerType}) => {
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType+"-chart-deaths"}
-              name={trackerType+"-chart-cases"}
+              id={trackerType + "-chart-deaths"}
+              name={trackerType + "-chart-cases"}
               value="deaths"
               onChange={(e) => _handleCasesType(e)}
             />
-            <label htmlFor={trackerType+"-chart-deaths"}>Deaths</label>
+            <label htmlFor={trackerType + "-chart-deaths"}>Deaths</label>
             <input
               type="radio"
-              id={trackerType+"-chart-confirmed"}
-              name={trackerType+"-chart-cases"}
+              id={trackerType + "-chart-confirmed"}
+              name={trackerType + "-chart-cases"}
               value="confirmed"
               defaultChecked
               onChange={(e) => _handleCasesType(e)}
             />
-            <label htmlFor={trackerType+"-chart-confirmed"}>Cases</label>
+            <label htmlFor={trackerType + "-chart-confirmed"}>Cases</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType+"-chart-new"}
-              name={trackerType+"-chart-data-type"}
+              id={trackerType + "-chart-new"}
+              name={trackerType + "-chart-data-type"}
               value="new"
               defaultChecked
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor={trackerType+"-chart-new"}>New</label>
+            <label htmlFor={trackerType + "-chart-new"}>New</label>
             <input
               type="radio"
-              id={trackerType+"-chart-cumulative"}
-              name={trackerType+"-chart-data-type"}
+              id={trackerType + "-chart-cumulative"}
+              name={trackerType + "-chart-data-type"}
               value="cumulative"
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor={trackerType+"-chart-cumulative"}>Cumulative</label>
+            <label htmlFor={trackerType + "-chart-cumulative"}>
+              Cumulative
+            </label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType+"-chart-log"}
-              name={trackerType+"-chart-display-type"}
+              id={trackerType + "-chart-log"}
+              name={trackerType + "-chart-display-type"}
               value="log"
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor={trackerType+"-chart-log"}>Log</label>
+            <label htmlFor={trackerType + "-chart-log"}>Log</label>
             <input
               type="radio"
-              id={trackerType+"-chart-linear"}
-              name={trackerType+"-chart-display-type"}
+              id={trackerType + "-chart-linear"}
+              name={trackerType + "-chart-display-type"}
               value="linear"
               defaultChecked
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor={trackerType+"-chart-linear"}>Linear</label>
+            <label htmlFor={trackerType + "-chart-linear"}>Linear</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id={trackerType+"-chart-on"}
-              name={trackerType+"-chart-adjust-date"}
+              id={trackerType + "-chart-on"}
+              name={trackerType + "-chart-adjust-date"}
               value="on"
               onChange={(e) => _handleDatesAdjusted(e)}
             />
-            <label htmlFor={trackerType+"-chart-on"}>On</label>
+            <label htmlFor={trackerType + "-chart-on"}>On</label>
             <input
               type="radio"
-              id={trackerType+"-chart-off"}
-              name={trackerType+"-chart-adjust-date"}
+              id={trackerType + "-chart-off"}
+              name={trackerType + "-chart-adjust-date"}
               value="off"
               defaultChecked
               onChange={(e) => _handleDatesAdjusted(e)}
             />
-            <label htmlFor={trackerType+"-chart-off"}>Off</label>
+            <label htmlFor={trackerType + "-chart-off"}>Off</label>
             <div className="radio-title">Date adjusted to outbreak start</div>
           </div>
         </div>
@@ -296,16 +296,14 @@ const CovidDashboard = ({trackerType}) => {
         <Select
           components={makeAnimated}
           placeholder="Select a region"
-          name={trackerType+"-chart-selectOptions"}
+          name={trackerType + "-chart-selectOptions"}
           onChange={_handleSelectChange}
           defaultValue={defaultSelect}
           value={selectedRegions}
           options={interactiveSelects.length >= 6 ? [] : dropDownOptions}
           components={{
             NoOptionsMessage: () => (
-              <div className="noOptions">
-                No options available
-              </div>
+              <div className="noOptions">No options available</div>
             )
           }}
           isSearchable

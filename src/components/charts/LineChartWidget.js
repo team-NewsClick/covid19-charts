@@ -73,25 +73,48 @@ const LineChartWidget = (props) => {
     } else {
       setselected([])
     }
-  }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted, perLakh])
+  }, [
+    interactiveSelects,
+    casesType,
+    scaleType,
+    dataType,
+    datesAdjusted,
+    perLakh
+  ])
 
   useEffect(() => {
-    const sortedPreAdjustedLabelSeries = selected.map((d, i) => {
-      return {
-        x: d.data[d.data.length - 1].x,
-        y: d.data[d.data.length - 1].y,
-        region: d.region,
-        index: i
-      }
-    }).sort((a, b) => parseInt(a.y) - parseInt(b.y))
+    const sortedPreAdjustedLabelSeries = selected
+      .map((d, i) => {
+        return {
+          x: d.data[d.data.length - 1].x,
+          y: d.data[d.data.length - 1].y,
+          region: d.region,
+          index: i
+        }
+      })
+      .sort((a, b) => parseInt(a.y) - parseInt(b.y))
     let adjustedLabelSeries = []
     let adjustedPoint = null
     sortedPreAdjustedLabelSeries.map((d) => {
-      adjustedPoint = isNearBy(d, adjustedLabelSeries, yMaxRange, scaleType, perLakh)
+      adjustedPoint = isNearBy(
+        d,
+        adjustedLabelSeries,
+        yMaxRange,
+        scaleType,
+        perLakh
+      )
       adjustedLabelSeries.push(adjustedPoint)
     })
     setSelectedLabelSeriesData(adjustedLabelSeries)
-  }, [ selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted, perLakh])
+  }, [
+    selected,
+    interactiveSelects,
+    casesType,
+    scaleType,
+    dataType,
+    datesAdjusted,
+    perLakh
+  ])
 
   if (data.length == 0) {
     return (
@@ -146,7 +169,9 @@ const LineChartWidget = (props) => {
               : window.innerWidth * 0.85
           }
           xDomain={datesAdjusted === "on" ? null : [xMinRange, xMaxRange]}
-          yDomain={scaleType === "log" ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]}
+          yDomain={
+            scaleType === "log" ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
+          }
           margin={
             window.innerWidth > 800
               ? { left: 100, right: 200 }
@@ -182,14 +207,12 @@ const LineChartWidget = (props) => {
             <MarkSeries
               data={[
                 {
-                  x:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].x,
-                  y:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].y
+                  x: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].x,
+                  y: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].y
                 }
               ]}
               color={"#777"}
@@ -199,14 +222,12 @@ const LineChartWidget = (props) => {
             <LabelSeries
               data={[
                 {
-                  x:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].x,
-                  y:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].y,
+                  x: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].x,
+                  y: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].y,
                   label: data[greyHighlight].region,
                   xOffset: 12
                 }

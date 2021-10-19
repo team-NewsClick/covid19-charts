@@ -18,7 +18,11 @@ import {
   getMapWidth,
   getMapHeight
 } from "../../utils"
-import { INITIAL_VIEW_STATE, MAP_COLOR_DOMAIN, MAP_VACCINE_COLOR_DOMAIN } from "../../constants"
+import {
+  INITIAL_VIEW_STATE,
+  MAP_COLOR_DOMAIN,
+  MAP_VACCINE_COLOR_DOMAIN
+} from "../../constants"
 import Loading from "../helpers/Loading"
 /**
  * Plot Map and Deckgl Layers
@@ -42,13 +46,11 @@ const VaccinationStatesMapWidget = ({ trackerType }) => {
     setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800")
   }, [])
 
-
   useEffect(() => {
     setInitialViewState(
       getInitalViewStateByWidth(windowWidth, initialViewState)
-      )
+    )
   }, [windowWidth])
-
 
   useEffect(() => {
     /**
@@ -137,8 +139,8 @@ const VaccinationStatesMapWidget = ({ trackerType }) => {
         getFillColor: (d) => _fillColor(d),
         getLineColor: [255, 255, 255, 255],
         getLineWidth: 5,
-        pickable: true,
-      }),
+        pickable: true
+      })
     ]
 
   const colorDomains = colors && colors.length !== 0 && colors.domain()
@@ -171,7 +173,7 @@ const VaccinationStatesMapWidget = ({ trackerType }) => {
             reuseMaps
             mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
           />
-          <div className="relative grid h-full place-items-end p-1" >
+          <div className="relative grid h-full place-items-end p-1">
             <div
               className="relative legends"
               style={

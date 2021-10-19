@@ -60,8 +60,8 @@ export const CasesType = {
   DEATHS: "new_deaths",
   NEW_DOSES_ADMINISTERED: "new_doses_administered",
   TOTAL_DOSES_ADMINISTERED: "total_doses_administered",
-  NEW_VACCINATED_PER_LAKH : "new_vaccinated_per_one_lakh",
-  TOTAL_VACCINATED_PER_LAKH : "total_vaccinated_per_one_lakh"
+  NEW_VACCINATED_PER_LAKH: "new_vaccinated_per_one_lakh",
+  TOTAL_VACCINATED_PER_LAKH: "total_vaccinated_per_one_lakh"
 }
 
 /**
@@ -162,5 +162,5 @@ export const INITIAL_VIEW_STATE = {
   minZoom: 4.3,
   maxZoom: 4.3,
   pitch: 0,
-  bearing: 0,
+  bearing: 0
 }
