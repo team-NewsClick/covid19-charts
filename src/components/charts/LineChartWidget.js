@@ -8,8 +8,7 @@ import {
   MarkSeries,
   LabelSeries
 } from "react-vis"
-import LoaderFunction from "../LoaderFunction"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   calculateYMinValue,
   calculateYMaxValue,
@@ -18,7 +17,13 @@ import {
   calculateXMaxValue,
   isNearBy
 } from "../../utils"
-import { customColor, months } from "../../constants"
+import Loading from "../helpers/Loading"
+import {
+  customColor,
+  DATE_ADJUSTED,
+  months,
+  SCALE_TYPE
+} from "../../constants"
 
 /**
  * Linear graph for multiple regions
@@ -73,31 +78,54 @@ const LineChartWidget = (props) => {
     } else {
       setselected([])
     }
-  }, [interactiveSelects, casesType, scaleType, dataType, datesAdjusted, perLakh])
+  }, [
+    interactiveSelects,
+    casesType,
+    scaleType,
+    dataType,
+    datesAdjusted,
+    perLakh
+  ])
 
   useEffect(() => {
-    const sortedPreAdjustedLabelSeries = selected.map((d, i) => {
-      return {
-        x: d.data[d.data.length - 1].x,
-        y: d.data[d.data.length - 1].y,
-        region: d.region,
-        index: i
-      }
-    }).sort((a, b) => parseInt(a.y) - parseInt(b.y))
+    const sortedPreAdjustedLabelSeries = selected
+      .map((d, i) => {
+        return {
+          x: d.data[d.data.length - 1].x,
+          y: d.data[d.data.length - 1].y,
+          region: d.region,
+          index: i
+        }
+      })
+      .sort((a, b) => parseInt(a.y) - parseInt(b.y))
     let adjustedLabelSeries = []
     let adjustedPoint = null
     sortedPreAdjustedLabelSeries.map((d) => {
-      adjustedPoint = isNearBy(d, adjustedLabelSeries, yMaxRange, scaleType, perLakh)
+      adjustedPoint = isNearBy(
+        d,
+        adjustedLabelSeries,
+        yMaxRange,
+        scaleType,
+        perLakh
+      )
       adjustedLabelSeries.push(adjustedPoint)
     })
     setSelectedLabelSeriesData(adjustedLabelSeries)
-  }, [ selected, interactiveSelects, casesType, scaleType, dataType, datesAdjusted, perLakh])
+  }, [
+    selected,
+    interactiveSelects,
+    casesType,
+    scaleType,
+    dataType,
+    datesAdjusted,
+    perLakh
+  ])
 
   if (data.length == 0) {
     return (
       <div className="flex h-screen">
         <div className="m-auto">
-          <LoaderFunction />
+          <Loading />
         </div>
       </div>
     )
@@ -124,7 +152,7 @@ const LineChartWidget = (props) => {
             x: d.x,
             y: d.y,
             region: selected[selectedHighlight].region,
-            date: datesAdjusted === "on" ? d.date : d.x
+            date: datesAdjusted === DATE_ADJUSTED.ON ? d.date : d.x
           }
         ])
       }
@@ -133,21 +161,21 @@ const LineChartWidget = (props) => {
     return (
       <div>
         <XYPlot
-          xType={datesAdjusted === "on" ? "linear" : "time"}
+          xType={datesAdjusted === DATE_ADJUSTED.ON ? "linear" : "time"}
           yType={scaleType}
           width={
             window.innerWidth > 800
-              ? window.innerWidth * 1
-              : window.innerWidth * 1
+              ? window.innerWidth * 0.65
+              : window.innerWidth * 0.9
           }
           height={
             window.innerWidth > 800
-              ? window.innerWidth * 0.55
+              ? window.innerWidth * 0.35
               : window.innerWidth * 0.85
           }
-          xDomain={datesAdjusted === "on" ? null : [xMinRange, xMaxRange]}
+          xDomain={datesAdjusted === DATE_ADJUSTED.ON ? null : [xMinRange, xMaxRange]}
           yDomain={
-            scaleType === "log" ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
+            scaleType === SCALE_TYPE.LOG ? [yMinRangeLog, yMaxRange] : [0, yMaxRange]
           }
           margin={
             window.innerWidth > 800
@@ -170,11 +198,11 @@ const LineChartWidget = (props) => {
               ticks: { stroke: "#acaeb5" },
               text: { stroke: "none" }
             }}
-            className={datesAdjusted === "on" ? null : "xTicks"}
+            className={datesAdjusted === DATE_ADJUSTED.ON ? null : "xTicks"}
           />
           <YAxis
             tickValues={
-              scaleType === "log"
+              scaleType === SCALE_TYPE.LOG
                 ? calculateYTickValues(yMinRangeLog, yMaxRange)
                 : null
             }
@@ -184,14 +212,12 @@ const LineChartWidget = (props) => {
             <MarkSeries
               data={[
                 {
-                  x:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].x,
-                  y:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].y
+                  x: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].x,
+                  y: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].y
                 }
               ]}
               color={"#777"}
@@ -201,14 +227,12 @@ const LineChartWidget = (props) => {
             <LabelSeries
               data={[
                 {
-                  x:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].x,
-                  y:
-                    data[greyHighlight].data[
-                      data[greyHighlight].data.length - 1
-                    ].y,
+                  x: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].x,
+                  y: data[greyHighlight].data[
+                    data[greyHighlight].data.length - 1
+                  ].y,
                   label: data[greyHighlight].region,
                   xOffset: 12
                 }
@@ -320,11 +344,11 @@ const LineChartWidget = (props) => {
           }
           className="text-xs text-gray-600"
         >
-          {datesAdjusted === "on" ? footNote : ""}
+          {datesAdjusted === DATE_ADJUSTED.ON ? footNote : ""}
         </div>
       </div>
     )
   }
 }
 
-export default LineChartWidget
+export default React.memo(LineChartWidget)

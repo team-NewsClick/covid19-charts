@@ -1,3 +1,5 @@
+import React from "react"
+
 /**
  * Title of the Article
  * @component
@@ -14,4 +16,4 @@ const ArticleTitle = () => {
   )
 }
 
-export default ArticleTitle
+export default React.memo(ArticleTitle)

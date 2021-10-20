@@ -163,7 +163,7 @@ body {
   cursor: pointer;
 }
 #deckgl-wrapper {
-  top: 60px !important;
+  position: relative !important;
 }
 .deck-tooltip {
   background-color: white !important;
@@ -242,4 +242,27 @@ body {
 .change {
   display: block;
 }
-/* hamberger-menu end */
+
+/* Loading Status Animation */
+.loading-container {
+  display: flex;
+  overflow: hidden;
+  margin: auto !important;
+}
+.loading-spinner {
+  opacity: 0.8;
+  width: 10em;
+  height: 10em;
+  border-top: 1em solid #0d3554;
+  border-right: 1em solid #c8c8c8;
+  border-bottom: 1em solid #d34743;
+  border-left: 1em solid #c8c8c8;
+  animation: spinner 1s linear infinite;
+  border-radius: 50%;
+  margin: auto !important;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
+import { csvParse } from "d3-dsv"
 import {
   processLogData,
   filterCases,
-  getDefaultSelects,
-  processCumulativeData
+  getDefaultSelects
 } from "../../utils"
 import {
   CasesType,
-  cutoffValues,
-  DefaultSelectCountry,
-  DefaultSelectState,
-  DefaultSelectCity
+  DATA_TYPE,
+  PER_LAKH,
+  SCALE_TYPE
 } from "../../constants"
 import Select from "react-select"
 import makeAnimated from "react-select/animated"
@@ -25,16 +24,47 @@ import LineChartWidget from "./LineChartWidget"
  * @param {string} props.data.trackertype Region type
  * @return {JSX.Element} Buttons with option of viewing data with different type and condition
  */
-const CovidDashboard = (props) => {
-  const data = props.data.data
-  const trackerType = props.data.trackerType
-
-  const [dataType, setDataType] = useState("new")
-  const [scaleType, setScaleType] = useState("linear")
-  const [perLakh, setPerLakh] = useState("off")
+const CovidDashboard = ({ trackerType }) => {
+  const [windowInnerWidth, setWindowInnerWidth] = useState("200")
+  const [data, setData] = useState([])
+  const [defaultSelect, setDefaultSelect] = useState([])
+  const [selectedRegions, setSelectedRegions] = useState([])
+  const [dataType, setDataType] = useState(DATA_TYPE.NEW)
+  const [scaleType, setScaleType] = useState(SCALE_TYPE.LINEAR)
+  const [perLakh, setPerLakh] = useState(PER_LAKH.OFF)
   const [interactiveSelects, setInteractiveSelects] = useState([])
   const [interactiveSelectsDisplay, setInteractiveSelectsDisplay] = useState([])
   const [initBool, setInitBool] = useState(true)
+
+  useEffect(() => {
+    setWindowInnerWidth(
+      typeof window !== "undefined" ? window.innerWidth : "800px"
+    )
+  }, [])
+
+  useEffect(() => {
+    let dataURL
+    switch (trackerType) {
+      case "state":
+        dataURL = process.env.API_URL_STATE_VACCINES
+        break
+    }
+    fetch(dataURL)
+      .then((res) => res.text())
+      .then(csvParse)
+      .then(setData)
+  }, [])
+
+  useEffect(() => {
+    data.length !== 0
+      ? (setDefaultSelect(
+          getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)
+        ),
+        setSelectedRegions(
+          getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)
+        ))
+      : setDefaultSelect([])
+  }, [data])
 
   const propsData = {
     data: null,
@@ -47,7 +77,6 @@ const CovidDashboard = (props) => {
     tickTotalValue: 5
   }
   let chartHeading = ""
-  let defaultSelect = getDefaultSelects(data, CasesType.NEW_DOSES_ADMINISTERED)
 
   const uniqueSelect = [...new Set(data.map((row) => row.region))]
   const dropDownOptions = uniqueSelect.map((row) => {
@@ -57,7 +86,7 @@ const CovidDashboard = (props) => {
     }
   })
 
-  if (initBool) {
+  if (initBool && defaultSelect.length !== 0) {
     setInitBool(false)
     const setSelect = defaultSelect.map((row) => {
       return {
@@ -79,33 +108,34 @@ const CovidDashboard = (props) => {
 
   let initData = []
   chartHeading =
-    dataType === "cumulative"
-      ? perLakh === "on"
+    dataType === DATA_TYPE.CUMULATIVE
+      ? perLakh === PER_LAKH.ON
         ? "Total Vaccinations/Lakh"
         : "Total Vaccinations"
-      : perLakh === "on"
-      ? "Daily Vaccinations/Lakh"
-      : "Daily Vaccinations"
+      : perLakh === PER_LAKH.ON
+        ? "Daily Vaccinations/Lakh"
+        : "Daily Vaccinations"
 
   propsData.lineLabel =
-    dataType === "cumulative"
-      ? perLakh === "on"
+    dataType === DATA_TYPE.CUMULATIVE
+      ? perLakh === PER_LAKH.ON
         ? "Total Vaccinations/Lakh"
         : "Total Vaccinations"
-      : perLakh === "on"
-      ? "Vaccinations/Lakh"
-      : "Vaccinations"
+      : perLakh === PER_LAKH.ON
+        ? "Vaccinations/Lakh"
+        : "Vaccinations"
   initData =
-    dataType === "cumulative"
-      ? perLakh === "on"
+    dataType === DATA_TYPE.CUMULATIVE
+      ? perLakh === PER_LAKH.ON
         ? filterCases(data, CasesType.TOTAL_VACCINATED_PER_LAKH)
         : filterCases(data, CasesType.TOTAL_DOSES_ADMINISTERED)
-      : perLakh === "on"
+      : perLakh === PER_LAKH.ON
       ? filterCases(data, CasesType.NEW_VACCINATED_PER_LAKH)
       : filterCases(data, CasesType.NEW_DOSES_ADMINISTERED)
-  propsData.data = scaleType === "log" ? processLogData(initData) : initData
+  propsData.data = scaleType === SCALE_TYPE.LOG ? processLogData(initData) : initData
 
   const _handleSelectChange = (e) => {
+    setSelectedRegions(e)
     if (e && e.length > 0) {
       const selects = e.map((row) => {
         const region = data.filter((d) => {
@@ -133,65 +163,65 @@ const CovidDashboard = (props) => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col w-full p-0">
       <div>
         <div className="flex justify-center">
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id="new"
-              name="data-type"
-              value="new"
+              id={trackerType + "-" + DATA_TYPE.NEW}
+              name={trackerType + "-data-type"}
+              value={DATA_TYPE.NEW}
               defaultChecked
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor="new">New</label>
+            <label htmlFor={trackerType + "-" + DATA_TYPE.NEW}>New</label>
             <input
               type="radio"
-              id="cumulative"
-              name="data-type"
-              value="cumulative"
+              id={trackerType + "-" + DATA_TYPE.CUMULATIVE}
+              name={trackerType + "-data-type"}
+              value={DATA_TYPE.CUMULATIVE}
               onChange={(e) => _handleDataType(e)}
             />
-            <label htmlFor="cumulative">Cumulative</label>
+            <label htmlFor={trackerType + "-" + DATA_TYPE.CUMULATIVE}>Cumulative</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id="log"
-              name="display-type"
-              value="log"
+              id={trackerType + "-" + SCALE_TYPE.LOG}
+              name={trackerType + "-display-type"}
+              value={SCALE_TYPE.LOG}
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor="log">Log</label>
+            <label htmlFor={trackerType + "-" + SCALE_TYPE.LOG}>Log</label>
             <input
               type="radio"
-              id="linear"
-              name="display-type"
-              value="linear"
+              id={trackerType + "-" + SCALE_TYPE.LINEAR}
+              name={trackerType + "-display-type"}
+              value={SCALE_TYPE.LINEAR}
               defaultChecked
               onChange={(e) => _handleScaleType(e)}
             />
-            <label htmlFor="linear">Linear</label>
+            <label htmlFor={trackerType + "-" + SCALE_TYPE.LINEAR}>Linear</label>
           </div>
           <div className="radio-toolbar m-2">
             <input
               type="radio"
-              id="off"
-              name="perLakh"
-              value="off"
+              id={trackerType + "-" + PER_LAKH.OFF}
+              name={trackerType + "-perLakh"}
+              value={PER_LAKH.OFF}
               defaultChecked
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor="off">Raw</label>
+            <label htmlFor={trackerType + "-" + PER_LAKH.OFF}>Raw</label>
             <input
               type="radio"
-              id="on"
-              name="perLakh"
-              value="on"
+              id={trackerType + "-" + PER_LAKH.ON}
+              name={trackerType + "-perLakh"}
+              value={PER_LAKH.ON}
               onChange={(e) => _handlePerLakh(e)}
             />
-            <label htmlFor="on">Per 1L</label>
+            <label htmlFor={trackerType + "-" + PER_LAKH.ON}>Per 1L</label>
           </div>
         </div>
       </div>
@@ -205,6 +235,7 @@ const CovidDashboard = (props) => {
           name="selectOptions"
           onChange={_handleSelectChange}
           defaultValue={defaultSelect}
+          value={selectedRegions}
           options={interactiveSelects.length >= 6 ? [] : dropDownOptions}
           components={{
             NoOptionsMessage: () => (
@@ -217,7 +248,7 @@ const CovidDashboard = (props) => {
       </div>
       <div
         style={
-          window.innerWidth > 800
+          windowInnerWidth > 800
             ? { marginLeft: "5%" }
             : { marginLeft: "5%", marginRight: "5%" }
         }
@@ -237,4 +268,4 @@ const CovidDashboard = (props) => {
   )
 }
 
-export default CovidDashboard
+export default React.memo(CovidDashboard)

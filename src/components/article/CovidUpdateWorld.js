@@ -1,6 +1,7 @@
+import React from "react"
 import useSWR from "swr"
 import { indPlaceVal } from "../../utils"
-import LoaderFunction from "../LoaderFunction"
+import Loading from "../helpers/Loading"
 
 /**
  * COVID-19 Update Summary of World in terms of numbers
@@ -15,7 +16,7 @@ const CovidUpdateWorld = () => {
     return (
       <div className="lg:flex h-screen">
         <div className="m-auto">
-          <LoaderFunction />
+          <Loading />
         </div>
       </div>
     )
@@ -110,4 +111,4 @@ const CovidUpdateWorld = () => {
   )
 }
 
-export default CovidUpdateWorld
+export default React.memo(CovidUpdateWorld)

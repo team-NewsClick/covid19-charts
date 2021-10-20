@@ -60,8 +60,8 @@ export const CasesType = {
   DEATHS: "new_deaths",
   NEW_DOSES_ADMINISTERED: "new_doses_administered",
   TOTAL_DOSES_ADMINISTERED: "total_doses_administered",
-  NEW_VACCINATED_PER_LAKH : "new_vaccinated_per_one_lakh",
-  TOTAL_VACCINATED_PER_LAKH : "total_vaccinated_per_one_lakh"
+  NEW_VACCINATED_PER_LAKH: "new_vaccinated_per_one_lakh",
+  TOTAL_VACCINATED_PER_LAKH: "total_vaccinated_per_one_lakh"
 }
 
 /**
@@ -151,3 +151,85 @@ export const DISTRICT_STATE_BORDER_COLOR = [245, 245, 245, 255]
  * Color for District Border in District Maps
  */
 export const DISTRICT_BORDER_COLOR = [255, 255, 255, 125]
+
+/**
+ * Initial View State for maps
+ */
+export const INITIAL_VIEW_STATE = {
+  latitude: 22.7,
+  longitude: 82.8,
+  zoom: 4.3,
+  minZoom: 4.3,
+  maxZoom: 4.3,
+  pitch: 0,
+  bearing: 0
+}
+
+/**
+ * Cases type for charts
+ */
+export const CASE_TYPE = {
+  CONFIRMED: "confirmed",
+  DEATHS: "deaths"
+}
+
+/**
+ * Data type for charts
+ */
+export const DATA_TYPE = {
+  NEW: "new",
+  CUMULATIVE: "cumulative"
+}
+
+/**
+ * Scale type for charts
+ */
+export const SCALE_TYPE = {
+  LOG: "log",
+  LINEAR: "linear"
+}
+
+/**
+ * Date adjusted mode for charts
+ */
+export const DATE_ADJUSTED = {
+  ON: "on",
+  OFF: "off"
+}
+
+/**
+ * Per lakh mode fro charts
+ */
+export const PER_LAKH = {
+  ON: "on",
+  OFF: "off"
+}
+
+/**
+ * case type for district maps
+ */
+export const DIST_MAP_CASE_TYPE = {
+  ACTIVE: "active",
+  CONFIRMED: "confirmed",
+  DECEASED: "deceased",
+}
+
+/**
+ * case type for state maps
+ */
+export const STATE_MAP_CASE_TYPE = {
+  ACTIVE: "active",
+  NEW_CASES: "new_cases",
+  TOTAL_CASES: "total_cases",
+  NEW_DEATHS: "new_deaths",
+  TOTAL_DEATHS: "total_deaths",
+  TOTAL_VACCINATED_PER_THOUSAND: "total_vaccinated_per_thousand"
+}
+
+/**
+ * Visualisation type of vaccination
+ */
+export const VACCINATION_VIZ = {
+  CHART: "vaccination-chart",
+  MAP: "vaccination-map"
+}

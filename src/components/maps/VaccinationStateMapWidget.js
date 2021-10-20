@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import DeckGL from "deck.gl"
 import { GeoJsonLayer } from "@deck.gl/layers"
 import {
@@ -13,37 +13,80 @@ import {
   normalizeValue,
   calculateDomain,
   sortLegends,
-  indPlaceVal
+  indPlaceVal,
+  getInitalViewStateByWidth,
+  getMapWidth,
+  getMapHeight
 } from "../../utils"
-import { MAP_COLOR_DOMAIN, MAP_VACCINE_COLOR_DOMAIN } from "../../constants"
+import {
+  INITIAL_VIEW_STATE,
+  MAP_VACCINE_COLOR_DOMAIN
+} from "../../constants"
+import Loading from "../helpers/Loading"
 /**
  * Plot Map and Deckgl Layers
  * @component
- * @param {Object} param0 - Dashboard Objects (GeoJSON, intialView, Data, regionKey, casesType)
+ * @param {String} param0 - tracker by region - state, country, city.
  * @return {JSX.Element} Map Widget
  */
-const VaccinationStatesMapWidget = ({
-  initialViewState,
-  geoJsonData,
-  vaccinationStateData,
-  regionKey
-}) => {
-  const [jsonData, setJsonData] = useState(geoJsonData)
-  const maxValue = calcuateMaximum(
-    vaccinationStateData,
-    "total_vaccinated_per_one_lakh"
-  )
-  const minValue = calcuateMinimum(
-    vaccinationStateData,
-    "total_vaccinated_per_one_lakh"
-  )
-  const domainValues = calculateDomain(
-    vaccinationStateData,
-    "total_vaccinated_per_one_lakh"
-  )
-  let colors = scaleQuantile()
-    .domain(domainValues)
-    .range(MAP_VACCINE_COLOR_DOMAIN)
+const VaccinationStatesMapWidget = ({ trackerType }) => {
+  const [windowWidth, setWindowWidth] = useState("200")
+  const [regionKey, setRegionKey] = useState("")
+  const [geoJsonData, setGeoJsonData] = useState({})
+  const [vaccinationStateData, setVaccinationStateData] = useState([])
+  const [initialViewState, setInitialViewState] = useState(INITIAL_VIEW_STATE)
+
+  useEffect(() => {
+    switch (trackerType) {
+      case "state":
+        setRegionKey("ST_NM")
+        break
+    }
+    setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800")
+  }, [])
+
+  useEffect(() => {
+    setInitialViewState(
+      getInitalViewStateByWidth(windowWidth, initialViewState)
+    )
+  }, [windowWidth])
+
+  useEffect(() => {
+    /**
+     * Fetch State GeoJson
+     */
+    const fetchStateGeoJson = () => {
+      fetch(process.env.API_URL_STATES_GEOJSON)
+        .then((res) => res.json())
+        .then(setGeoJsonData)
+    }
+    /**
+     * Fetch Covid Data
+     */
+    const fetchVaccinationStateData = () => {
+      fetch(process.env.API_URL_STATE_COVID_JSON)
+        .then((res) => res.json())
+        .then(setVaccinationStateData)
+    }
+    fetchStateGeoJson()
+    fetchVaccinationStateData()
+  }, [])
+
+  let maxValue, minValue, domainValues, colors
+  if (vaccinationStateData.length !== 0) {
+    maxValue =
+      vaccinationStateData.length !== 0 &&
+      calcuateMaximum(vaccinationStateData, "total_vaccinated_per_one_lakh")
+    minValue =
+      vaccinationStateData.length !== 0 &&
+      calcuateMinimum(vaccinationStateData, "total_vaccinated_per_one_lakh")
+    domainValues =
+      vaccinationStateData.length !== 0 &&
+      calculateDomain(vaccinationStateData, "total_vaccinated_per_one_lakh")
+    colors =
+      domainValues.length !== 0 &&
+      scaleQuantile().domain(domainValues).range(MAP_VACCINE_COLOR_DOMAIN)
+  }
 
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
@@ -84,100 +127,117 @@ const VaccinationStatesMapWidget = ({
     }
   }
 
-  const layer = [
-    new GeoJsonLayer({
-      id: "geojson-layer",
-      data: jsonData,
-      stroked: true,
-      filled: true,
-      lineWidthScale: 600,
-      getFillColor: (d) => _fillColor(d),
-      getLineColor: [255, 255, 255, 255],
-      getLineWidth: 5,
-      pickable: true
-    })
-  ]
+  const layer = geoJsonData &&
+    geoJsonData.length !== 0 && [
+      new GeoJsonLayer({
+        id: "geojson-layer",
+        data: geoJsonData,
+        stroked: true,
+        filled: true,
+        lineWidthScale: 600,
+        getFillColor: (d) => _fillColor(d),
+        getLineColor: [255, 255, 255, 255],
+        getLineWidth: 5,
+        pickable: true
+      })
+    ]
 
-  const colorDomains = colors.domain()
-  const legends = sortLegends(maxValue, colors, colorDomains)
+  const colorDomains = colors && colors.length !== 0 && colors.domain()
+  const legends =
+    colors && colors.length !== 0 && sortLegends(maxValue, colors, colorDomains)
 
-  return (
-    <div>
-      <DeckGL
-        initialViewState={initialViewState}
-        pickingRadius={5}
-        controller={true}
-        layers={layer}
-        getTooltip={_getTooltip}
-        width={window.innerWidth}
-        height={window.innerWidth * 1.25}
-        ContextProvider={MapContext.Provider}
-      >
-        <div style={{ position: "absolute", right: 7, top: 0, zIndex: 1 }}>
-          <NavigationControl />
-        </div>
-        <StaticMap
-          reuseMaps
-          mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
-          preventStyleDiffing={true}
-        />
-        <div className="flex flex-row-reverse">
-          <div
-            className="legends"
-            style={
-              window && window.innerWidth < 700
-                ? window.innerWidth > 500
-                  ? { bottom: "2.5rem", right: "2rem", fontSize: "0.8rem" }
-                  : { bottom: "0.2rem", right: "1rem" }
-                : { bottom: "6.5rem", right: "12rem", fontSize: "1rem" }
-            }
-          >
+  if (
+    geoJsonData &&
+    geoJsonData.features &&
+    geoJsonData.features.length !== 0 &&
+    vaccinationStateData.length !== 0
+  ) {
+    return (
+      <div className="flex relative my-8 justify-center">
+        <DeckGL
+          initialViewState={initialViewState}
+          pickingRadius={5}
+          controller={true}
+          layers={layer}
+          getTooltip={_getTooltip}
+          width={getMapWidth(windowWidth)}
+          height={getMapHeight(windowWidth)}
+          ContextProvider={MapContext.Provider}
+          className="flex relative p-1"
+        >
+          <div style={{ position: "absolute", right: 7, top: 0, zIndex: 1 }}>
+            <NavigationControl />
+          </div>
+          <StaticMap
+            reuseMaps
+            mapboxApiAccessToken={process.env.MAPBOX_BOX_ACCESS_TOKEN}
+          />
+          <div className="relative grid h-full place-items-end p-1">
             <div
-              className="border-b mb-1 md:mb-2 font-bold leading-4"
+              className="relative legends"
               style={
-                window && window.innerWidth < 700
-                  ? window.innerWidth > 500
-                    ? {
-                        paddingBottom: "0.25rem",
-                        marginBottom: "0.25rem",
-                        marginTop: "0.25rem"
-                      }
-                    : {}
-                  : {
-                      paddingBottom: "0.50rem",
-                      marginBottom: "0.50rem",
-                      marginTop: "0.50rem"
-                    }
+                windowWidth < 700
+                  ? { bottom: "2.5rem", right: "5rem", fontSize: "0.8rem" }
+                  : { bottom: "6.5rem", right: "9.5rem", fontSize: "1rem" }
               }
             >
-              Vaccinations/1 Lakh Population
-            </div>
-            {legends.map((l, i) => (
               <div
-                key={i}
-                className="flex leading-4"
+                className="border-b mb-1 md:mb-2 font-bold leading-4"
                 style={
-                  window && window.innerWidth < 700
-                    ? window.innerWidth > 500
-                      ? { paddingBottom: "0.25rem" }
+                  windowWidth < 700
+                    ? windowWidth > 500
+                      ? {
+                          paddingBottom: "0.25rem",
+                          marginBottom: "0.25rem",
+                          marginTop: "0.25rem"
+                        }
                       : {}
-                    : { paddingBottom: "0.5rem" }
+                    : {
+                        paddingBottom: "0.50rem",
+                        marginBottom: "0.50rem",
+                        marginTop: "0.50rem"
+                      }
                 }
               >
-                <div
-                  className="legend-color"
-                  style={{ backgroundColor: `rgb${l.color}` }}
-                ></div>
-                <div>
-                  {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
-                </div>
+                Vaccinations/1 Lakh Population
               </div>
-            ))}
+              {legends &&
+                legends.length !== 0 &&
+                legends.map((l, i) => (
+                  <div
+                    key={i}
+                    className="flex leading-4"
+                    style={
+                      windowWidth < 700
+                        ? windowWidth > 500
+                          ? { paddingBottom: "0.25rem" }
+                          : {}
+                        : { paddingBottom: "0.5rem" }
+                    }
+                  >
+                    <div
+                      className="legend-color"
+                      style={{ backgroundColor: `rgb${l.color}` }}
+                    ></div>
+                    <div>
+                      {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
+        </DeckGL>
+      </div>
+    )
+  } else {
+    return (
+      <div className="flex h-screen">
+        <div className="m-auto">
+          <Loading />
         </div>
-      </DeckGL>
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
-export default VaccinationStatesMapWidget
+export default React.memo(VaccinationStatesMapWidget)

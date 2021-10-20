@@ -10,6 +10,9 @@ import FeatureImage from "../components/article/FeatureImage"
 import CovidUpdateIndia from "../components/article/CovidUpdateIndia"
 import CovidUpdateWorld from "../components/article/CovidUpdateWorld"
 import StateVaccination from "../components/StateVaccination"
+import CovidDashboard from "../components/charts/CovidDashboard"
+import StatesMapDashboard from "../components/maps/StatesMapDashboard"
+import DistrictsMapDashboard from "../components/maps/DistrictsMapDashboard"
 // import RelatedPosts from "../components/article/RelatedPosts"
 
 /**
@@ -37,17 +40,18 @@ const Article = () => {
       <Head>
         <title>COVID-19 Cases: Data and Graphs of India and the World</title>
         <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, width=device-width"
-        />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="description"
           content="Visual analysis of COVID-19 cases, deatha nd vaccination in form of maps and graphs"
         />
         <meta name="robots" content="index, follow" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Newsclick COVID-19 Cases-Data and Graphs of India and the World" key="title" />
+        <meta
+          property="og:title"
+          content="Newsclick COVID-19 Cases-Data and Graphs of India and the World"
+          key="title"
+        />
         <meta
           name="og:description"
           content="Visual analysis of COVID-19 cases, deatha nd vaccination in form of maps and graphs"
@@ -74,32 +78,16 @@ const Article = () => {
           <div className="article-para">
             The chart below shows the trajectory of the pandemic in each state
             from March 2020, with a 7-day moving average. The user can select up
-            to six States at a time.
-            If the date adjusted tab is selected to on, it shows progression of
-            the pandemic from when each state reached its first 100 cumulative
-            cases and 10 new cases; e.g., Maharashtra reached its first 10 cases
-            on March 25, 2020, and is taken as Day 0. Similarly, it is
-            considered Day 0 when a state reached the mark of first 3 new deaths
-            per day and first 100 cumulative deaths, e.g., Maharashtra (Day 0)
-            reached it on April 2, 2020.
+            to six States at a time. If the date adjusted tab is selected to on,
+            it shows progression of the pandemic from when each state reached
+            its first 100 cumulative cases and 10 new cases; e.g., Maharashtra
+            reached its first 10 cases on March 25, 2020, and is taken as Day 0.
+            Similarly, it is considered Day 0 when a state reached the mark of
+            first 3 new deaths per day and first 100 cumulative deaths, e.g.,
+            Maharashtra (Day 0) reached it on April 2, 2020.
           </div>
           <div className="flex items-center">
-            <iframe
-              title="state tracker"
-              id="stateTracker"
-              src="/charts/StateTracker"
-              scrolling="no"
-              frameBorder="0"
-              width={String(windowWidth)}
-              height={String(
-                  windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.92
-                    : windowWidth * 1.6
-                  : windowWidth * 0.52
-              )}
-              className="mx-auto mt-16"
-            ></iframe>
+            <CovidDashboard trackerType="state" />
           </div>
           <div className="article-para">
             The section below displays state-wise vaccination data. The
@@ -138,57 +126,26 @@ const Article = () => {
           <div className="article-para">
             The chart below show the trajectory of the pandemic in each select
             city from April end, 2020 with a 7-day moving average. The user can
-            select up to six Cities at a time.
-            If the date adjusted tab is selected to on, it shows the progression
-            of the pandemic from when each city reached cumulative 100 or 10 new
-            cases per day, e.g, Mumbai reached this on 28 March 2020 and is
-            taken as zero date. For total deaths and new deaths, the starting
-            point is 100 deaths per day and 3 new death per day respectively in
-            Mumbai.
+            select up to six Cities at a time. If the date adjusted tab is
+            selected to on, it shows the progression of the pandemic from when
+            each city reached cumulative 100 or 10 new cases per day, e.g,
+            Mumbai reached this on 28 March 2020 and is taken as zero date. For
+            total deaths and new deaths, the starting point is 100 deaths per
+            day and 3 new death per day respectively in Mumbai.
           </div>
           <div className="flex">
-            <iframe 
-              title="city tracker"
-              id="cityTracker"
-              src="/charts/CityTracker"
-              scrolling="no"
-              frameBorder="0"
-              width={String(windowWidth)}
-              height={String(
-                  windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.92
-                    : windowWidth * 1.6
-                  : windowWidth * 0.52
-                )}
-              className="mx-auto mt-16"
-            ></iframe>
+            <CovidDashboard trackerType="city" />
           </div>
           <div>
             <div className="create-anchor opacity-0 height-0">
               COVID Maps: India
             </div>
             <div className="article-para">
-              The Map gives state-wise data on Total Cases, Active Cases, Total Deaths, New
-              cases, and New Deaths with appropriate tabs.
+              The Map gives state-wise data on Total Cases, Active Cases, Total
+              Deaths, New cases, and New Deaths with appropriate tabs.
             </div>
-            <div className="flex pb-12">
-              <iframe
-                title="states map"
-                id="states-map"
-                src="/maps/states"
-                scrolling="no"
-                frameBorder="0"
-                width={String(windowWidth > 800 ? windowWidth * 0.4 : windowWidth)}
-                height={String(
-                    windowWidth < 800
-                    ? windowWidth > 700
-                      ? windowWidth * 0.8
-                      : windowWidth * 1.18
-                    : windowWidth * 0.48
-                  )}
-                className="mx-auto mt-16"
-              ></iframe>
+            <div className="flex pb-12 justify-center">
+              <StatesMapDashboard trackerType="state" />
             </div>
           </div>
           <div className="article-para">
@@ -198,23 +155,8 @@ const Article = () => {
             may have some discrepancies. Also, the district-wise data for Delhi
             is not available and the map shows the data for the NCT of Delhi.
           </div>
-          <div className="flex pb-12">
-            <iframe
-              title="districts map"
-              id="districts-map"
-              src="/maps/districts"
-              scrolling="no"
-              frameBorder="0"
-              width={String(windowWidth > 800 ? windowWidth * 0.4 : windowWidth)}
-              height={String(
-                  windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.8
-                    : windowWidth * 1.18
-                  : windowWidth * 0.48
-                )}
-              className="mx-auto mt-16"
-            ></iframe>
+          <div className="flex pb-12 justify-center">
+            <DistrictsMapDashboard trackerType="district" />
           </div>
           <div className="create-anchor article-subheading">
             COVID-19 Infections and Deaths: Global
@@ -223,30 +165,15 @@ const Article = () => {
           <div className="article-para">
             The chart below shows the trajectory of the pandemic across
             countries, with a 7-day moving average. The user can select up to
-            six countries at a time.
-            The starting point of a country is adjusted to a common zero day
-            when each of them crossed the 100 mark for total cases, e.g., Italy
-            started before others, and has been given the starting date of 0, on
-            23rd February, 2020. For total deaths, the starting point is 100
-            deaths and for new deaths it is 3 recorded deaths.
+            six countries at a time. The starting point of a country is adjusted
+            to a common zero day when each of them crossed the 100 mark for
+            total cases, e.g., Italy started before others, and has been given
+            the starting date of 0, on 23rd February, 2020. For total deaths,
+            the starting point is 100 deaths and for new deaths it is 3 recorded
+            deaths.
           </div>
           <div className="flex">
-            <iframe
-              title="country tracker"
-              id="countryTracker"
-              src="/charts/CountryTracker"
-              scrolling="no"
-              frameBorder="0"
-              width={String(windowWidth)}
-              height={String(
-                  windowWidth < 800
-                  ? windowWidth > 700
-                    ? windowWidth * 0.92
-                    : windowWidth * 1.6
-                  : windowWidth * 0.52
-                )}
-              className="mx-auto mt-16"
-            ></iframe>
+            <CovidDashboard trackerType="country" />
           </div>
         </div>
         {/* <RelatedPosts /> */}
