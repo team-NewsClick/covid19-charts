@@ -119,6 +119,14 @@ body {
 
 @tailwind utilities;
 
+* {
+  font-family: 'Noto Sans', sans-serif;
+}
+:root {
+  font-size: 14px;
+  line-height: 1.4285em;
+  color: rgba(0,0,0, 0.87);
+}
 .rv-xy-plot {
   margin: auto;
 }
