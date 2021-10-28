@@ -1,4 +1,5 @@
-import { useState } from "react"
+import React, { useState } from "react"
+import { STATE_MAP_CASE_TYPE as CASE_TYPE } from "../../constants"
 import StatesMapWidget from "./StatesMapWidget"
 
 /**
@@ -7,13 +8,8 @@ import StatesMapWidget from "./StatesMapWidget"
  * @param {Object} param0 - Dashboard Objects (GeoJSON, intialView, Data, regionKey)
  * @returns {JSX.Element} Radio Buttons and Map Widget
  */
-const StatesMapDashboard = ({
-  geoJsonData,
-  initialViewState,
-  covidData,
-  regionKey
-}) => {
-  const [casesType, setCasesType] = useState("active")
+const StatesMapDashboard = ({ trackerType }) => {
+  const [casesType, setCasesType] = useState(CASE_TYPE.ACTIVE)
   const _handleCasesType = (e) => {
     setCasesType(e.currentTarget.value)
   }
@@ -24,58 +20,54 @@ const StatesMapDashboard = ({
         <div className="radio-toolbar m-2">
           <input
             type="radio"
-            id="active"
-            name="cases"
-            value="active"
+            id={trackerType + "-map-" + CASE_TYPE.ACTIVE}
+            name={trackerType + "-map-cases"}
+            value={CASE_TYPE.ACTIVE}
             defaultChecked
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="active">Active Cases</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.ACTIVE}>Active Cases</label>
           <input
             type="radio"
-            id="new_cases"
-            name="cases"
-            value="new_cases"
+            id={trackerType + "-map-" + CASE_TYPE.NEW_CASES}
+            name={trackerType + "-map-cases"}
+            value={CASE_TYPE.NEW_CASES}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="new_cases">New Cases</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.NEW_CASES}>New Cases</label>
           <input
             type="radio"
-            id="total_cases"
-            name="cases"
-            value="total_cases"
+            id={trackerType + "-map-" + CASE_TYPE.TOTAL_CASES}
+            name={trackerType + "-map-cases"}
+            value={CASE_TYPE.TOTAL_CASES}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="total_cases">Total Cases</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.TOTAL_CASES}>Total Cases</label>
           <input
             type="radio"
-            id="new_deaths"
-            name="cases"
-            value="new_deaths"
+            id={trackerType + "-map-" + CASE_TYPE.NEW_DEATHS}
+            name={trackerType + "-map-cases"}
+            value={CASE_TYPE.NEW_DEATHS}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="new_deaths">New Deaths</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.NEW_DEATHS}>New Deaths</label>
           <input
             type="radio"
-            id="total_deaths"
-            name="cases"
-            value="total_deaths"
+            id={trackerType + "-map-" + CASE_TYPE.TOTAL_DEATHS}
+            name={trackerType + "-map-cases"}
+            value={CASE_TYPE.TOTAL_DEATHS}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label htmlFor="total_deaths">Total Deaths</label>
+          <label htmlFor={trackerType + "-map-" + CASE_TYPE.TOTAL_DEATHS}>
+            Total Deaths
+          </label>
         </div>
       </div>
-      <div>
-        <StatesMapWidget
-          initialViewState={initialViewState}
-          geoJsonData={geoJsonData}
-          covidData={covidData}
-          regionKey={regionKey}
-          casesType={casesType}
-        />
-      </div>
+      {/* <div className="mt-16"> */}
+      <StatesMapWidget trackerType="state" casesType={casesType} />
+      {/* </div> */}
     </div>
   )
 }
 
-export default StatesMapDashboard
+export default React.memo(StatesMapDashboard)

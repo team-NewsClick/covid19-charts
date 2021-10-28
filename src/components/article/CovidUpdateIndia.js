@@ -1,6 +1,7 @@
+import React from "react"
 import useSWR from "swr"
 import { indPlaceVal } from "../../utils"
-import LoaderFunction from "../LoaderFunction"
+import Loading from "../helpers/Loading"
 
 /**
  * COVID-19 Update Summary of India in terms of numbers
@@ -15,7 +16,7 @@ const CovidUpdateIndia = () => {
     return (
       <div className="lg:flex h-screen">
         <div className="m-auto">
-          <LoaderFunction />
+          <Loading />
         </div>
       </div>
     )
@@ -163,4 +164,4 @@ const CovidUpdateIndia = () => {
   )
 }
 
-export default CovidUpdateIndia
+export default React.memo(CovidUpdateIndia)

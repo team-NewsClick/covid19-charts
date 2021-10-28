@@ -1,11 +1,11 @@
-import _Document, { Html, Head, Main, NextScript } from 'next/document'
+import _Document, { Html, Head, Main, NextScript } from "next/document"
 
 export default class Document extends _Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
-	  {/* Global Site Tag (gtag.js) - Google Analytics */}
+          {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=UA-38214496-1`}
@@ -19,7 +19,7 @@ export default class Document extends _Document {
             gtag('config', 'UA-38214496-1', {
               page_path: window.location.pathname,
             });
-          `,
+          `
             }}
           />
         </Head>

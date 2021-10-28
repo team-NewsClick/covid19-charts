@@ -1,7 +1,7 @@
 /**
  * Auto generated anchor tags and links for elements with class "article-subheading"
  * @component
- * @return {JSX.Element} Anchor Links to article-subheading 
+ * @return {JSX.Element} Anchor Links to article-subheading
  */
 const AnchorLinks = () => {
   if (typeof window !== "undefined") {
@@ -26,7 +26,10 @@ const AnchorLinks = () => {
   }
 
   return (
-    <div id="anchor-links" className="flex flex-wrap pt-1 text-sm text-center font-bold" />
+    <div
+      id="anchor-links"
+      className="flex flex-wrap pt-1 text-sm text-center font-bold"
+    />
   )
 }
 export default AnchorLinks
