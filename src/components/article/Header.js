@@ -1,4 +1,5 @@
 import React from "react"
+import { BASE_PATH } from "../../constants"
 
 /**
  * Contains website-logo, web-app-logo, categories, search-bar, menu and social-media links
@@ -24,7 +25,7 @@ const Header = () => {
       <div className="flex header-logos">
         <a href="https://www.newsclick.in/" target="_blank" rel="noreferrer">
           <img
-            src="../img/newsclick-logo.png"
+            src={`..${BASE_PATH}/img/newsclick-logo.png`}
             alt="Newsclick Logo"
             className="w-40 h-auto"
           />
@@ -39,21 +40,21 @@ const Header = () => {
             rel="noreferrer"
           >
             <img
-              src="../img/fb.png"
+              src={`..${BASE_PATH}/img/fb.png`}
               alt="Facebook"
               className="social-icon block"
             />
           </a>
           <a href="https://twitter.com/newsclickin" rel="noreferrer">
             <img
-              src="../img/twitter.png"
+              src={`..${BASE_PATH}/img/twitter.png`}
               alt="Twitter"
               className="social-icon block"
             />
           </a>
           <a href="https://www.youtube.com/user/NewsClickin" rel="noreferrer">
             <img
-              src="../img/yt.png"
+              src={`..${BASE_PATH}/img/yt.png`}
               alt="YouTube"
               className="social-icon block"
             />
@@ -62,21 +63,21 @@ const Header = () => {
           {/* UNCOMMENT THIS BLOCK WHILE COMMENTING/REMOVING ABOVE CODE
           <a href="https://www.facebook.com/newsclickonline/" target="_blank">
             <img
-              src="../img/fb.png"
+              src="../covid/img/fb.png"
               alt="Facebook"
               className="social-icon sm-hide md:hidden lg:block"
             />
           </a>
           <a href="https://twitter.com/newsclickin">
             <img
-              src="../img/twitter.png"
+              src="../covid/img/twitter.png"
               alt="Twitter"
               className="social-icon sm-hide md:hidden lg:block"
             />
           </a>
           <a href="https://www.youtube.com/user/NewsClickin">
             <img
-              src="../img/yt.png"
+              src="../covid/img/yt.png"
               alt="YouTube"
               className="social-icon sm-hide md:hidden lg:block"
             />
@@ -99,7 +100,7 @@ const Header = () => {
               <li onClick={showHideSearch}>
                 <div className="float-left">Search</div>
                 <img
-                  src="../img/search.svg"
+                  src="../covid/img/search.svg"
                   alt="Search"
                   className="pl-2 w-8"
                 />
@@ -107,13 +108,13 @@ const Header = () => {
               <li>
                 <div className="flex" style={{ height: '29px' }}>
                   <a href="https://www.facebook.com/newsclickonline/" target="_blank">
-                    <img src="../img/fb.png" alt="Facebook" className="mr-2"  />
+                    <img src="../covid/img/fb.png" alt="Facebook" className="mr-2"  />
                   </a> 
                   <a href="https://twitter.com/newsclickin" target="_blank">
-                  <img src="../img/twitter.png" alt="Twitter" className="mr-2"  />
+                  <img src="../covid/img/twitter.png" alt="Twitter" className="mr-2"  />
                   </a> 
                   <a href="https://www.youtube.com/user/NewsClickin" target="_blank">
-                  <img src="../img/yt.png" alt="YouTube" className="mr-2"  />
+                  <img src="../covid/img/yt.png" alt="YouTube" className="mr-2"  />
                   </a> 
                 </div>
               </li>
@@ -124,7 +125,7 @@ const Header = () => {
       </div>
       <div>
         <img
-          src="../img/page-title.png"
+          src={`..${BASE_PATH}/img/page-title.png`}
           alt="Data Visualization"
           className="mx-auto my-8"
         />
@@ -138,7 +139,7 @@ const Header = () => {
         <div className="category">ENTERTAINMENT</div>
         <div className="category">MISCELLANEOUS</div>
         <div className="search ml-2 cursor-pointer">
-          <img src="../img/search.svg" alt="Search" onClick={showHideSearch} />
+          <img src="../covid/img/search.svg" alt="Search" onClick={showHideSearch} />
         </div>
       </div> */}
       <div id="search-bar" style={{ display: "none" }}>

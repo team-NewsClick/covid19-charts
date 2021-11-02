@@ -1,4 +1,9 @@
 /**
+ * Next.js basePath
+ */
+export const BASE_PATH = "/covid"
+
+/**
  * Colors for Line Charts
  */
 export const customColor = [

@@ -1,4 +1,5 @@
 import React from "react"
+import { BASE_PATH } from "../../constants"
 
 /**
  * Contains e-mail subscribe form, containing social-media links, about-page link
@@ -31,7 +32,11 @@ const Footer = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <img src="../img/fb.png" alt="Facebook" className="social-icon" />
+            <img
+              src={`..${BASE_PATH}/img/fb.png`}
+              alt="Facebook"
+              className="social-icon"
+            />
           </a>
           <a
             href="https://twitter.com/newsclickin"
@@ -39,7 +44,7 @@ const Footer = () => {
             rel="noreferrer"
           >
             <img
-              src="../img/twitter.png"
+              src={`..${BASE_PATH}/img/twitter.png`}
               alt="Twitter"
               className="social-icon"
             />
@@ -49,7 +54,11 @@ const Footer = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <img src="../img/yt.png" alt="YouTube" className="social-icon" />
+            <img
+              src={`..${BASE_PATH}/img/yt.png`}
+              alt="YouTube"
+              className="social-icon"
+            />
           </a>
           <a
             href="https://www.newsclick.in/add-newsclick-to-mobile"
@@ -57,7 +66,7 @@ const Footer = () => {
             rel="noreferrer"
           >
             <img
-              src="../img/mobile-icon.png"
+              src={`..${BASE_PATH}/img/mobile-icon.png`}
               alt="NewsClick Mobile"
               style={{ height: "26px", width: "auto", paddingLeft: "0.75rem" }}
             />

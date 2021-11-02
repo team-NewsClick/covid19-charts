@@ -1,4 +1,5 @@
 import React from "react"
+import { BASE_PATH } from "../../constants"
 
 /**
  * Feature image of the article
@@ -8,8 +9,7 @@ import React from "react"
 const FeatureImage = () => {
   return (
     <div id="feature-image">
-      <img src="../../img/covid-19-fi.jpg" alt="" className="mx-auto mb-6" />
-    </div>
+      <img src = {`../..${BASE_PATH}/img/covid-19-fi.jpg`} alt="" className="mx-auto mb-6" />    </div>
   )
 }
 

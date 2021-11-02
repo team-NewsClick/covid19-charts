@@ -1,5 +1,6 @@
 import React from "react"
 import useSWR from "swr"
+import { BASE_PATH } from "../../constants"
 import { indPlaceVal } from "../../utils"
 import Loading from "../helpers/Loading"
 
@@ -9,7 +10,7 @@ import Loading from "../helpers/Loading"
  * @return {JSX.Element} COVID-19 Update Summary of World
  */
 const CovidUpdateWorld = () => {
-  const { data, error } = useSWR("/api/covidSummary")
+  const { data, error } = useSWR(`${BASE_PATH}/api/covidSummary`)
   const statsSummary = data
   if (error) return <div>Failed to Load</div>
   if (!data) {
