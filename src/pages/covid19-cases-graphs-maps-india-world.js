@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import Header from "../components/article/Header"
 import Footer from "../components/article/Footer"
 import IntroductionThumbnail from "../components/article/IntroductionThumbnail"
@@ -13,6 +13,8 @@ import StateVaccination from "../components/StateVaccination"
 import CovidDashboard from "../components/charts/CovidDashboard"
 import StatesMapDashboard from "../components/maps/StatesMapDashboard"
 import DistrictsMapDashboard from "../components/maps/DistrictsMapDashboard"
+import { BASE_PATH } from "../constants"
+import { useCovidSummary } from "../hooks/useCovidSummary"
 // import RelatedPosts from "../components/article/RelatedPosts"
 
 /**
@@ -20,10 +22,8 @@ import DistrictsMapDashboard from "../components/maps/DistrictsMapDashboard"
  * @return {JSX.Element} Article Page
  */
 const Article = () => {
-  const [windowWidth, setWindowWidth] = useState("200px")
 
   useEffect(() => {
-    setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800px")
     window.addEventListener("message", (a) => {
       if (void 0 !== a.data["datawrapper-height"])
         for (var e in a.data["datawrapper-height"]) {
@@ -34,6 +34,8 @@ const Article = () => {
         }
     })
   }, [])
+
+  const covidSummary = useCovidSummary()
 
   return (
     <div className="grid grid-cols-12" style={{ fontFamily: "Noto Sans" }}>
@@ -56,7 +58,7 @@ const Article = () => {
           name="og:description"
           content="Visual analysis of COVID-19 cases, deatha nd vaccination in form of maps and graphs"
         />
-        <meta property="og:image" content="../../public/img/covid-19-fi.jpg" />
+        <meta property="og:image" content={`../../public${BASE_PATH}/img/covid-19-fi.jpg`} />
         <meta
           property="og:site_name"
           content="Newsclick COVID-19 Cases-Data and Graphs of India and the World"
@@ -70,11 +72,11 @@ const Article = () => {
           <ArticleTitle />
           <FeatureImage />
           <AnchorLinks />
-          <IntroductionThumbnail />
+          <IntroductionThumbnail covidSummary={covidSummary} />
           <div className="create-anchor article-subheading">
             COVID-19 Infections and Deaths : India
           </div>
-          <CovidUpdateIndia />
+          <CovidUpdateIndia covidSummary={covidSummary} />
           <div className="article-para">
             The chart below shows the trajectory of the pandemic in each state
             from March 2020, with a 7-day moving average. The user can select up
@@ -161,7 +163,7 @@ const Article = () => {
           <div className="create-anchor article-subheading">
             COVID-19 Infections and Deaths: Global
           </div>
-          <CovidUpdateWorld />
+          <CovidUpdateWorld covidSummary={covidSummary} />
           <div className="article-para">
             The chart below shows the trajectory of the pandemic across
             countries, with a 7-day moving average. The user can select up to

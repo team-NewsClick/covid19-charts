@@ -1,6 +1,6 @@
 import useSWR from "swr"
 import { indPlaceVal } from "../../utils"
-import { BASE_PATH, months } from "../../constants"
+import { months } from "../../constants"
 import Loading from "../helpers/Loading"
 import React from "react"
 
@@ -9,43 +9,35 @@ import React from "react"
  * @component
  * @return {JSX.Element} Article's Introduction in Summary
  */
-const IntroductionThumbnail = () => {
-  const { data, error } = useSWR(`${BASE_PATH}/api/covidSummary`)
-  const statsSummary = data
-  if (error) return <div>Failed to Load</div>
-  if (!data) {
+const IntroductionThumbnail = ({covidSummary}) => {
+
+  if(covidSummary !== undefined) {
     return (
-      <div className="flex h-screen">
-        <div className="m-auto">
-          <Loading />
-        </div>
+      <div className="article-para">
+        The total confirmed Covid-19 cases in India reached{" "}
+        {indPlaceVal(covidSummary.indiaTotalConfirmed)} on{" "}
+        {covidSummary.timestamp.slice(8,10)}&nbsp;
+        {months[covidSummary.timestamp.slice(5,7) - 1]}&nbsp;
+        {covidSummary.timestamp.slice(0,4)}
+        . In the past 24 hours,{" "}
+        {indPlaceVal(covidSummary.indiaNewConfirmed)} new cases were reported,
+        accounting for about{" "}
+        {(
+          (covidSummary.indiaNewDeaths / covidSummary.worldNewDeaths) *
+          100
+        ).toFixed(2)}
+        % of the new cases reported globally since yesterday. The total number of
+        deaths have reached {indPlaceVal(covidSummary.indiaTotalDeaths)} with{" "}
+        {indPlaceVal(covidSummary.indiaNewDeaths)} deaths reported in the past 24
+        hours. The number of patients who have recovered since yesterday is{" "}
+        {indPlaceVal(covidSummary.indiaNewRecovery)} and the total active cases in
+        the country at present stand at{" "}
+        {indPlaceVal(covidSummary.indiaTotalActive)}.
       </div>
     )
+  } else {
+    return <Loading />
   }
-
-  return (
-    <div className="article-para">
-      The total confirmed Covid-19 cases in India reached{" "}
-      {indPlaceVal(statsSummary.indiaTotalConfirmed)} on{" "}
-      {data.timestamp.slice(8,10)}&nbsp;
-      {months[statsSummary.timestamp.slice(5,7) - 1]}&nbsp;
-      {statsSummary.timestamp.slice(0,4)}
-      . In the past 24 hours,{" "}
-      {indPlaceVal(statsSummary.indiaNewConfirmed)} new cases were reported,
-      accounting for about{" "}
-      {(
-        (statsSummary.indiaNewDeaths / statsSummary.worldNewDeaths) *
-        100
-      ).toFixed(2)}
-      % of the new cases reported globally since yesterday. The total number of
-      deaths have reached {indPlaceVal(statsSummary.indiaTotalDeaths)} with{" "}
-      {indPlaceVal(statsSummary.indiaNewDeaths)} deaths reported in the past 24
-      hours. The number of patients who have recovered since yesterday is{" "}
-      {indPlaceVal(statsSummary.indiaNewRecovery)} and the total active cases in
-      the country at present stand at{" "}
-      {indPlaceVal(statsSummary.indiaTotalActive)}.
-    </div>
-  )
 }
 
 export default React.memo(IntroductionThumbnail)
