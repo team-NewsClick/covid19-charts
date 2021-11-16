@@ -36,3 +36,7 @@ yarn-error.log*
 
 # IDE
 .vscode/
+
+# Output files
+out_functions/
+out_publish/

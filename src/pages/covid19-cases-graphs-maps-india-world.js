@@ -123,7 +123,7 @@ const Article = () => {
               className="w-0 border-none"
             ></iframe>
           </div>
-          <div className="article-para">
+          {/* <div className="article-para">
             The chart below show the trajectory of the pandemic in each select
             city from April end, 2020 with a 7-day moving average. The user can
             select up to six Cities at a time. If the date adjusted tab is
@@ -135,7 +135,7 @@ const Article = () => {
           </div>
           <div className="flex">
             <CovidDashboard trackerType="city" />
-          </div>
+          </div> */}
           <div>
             <div className="create-anchor opacity-0 height-0">
               COVID Maps: India
