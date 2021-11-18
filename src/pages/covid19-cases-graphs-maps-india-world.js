@@ -116,7 +116,7 @@ const Article = () => {
               title="COVID-19 Testing Data for Indian States &amp;amp; UT"
               aria-label="chart"
               id="datawrapper-chart-ybmUS"
-              src="https://datawrapper.dwcdn.net/8w1aQ/3/"
+              src={process.env.API_URL_DATAWRAPPER}
               scrolling="no"
               frameBorder="0"
               style={{ minWidth: "100% !important" }}
