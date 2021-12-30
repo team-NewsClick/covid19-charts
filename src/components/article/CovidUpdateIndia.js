@@ -158,7 +158,7 @@ const CovidUpdateIndia = () => {
         </div>
       </div>
       <div className="text-center text-gray-700 text-sm pt-4">
-        Source: covid19india.org
+        Source: incovid19.org
       </div>
     </div>
   )
