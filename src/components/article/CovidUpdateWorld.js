@@ -53,14 +53,6 @@ const CovidUpdateWorld = () => {
         </div>
         <div className="lg:flex lg:px-10 lg:pb-8">
           <div className="md:flex lg:w-1/2 pb-8 lg:p-0 lg:pl-12">
-            <div className="text-2xl font-bold text-green-900">
-              Total Recovered:&nbsp;
-            </div>
-            <div className="text-3xl md:text-2xl font-bold pt-2 md:p-0">
-              {indPlaceVal(statsSummary.worldTotalRecovery)}
-            </div>
-          </div>
-          <div className="md:flex lg:w-1/2 pb-8 lg:p-0 lg:pl-12">
             <div className="text-2xl font-bold text-red-700">
               Total Active Cases:&nbsp;
             </div>
@@ -89,16 +81,6 @@ const CovidUpdateWorld = () => {
             </div>
             <div className="text-3xl md:text-2xl font-bold pt-2 md:p-0">
               {indPlaceVal(statsSummary.worldNewDeaths)}
-            </div>
-          </div>
-        </div>
-        <div className="lg:flex lg:px-10 lg:pb-8">
-          <div className="md:flex lg:w-1/2 pb-8 lg:p-0 lg:pl-12">
-            <div className="text-2xl font-bold text-green-900">
-              Newly Recovered:&nbsp;
-            </div>
-            <div className="text-3xl md:text-2xl font-bold pt-2 md:p-0">
-              {indPlaceVal(statsSummary.worldNewRecovery)}
             </div>
           </div>
         </div>
