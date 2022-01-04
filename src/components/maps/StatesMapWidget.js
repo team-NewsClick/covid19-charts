@@ -14,12 +14,13 @@ import {
   calculateDomain,
   sortLegends,
   indPlaceVal,
-  getInitalViewStateByWidth,
-  getMapWidth,
-  getMapHeight
+  getInitalViewStateByWidthIndia,
+  getMapWidthIndia,
+  getMapHeightIndia
 } from "../../utils"
 import {
-  INITIAL_VIEW_STATE,
+  GEOJSON_PATH,
+  INDIA_INITIAL_VIEW_STATE,
   MAP_COLOR_DOMAIN,
   MAP_VACCINE_COLOR_DOMAIN,
   STATE_MAP_CASE_TYPE as CASE_TYPE
@@ -36,7 +37,7 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
   const [regionKey, setRegionKey] = useState("")
   const [geoJsonData, setGeoJsonData] = useState({})
   const [covidData, setCovidData] = useState([])
-  const [initialViewState, setInitialViewState] = useState(INITIAL_VIEW_STATE)
+  const [initialViewState, setInitialViewState] = useState(INDIA_INITIAL_VIEW_STATE)
 
   useEffect(() => {
     switch (trackerType) {
@@ -49,7 +50,7 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
 
   useEffect(() => {
     setInitialViewState(
-      getInitalViewStateByWidth(windowWidth, initialViewState)
+      getInitalViewStateByWidthIndia(windowWidth, initialViewState)
     )
   }, [windowWidth])
 
@@ -58,7 +59,7 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
      * Fetch State GeoJson
      */
     const fetchGeoJsonData = () => {
-      fetch(process.env.API_URL_STATES_GEOJSON)
+      fetch(GEOJSON_PATH.STATES)
         .then((res) => res.json())
         .then(setGeoJsonData)
     }
@@ -180,8 +181,8 @@ const StatesMapWidget = ({ trackerType, casesType }) => {
           controller={true}
           layers={layer}
           getTooltip={_getTooltip}
-          width={getMapWidth(windowWidth)}
-          height={getMapHeight(windowWidth)}
+          width={getMapWidthIndia(windowWidth)}
+          height={getMapHeightIndia(windowWidth)}
           ContextProvider={MapContext.Provider}
           className="flex relative p-1"
         >

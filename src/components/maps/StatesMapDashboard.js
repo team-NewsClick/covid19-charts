@@ -63,9 +63,7 @@ const StatesMapDashboard = ({ trackerType }) => {
           </label>
         </div>
       </div>
-      {/* <div className="mt-16"> */}
       <StatesMapWidget trackerType="state" casesType={casesType} />
-      {/* </div> */}
     </div>
   )
 }
