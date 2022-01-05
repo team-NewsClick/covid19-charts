@@ -144,13 +144,13 @@ const WorldMapVaccinationWidget = ({ trackerType, casesType }) => {
   const LegendDescription = () => {
     switch (casesType) {
       case CASE_TYPE.VACCINATED:
-        return "Vaccinated"
+        return "Partially Vaccinated"
       case CASE_TYPE.FULLY_VACCINATED:
         return "Fully Vaccinated"
       case CASE_TYPE.VACCINATED_PERCENT:
-        return "Vaccinated Percent"
+        return "Partially Vaccinated %"
       case CASE_TYPE.FULLY_VACCINATED_PERCENT:
-        return "Fully Vaccinated Percent"
+        return "Fully Vaccinated %"
       default:
         return ""
     }

@@ -475,7 +475,7 @@ export const getMapHeightIndia = (windowWidth) => {
         }
     : {
         ...initialViewState,
-        zoom: 1.8,
+        zoom: 0.9,
         minZoom: 0.75,
         maxZoom: 20
       }
@@ -486,7 +486,7 @@ export const getMapHeightIndia = (windowWidth) => {
    * @returns {Number} width size for map
    */
   export const getMapWidthWorld = (windowWidth) => {
-    return windowWidth > 800 ? windowWidth * 0.75 : windowWidth * 0.95
+    return windowWidth > 800 ? windowWidth * 0.5 : windowWidth * 0.95
   }
   
   /**
@@ -495,5 +495,5 @@ export const getMapHeightIndia = (windowWidth) => {
    * @returns {Number} height size for map
    */
   export const getMapHeightWorld = (windowWidth) => {
-    return windowWidth > 800 ? windowWidth * 0.425 : windowWidth * 0.75
+    return windowWidth > 800 ? windowWidth * 0.4 : windowWidth * 0.75
   }

@@ -169,8 +169,8 @@ export const INDIA_INITIAL_VIEW_STATE = {
  * Initial View State for World Map
  */
  export const WORLD_INITIAL_VIEW_STATE = {
-  latitude: 20,
-  longitude: 80,
+  latitude: 25,
+  longitude: 0,
   zoom: 3,
   minZoom: 3,
   maxZoom: 3,
