@@ -111,10 +111,9 @@ const WorldMapVaccinationWidget = ({ trackerType, casesType }) => {
           html: `\
           <div>
             <div><b>Country: ${cases.region}</b></div>
-            <div>Date: ${cases.date}</div>
-            <div>Vaccinated: ${indPlaceVal(cases.people_vaccinated)}</div>
+            <div>Partially Vaccinated: ${indPlaceVal(cases.people_vaccinated)}</div>
             <div>Fully Vaccinated: ${indPlaceVal(cases.people_fully_vaccinated)}</div>
-            <div>Vaccinated Percent: ${cases.people_vaccinated_per_hundred}%</div>
+            <div>Partially Vaccinated Percent: ${cases.people_vaccinated_per_hundred}%</div>
             <div>Fully Vaccinated Percent: ${cases.people_fully_vaccinated_per_hundred}%</div>
           </div>
             `
@@ -214,7 +213,7 @@ const WorldMapVaccinationWidget = ({ trackerType, casesType }) => {
                       style={{ backgroundColor: `rgb${l.color}` }}
                     ></div>
                     <div>
-                      {indPlaceVal(l.lowerBound)} - {indPlaceVal(l.upperBound)}
+                      {l.lowerBound} - {l.upperBound}
                     </div>
                   </div>
                 ))}

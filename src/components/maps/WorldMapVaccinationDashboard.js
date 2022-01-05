@@ -9,7 +9,7 @@ import WorldMapVaccinationWidget from "./WorldMapVaccinationWidget"
  * @returns {JSX.Element} Radio Buttons and Map Widget
  */
 const WorldMapVaccinationDashboard = ({ trackerType }) => {
-  const [casesType, setCasesType] = useState(CASE_TYPE.VACCINATED)
+  const [casesType, setCasesType] = useState(CASE_TYPE.VACCINATED_PERCENT)
   const _handleCasesType = (e) => {
     setCasesType(e.currentTarget.value)
   }
@@ -22,35 +22,19 @@ const WorldMapVaccinationDashboard = ({ trackerType }) => {
             type="radio"
             id={trackerType + "-map-" + CASE_TYPE.VACCINATED}
             name={trackerType + "-map-cases"}
-            value={CASE_TYPE.VACCINATED}
+            value={CASE_TYPE.VACCINATED_PERCENT}
             defaultChecked
             onChange={(e) => _handleCasesType(e)}
           />
-          <label style={{width: "7rem"}} htmlFor={trackerType + "-map-" + CASE_TYPE.VACCINATED}>Vaccinated</label>
+          <label style={{width: "8rem"}} htmlFor={trackerType + "-map-" + CASE_TYPE.VACCINATED}>Partially Vaccinated</label>
           <input
             type="radio"
             id={trackerType + "-map-" + CASE_TYPE.FULLY_VACCINATED}
             name={trackerType + "-map-cases"}
-            value={CASE_TYPE.FULLY_VACCINATED}
-            onChange={(e) => _handleCasesType(e)}
-          />
-          <label style={{width: "7rem"}} htmlFor={trackerType + "-map-" + CASE_TYPE.FULLY_VACCINATED}>Fully Vaccinated</label>
-          <input
-            type="radio"
-            id={trackerType + "-map-" + CASE_TYPE.VACCINATED_PERCENT}
-            name={trackerType + "-map-cases"}
-            value={CASE_TYPE.VACCINATED_PERCENT}
-            onChange={(e) => _handleCasesType(e)}
-          />
-          <label style={{width: "7rem"}} htmlFor={trackerType + "-map-" + CASE_TYPE.VACCINATED_PERCENT}>Vaccinated %</label>
-          <input
-            type="radio"
-            id={trackerType + "-map-" + CASE_TYPE.FULLY_VACCINATED_PERCENT}
-            name={trackerType + "-map-cases"}
             value={CASE_TYPE.FULLY_VACCINATED_PERCENT}
             onChange={(e) => _handleCasesType(e)}
           />
-          <label style={{width: "7rem"}} htmlFor={trackerType + "-map-" + CASE_TYPE.FULLY_VACCINATED_PERCENT}>Fully Vaccinated %</label>
+          <label style={{width: "8rem"}} htmlFor={trackerType + "-map-" + CASE_TYPE.FULLY_VACCINATED}>Fully Vaccinated</label>
         </div>
       </div>
       <WorldMapVaccinationWidget trackerType={trackerType} casesType={casesType} />
