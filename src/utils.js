@@ -411,7 +411,7 @@ export const isNearBy = (data, adjustedLabelSeries, yMax, scaleType) => {
  * @param {Object} initialViewState Inital View State of map
  * @returns {Object} Inital View State of Map
  */
-export const getInitalViewStateByWidth = (windowWidth, initialViewState) => {
+export const getInitalViewStateByWidthIndia = (windowWidth, initialViewState) => {
   return windowWidth < 700
     ? windowWidth > 500
       ? {
@@ -439,7 +439,7 @@ export const getInitalViewStateByWidth = (windowWidth, initialViewState) => {
  * @param {Number} windowWidth window inner width
  * @returns {Number} width size for map
  */
-export const getMapWidth = (windowWidth) => {
+export const getMapWidthIndia = (windowWidth) => {
   return windowWidth > 800 ? windowWidth * 0.4 : windowWidth * 0.95
 }
 
@@ -448,6 +448,52 @@ export const getMapWidth = (windowWidth) => {
  * @param {Number} windowWidth window inner width
  * @returns {Number} height size for map
  */
-export const getMapHeight = (windowWidth) => {
+export const getMapHeightIndia = (windowWidth) => {
   return windowWidth > 800 ? windowWidth * 0.45 : windowWidth * 1.15
 }
+
+/**
+ * Calculate Inital view state of world map
+ * @param {Number} windowWidth size of window innerwidth
+ * @param {Object} initialViewState Inital View State of map
+ * @returns {Object} Inital View State of Map
+ */
+ export const getInitalViewStateByWidthWorld = (windowWidth, initialViewState) => {
+  return windowWidth < 700
+    ? windowWidth > 500
+      ? {
+          ...initialViewState,
+          zoom: 0.25,
+          minZoom: 0.25,
+          maxZoom: 20
+        }
+      : {
+          ...initialViewState,
+          zoom: 0.015,
+          minZoom: 0.015,
+          maxZoom: 20
+        }
+    : {
+        ...initialViewState,
+        zoom: 0.9,
+        minZoom: 0.75,
+        maxZoom: 20
+      }
+}
+  /**
+   * return width size for world map
+   * @param {Number} windowWidth window inner width
+   * @returns {Number} width size for map
+   */
+  export const getMapWidthWorld = (windowWidth) => {
+    return windowWidth > 800 ? windowWidth * 0.5 : windowWidth * 0.95
+  }
+  
+  /**
+   * return height size for world map
+   * @param {Number} windowWidth window inner width
+   * @returns {Number} height size for map
+   */
+  export const getMapHeightWorld = (windowWidth) => {
+    return windowWidth > 800 ? windowWidth * 0.4 : windowWidth * 0.75
+  }

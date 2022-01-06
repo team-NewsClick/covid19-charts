@@ -13,6 +13,7 @@ import StateVaccination from "../components/StateVaccination"
 import CovidDashboard from "../components/charts/CovidDashboard"
 import StatesMapDashboard from "../components/maps/StatesMapDashboard"
 import DistrictsMapDashboard from "../components/maps/DistrictsMapDashboard"
+import WorldMapVaccinationDashboard from "../components/maps/WorldMapVaccinationDashboard"
 // import RelatedPosts from "../components/article/RelatedPosts"
 
 /**
@@ -176,6 +177,12 @@ const Article = () => {
             <CovidDashboard trackerType="country" />
           </div>
         </div>
+        <div className="article-para">
+          The map below displays country-wise vaccination data. The selections 
+          allows the user to get data on total people vaccinated and total people
+          fully vaccinated in percent of the total population of the country.
+        </div>
+        <WorldMapVaccinationDashboard trackerType={"country"} />
         {/* <RelatedPosts /> */}
         <Footer />
       </div>

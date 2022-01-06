@@ -14,16 +14,17 @@ import {
   calculateDomain,
   sortLegends,
   indPlaceVal,
-  getInitalViewStateByWidth,
-  getMapWidth,
-  getMapHeight
+  getInitalViewStateByWidthIndia,
+  getMapWidthIndia,
+  getMapHeightIndia
 } from "../../utils"
 import {
   MAP_COLOR_DOMAIN,
   DISTRICT_STATE_BORDER_COLOR,
   DISTRICT_BORDER_COLOR,
-  INITIAL_VIEW_STATE,
-  DIST_MAP_CASE_TYPE as CASE_TYPE
+  INDIA_INITIAL_VIEW_STATE,
+  DIST_MAP_CASE_TYPE as CASE_TYPE,
+  GEOJSON_PATH
 } from "../../constants"
 import Loading from "../helpers/Loading"
 /**
@@ -38,7 +39,7 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
   const [covidData, setCovidData] = useState([])
   const [regionKey, setRegionKey] = useState("")
   const [windowWidth, setWindowWidth] = useState("200px")
-  const [initialViewState, setInitialViewState] = useState(INITIAL_VIEW_STATE)
+  const [initialViewState, setInitialViewState] = useState(INDIA_INITIAL_VIEW_STATE)
 
   useEffect(() => {
     switch (trackerType) {
@@ -51,7 +52,7 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
 
   useEffect(() => {
     setInitialViewState(
-      getInitalViewStateByWidth(windowWidth, initialViewState)
+      getInitalViewStateByWidthIndia(windowWidth, initialViewState)
     )
   }, [windowWidth])
 
@@ -60,7 +61,7 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
      * Fetch State GeoJson
      */
     const fetchStateGeoJson = () => {
-      fetch(process.env.API_URL_STATES_GEOJSON)
+      fetch(GEOJSON_PATH.STATES)
         .then((res) => res.json())
         .then(setStateGeoJsonData)
     }
@@ -68,7 +69,7 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
      * Fetch District GeoJson
      */
     const fetchDistrictGeoJson = () => {
-      fetch(process.env.API_URL_DISTRICTS_GEOJSON)
+      fetch(GEOJSON_PATH.DISTRICTS)
         .then((res) => res.json())
         .then(setDistrictGeoJsonData)
     }
@@ -173,8 +174,8 @@ const DistrictsMapWidget = ({ trackerType, casesType }) => {
           controller={true}
           layers={layer}
           getTooltip={_getTooltip}
-          width={getMapWidth(windowWidth)}
-          height={getMapHeight(windowWidth)}
+          width={getMapWidthIndia(windowWidth)}
+          height={getMapHeightIndia(windowWidth)}
           ContextProvider={MapContext.Provider}
         >
           <div style={{ position: "absolute", right: 7, top: 5, zIndex: 1 }}>

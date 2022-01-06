@@ -153,9 +153,9 @@ export const DISTRICT_STATE_BORDER_COLOR = [245, 245, 245, 255]
 export const DISTRICT_BORDER_COLOR = [255, 255, 255, 125]
 
 /**
- * Initial View State for maps
+ * Initial View State for India map
  */
-export const INITIAL_VIEW_STATE = {
+export const INDIA_INITIAL_VIEW_STATE = {
   latitude: 22.7,
   longitude: 82.8,
   zoom: 4.3,
@@ -165,6 +165,18 @@ export const INITIAL_VIEW_STATE = {
   bearing: 0
 }
 
+/**
+ * Initial View State for World Map
+ */
+ export const WORLD_INITIAL_VIEW_STATE = {
+  latitude: 25,
+  longitude: 0,
+  zoom: 3,
+  minZoom: 3,
+  maxZoom: 3,
+  pitch: 0,
+  bearing: 0
+}
 /**
  * Cases type for charts
  */
@@ -232,4 +244,23 @@ export const STATE_MAP_CASE_TYPE = {
 export const VACCINATION_VIZ = {
   CHART: "vaccination-chart",
   MAP: "vaccination-map"
+}
+
+/**
+ * World vaccination case types
+ */
+export const WORLD_MAP_VACCINATION_CASE_TYPE = {
+  VACCINATED: "people_vaccinated",
+  FULLY_VACCINATED: "people_fully_vaccinated",
+  VACCINATED_PERCENT: "people_vaccinated_per_hundred",
+  FULLY_VACCINATED_PERCENT: "people_fully_vaccinated_per_hundred"
+}
+
+/**
+ * GeoJSONs Path
+ */
+export const GEOJSON_PATH = {
+  DISTRICTS: "/data/geojson/districts.geojson",
+  STATES: "/data/geojson/states.geojson",
+  COUNTRIES: "/data/geojson/countries.geojson"
 }
