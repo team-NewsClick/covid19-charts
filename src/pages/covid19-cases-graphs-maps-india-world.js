@@ -178,9 +178,7 @@ const Article = () => {
           </div>
         </div>
         <div className="article-para">
-          The map below displays country-wise vaccination data. The selections 
-          allows the user to get data on total people vaccinated and total people
-          fully vaccinated in percent of the total population of the country.
+          The map below displays the percentage of people vaccinated in each country.
         </div>
         <WorldMapVaccinationDashboard trackerType={"country"} />
         {/* <RelatedPosts /> */}
