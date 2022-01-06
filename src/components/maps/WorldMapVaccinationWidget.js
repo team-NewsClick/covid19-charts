@@ -42,7 +42,7 @@ const WorldMapVaccinationWidget = ({ trackerType, casesType }) => {
   useEffect(() => {
     switch (trackerType) {
       case "country":
-        setRegionKey("name")
+        setRegionKey("id")
         break
     }
     setWindowWidth(typeof window !== "undefined" ? window.innerWidth : "800")
@@ -86,7 +86,7 @@ const WorldMapVaccinationWidget = ({ trackerType, casesType }) => {
   const _fillColor = (d) => {
     const sortByKey = d.properties[regionKey]
     const casesObject = covidData.filter((row) => {
-      if (sortByKey == row.region) {
+      if (sortByKey == row.iso_code) {
         return row[casesType]
       }
     })
@@ -101,7 +101,7 @@ const WorldMapVaccinationWidget = ({ trackerType, casesType }) => {
     if (object) {
       const sortByKey = object.properties[regionKey]
       const casesObject = covidData.filter((row) => {
-        if (sortByKey == row.region) {
+        if (sortByKey == row.iso_code) {
           return row
         }
       })
